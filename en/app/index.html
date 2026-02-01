@@ -42,8 +42,7 @@
   <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01">
 
   <!-- MASTER SHELL (NAV) -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-28-01">
-  <script src="/js/ss-shell.js?v=2026-02-01-01" defer></script>
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-03">
 
   <style>
     :root{
@@ -104,7 +103,6 @@
     h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 42px); line-height: 1.10; letter-spacing:-.2px; }
     h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
     p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-    ul{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.6; }
     .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
     .btn{
       appearance:none;
@@ -323,11 +321,9 @@
 
   <script>
     (function(){
-      // ===== Helpers =====
       const byId = (id) => document.getElementById(id);
       const on = (el, ev, fn) => el && el.addEventListener(ev, fn);
 
-      // ===== Elements =====
       const input = byId('urlInput');
       const msg = byId('msg');
       const resultCard = byId('resultCard');
@@ -341,7 +337,6 @@
       const btnCopy = byId('btnCopy');
       const btnShare = byId('btnShare');
 
-      // ===== Tracking Keys =====
       const TRACKING_KEYS = new Set([
         'gclid','dclid','gbraid','wbraid',
         'fbclid','msclkid','igshid',
@@ -362,7 +357,6 @@
         msg.textContent = text || '';
       }
 
-      // ===== URL normalize + extract =====
       function normalizeUrl(s){
         s = (s || '').trim();
         if (!s) return '';
@@ -383,7 +377,6 @@
         try { return new URL(normalizeUrl(candidate)).toString(); } catch(e) { return ""; }
       }
 
-      // ===== Redirect unwrap (safe, few rounds) =====
       const WRAP_KEYS = ["url","u","target","redirect","dest","destination"];
       function looksLikeUrl(v){
         const s = String(v || "").trim();
@@ -410,7 +403,6 @@
         return url;
       }
 
-      // ===== Cleaner =====
       function cleanUrl(raw){
         const original = (raw || '').trim();
         if (!original) throw new Error('Please paste a link.');
@@ -469,7 +461,6 @@
         }
       }
 
-      // ---- Audit rendering ----
       function auditChip(label, keys){
         const span = document.createElement('span');
         span.appendChild(document.createTextNode(label + ': '));
@@ -500,9 +491,9 @@
         }
       }
 
-      // ===== Impact (session + no double count) =====
-      const IMPACT_KEY = "ss_impact_v3";
-      const SEEN_KEY   = "ss_seen_v3";
+      // ===== Impact (RAM-only, truly "gone after reload") =====
+      const impactCard = byId("ssImpactCard");
+
       const AD_ID_KEYS = new Set([
         "gclid","dclid","gbraid","wbraid",
         "fbclid","msclkid","ttclid","twclid","li_fat_id",
@@ -511,64 +502,25 @@
         "srsltid"
       ]);
 
-      const __SS_MEM = window.__SS_MEM || (window.__SS_MEM = {});
-      let __SS_STORAGE_OK = null;
+      const __SS_IMPACT = window.__SS_IMPACT || (window.__SS_IMPACT = {
+        linksCleaned: 0,
+        paramsRemoved: 0,
+        utmRemoved: 0,
+        adIdsRemoved: 0,
+        lastUpdatedISO: ""
+      });
+      const __SS_SEEN = window.__SS_SEEN || (window.__SS_SEEN = Object.create(null));
 
-      function ssStorageOk(){
-        if (__SS_STORAGE_OK !== null) return __SS_STORAGE_OK;
-        try{
-          const k = "__ss_test__";
-          sessionStorage.setItem(k, "1");
-          sessionStorage.removeItem(k);
-          __SS_STORAGE_OK = true;
-        }catch(e){
-          __SS_STORAGE_OK = false;
-        }
-        return __SS_STORAGE_OK;
-      }
-      function ssStorageGet(k){
-        try{ if (ssStorageOk()) return sessionStorage.getItem(k); }catch(e){}
-        return (k in __SS_MEM) ? __SS_MEM[k] : null;
-      }
-      function ssStorageSet(k,v){
-        try{ if (ssStorageOk()) { sessionStorage.setItem(k, v); return; } }catch(e){}
-        __SS_MEM[k] = String(v);
-      }
-      function ssStorageDel(k){
-        try{ if (ssStorageOk()) { sessionStorage.removeItem(k); return; } }catch(e){}
-        delete __SS_MEM[k];
-      }
-
-      function impactLoad(){
-        try{
-          const raw = ssStorageGet(IMPACT_KEY);
-          const d = raw ? JSON.parse(raw) : null;
-          return Object.assign({
-            linksCleaned: 0,
-            paramsRemoved: 0,
-            utmRemoved: 0,
-            adIdsRemoved: 0,
-            lastUpdatedISO: ""
-          }, d || {});
-        }catch(e){
-          return { linksCleaned:0, paramsRemoved:0, utmRemoved:0, adIdsRemoved:0, lastUpdatedISO:"" };
-        }
-      }
-      function impactSave(state){ try{ ssStorageSet(IMPACT_KEY, JSON.stringify(state)); }catch(e){} }
       function impactFormat(n){ try{ return new Intl.NumberFormat("en-US").format(n); }catch(e){ return String(n); } }
       function impactSetText(id, text){ const el = byId(id); if (el) el.textContent = text; }
-      function impactShowCardIfAny(state){
-        const card = byId("ssImpactCard");
-        if (!card) return;
-        const hasAny = (state.linksCleaned || state.paramsRemoved || state.adIdsRemoved || state.utmRemoved);
-        card.hidden = !hasAny;
-      }
+
       function impactClearLastLine(){
         const wrap = byId("ssImpactLastLineWrap");
         const line = byId("ssImpactLastLine");
         if (line) line.textContent = "";
         if (wrap) wrap.hidden = true;
       }
+
       function impactWriteLastLine(removedKeys){
         const wrap = byId("ssImpactLastLineWrap");
         const lineEl = byId("ssImpactLastLine");
@@ -584,74 +536,65 @@
         lineEl.textContent = `Removed: ${removedCount} params${ad ? ` (${ad} Ad IDs)` : ""}${utm ? `, incl. ${utm} UTM` : ""}`;
         wrap.hidden = false;
       }
-      function impactUpdateUI(state){
-        impactSetText("ssImpactLinks", impactFormat(state.linksCleaned));
-        impactSetText("ssImpactParams", impactFormat(state.paramsRemoved));
-        impactSetText("ssImpactUTM", impactFormat(state.utmRemoved));
-        impactSetText("ssImpactAdIds", impactFormat(state.adIdsRemoved));
-        impactSetText("ssImpactUpdated", state.lastUpdatedISO ? new Date(state.lastUpdatedISO).toLocaleString("en-US") : "—");
-        impactShowCardIfAny(state);
+
+      function impactShowIfAny(){
+        if (!impactCard) return;
+        const hasAny = (__SS_IMPACT.linksCleaned || __SS_IMPACT.paramsRemoved || __SS_IMPACT.adIdsRemoved || __SS_IMPACT.utmRemoved);
+        impactCard.hidden = !hasAny;
       }
 
-      let __SEEN_MEM = { map: Object.create(null) };
-      function seenInitOnce(){
-        try{
-          const raw = ssStorageGet(SEEN_KEY);
-          if (!raw) return;
-          const d = JSON.parse(raw);
-          if (d && d.map && typeof d.map === "object") {
-            __SEEN_MEM.map = Object.assign(Object.create(null), d.map);
-          }
-        }catch(e){}
+      function impactUpdateUI(){
+        impactSetText("ssImpactLinks", impactFormat(__SS_IMPACT.linksCleaned));
+        impactSetText("ssImpactParams", impactFormat(__SS_IMPACT.paramsRemoved));
+        impactSetText("ssImpactUTM", impactFormat(__SS_IMPACT.utmRemoved));
+        impactSetText("ssImpactAdIds", impactFormat(__SS_IMPACT.adIdsRemoved));
+        impactSetText("ssImpactUpdated", __SS_IMPACT.lastUpdatedISO ? new Date(__SS_IMPACT.lastUpdatedISO).toLocaleString("en-US") : "—");
+        impactShowIfAny();
       }
-      function seenPersistBestEffort(){ try{ ssStorageSet(SEEN_KEY, JSON.stringify({ map: __SEEN_MEM.map })); }catch(e){} }
+
       function signature(cleanedUrl, removedKeys){
         const r = Array.isArray(removedKeys) ? removedKeys.map(k=>String(k||"").trim().toLowerCase()).filter(Boolean) : [];
         r.sort();
         return String(cleanedUrl || "") + "||" + r.join(",");
       }
+
       function impactAddIfNew(cleanedUrl, removedKeys){
         const keys = Array.isArray(removedKeys) ? removedKeys.map(k => String(k || "").trim()).filter(Boolean) : [];
         if (keys.length === 0) return false;
 
         const sig = signature(cleanedUrl, keys);
-        if (__SEEN_MEM.map[sig]) return false;
+        if (__SS_SEEN[sig]) return false;
+        __SS_SEEN[sig] = 1;
 
-        __SEEN_MEM.map[sig] = 1;
-        seenPersistBestEffort();
+        __SS_IMPACT.linksCleaned += 1;
+        __SS_IMPACT.paramsRemoved += keys.length;
+        __SS_IMPACT.utmRemoved += keys.filter(k => k.toLowerCase().startsWith("utm_")).length;
+        __SS_IMPACT.adIdsRemoved += keys.filter(k => AD_ID_KEYS.has(k.toLowerCase())).length;
+        __SS_IMPACT.lastUpdatedISO = new Date().toISOString();
 
-        const state = impactLoad();
-        state.linksCleaned += 1;
-        state.paramsRemoved += keys.length;
-        state.utmRemoved += keys.filter(k => k.toLowerCase().startsWith("utm_")).length;
-        state.adIdsRemoved += keys.filter(k => AD_ID_KEYS.has(k.toLowerCase())).length;
-        state.lastUpdatedISO = new Date().toISOString();
-
-        impactSave(state);
-        impactUpdateUI(state);
+        impactUpdateUI();
         impactWriteLastLine(keys);
         return true;
       }
+
       function impactReset(){
-        __SEEN_MEM = { map: Object.create(null) };
-        ssStorageDel(IMPACT_KEY);
-        ssStorageDel(SEEN_KEY);
-        const state = { linksCleaned:0, paramsRemoved:0, utmRemoved:0, adIdsRemoved:0, lastUpdatedISO:"" };
-        impactSave(state);
-        impactUpdateUI(state);
+        for (const k in __SS_SEEN) delete __SS_SEEN[k];
+        __SS_IMPACT.linksCleaned = 0;
+        __SS_IMPACT.paramsRemoved = 0;
+        __SS_IMPACT.utmRemoved = 0;
+        __SS_IMPACT.adIdsRemoved = 0;
+        __SS_IMPACT.lastUpdatedISO = "";
+        impactUpdateUI();
         impactClearLastLine();
       }
+
       function impactInit(){
-        seenInitOnce();
-        const state = impactLoad();
-        impactUpdateUI(state);
+        impactUpdateUI();
         impactClearLastLine();
         on(byId("ssImpactReset"), "click", impactReset);
       }
 
       // ===== Main clean =====
-      let lastAutoValue = ""; // shared with auto-clean
-
       function doClean(){
         showMsg('', '');
         if (resultCard) resultCard.hidden = true;
@@ -660,20 +603,13 @@
           const res = cleanUrl(input ? input.value : "");
           renderResult(res);
 
-          // Count (only if removed & not seen before)
           impactAddIfNew(res.cleaned, res.removed);
-
-          // IMPORTANT: always refresh UI (even if dedupe did not count)
-          const s = impactLoad();
-          impactUpdateUI(s);
-          if (res.removed && res.removed.length) impactWriteLastLine(res.removed);
+          impactUpdateUI();   // important: re-renders current totals
+          impactShowIfAny();
 
           if (!res.removed || res.removed.length === 0){
             showMsg('note', 'This link already looks clean (no common tracking parameters found).');
           }
-
-          // Mark successful processed value (prevents repeated auto-cleans)
-          lastAutoValue = (input ? input.value : "").trim();
 
           setTimeout(()=>{
             const rc = byId('resultCard');
@@ -684,38 +620,32 @@
         }
       }
 
-      // ===== Auto-clean =====
+      // ===== AUTO-CLEAN (debounced) =====
       let autoTimer = null;
+      let lastAutoValue = "";
 
       function hideResultAndImpact(){
         if (resultCard) resultCard.hidden = true;
         showMsg('', '');
         impactClearLastLine();
-
-        // Only hide Impact if totals are really zero
-        const card = byId("ssImpactCard");
-        if (card){
-          const s = impactLoad();
-          const hasAny = (s.linksCleaned || s.paramsRemoved || s.adIdsRemoved || s.utmRemoved);
-          card.hidden = !hasAny;
-        }
+        if (impactCard) impactCard.hidden = true;
       }
 
       function scheduleAutoClean(){
         const v = (input ? input.value : "").trim();
 
         if (!v){
-          hideResultAndImpact();
           lastAutoValue = "";
+          hideResultAndImpact();
           return;
         }
 
         if (v === lastAutoValue) return;
 
-        // Only auto-run when a URL is detectable
-        if (!extractFirstUrl(v)){
-          hideResultAndImpact();
+        const u = extractFirstUrl(v);
+        if (!u){
           lastAutoValue = "";
+          hideResultAndImpact();
           return;
         }
 
@@ -723,17 +653,20 @@
         autoTimer = setTimeout(() => {
           const now = (input ? input.value : "").trim();
           if (now !== v) return;
+          lastAutoValue = v;
           doClean();
         }, 220);
       }
 
       // ===== Bindings =====
+      on(input, "input", scheduleAutoClean);
+
       on(btnClean, "click", doClean);
 
       on(btnClear, "click", ()=>{
-        if (input) input.value = '';
-        hideResultAndImpact();
+        if (input) input.value = "";
         lastAutoValue = "";
+        hideResultAndImpact();
         if (input) input.focus();
       });
 
@@ -769,14 +702,13 @@
       on(btnShare, "click", async ()=>{
         const text = (outUrl && outUrl.textContent || '').trim();
         if(!text) return;
+
         if (navigator.share){
           try{ await navigator.share({ url: text }); return; }catch(e){}
         }
         await copyText(text);
         showMsg('note', 'Sharing is not available (or was canceled) — link was copied.');
       });
-
-      on(input, "input", scheduleAutoClean);
 
       // Prefill via ?url=... (auto-run) or ?u=...&run=1
       (function(){
@@ -795,14 +727,14 @@
           setTimeout(()=>{ lastAutoValue=""; scheduleAutoClean(); }, 50);
         }
 
-        // prevent re-trigger on reload
         history.replaceState({}, '', location.pathname);
       })();
 
-      // init Impact (shows only if non-zero)
       impactInit();
-      hideResultAndImpact(); // ensures clean initial state
     })();
   </script>
+
+  <!-- SHELL JS: exactly 1× here -->
+  <script src="/js/ss-shell.js?v=2026-02-01-01"></script>
 </body>
 </html>
