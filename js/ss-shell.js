@@ -1,5 +1,5 @@
 /*! Datei: /js/ss-shell.js */
-/*! SafeShare Shell v2026-02-01-01 (Schema B: EN under /en/<slug>/) */
+/*! SafeShare Shell v2026-02-01-02 (Schema B: EN under /en/<slug>/) */
 (function () {
   "use strict";
 
@@ -20,6 +20,7 @@
             school: "/en/school/",
             pro: "/en/pro/",
             help: "/en/help/",
+            bookmarks: "/en/bookmarks/",
             support: "mailto:listings@safesharepro.com",
             privacy: "/en/privacy/",
             imprint: "/en/imprint/",
@@ -31,6 +32,7 @@
             school: "/schule/",
             pro: "/pro/",
             help: "/hilfe/",
+            bookmarks: "/lesezeichen/",
             support: "mailto:listings@safesharepro.com",
             privacy: "/datenschutz/",
             imprint: "/impressum/",
@@ -45,6 +47,7 @@
             school: "School",
             pro: "Pro",
             help: "Help",
+            bookmarks: "Bookmarks",
             more: "More",
             support: "Support",
             privacy: "Privacy",
@@ -59,6 +62,7 @@
             school: "Schule",
             pro: "Pro",
             help: "Hilfe",
+            bookmarks: "Lesezeichen",
             more: "Mehr",
             support: "Support",
             privacy: "Datenschutz",
@@ -89,6 +93,7 @@
           if (p.startsWith("/en/school/")) return "/schule/";
           if (p.startsWith("/en/pro/")) return "/pro/";
           if (p.startsWith("/en/help/")) return "/hilfe/";
+          if (p.startsWith("/en/bookmarks/")) return "/lesezeichen/";
           if (p.startsWith("/en/privacy/")) return "/datenschutz/";
           if (p.startsWith("/en/imprint/")) return "/impressum/";
           if (p.startsWith("/en/terms/")) return "/nutzungsbedingungen/";
@@ -100,6 +105,7 @@
         if (p.startsWith("/schule/")) return "/en/school/";
         if (p.startsWith("/pro/")) return "/en/pro/";
         if (p.startsWith("/hilfe/")) return "/en/help/";
+        if (p.startsWith("/lesezeichen/")) return "/en/bookmarks/";
         if (p.startsWith("/datenschutz/")) return "/en/privacy/";
         if (p.startsWith("/impressum/")) return "/en/imprint/";
         if (p.startsWith("/nutzungsbedingungen/")) return "/en/terms/";
@@ -144,6 +150,7 @@
       <a class="ss-moreLink" href="${LINKS.school}">${T.school}</a>
       <a class="ss-moreLink" href="${LINKS.pro}">${T.pro}</a>
       <a class="ss-moreLink" href="${LINKS.help}">${T.help}</a>
+      <a class="ss-moreLink" href="${LINKS.bookmarks}">${T.bookmarks}</a>
 
       <div class="ss-moreSep" aria-hidden="true"></div>
 
@@ -179,6 +186,7 @@
           { key: "school", match: [norm(LINKS.school)] },
           { key: "pro", match: [norm(LINKS.pro)] },
           { key: "help", match: [norm(LINKS.help)] },
+          { key: "bookmarks", match: [norm(LINKS.bookmarks)] },
         ];
 
         let activeKey = "home";
@@ -195,7 +203,11 @@
 
         const btn = $("#ssMoreBtn");
         if (btn) {
-          const moreActive = activeKey === "school" || activeKey === "pro" || activeKey === "help";
+          const moreActive =
+            activeKey === "school" ||
+            activeKey === "pro" ||
+            activeKey === "help" ||
+            activeKey === "bookmarks";
           btn.classList.toggle("is-active", moreActive);
           if (moreActive) btn.setAttribute("aria-current", "page");
           else btn.removeAttribute("aria-current");
