@@ -42,7 +42,8 @@
   <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01">
 
   <!-- MASTER SHELL (NAV) -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-03">
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-28-01">
+  <script src="/js/ss-shell.js?v=2026-02-01-01" defer></script>
 
   <style>
     :root{
@@ -322,9 +323,11 @@
 
   <script>
     (function(){
+      // ===== Helpers =====
       const byId = (id) => document.getElementById(id);
       const on = (el, ev, fn) => el && el.addEventListener(ev, fn);
 
+      // ===== Elements =====
       const input = byId('urlInput');
       const msg = byId('msg');
       const resultCard = byId('resultCard');
@@ -338,6 +341,7 @@
       const btnCopy = byId('btnCopy');
       const btnShare = byId('btnShare');
 
+      // ===== Tracking Keys =====
       const TRACKING_KEYS = new Set([
         'gclid','dclid','gbraid','wbraid',
         'fbclid','msclkid','igshid',
@@ -358,6 +362,7 @@
         msg.textContent = text || '';
       }
 
+      // ===== URL normalize + extract =====
       function normalizeUrl(s){
         s = (s || '').trim();
         if (!s) return '';
@@ -378,6 +383,7 @@
         try { return new URL(normalizeUrl(candidate)).toString(); } catch(e) { return ""; }
       }
 
+      // ===== Redirect unwrap (safe, few rounds) =====
       const WRAP_KEYS = ["url","u","target","redirect","dest","destination"];
       function looksLikeUrl(v){
         const s = String(v || "").trim();
@@ -404,6 +410,7 @@
         return url;
       }
 
+      // ===== Cleaner =====
       function cleanUrl(raw){
         const original = (raw || '').trim();
         if (!original) throw new Error('Please paste a link.');
@@ -462,6 +469,7 @@
         }
       }
 
+      // ---- Audit rendering ----
       function auditChip(label, keys){
         const span = document.createElement('span');
         span.appendChild(document.createTextNode(label + ': '));
@@ -573,8 +581,7 @@
         const utm = keys.filter(k => k.toLowerCase().startsWith("utm_")).length;
         const ad  = keys.filter(k => AD_ID_KEYS.has(k.toLowerCase())).length;
 
-        const text = `Removed: ${removedCount} params${ad ? ` (${ad} Ad IDs)` : ""}${utm ? `, incl. ${utm} UTM` : ""}`;
-        lineEl.textContent = text;
+        lineEl.textContent = `Removed: ${removedCount} params${ad ? ` (${ad} Ad IDs)` : ""}${utm ? `, incl. ${utm} UTM` : ""}`;
         wrap.hidden = false;
       }
       function impactUpdateUI(state){
@@ -643,6 +650,8 @@
       }
 
       // ===== Main clean =====
+      let lastAutoValue = ""; // shared with auto-clean
+
       function doClean(){
         showMsg('', '');
         if (resultCard) resultCard.hidden = true;
@@ -651,11 +660,20 @@
           const res = cleanUrl(input ? input.value : "");
           renderResult(res);
 
+          // Count (only if removed & not seen before)
           impactAddIfNew(res.cleaned, res.removed);
+
+          // IMPORTANT: always refresh UI (even if dedupe did not count)
+          const s = impactLoad();
+          impactUpdateUI(s);
+          if (res.removed && res.removed.length) impactWriteLastLine(res.removed);
 
           if (!res.removed || res.removed.length === 0){
             showMsg('note', 'This link already looks clean (no common tracking parameters found).');
           }
+
+          // Mark successful processed value (prevents repeated auto-cleans)
+          lastAutoValue = (input ? input.value : "").trim();
 
           setTimeout(()=>{
             const rc = byId('resultCard');
@@ -666,57 +684,58 @@
         }
       }
 
-      // ===== AUTO-CLEAN on paste/typing (debounced) =====
+      // ===== Auto-clean =====
       let autoTimer = null;
-      let lastAutoValue = "";
+
+      function hideResultAndImpact(){
+        if (resultCard) resultCard.hidden = true;
+        showMsg('', '');
+        impactClearLastLine();
+
+        // Only hide Impact if totals are really zero
+        const card = byId("ssImpactCard");
+        if (card){
+          const s = impactLoad();
+          const hasAny = (s.linksCleaned || s.paramsRemoved || s.adIdsRemoved || s.utmRemoved);
+          card.hidden = !hasAny;
+        }
+      }
+
       function scheduleAutoClean(){
-  const v = (input ? input.value : "").trim();
-  if (!v){
-    if (resultCard) resultCard.hidden = true;
-    showMsg('', '');
-    impactClearLastLine();
-    const impactCard = byId("ssImpactCard");
-    if (impactCard) impactCard.hidden = true;
-    lastAutoValue = "";
-    return;
-  }
+        const v = (input ? input.value : "").trim();
 
-  if (v === lastAutoValue) return;
+        if (!v){
+          hideResultAndImpact();
+          lastAutoValue = "";
+          return;
+        }
 
-  if (!extractFirstUrl(v)) {
-    if (resultCard) resultCard.hidden = true;
-    showMsg('', '');
-    impactClearLastLine();
-    const impactCard = byId("ssImpactCard");
-    if (impactCard) impactCard.hidden = true;
-    lastAutoValue = "";
-    return;
-  }
+        if (v === lastAutoValue) return;
 
-  clearTimeout(autoTimer);
-  autoTimer = setTimeout(() => {
-    const now = (input ? input.value : "").trim();
-    if (now !== v) return;
-    lastAutoValue = v;
-    doClean();
-  }, 220);
-}
+        // Only auto-run when a URL is detectable
+        if (!extractFirstUrl(v)){
+          hideResultAndImpact();
+          lastAutoValue = "";
+          return;
+        }
 
-      // Bindings
-on(btnClean, "click", doClean);
+        clearTimeout(autoTimer);
+        autoTimer = setTimeout(() => {
+          const now = (input ? input.value : "").trim();
+          if (now !== v) return;
+          doClean();
+        }, 220);
+      }
 
-on(btnClear, "click", ()=>{
-  if (input) input.value = '';
-  if (resultCard) resultCard.hidden = true;
-  showMsg('', '');
-  impactClearLastLine();
+      // ===== Bindings =====
+      on(btnClean, "click", doClean);
 
-  const ic = byId("ssImpactCard");
-  if (ic) ic.hidden = true;
-
-  lastAutoValue = "";
-  if (input) input.focus();
-});
+      on(btnClear, "click", ()=>{
+        if (input) input.value = '';
+        hideResultAndImpact();
+        lastAutoValue = "";
+        if (input) input.focus();
+      });
 
       on(btnPaste, "click", async ()=>{
         showMsg('', '');
@@ -776,12 +795,14 @@ on(btnClear, "click", ()=>{
           setTimeout(()=>{ lastAutoValue=""; scheduleAutoClean(); }, 50);
         }
 
+        // prevent re-trigger on reload
         history.replaceState({}, '', location.pathname);
       })();
 
+      // init Impact (shows only if non-zero)
       impactInit();
+      hideResultAndImpact(); // ensures clean initial state
     })();
   </script>
-  <script src="/js/ss-shell.js?v=2026-02-01-01"></script>
 </body>
 </html>
