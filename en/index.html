@@ -5,35 +5,32 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>SafeShare – Share clean links (local-first)</title>
-  <meta name="description" content="SafeShare removes tracking parameters from links (utm_*, gclid, fbclid …) – 100% local in your browser. Share clean links: Copy → Clean → Share.">
+  <meta name="description" content="SafeShare removes tracking parameters from links (utm_*, gclid, fbclid …) – 100% locally in your browser. Share clean: Copy → Clean → Share.">
   <meta name="robots" content="index,follow" />
-
   <link rel="canonical" href="https://safesharepro.com/en/" />
-  <link rel="alternate" hreflang="de" href="https://safesharepro.com/" />
-  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/" />
-
   <meta name="color-scheme" content="dark light" />
-  <meta name="theme-color" content="#111111" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="SafeShare – Share clean links (local-first)" />
-  <meta property="og:description" content="Remove tracking parameters (utm_*, fbclid, gclid …) locally in your browser. Copy → Clean → Share." />
+  <!-- Google Search Console -->
+  <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
+  <!-- Bing Webmaster Tools -->
+  <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
+
+  <meta property="og:title" content="SafeShare – Share clean links" />
+  <meta property="og:description" content="Remove tracking parameters (utm_*, fbclid, gclid …) – local-first in your browser. Copy → Clean → Share." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://safesharepro.com/en/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-01-25-02" />
-  <meta property="og:image:alt" content="SafeShare – preview" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-01-05-02" />
+  <meta property="og:image:alt" content="SafeShare – Share clean links (preview)" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SafeShare – Share clean links" />
-  <meta name="twitter:description" content="Remove tracking parameters locally in your browser. Copy → Clean → Share." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-01-25-02" />
-  <meta name="twitter:image:alt" content="SafeShare – preview" />
+  <meta name="twitter:description" content="Remove tracking parameters (utm_*, fbclid, gclid …) – local-first in your browser. Copy → Clean → Share." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-01-05-02" />
+  <meta name="twitter:image:alt" content="SafeShare – Share clean links (preview)" />
 
   <!-- Favicons + PWA -->
   <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-26-01">
@@ -41,10 +38,11 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-26-01">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-01">
   <link rel="manifest" href="/manifest.webmanifest?v=2025-12-26-01">
+  <meta name="theme-color" content="#111111">
 
-  <!-- MASTER SHELL -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-02">
-  <script src="/js/ss-shell.js?v=2026-01-25-02" defer></script>
+  <!-- STEP 3 (Master-Shell) -->
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-01">
+  <script src="/js/ss-shell.js?v=2026-01-25-01" defer></script>
 
   <style>
     :root{
@@ -101,10 +99,11 @@
       box-shadow: var(--shadow);
       padding: 16px;
     }
-
-    h1{ margin: 10px 0 8px; font-size: clamp(24px, 4vw, 44px); line-height: 1.08; letter-spacing:-.2px; }
+    h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 44px); line-height: 1.08; letter-spacing:-.2px; }
     h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
+    h3{ margin: 14px 0 8px; font-size: 15px; letter-spacing: -0.1px; }
     p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
+    ul, ol{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.6; }
 
     .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
     .btn{
@@ -117,7 +116,9 @@
       font-size: 14px;
       cursor:pointer;
       user-select:none;
-      display:inline-flex; align-items:center; gap: 8px;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
     }
     .btn:hover{ background: rgba(255,255,255,.10); }
     .btn.primary{ background: var(--mint2); border-color: rgba(47,227,183,.35); }
@@ -125,7 +126,7 @@
     .btn.ghost{ background: transparent; color: var(--muted); }
     .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.04); }
 
-    .note,.warn{
+    .note,.warn,.bad{
       margin-top: 12px;
       border-left: 3px solid rgba(47,227,183,.55);
       background: var(--ok);
@@ -136,62 +137,52 @@
       color: var(--text);
     }
     .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
+    .bad{ border-left-color: rgba(255,84,84,.55); background: var(--bad); }
 
-
-    /* Hero */
-    .hero{
-      display:grid;
-      gap: 14px;
-      grid-template-columns: 1fr;
-      align-items: center;
-    }
-    @media(min-width: 920px){
-      .hero{ grid-template-columns: 1.1fr .9fr; gap: 18px; }
-    }
-    .heroImg{
-      width: 100%;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      overflow:hidden;
-    }
-    .heroImg img{
-      width: 100%;
-      height: auto;
-      display:block;
-    }
-    .heroKicker{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted2);
-      font-size: 12px;
-      width: fit-content;
-    }
-
-    /* Feature list */
     .grid2{
       display:grid;
       grid-template-columns: 1fr;
       gap: 12px;
+      margin-top: 10px;
     }
-    @media(min-width: 920px){
+    @media(min-width: 980px){
       .grid2{ grid-template-columns: 1fr 1fr; }
     }
-    .mini{
+    .box{
+      border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
-      border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 14px;
+      padding: 12px;
     }
-    .mini b{ display:block; margin-bottom: 6px; }
-    .mini p{ margin:0; }
 
-    /* Footer */
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
+    .example{
+      margin-top: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    /* Hero image (before/after) */
+    .heroImg img{
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      margin-top: 12px;
+    }
+    @media (prefers-color-scheme: light){
+      .heroImg img{ border-color: rgba(17,24,39,.12); background: rgba(17,24,39,.02); }
+    }
+
+    /* Footer like help/app (grid + links) */
     footer{
       margin-top: 18px;
       padding: 18px 4px 10px;
@@ -210,7 +201,10 @@
       .footGrid{ grid-template-columns: 1.2fr .8fr; }
     }
     .footLinks{
-      display:flex; gap: 10px; flex-wrap: wrap; justify-content:flex-start;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:flex-start;
     }
     .footLinks a{
       padding: 6px 10px;
@@ -220,6 +214,7 @@
       color: var(--muted);
     }
     .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
+
     /* HERO CTA Boost */
     .heroRow{ display:grid; gap: 10px; margin-top: 12px; }
     .heroSecondary{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
@@ -233,26 +228,26 @@
       letter-spacing: .1px;
     }
 
-    /* CTA: stärker sichtbar + klar als Button */
-.btn.primary.cta{
-  justify-content: center;
-  text-align: center;
+    /* CTA: more visible + clearly a button */
+    .btn.primary.cta{
+      justify-content: center;
+      text-align: center;
 
-  font-weight: 850;
-  letter-spacing: .2px;
+      font-weight: 850;
+      letter-spacing: .2px;
 
-  color: rgba(255,255,255,.92) !important; /* hell, weil dein Button eher dunkel wirkt */
-  background: linear-gradient(180deg, var(--mint2), var(--mint3));
+      color: rgba(255,255,255,.92) !important;
+      background: linear-gradient(180deg, var(--mint2), var(--mint3));
 
-  border-color: rgba(47,227,183,.65);
-  box-shadow: 0 16px 48px rgba(0,0,0,.34);
-}
+      border-color: rgba(47,227,183,.65);
+      box-shadow: 0 16px 48px rgba(0,0,0,.34);
+    }
 
-.btn.primary.cta:active{
-  transform: translateY(1px);
-  box-shadow: 0 10px 26px rgba(0,0,0,.28);
-}
-    
+    .btn.primary.cta:active{
+      transform: translateY(1px);
+      box-shadow: 0 10px 26px rgba(0,0,0,.28);
+    }
+
     .heroMeta{
       display:flex;
       flex-wrap:wrap;
@@ -266,135 +261,194 @@
   </style>
 </head>
 <body>
-  <!-- Master-Shell -->
+  <!-- STEP 3 (Master-Shell) -->
   <div id="ss-shell"></div>
 
   <div class="wrap">
 
+    <!-- HERO -->
     <section class="card">
-      <div class="hero">
-        <div>
-          <div class="heroKicker">Local-first • No upload • No logs</div>
-          <h1>Share clean links</h1>
-          <p>
-            Many links contain extra tracking data — like labels stuck to a package.
-            Useful for analytics, unnecessary when you forward or share.
-          </p>
+      <h1>Tracking parameters out.<br>Share the link clean.</h1>
+      <p>
+        Many links include extra info — like labels/stickers on a package (<span class="mono">utm_*</span>, <span class="mono">fbclid</span>, <span class="mono">gclid</span> …).
+        Useful for analytics, but often just ballast when forwarding.
+      </p>
 
-       <div class="heroRow">
-  <a class="btn primary cta" href="/en/app/">Clean link</a>
-  <div class="heroMeta">
-    <span>100% local in your browser</span><span class="heroDot">•</span>
-    <span>no signup</span><span class="heroDot">•</span>
-    <a href="/en/help/">How it works</a>
-  </div>
+      <div class="heroRow">
+        <a class="btn primary cta" href="/en/app/">Clean link</a>
+        <div class="heroMeta">
+          <span>100% local in your browser</span><span class="heroDot">•</span>
+          <span>no signup</span><span class="heroDot">•</span>
+          <a href="/en/help/">How it works</a>
+        </div>
 
-  <div class="heroSecondary">
-    <a class="btn" href="/en/school/">SafeShare School</a>
-    <a class="btn ghost" href="/en/pro/">Pro for teams</a>
-  </div>
-</div>
+        <div class="heroSecondary">
+          <a class="btn" href="/en/school/">SafeShare School</a>
+          <a class="btn ghost" href="/en/pro/">Pro for teams</a>
+        </div>
+      </div>
+
       <div class="heroImg" aria-label="Before/after example">
         <img
           src="/assets/hero-vorher-nachher.png?v=2025-12-25-01"
-          alt="Before SafeShare: link with tracking ballast. After SafeShare: a clean shareable link."
+          alt="Before SafeShare: link with tracking ballast. After SafeShare: clean link."
           loading="lazy"
           decoding="async"
           width="1200"
           height="675"
         />
       </div>
-<div class="note">
-  SafeShare works <b>local-first</b>: cleaning happens in your browser. Nothing is uploaded.
-</div>
-<div class="warn">
-  Not an “invisible” promise — it’s a concrete hygiene step when sharing.
-</div>
-</div>
-</section>
-    <section class="card">
-      <h2>What SafeShare does</h2>
-      <div class="grid2">
-        <div class="mini">
-          <b>Removes tracking parameters</b>
-          <p>Examples: <span style="opacity:.9">utm_*</span>, <span style="opacity:.9">gclid</span>, <span style="opacity:.9">fbclid</span>, <span style="opacity:.9">msclkid</span>, <span style="opacity:.9">_ga</span> …</p>
-        </div>
-        <div class="mini">
-          <b>Local-first by design</b>
-          <p>Cleaning happens in your browser. No servers. No logs. No accounts required.</p>
-        </div>
-        <div class="mini">
-          <b>Share workflow</b>
-          <p>Copy a link → clean it → paste/share the clean result (works well with messengers and email).</p>
-        </div>
-        <div class="mini">
-          <b>Pro for control</b>
-          <p>Audit what was removed, allowlists/policies, and more careful rules for edge cases.</p>
-        </div>
-      </div>
-      <div class="warn" style="margin-top:12px">
-        Don’t blindly remove “everything”: affiliate/ref parameters (<span style="opacity:.9">ref</span>, <span style="opacity:.9">tag</span>, …) can be intentional.
-        Use Pro if you need fine control.
-      </div>
 
-<section class="card">
-  <h2>Pricing</h2>
-  <p>One-time payment. Works offline. No subscription.</p>
-
-  <div class="pricingGrid">
-    <div class="card priceCard">
-      <div class="priceTop">
-        <div class="priceName">Supporter (no Pro app)</div>
+      <div class="note">
+        SafeShare works <b>local-first</b>: cleaning happens in your browser. Links are not uploaded.
       </div>
-      <div class="priceValue">€9 <span class="priceOnce">one-time</span></div>
-      <ul class="priceList">
-        <li>Handbook (PDF) + diagnostics check (selftest)</li>
-        <li>Usable offline</li>
-        <li>Great for onboarding / support</li>
-      </ul>
-      <a class="btn primary" href="https://payhip.com/b/rQIq0" target="_blank" rel="noopener nofollow">Open Supporter</a>
-    </div>
-
-    <div class="card priceCard">
-      <div class="priceTop">
-        <div class="priceName">Pro Persona</div>
-      </div>
-      <div class="priceValue">€49 <span class="priceOnce">one-time</span></div>
-      <ul class="priceList">
-        <li>Offline Pro app</li>
-        <li>Policies / allowlist</li>
-        <li>Audit (“What changed?”)</li>
-      </ul>
-      <a class="btn primary" href="https://payhip.com/b/B3Hxq" target="_blank" rel="noopener nofollow">Open Pro Personal</a>
-    </div>
-
-    <div class="card priceCard">
-      <div class="priceTop">
-        <div class="priceName">Pro Team (up to 5 seats)</div>
-      </div>
-      <div class="priceValue">€249 <span class="priceOnce">one-time</span></div>
-      <ul class="priceList">
-        <li>Offline Pro app</li>
-        <li>Team workflow / consistent policies</li>
-        <li>Audit + publishing rules</li>
-      </ul>
-      <a class="btn primary" href="https://payhip.com/b/g56oY" target="_blank" rel="noopener nofollow">Open Pro Team</a>
-    </div>
-  </div>
-</section>
-      
-      <div class="row">
-        <a class="btn" href="/en/school/">School</a>
-        <a class="btn" href="/en/privacy/">Privacy</a>
-        <a class="btn ghost" href="/">Deutsch</a>
+      <div class="warn">
+        This is not an “invisible” promise. It’s a concrete hygiene step when sharing.
       </div>
     </section>
 
+    <!-- HOW -->
+    <section class="card">
+      <h2>In 10 seconds</h2>
+      <ol>
+        <li>Copy a link</li>
+        <li>Paste it into SafeShare App</li>
+        <li>Clean → copy → share</li>
+      </ol>
+
+      <div class="grid2">
+        <div class="box">
+          <h3>Before</h3>
+          <div class="example mono">https://example.com/article?utm_source=twitter&utm_medium=social&utm_campaign=launch&fbclid=XYZ</div>
+        </div>
+        <div class="box">
+          <h3>After</h3>
+          <div class="example mono">https://example.com/article</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <a class="btn primary" href="/en/app/">Open app</a>
+        <a class="btn" href="/en/bookmarks/" data-page="bookmarks">Bookmarks (desktop)</a>
+        <a class="btn ghost" href="/en/help/">Help / troubleshooting</a>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="card">
+      <h2>Why this helps (without drama)</h2>
+      <div class="grid2">
+        <div class="box">
+          <h3>Respect</h3>
+          <p>You share less extra data other people didn’t choose.</p>
+          <h3>More credible</h3>
+          <p>Links look cleaner and less “ad-like”.</p>
+        </div>
+        <div class="box">
+          <h3>Less breakage</h3>
+          <p>Some apps shorten/modify long URLs in unhelpful ways.</p>
+          <h3>Local-first</h3>
+          <p>No need to copy-paste into some online “URL cleaner”.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DO NOT BLINDLY REMOVE -->
+    <section class="card">
+      <h2>Don’t blindly remove everything</h2>
+      <div class="grid2">
+        <div class="box">
+          <h3>Affiliate/partner</h3>
+          <p>
+            Some parameters are attribution (e.g. <span class="mono">ref</span>, <span class="mono">tag</span>).
+            If you remove them, compensation/attribution may break.
+          </p>
+          <p><b>Pro:</b> allowlists/policies per domain.</p>
+        </div>
+        <div class="box">
+          <h3>Functional parameters</h3>
+          <p>
+            Some keys control content (language, filters, product ID, search).
+            Good tools are conservative and don’t remove things blindly.
+          </p>
+          <p><b>App:</b> standard tracking. <b>Pro:</b> audit + rules.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <a class="btn" href="/en/tracking-parameters/">Tracking parameters explained</a>
+        <a class="btn" href="/en/remove-utm-parameters/">UTM explained</a>
+        <a class="btn ghost" href="/en/url-cleaner-tool-comparison/">Tool comparison</a>
+      </div>
+
+      <div class="warn" style="margin-top:12px">
+        Don’t blindly remove “everything”: affiliate/ref parameters (<span style="opacity:.9">ref</span>, <span style="opacity:.9">tag</span> …) can be intentional.
+        Use Pro if you need fine control.
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="card">
+      <h2>Pricing</h2>
+      <p>One-time payment. Works offline. No subscription.</p>
+
+      <div class="pricingGrid">
+        <div class="card priceCard">
+          <div class="priceTop">
+            <div class="priceName">Supporter (no Pro app)</div>
+          </div>
+          <div class="priceValue">€9 <span class="priceOnce">one-time</span></div>
+          <ul class="priceList">
+            <li>Handbook (PDF) + self-check (selftest)</li>
+            <li>Works offline</li>
+            <li>Ideal for getting started / support</li>
+          </ul>
+          <a class="btn primary" href="https://payhip.com/b/cFHy7" target="_blank" rel="noopener nofollow">Open Supporter</a>
+        </div>
+
+        <div class="card priceCard">
+          <div class="priceTop">
+            <div class="priceName">Pro Person</div>
+          </div>
+          <div class="priceValue">€49 <span class="priceOnce">one-time</span></div>
+          <ul class="priceList">
+            <li>Offline Pro app</li>
+            <li>Policies / allowlist</li>
+            <li>Audit (“What changed?”)</li>
+          </ul>
+          <a class="btn primary" href="https://payhip.com/b/djqDz" target="_blank" rel="noopener nofollow">Open Pro Person</a>
+        </div>
+
+        <div class="card priceCard">
+          <div class="priceTop">
+            <div class="priceName">Pro Team (up to 5 seats)</div>
+          </div>
+          <div class="priceValue">€249 <span class="priceOnce">one-time</span></div>
+          <ul class="priceList">
+            <li>Offline Pro app</li>
+            <li>Team workflow / consistent policies</li>
+            <li>Audit + rules for publishing</li>
+          </ul>
+          <a class="btn primary" href="https://payhip.com/b/oXFsk" target="_blank" rel="noopener nofollow">Open Pro Team</a>
+        </div>
+      </div>
+
+      <div class="note">
+        Pro is an <b>offline download</b> (not a public website). Always start via <b>01-START.html</b> inside the package.
+      </div>
+
+      <div class="row">
+        <a class="btn" href="/en/pro/">Pro page</a>
+        <a class="btn ghost" href="/en/help/#prostart">Pro help</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
       <div class="footGrid">
         <div>
-          <div><strong>SafeShare</strong> – share links without ballast.</div>
-          <div>Local-first: cleaning happens in your browser.</div>
+          <div><strong>SafeShare</strong> – Share links. Without ballast.</div>
+          <div>App: fast &amp; simple · Pro: policies, allowlist, audit.</div>
         </div>
         <div class="footLinks">
           <a href="/en/">Home</a>
