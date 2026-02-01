@@ -342,21 +342,22 @@
       box-shadow: 0 12px 34px rgba(0,0,0,.28);
       letter-spacing: .1px;
     }
-    .btn.primary.cta{ color: #061016; }
 
-    /* CTA: stärker sichtbar */
-.btn.primary.cta{ color: rgba(255,255,255,.92) !important; }          /* Text dunkler auf Mint */
-  font-weight: 850;
-  box-shadow: 0 16px 48px rgba(0,0,0,.34);
-  border-color: rgba(47,227,183,.55);
-}
-
-/* Optional: leichte Innenkante für “Button” statt “Feld” */
+   /* CTA: stärker sichtbar + klar als Button */
 .btn.primary.cta{
+  justify-content: center;
+  text-align: center;
+
+  font-weight: 850;
+  letter-spacing: .2px;
+
+  color: rgba(255,255,255,.92) !important; /* hell, weil dein Button eher dunkel wirkt */
   background: linear-gradient(180deg, var(--mint2), var(--mint3));
+
+  border-color: rgba(47,227,183,.65);
+  box-shadow: 0 16px 48px rgba(0,0,0,.34);
 }
 
-/* Fokus/Active (mobile tap fühlt sich gut an) */
 .btn.primary.cta:active{
   transform: translateY(1px);
   box-shadow: 0 10px 26px rgba(0,0,0,.28);
