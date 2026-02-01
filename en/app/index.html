@@ -697,9 +697,14 @@ if (impactCard) impactCard.hidden = true;
 
       on(btnClear, "click", ()=>{
         if (input) input.value = '';
-        if (resultCard) resultCard.hidden = true;
-        showMsg('', '');
-        impactClearLastLine();
+    if (resultCard) resultCard.hidden = true;
+showMsg('', '');
+impactClearLastLine();
+
+const ic = byId("ssImpactCard");
+if (ic) ic.hidden = true;
+
+        
 const impactCard = byId("ssImpactCard");
 if (impactCard) impactCard.hidden = true;
         
