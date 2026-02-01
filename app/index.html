@@ -677,6 +677,9 @@
           if (resultCard) resultCard.hidden = true;
           showMsg('', '');
           impactClearLastLine();
+const impactCard = byId("ssImpactCard");
+if (impactCard) impactCard.hidden = true;
+          
           lastAutoValue = "";
           return;
         }
@@ -700,6 +703,9 @@
         if (resultCard) resultCard.hidden = true;
         showMsg('', '');
         impactClearLastLine();
+const impactCard = byId("ssImpactCard");
+if (impactCard) impactCard.hidden = true;
+        
         lastAutoValue = "";
         if (input) input.focus();
       });
