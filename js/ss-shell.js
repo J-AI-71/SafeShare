@@ -1,5 +1,5 @@
 /*! Datei: /js/ss-shell.js */
-/*! SafeShare Shell v2026-02-01-02 (Schema B: EN under /en/<slug>/) */
+/*! SafeShare Shell v2026-02-01-03 (Schema B: EN under /en/<slug>/) */
 (function () {
   "use strict";
 
@@ -21,6 +21,16 @@
             pro: "/en/pro/",
             help: "/en/help/",
             bookmarks: "/en/bookmarks/",
+
+            // Learn (EN folders in repo)
+            tracking: "/en/tracking-parameters/",
+            utm: "/en/remove-utm-parameter/",          // IMPORTANT: singular (repo folder)
+            comparison: "/en/url-cleaner-comparison/",
+            email: "/en/email-link-cleaning/",
+            messenger: "/en/messenger-link-cleaning/",
+            social: "/en/social-link-cleaning/",
+
+            // Legal
             support: "mailto:listings@safesharepro.com",
             privacy: "/en/privacy/",
             imprint: "/en/imprint/",
@@ -33,6 +43,16 @@
             pro: "/pro/",
             help: "/hilfe/",
             bookmarks: "/lesezeichen/",
+
+            // Learn (DE folders in repo)
+            tracking: "/tracking-parameter/",
+            utm: "/utm-parameter-entfernen/",
+            comparison: "/url-cleaner-tool-vergleich/",
+            email: "/email-links-bereinigen/",
+            messenger: "/messenger-links-bereinigen/",
+            social: "/social-links-bereinigen/",
+
+            // Legal
             support: "mailto:listings@safesharepro.com",
             privacy: "/datenschutz/",
             imprint: "/impressum/",
@@ -49,6 +69,16 @@
             help: "Help",
             bookmarks: "Bookmarks",
             more: "More",
+
+            // Learn
+            tracking: "Tracking",
+            utm: "UTM",
+            comparison: "Comparison",
+            email: "Email links",
+            messenger: "Messenger",
+            social: "Social",
+
+            // Legal
             support: "Support",
             privacy: "Privacy",
             imprint: "Imprint",
@@ -64,6 +94,16 @@
             help: "Hilfe",
             bookmarks: "Lesezeichen",
             more: "Mehr",
+
+            // Learn
+            tracking: "Tracking",
+            utm: "UTM",
+            comparison: "Vergleich",
+            email: "E-Mail-Links",
+            messenger: "Messenger",
+            social: "Social",
+
+            // Legal
             support: "Support",
             privacy: "Datenschutz",
             imprint: "Impressum",
@@ -83,7 +123,7 @@
         return s;
       }
 
-      // 6) Sprach-Gegenstück
+      // 6) Sprach-Gegenstück (DE <-> EN), inkl. Learn-Seiten
       function toCounterpartUrl() {
         const p = norm(location.pathname);
 
@@ -94,21 +134,44 @@
           if (p.startsWith("/en/pro/")) return "/pro/";
           if (p.startsWith("/en/help/")) return "/hilfe/";
           if (p.startsWith("/en/bookmarks/")) return "/lesezeichen/";
+
+          // Learn (EN -> DE)
+          if (p.startsWith("/en/tracking-parameters/")) return "/tracking-parameter/";
+          if (p.startsWith("/en/remove-utm-parameter/")) return "/utm-parameter-entfernen/";
+          if (p.startsWith("/en/url-cleaner-comparison/")) return "/url-cleaner-tool-vergleich/";
+          if (p.startsWith("/en/email-link-cleaning/")) return "/email-links-bereinigen/";
+          if (p.startsWith("/en/messenger-link-cleaning/")) return "/messenger-links-bereinigen/";
+          if (p.startsWith("/en/social-link-cleaning/")) return "/social-links-bereinigen/";
+
+          // Legal (EN -> DE)
           if (p.startsWith("/en/privacy/")) return "/datenschutz/";
           if (p.startsWith("/en/imprint/")) return "/impressum/";
           if (p.startsWith("/en/terms/")) return "/nutzungsbedingungen/";
+
           return "/";
         }
 
+        // DE -> EN
         if (p === "/") return "/en/";
         if (p.startsWith("/app/")) return "/en/app/";
         if (p.startsWith("/schule/")) return "/en/school/";
         if (p.startsWith("/pro/")) return "/en/pro/";
         if (p.startsWith("/hilfe/")) return "/en/help/";
         if (p.startsWith("/lesezeichen/")) return "/en/bookmarks/";
+
+        // Learn (DE -> EN)
+        if (p.startsWith("/tracking-parameter/")) return "/en/tracking-parameters/";
+        if (p.startsWith("/utm-parameter-entfernen/")) return "/en/remove-utm-parameter/";
+        if (p.startsWith("/url-cleaner-tool-vergleich/")) return "/en/url-cleaner-comparison/";
+        if (p.startsWith("/email-links-bereinigen/")) return "/en/email-link-cleaning/";
+        if (p.startsWith("/messenger-links-bereinigen/")) return "/en/messenger-link-cleaning/";
+        if (p.startsWith("/social-links-bereinigen/")) return "/en/social-link-cleaning/";
+
+        // Legal (DE -> EN)
         if (p.startsWith("/datenschutz/")) return "/en/privacy/";
         if (p.startsWith("/impressum/")) return "/en/imprint/";
         if (p.startsWith("/nutzungsbedingungen/")) return "/en/terms/";
+
         return "/en/";
       }
 
@@ -154,6 +217,17 @@
 
       <div class="ss-moreSep" aria-hidden="true"></div>
 
+      <!-- Learn -->
+      <a class="ss-moreLink" href="${LINKS.tracking}">${T.tracking}</a>
+      <a class="ss-moreLink" href="${LINKS.utm}">${T.utm}</a>
+      <a class="ss-moreLink" href="${LINKS.comparison}">${T.comparison}</a>
+      <a class="ss-moreLink" href="${LINKS.email}">${T.email}</a>
+      <a class="ss-moreLink" href="${LINKS.messenger}">${T.messenger}</a>
+      <a class="ss-moreLink" href="${LINKS.social}">${T.social}</a>
+
+      <div class="ss-moreSep" aria-hidden="true"></div>
+
+      <!-- Legal -->
       <a class="ss-moreLink" href="${LINKS.support}">${T.support}</a>
       <a class="ss-moreLink" href="${LINKS.privacy}">${T.privacy}</a>
       <a class="ss-moreLink" href="${LINKS.imprint}">${T.imprint}</a>
@@ -201,13 +275,28 @@
           else a.removeAttribute("aria-current");
         });
 
+        // More active auf: School/Pro/Help/Bookmarks + Learn + Legal
         const btn = $("#ssMoreBtn");
         if (btn) {
-          const moreActive =
-            activeKey === "school" ||
-            activeKey === "pro" ||
-            activeKey === "help" ||
-            activeKey === "bookmarks";
+          const moreMatches = [
+            norm(LINKS.school),
+            norm(LINKS.pro),
+            norm(LINKS.help),
+            norm(LINKS.bookmarks),
+
+            norm(LINKS.tracking),
+            norm(LINKS.utm),
+            norm(LINKS.comparison),
+            norm(LINKS.email),
+            norm(LINKS.messenger),
+            norm(LINKS.social),
+
+            norm(LINKS.privacy),
+            norm(LINKS.imprint),
+            norm(LINKS.terms),
+          ];
+
+          const moreActive = moreMatches.some((m) => p.startsWith(m));
           btn.classList.toggle("is-active", moreActive);
           if (moreActive) btn.setAttribute("aria-current", "page");
           else btn.removeAttribute("aria-current");
