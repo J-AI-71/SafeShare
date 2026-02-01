@@ -344,6 +344,24 @@
     }
     .btn.primary.cta{ color: #061016; }
 
+    /* CTA: stärker sichtbar */
+.btn.primary.cta{ color: rgba(255,255,255,.92) !important; }          /* Text dunkler auf Mint */
+  font-weight: 850;
+  box-shadow: 0 16px 48px rgba(0,0,0,.34);
+  border-color: rgba(47,227,183,.55);
+}
+
+/* Optional: leichte Innenkante für “Button” statt “Feld” */
+.btn.primary.cta{
+  background: linear-gradient(180deg, var(--mint2), var(--mint3));
+}
+
+/* Fokus/Active (mobile tap fühlt sich gut an) */
+.btn.primary.cta:active{
+  transform: translateY(1px);
+  box-shadow: 0 10px 26px rgba(0,0,0,.28);
+}
+
     .heroMeta{
       display:flex;
       flex-wrap:wrap;
@@ -371,7 +389,7 @@
       </p>
 
       <div class="heroRow">
-  <a class="btn primary cta" href="/app/">Jetzt bereinigen</a>
+  <a class="btn primary cta" href="/app/">Link reinigen</a>
   <div class="heroMeta">
     <span>100% lokal im Browser</span><span class="heroDot">•</span>
     <span>keine Anmeldung</span><span class="heroDot">•</span>
