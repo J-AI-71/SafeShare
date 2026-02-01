@@ -5,10 +5,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Bookmarks – SafeShare</title>
-  <meta name="description" content="SafeShare bookmarks/bookmarklets: clean links in one click — fast and local. Setup guide for desktop and mobile browsers.">
+  <meta name="description" content="SafeShare bookmarks/bookmarklets: clean links in one click — fast and local. Setup guide for desktop and mobile browsers." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
-  <meta name="theme-color" content="#111111">
+  <meta name="theme-color" content="#111111" />
 
   <link rel="canonical" href="https://safesharepro.com/en/bookmarks/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/lesezeichen/" />
@@ -39,11 +39,15 @@
   <meta name="twitter:image:alt" content="SafeShare – Bookmarks/Bookmarklets (preview)" />
 
   <!-- Favicons + PWA (absolute for slugs) -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-26-09">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-26-09">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-26-09">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-09">
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-26-09">
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-25-01" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01" />
+
+  <!-- MASTER SHELL (NAV) -->
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-03" />
+  <script src="/js/ss-shell.js?v=2026-01-25-03" defer></script>
 
   <style>
     :root{
@@ -93,71 +97,6 @@
     a{ color:inherit; text-decoration:none; }
     .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
     .muted{ color: var(--muted); }
-    .small{ font-size: 12px; color: var(--muted2); line-height: 1.45; white-space:nowrap; }
-
-    header{ display:flex; align-items:center; justify-content:space-between; gap: 14px; padding: 10px 2px 12px; }
-    .brand{ display:flex; align-items:center; gap:10px; min-width:0; }
-    .brandText{ min-width:0; }
-    .brandText .title{ font-size: 16px; font-weight: 780; line-height:1.1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .brandText .sub{ font-size: 12px; color: var(--muted2); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-
-    /* Logo badge (1 ring, clean) */
-    .logoWrap{
-      width:38px;
-      height:38px;
-      border-radius:999px;
-      border:1px solid rgba(47,227,183,.22);
-      background:rgba(47,227,183,.08);
-      box-shadow:0 10px 26px rgba(0,0,0,.28);
-      display:grid;
-      place-items:center;
-      overflow:hidden;
-      flex:0 0 auto;
-    }
-    .logoWrap .logoImg{
-      width:28px;
-      height:28px;
-      display:block;
-      object-fit:contain;
-    }
-    .logoFallback{
-      font-weight:800;
-      color: var(--mint);
-      font-size:14px;
-      line-height:1;
-      display:none;
-    }
-
-    .tabsBar{
-      position: sticky; top:0; z-index: 50;
-      padding: 8px 0 14px;
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,0));
-    }
-    .tabs{
-      display:flex; align-items:center; gap:10px;
-      padding: 10px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      box-shadow: var(--shadow);
-      overflow-x:auto; scrollbar-width:none;
-    }
-    .tabs::-webkit-scrollbar{ display:none; }
-    .tab{
-      font-size: 13px; color: var(--muted);
-      padding: 8px 12px; border-radius: 999px;
-      border: 1px solid transparent;
-      white-space: nowrap; flex: 0 0 auto;
-      background: transparent;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      text-decoration:none;
-    }
-    .tab:hover{ border-color: var(--border); background: rgba(255,255,255,.04); color: var(--text); }
-    .tab.active{ color: var(--text); border-color: rgba(47,227,183,.35); background: rgba(47,227,183,.12); }
-    .moreBtn{ appearance:none; cursor:pointer; }
 
     .card{
       margin-top: 14px;
@@ -282,98 +221,14 @@
       text-decoration:none;
     }
     .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-
-    /* ===== More: Bottom Sheet ===== */
-    .moreOverlay{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.25);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      z-index: 9998;
-    }
-    .moreMenu{
-      position: fixed;
-      left: 12px; right: 12px;
-      bottom: calc(12px + env(safe-area-inset-bottom));
-      max-height: min(70vh, 520px);
-      overflow: auto;
-      padding: 10px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(10,14,25,.96);
-      box-shadow: var(--shadow);
-      z-index: 9999;
-      transform: translateY(16px);
-      opacity: 0;
-      transition: transform .16s ease, opacity .16s ease;
-    }
-    .moreMenu.open{ transform: translateY(0); opacity: 1; }
-    @media (prefers-color-scheme: light){
-      .moreOverlay{ background: rgba(17,24,39,.06); }
-      .moreMenu{
-        background: rgba(255,255,255,.98);
-        border: 1px solid rgba(17,24,39,.12);
-        box-shadow: 0 18px 45px rgba(17,24,39,.12);
-      }
-      .box{ border-color: rgba(17,24,39,.12); }
-    }
-    .menuHint{ font-size: 11px; color: var(--muted2); padding: 8px 10px 2px; }
-    .divider{ height: 1px; background: rgba(255,255,255,.10); margin: 8px 6px; border-radius: 999px; }
-    .moreMenu a{
-      display:block;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      margin-bottom: 8px;
-      font-size: 13px;
-      text-decoration:none;
-    }
-    .moreMenu a:last-child{ margin-bottom: 0; }
-    .moreMenu a:hover{ color: var(--text); background: rgba(255,255,255,.08); }
-    .moreMenu a.active{ color: var(--text); border-color: rgba(47,227,183,.35); background: rgba(47,227,183,.12); }
   </style>
 </head>
 
 <body>
+  <!-- MASTER NAV MOUNT -->
+  <div id="ss-shell"></div>
+
   <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logoWrap" aria-label="SafeShare logo">
-          <img
-            class="logoImg"
-            src="/assets/brand/logo-glyph-mint-deep-256.png?v=2025-12-26-09"
-            alt="SafeShare"
-            width="28"
-            height="28"
-            decoding="async"
-            onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='inline-flex';"
-          >
-          <span id="logoFallback" class="logoFallback">SS</span>
-        </div>
-
-        <div class="brandText">
-          <div class="title">SafeShare</div>
-          <div class="sub">Share clean links</div>
-        </div>
-      </div>
-
-      <div class="small">local-first</div>
-    </header>
-
-    <!-- MASTER NAV -->
-    <div class="tabsBar">
-      <div class="tabs" role="navigation" aria-label="SafeShare navigation">
-        <a class="tab" data-page="start" href="/">Start</a>
-        <a class="tab" data-page="app" href="/en/app/">App</a>
-        <a class="tab" data-page="school" href="/en/school/">School</a>
-        <a class="tab" data-page="pro" href="/en/pro/">Pro</a>
-        <a class="tab" data-page="help" href="/en/help/">Help</a>
-        <button class="tab moreBtn" id="moreBtn" type="button" aria-haspopup="menu" aria-expanded="false">More ▾</button>
-      </div>
-    </div>
 
     <section class="card">
       <h1>Bookmarks / Bookmarklets</h1>
@@ -390,7 +245,7 @@
       </div>
 
       <div class="note">
-        <b>Desktop:</b> Bookmarklets are a shortcut for Chrome/Firefox/Edge.<br>
+        <b>Desktop:</b> Bookmarklets are a shortcut for Chrome/Firefox/Edge.<br />
         <b>iOS/iPad:</b> The most reliable option is a <b>Share Sheet shortcut</b>.
         <div class="row" style="margin-top:10px">
           <a class="btn" href="/en/help/#shortcut">See the iOS shortcut</a>
@@ -491,12 +346,13 @@
           <h3>SafeShare opens, but the field is empty / run=1 doesn’t start</h3>
           <ul>
             <li>Then it’s almost always <b>cache</b> (an older app/script version).</li>
-            <li>Test the app directly: <span class="mono">/en/app/?u=https%3A%2F%2Fexample.com%2F%3Futm_source%3Dx&run=1</span></li>
+            <li>Test the app directly: <span class="mono">/en/app/?u=https%3A%2F%2Fexample.com%2F%3Futm_source%3Dx&amp;run=1</span></li>
           </ul>
         </div>
       </div>
     </section>
 
+    <!-- FOOTER -->
     <footer>
       <div class="footGrid">
         <div>
@@ -504,152 +360,82 @@
           <div>App: fast &amp; simple · Pro: policies, allowlist, audit.</div>
         </div>
         <div class="footLinks">
-          <a data-page="start" href="/">Start</a>
-          <a data-page="app" href="/en/app/">App</a>
-          <a data-page="school" href="/en/school/">School</a>
-          <a data-page="pro" href="/en/pro/">Pro</a>
-          <a data-page="help" href="/en/help/">Help</a>
-          <a data-page="bookmarks" href="/en/bookmarks/">Bookmarks</a>
-          <a data-page="privacy" href="/en/privacy/">Privacy</a>
-          <a data-page="imprint" href="/en/imprint/">Imprint</a>
-          <a data-page="terms" href="/en/terms/">Terms</a>
+          <a href="/en/">Home</a>
+          <a href="/en/app/">App</a>
+          <a href="/en/school/">School</a>
+          <a href="/en/pro/">Pro</a>
+          <a href="/en/help/">Help</a>
+          <a href="/en/privacy/">Privacy</a>
+          <a href="/en/imprint/">Imprint</a>
+          <a href="/en/terms/">Terms</a>
         </div>
       </div>
     </footer>
+
   </div>
 
-  <!-- More (Bottom Sheet) -->
-  <div class="moreOverlay" id="moreOverlay" hidden></div>
-  <nav class="moreMenu" id="moreMenu" role="menu" aria-label="More" hidden>
-    <div class="menuHint">Support</div>
-    <a data-page="help" href="/en/help/#contact">Support / Contact</a>
-
-    <div class="divider"></div>
-
-    <div class="menuHint">Learn</div>
-    <a data-page="school" href="/en/school/">School</a>
-    <a data-page="utm" href="/en/remove-utm-parameters/">UTM</a>
-    <a data-page="tracking" href="/en/tracking-parameters/">Tracking</a>
-    <a data-page="comparison" href="/en/url-cleaner-comparison/">Tool comparison</a>
-    <a data-page="bookmarks" href="/en/bookmarks/">Bookmarks</a>
-
-    <div class="divider"></div>
-
-    <div class="menuHint">Legal</div>
-    <a data-page="privacy" href="/en/privacy/">Privacy</a>
-    <a data-page="imprint" href="/en/imprint/">Imprint</a>
-    <a data-page="terms" href="/en/terms/">Terms</a>
-  </nav>
-
   <script>
-    (function(){
-      // Bookmarklets should ALWAYS open the domain app (never relative paths)
-      const APP = 'https://safesharepro.com/en/app/';
+  (function(){
+    // Bookmarklets should ALWAYS open the domain app (never relative paths)
+    const APP = 'https://safesharepro.com/en/app/';
 
-      const CODE_FILL =
-        "javascript:(function(){try{var APP='" + APP + "';var u=location.href;location.assign(APP+'?u='+encodeURIComponent(u));}catch(e){alert('SafeShare: could not read URL.');}})();";
+    const CODE_FILL =
+      "javascript:(function(){try{var APP='" + APP + "';var u=location.href;location.assign(APP+'?u='+encodeURIComponent(u));}catch(e){alert('SafeShare: could not read URL.');}})();";
 
-      const CODE_RUN =
-        "javascript:(function(){try{var APP='" + APP + "';var u=location.href;location.assign(APP+'?u='+encodeURIComponent(u)+'&run=1');}catch(e){alert('SafeShare: could not read URL.');}})();";
+    const CODE_RUN =
+      "javascript:(function(){try{var APP='" + APP + "';var u=location.href;location.assign(APP+'?u='+encodeURIComponent(u)+'&run=1');}catch(e){alert('SafeShare: could not read URL.');}})();";
 
-      const CODE_PASTE =
-        "javascript:(function(){try{var APP='" + APP + "';var u=prompt('SafeShare: paste URL');if(!u)return;u=String(u).trim();if(!/^https?:\\/\\//i.test(u))u='https://'+u;location.assign(APP+'?u='+encodeURIComponent(u)+'&run=1');}catch(e){alert('SafeShare: could not use URL.');}})();";
+    const CODE_PASTE =
+      "javascript:(function(){try{var APP='" + APP + "';var u=prompt('SafeShare: paste URL');if(!u)return;u=String(u).trim();if(!/^https?:\\/\\//i.test(u))u='https://'+u;location.assign(APP+'?u='+encodeURIComponent(u)+'&run=1');}catch(e){alert('SafeShare: could not use URL.');}})();";
 
-      // code blocks
-      document.getElementById('codeFillOnly').textContent = CODE_FILL;
-      document.getElementById('codeAutoRun').textContent = CODE_RUN;
-      document.getElementById('codePasteRun').textContent = CODE_PASTE;
+    // code blocks
+    const fillEl = document.getElementById('codeFillOnly');
+    const runEl  = document.getElementById('codeAutoRun');
+    const pasteEl= document.getElementById('codePasteRun');
 
-      // drag links
-      document.getElementById('dragFillOnly').setAttribute('href', CODE_FILL);
-      document.getElementById('dragAutoRun').setAttribute('href', CODE_RUN);
-      document.getElementById('dragPasteRun').setAttribute('href', CODE_PASTE);
+    if (fillEl) fillEl.textContent = CODE_FILL;
+    if (runEl) runEl.textContent = CODE_RUN;
+    if (pasteEl) pasteEl.textContent = CODE_PASTE;
 
-      // active nav
-      function currentKey(){
-        const p = (location.pathname || '/').toLowerCase();
-        if (p === '/' || p === '/index.html') return 'start';
-        if (p.startsWith('/en/app')) return 'app';
-        if (p.startsWith('/en/school')) return 'school';
-        if (p.startsWith('/en/pro')) return 'pro';
-        if (p.startsWith('/en/help')) return 'help';
-        if (p.startsWith('/en/privacy')) return 'privacy';
-        if (p.startsWith('/en/imprint')) return 'imprint';
-        if (p.startsWith('/en/terms')) return 'terms';
-        if (p.startsWith('/en/bookmarks')) return 'bookmarks';
-        if (p.startsWith('/en/tracking-parameters')) return 'tracking';
-        if (p.startsWith('/en/remove-utm-parameters')) return 'utm';
-        if (p.startsWith('/en/url-cleaner-comparison')) return 'comparison';
-        if (p.startsWith('/en/quickstart')) return 'quickstart';
-        return '';
+    // drag links
+    const dragFill = document.getElementById('dragFillOnly');
+    const dragRun  = document.getElementById('dragAutoRun');
+    const dragPaste= document.getElementById('dragPasteRun');
+
+    if (dragFill) dragFill.setAttribute('href', CODE_FILL);
+    if (dragRun)  dragRun.setAttribute('href', CODE_RUN);
+    if (dragPaste) dragPaste.setAttribute('href', CODE_PASTE);
+
+    // copy buttons
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        return true;
+      }catch(e){
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position='fixed'; ta.style.left='-9999px';
+        document.body.appendChild(ta);
+        ta.focus(); ta.select();
+        try{ document.execCommand('copy'); }catch(_){}
+        document.body.removeChild(ta);
+        return true;
       }
-      const key = currentKey();
-      if (key){
-        document.querySelectorAll('[data-page]').forEach(el=>{
-          if (el.getAttribute('data-page') === key) el.classList.add('active');
-        });
-      }
+    }
 
-      // copy buttons
-      async function copyText(text){
-        try{
-          await navigator.clipboard.writeText(text);
-          return true;
-        }catch(e){
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          ta.style.position='fixed'; ta.style.left='-9999px';
-          document.body.appendChild(ta);
-          ta.focus(); ta.select();
-          try{ document.execCommand('copy'); }catch(_){}
-          document.body.removeChild(ta);
-          return true;
-        }
-      }
-      document.querySelectorAll('[data-copy]').forEach(b=>{
-        b.addEventListener('click', async ()=>{
-          const sel = b.getAttribute('data-copy');
-          const el = document.querySelector(sel);
-          const txt = (el ? el.textContent : '').trim();
-          if (!txt) return;
-          await copyText(txt);
-          const old = b.textContent;
-          b.textContent = 'Copied ✓';
-          setTimeout(()=>b.textContent=old, 1200);
-        });
+    document.querySelectorAll('[data-copy]').forEach(b=>{
+      b.addEventListener('click', async ()=>{
+        const sel = b.getAttribute('data-copy');
+        const el = document.querySelector(sel);
+        const txt = (el ? el.textContent : '').trim();
+        if (!txt) return;
+        await copyText(txt);
+        const old = b.textContent;
+        b.textContent = 'Copied ✓';
+        setTimeout(()=>b.textContent=old, 1200);
       });
-
-      // more sheet
-      const btn = document.getElementById('moreBtn');
-      const menu = document.getElementById('moreMenu');
-      const overlay = document.getElementById('moreOverlay');
-      if(!btn || !menu || !overlay) return;
-
-      function lockScroll(lock){
-        document.body.style.overflow = lock ? 'hidden' : '';
-        document.body.style.touchAction = lock ? 'none' : '';
-      }
-      function openMenu(){
-        overlay.hidden = false; menu.hidden = false;
-        requestAnimationFrame(() => menu.classList.add('open'));
-        btn.setAttribute('aria-expanded','true');
-        lockScroll(true);
-      }
-      function closeMenu(){
-        menu.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
-        setTimeout(()=>{ menu.hidden=true; overlay.hidden=true; lockScroll(false); },180);
-      }
-
-      btn.addEventListener('click',(e)=>{
-        e.preventDefault();
-        const isOpen = btn.getAttribute('aria-expanded') === 'true';
-        isOpen ? closeMenu() : openMenu();
-      });
-      overlay.addEventListener('click', closeMenu);
-      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') closeMenu(); });
-    })();
+    });
+  })();
   </script>
 </body>
 </html>
