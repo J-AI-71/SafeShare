@@ -1,30 +1,27 @@
-<!-- Datei: /url-cleaner-tool-vergleich/index.html (DE) -->
+<!-- /url-cleaner-tool-vergleich/index.html (DE) -->
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
-  <title>URL Cleaner Vergleich – SafeShare vs. andere Tools</title>
-  <meta name="description" content="URL-Cleaner vergleichen: local-first vs. Server, Audit & Allowlist vs. Blackbox. SafeShare App & Pro im Überblick." />
+  <title>URL-Cleaner Vergleich – SafeShare vs. andere Tools</title>
+  <meta name="description" content="SafeShare vs. andere URL-Cleaner: local-first, kein Upload. Vergleich von Browser-Funktionen, Erweiterungen und Online-Tools – Fokus: Kontrolle, Audit, Allowlist." />
   <meta name="robots" content="index,follow" />
-  <meta name="color-scheme" content="dark light" />
-  <meta name="theme-color" content="#111111" />
 
-  <!-- Canonical -->
   <link rel="canonical" href="https://safesharepro.com/url-cleaner-tool-vergleich/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/url-cleaner-tool-vergleich/" />
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/url-cleaner-comparison/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/url-cleaner-comparison/" />
 
-  <!-- Google Search Console -->
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#111111" />
+
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
-  <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Open Graph / Social Preview -->
   <meta property="og:title" content="URL-Cleaner Vergleich – SafeShare" />
-  <meta property="og:description" content="Vergleich: URL-Cleaner Tools und Methoden, um Tracking-Parameter aus Links zu entfernen. Fokus: local-first, ohne Upload – SafeShare." />
+  <meta property="og:description" content="SafeShare vs. andere URL-Cleaner: local-first (kein Upload). App vs. Pro (Audit + Allowlist). Was zählt: Kontrolle und Transparenz." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:url" content="https://safesharepro.com/url-cleaner-tool-vergleich/" />
@@ -33,23 +30,20 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="URL-Cleaner Vergleich – SafeShare" />
-  <meta name="twitter:description" content="URL-Cleaner Tools vergleichen: Tracking-Parameter entfernen – local-first, ohne Upload." />
+  <meta name="twitter:description" content="SafeShare vs. andere URL-Cleaner: local-first, kein Upload. Vergleich – Fokus: Kontrolle, Audit, Allowlist." />
   <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.jpg" />
   <meta name="twitter:image:alt" content="SafeShare – URL-Cleaner Vergleich (Vorschau)" />
 
-  <!-- Favicons + PWA (bei Folder-URLs immer absolut) -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-01" />
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01" />
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-25-01">
+  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01">
 
   <!-- MASTER SHELL (NAV) -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-03" />
-  <script src="/js/ss-shell.js?v=2026-01-25-03" defer></script>
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-03">
 
   <style>
     :root{
@@ -68,6 +62,7 @@
       --ok: rgba(47,227,183,.16);
       --bad: rgba(255,84,84,.14);
       --max: 1120px;
+      --focus: 0 0 0 3px rgba(47,227,183,.22);
     }
     @media (prefers-color-scheme: light){
       :root{
@@ -81,6 +76,7 @@
         --warn: rgba(255,197,84,.22);
         --ok: rgba(47,227,183,.18);
         --bad: rgba(255,84,84,.12);
+        --focus: 0 0 0 3px rgba(17,130,98,.22);
       }
     }
     *{ box-sizing:border-box; }
@@ -95,6 +91,9 @@
     }
     a{ color:inherit; text-decoration:none; }
     .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
+    .muted{ color: var(--muted); }
+    .muted2{ color: var(--muted2); }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
 
     .card{
       margin-top: 14px;
@@ -121,9 +120,7 @@
       font-size: 14px;
       cursor:pointer;
       user-select:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
+      display:inline-flex; align-items:center; gap: 8px;
     }
     .btn:hover{ background: rgba(255,255,255,.10); }
     .btn.primary{ background: var(--mint2); border-color: rgba(47,227,183,.35); }
@@ -192,168 +189,266 @@
     .yes{ color: var(--text); font-weight: 800; }
     .no{ color: var(--muted2); }
     .maybe{ color: var(--text); opacity: .86; }
-
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 14px;
-    }
-    @media(min-width: 920px){
-      .footGrid{ grid-template-columns: 1.2fr .8fr; }
-    }
-    .footLinks{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-start;
-    }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
   </style>
 </head>
 
 <body>
-  <!-- NAV -->
+  <!-- NAV (Shell) -->
   <div id="ss-shell"></div>
 
   <div class="wrap">
-
+    <!-- HERO -->
     <section class="card">
-      <h1>URL Cleaner Vergleich</h1>
+      <h1>URL-Cleaner Vergleich</h1>
       <p>
-        Viele Tools „reinigen URLs“. Der Unterschied ist weniger „ob“, sondern <b>wie</b>:
-        local-first vs. Server, <b>Regeln/Audit</b> vs. Blackbox, <b>Allowlist</b> vs. „alles weg“.
+        Viele Tools „reinigen URLs“. Die entscheidenden Unterschiede sind:
+        <b>wo</b> die Bereinigung passiert (auf deinem Gerät vs. auf einem fremden Server),
+        <b>wie viel Kontrolle</b> du bekommst (Regeln/Allowlist),
+        und ob du <b>prüfen kannst, was geändert wurde</b> (Audit).
       </p>
       <div class="row">
-        <a class="btn primary" href="/app/">App testen</a>
+        <a class="btn primary" href="/app/">SafeShare testen</a>
         <a class="btn" href="/pro/">Pro: Audit &amp; Allowlist</a>
-        <a class="btn ghost" href="/schule/">Schule</a>
+        <a class="btn ghost" href="/tracking-parameter/">Lernen: Tracking-Parameter</a>
       </div>
       <div class="note">
-        SafeShare: local-first im Browser. Pro: Audit + Allowlist/Policies (für Profis/Publishing/Teams).
+        SafeShare ist local-first (läuft im Browser). Pro ergänzt Audit + Allowlist/Policies für professionelle Workflows.
       </div>
     </section>
 
+    <!-- KNOWN OPTIONS -->
     <section class="card">
-      <h2>Typische Tool-Klassen</h2>
+      <h2>Bekannte Ansätze (mit Beispielen)</h2>
+
       <div class="grid2">
         <div class="box">
-          <h3>Online URL Cleaner (Server)</h3>
+          <h3>Browser-Funktionen (teilweise)</h3>
+          <p>
+            Manche Browser entfernen oder begrenzen bestimmte Tracking-Bestandteile automatisch —
+            meist nur in engen Kontexten (z. B. Privatmodus oder bestimmte Share-Oberflächen).
+          </p>
           <ul>
-            <li>Du fügst den Link auf einer Website ein.</li>
-            <li>Die Verarbeitung passiert auf einem Server.</li>
-            <li>Je nach Anbieter: Link-Daten verlassen dein Gerät.</li>
-          </ul>
-          <div class="warn">
-            Für sensible Links (Tokens/Signaturen) ist „Server-Cleaning“ oft unnötig riskant.
-          </div>
-        </div>
-        <div class="box">
-          <h3>Browser-Extensions / OS-Apps</h3>
-          <ul>
-            <li>Bequem: automatisch beim Surfen/Teilen.</li>
-            <li>Aber: breitere Berechtigungen, mehr Angriffsfläche.</li>
-            <li>Audit/Allowlist sind oft nicht transparent genug.</li>
+            <li><b>Vorteile:</b> Keine Installation, wenig Reibung.</li>
+            <li><b>Nachteile:</b> Begrenzter Umfang, wenig Transparenz („was genau wurde entfernt?“).</li>
           </ul>
           <div class="note">
-            Wenn du nur beim Teilen säubern willst: ein schlanker „Copy → Clean → Share“-Flow reicht meistens.
+            Als Basis gut – aber meist kein Workflow: du kannst selten auditieren, feinjustieren oder Policies pro Domain anwenden.
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>Browser-Erweiterungen (automatisch)</h3>
+          <p>
+            Erweiterungen können Parameter beim Surfen/Teilen entfernen (z. B. ClearURLs oder „clean link“-Helfer).
+          </p>
+          <ul>
+            <li><b>Vorteile:</b> Bequem, oft breite Regelsätze.</li>
+            <li><b>Nachteile:</b> Extra-Komponente + Berechtigungen; Verhalten fühlt sich schnell wie eine Blackbox an.</li>
+          </ul>
+          <div class="warn">
+            Komfort ist gut — aber bei sensiblen Links (Tokens/Signaturen) kann „automatisch überall“ riskant sein.
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>Adblocker / Filterregeln (Power-User)</h3>
+          <p>
+            Manche nutzen Blocker-Regeln zum Entfernen von Parametern (z. B. <span class="mono">removeparam</span>).
+            Das kann sehr mächtig und flexibel sein.
+          </p>
+          <ul>
+            <li><b>Vorteile:</b> Sehr viel Kontrolle für Expert:innen.</li>
+            <li><b>Nachteile:</b> Setup/Debugging komplex; zu aggressives Entfernen passiert schnell.</li>
+          </ul>
+          <div class="note">
+            Wenn du „einfach vor dem Teilen“ reinigen willst (nicht „mein ganzes Browsing-Setup tunen“): SafeShare ist leichter.
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>Online-URL-Cleaner (Server)</h3>
+          <p>Du fügst einen Link auf einer Website ein und bekommst einen „bereinigten“ Link zurück.</p>
+          <ul>
+            <li><b>Vorteile:</b> Einfach, funktioniert auf jedem Gerät.</li>
+            <li><b>Nachteile:</b> Der Link verlässt dein Gerät (und kann sensible Daten enthalten).</li>
+          </ul>
+          <div class="bad">
+            Wenn eine URL Tokens, Signaturen, private IDs oder Einmal-Links enthält: serverseitige Bereinigung ist oft ein unnötiges Risiko.
           </div>
         </div>
       </div>
     </section>
 
+    <!-- COMPARISON TABLE -->
     <section class="card">
-      <h2>Vergleich: Was ist in der Praxis wichtig?</h2>
+      <h2>Vergleich: Was zählt in der Praxis?</h2>
 
       <div class="tableWrap" role="region" aria-label="Vergleichstabelle" tabindex="0">
-        <table class="table" aria-label="Vergleich SafeShare vs typische Tools">
+        <table class="table" aria-label="Vergleich SafeShare vs. Ansätze">
           <tr>
             <th>Kriterium</th>
             <th>SafeShare App</th>
             <th>SafeShare Pro</th>
-            <th>Typische Cleaner (online/extension)</th>
+            <th>Browser-Funktionen</th>
+            <th>Erweiterungen / Blocker</th>
+            <th>Online-Cleaner</th>
           </tr>
+
           <tr>
             <td><b>Local-first (Link bleibt auf deinem Gerät)</b></td>
             <td class="yes">Ja</td>
             <td class="yes">Ja</td>
-            <td class="maybe">Manchmal / unklar</td>
+            <td class="yes">Meist</td>
+            <td class="yes">Meist</td>
+            <td class="no">Nein</td>
           </tr>
+
           <tr>
-            <td><b>Audit: „Was wurde geändert?“</b></td>
+            <td><b>Expliziter „vor dem Teilen reinigen“-Workflow</b></td>
+            <td class="yes">Ja</td>
+            <td class="yes">Ja</td>
+            <td class="maybe">Teilweise</td>
+            <td class="maybe">Kommt drauf an</td>
+            <td class="yes">Ja</td>
+          </tr>
+
+          <tr>
+            <td><b>Audit: „was wurde geändert?“ (entfernt vs. behalten)</b></td>
             <td class="no">Nein</td>
             <td class="yes">Ja</td>
             <td class="no">Selten</td>
+            <td class="maybe">Manchmal</td>
+            <td class="no">Selten</td>
           </tr>
+
           <tr>
-            <td><b>Allowlist: bewusst behalten (Affiliate/Funktion)</b></td>
+            <td><b>Allowlist: bewusst behalten (Affiliate/funktional)</b></td>
             <td class="no">Nein</td>
             <td class="yes">Ja</td>
-            <td class="maybe">Teilweise / meist grob</td>
+            <td class="no">Nein</td>
+            <td class="maybe">Manchmal</td>
+            <td class="no">Nein</td>
           </tr>
+
           <tr>
-            <td><b>Policies/Presets (konservativ ↔ aggressiv)</b></td>
-            <td class="maybe">Standard-Fokus</td>
+            <td><b>Policy-Modi (konservativ ↔ aggressiv)</b></td>
+            <td class="maybe">Default-Fokus</td>
             <td class="yes">Ja</td>
-            <td class="maybe">Teilweise</td>
+            <td class="no">Nein</td>
+            <td class="maybe">Kommt drauf an</td>
+            <td class="no">Nein</td>
           </tr>
+
+          <tr>
+            <td><b>Risiko, funktionale Keys zu brechen</b></td>
+            <td class="maybe">Gering</td>
+            <td class="yes">Kontrolliert (Audit)</td>
+            <td class="maybe">Gering</td>
+            <td class="maybe">Mittel</td>
+            <td class="maybe">Mittel</td>
+          </tr>
+
           <tr>
             <td><b>Offline nutzbar</b></td>
             <td class="yes">Ja</td>
             <td class="yes">Ja (Offline-Download)</td>
-            <td class="maybe">Abhängig</td>
-          </tr>
-          <tr>
-            <td><b>„Alles weg“-Risiko (funktionale Keys entfernen)</b></td>
-            <td class="maybe">Niedrig</td>
-            <td class="yes">Kontrolliert (Audit)</td>
-            <td class="maybe">Je nach Tool</td>
+            <td class="yes">Ja</td>
+            <td class="yes">Ja</td>
+            <td class="no">Nein</td>
           </tr>
         </table>
       </div>
 
       <div class="warn">
-        Profi-Fazit: „Maximal entfernen“ ist nicht automatisch besser.
+        Praxis-Fazit: „so viel wie möglich entfernen“ ist nicht automatisch besser.
         Entscheidend sind <b>Kontrolle</b> (Allowlist/Policies) und <b>Nachvollziehbarkeit</b> (Audit).
       </div>
     </section>
 
+    <!-- QUICK NOTES -->
     <section class="card">
-      <h2>Welche Lösung passt wann?</h2>
+      <h2>Kurznotizen zu bekannten Optionen</h2>
+
       <div class="grid2">
         <div class="box">
-          <h3>Wenn du „nur teilen“ willst</h3>
+          <h3>ClearURLs-ähnliche Erweiterungen</h3>
+          <p>
+            Gut, wenn du breite, automatische Entfernung bekannter Tracking-Parameter willst.
+            Nachteil: du merkst Fehler oft erst spät — und im Team ist es schwerer zu erklären/reproduzieren.
+          </p>
           <ul>
-            <li>Copy → in SafeShare App einfügen → bereinigen → teilen</li>
-            <li>Entfernt typische Tracking-Etiketten (UTM, Klick-IDs)</li>
-            <li>Ohne extra Berechtigungen, ohne Upload</li>
+            <li><b>Gut für:</b> Privates Browsing, Komfort</li>
+            <li><b>Weniger gut für:</b> Publishing/Teams mit Audit- und Policy-Anspruch</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>Blocker-Regelsätze (removeparam)</h3>
+          <p>
+            Extrem mächtig für Expert:innen — du definierst, welche Parameter entfernt werden (global oder pro Seite).
+            Der Preis ist Komplexität und Debugging-Aufwand.
+          </p>
+          <ul>
+            <li><b>Gut für:</b> Power-User mit getuntem Privacy-Stack</li>
+            <li><b>Weniger gut für:</b> „Ich will in 5 Sekunden einen sauberen Share-Link“</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>Browser-Link-Schutz</h3>
+          <p>
+            Eingebaute Funktionen reduzieren Link-Tracking in bestimmten Kontexten (z. B. Privatmodus).
+            Gute Basis — aber selten ein transparenter, wiederholbarer Workflow.
+          </p>
+          <ul>
+            <li><b>Gut für:</b> Passive Basisschutz-Ebene</li>
+            <li><b>Weniger gut für:</b> Audits, Allowlists, redaktionelle Policies</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h3>Online-URL-Cleaner</h3>
+          <p>
+            Funktioniert sofort auf jedem Gerät — aber dein Link wird auf einem Server verarbeitet, den du nicht kontrollierst.
+            Für sensible Links kann das der falsche Trade sein.
+          </p>
+          <ul>
+            <li><b>Gut für:</b> Nicht-sensible Links, einmalige Nutzung</li>
+            <li><b>Weniger gut für:</b> Tokens, private IDs, interne Links</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note">
+        SafeShare-Positionierung: Link-Hygiene beim Teilen ohne „Unsichtbar“-Versprechen.
+        Du bereinigst die URL selbst, behältst Kontrolle und bleibst local-first.
+      </div>
+    </section>
+
+    <!-- WHICH FITS WHEN -->
+    <section class="card">
+      <h2>Welche Option passt wann?</h2>
+
+      <div class="grid2">
+        <div class="box">
+          <h3>Wenn du einfach sauber teilen willst</h3>
+          <ul>
+            <li>Kopieren → in SafeShare einfügen → bereinigen → teilen</li>
+            <li>Entfernt typische Tracking-Labels (UTM, Click-IDs)</li>
+            <li>Kein Upload, keine Extra-Berechtigungen</li>
           </ul>
           <div class="row">
             <a class="btn primary" href="/app/">App öffnen</a>
-            <a class="btn" href="/lesezeichen/">1-Klick</a>
+            <a class="btn" href="/lesezeichen/">1-Click Lesezeichen</a>
           </div>
         </div>
+
         <div class="box">
-          <h3>Wenn du veröffentlichst (Publisher/Team)</h3>
+          <h3>Wenn du publizierst oder im Team arbeitest</h3>
           <ul>
-            <li>Du musst manchmal Attribution behalten (Affiliate/Partner).</li>
-            <li>Du brauchst Nachvollziehbarkeit: Was wurde entfernt, was blieb?</li>
-            <li>Du willst eine wiederholbare Policy (konservativ/standard/aggressiv).</li>
+            <li>Manchmal muss Attribution bleiben (Affiliate/Partner).</li>
+            <li>Du brauchst „Beweis“: was wurde entfernt, was blieb?</li>
+            <li>Du willst wiederholbare Policies (konservativ/standard/aggressiv).</li>
           </ul>
           <div class="row">
             <a class="btn primary" href="/pro/">Pro ansehen</a>
@@ -362,121 +457,15 @@
         </div>
       </div>
 
-      <div class="note">
-        SafeShare kommuniziert bewusst „Link-Hygiene“ – kein Unsichtbar-Versprechen.
-        Es reduziert Ballast im Link selbst und macht Sharing sauberer.
+      <div class="row" style="margin-top:12px">
+        <a class="btn ghost" href="/utm-parameter-entfernen/">UTM-Guide</a>
+        <a class="btn ghost" href="/tracking-parameter/">Tracking-Parameter erklärt</a>
+        <a class="btn ghost" href="/en/url-cleaner-comparison/" title="English">EN</a>
       </div>
     </section>
-
-    <footer>
-      <div class="footGrid">
-        <div>
-          <div><strong>SafeShare</strong> – Links teilen. Ohne Ballast.</div>
-          <div>App: schnell &amp; einfach · Pro: Policies, Whitelist, Audit.</div>
-        </div>
-
-        <div class="footLinks">
-          <a href="/" data-page="start">Start</a>
-          <a href="/app/" data-page="app">App</a>
-          <a href="/schule/" data-page="schule">Schule</a>
-          <a href="/utm-parameter-entfernen/" data-page="utm">UTM</a>
-          <a href="/tracking-parameter/" data-page="tracking">Tracking</a>
-          <a href="/url-cleaner-tool-vergleich/" data-page="vergleich">Tool-Vergleich</a>
-          <a href="/lesezeichen/" data-page="lesezeichen">Lesezeichen</a>
-          <a href="/pro/" data-page="pro">Pro</a>
-          <a href="/hilfe/" data-page="hilfe">Hilfe</a>
-          <a href="/datenschutz/" data-page="datenschutz">Datenschutz</a>
-          <a href="/impressum/" data-page="impressum">Impressum</a>
-          <a href="/nutzungsbedingungen/" data-page="terms">Nutzungsbedingungen</a>
-        </div>
-      </div>
-    </footer>
-
   </div>
 
-  <!-- Mehr (Bottom-Sheet) -->
-  <div class="moreOverlay" id="moreOverlay" hidden></div>
-
-  <nav class="moreMenu" id="moreMenu" role="menu" aria-label="Mehr" hidden>
-    <div class="menuHint">Support</div>
-    <a href="/hilfe/#kontakt" data-page="hilfe">Support / Kontakt</a>
-
-    <div class="divider"></div>
-
-    <div class="menuHint">Wissen</div>
-    <a href="/schule/" data-page="schule">Schule</a>
-    <a href="/utm-parameter-entfernen/" data-page="utm">UTM</a>
-    <a href="/tracking-parameter/" data-page="tracking">Tracking</a>
-    <a href="/url-cleaner-tool-vergleich/" data-page="vergleich">Tool-Vergleich</a>
-    <a href="/lesezeichen/" data-page="lesezeichen">Lesezeichen</a>
-
-    <div class="divider"></div>
-
-    <div class="menuHint">Rechtliches</div>
-    <a href="/datenschutz/" data-page="datenschutz">Datenschutz</a>
-    <a href="/impressum/" data-page="impressum">Impressum</a>
-    <a href="/nutzungsbedingungen/" data-page="terms">Nutzungsbedingungen</a>
-  </nav>
-
-  <script>
-  (function(){
-    // ===== Active state (Folder-only) =====
-    function currentKey(){
-      const p = (location.pathname || '/').toLowerCase();
-      if (p === '/' || p === '/index.html') return 'start';
-      if (p.startsWith('/app')) return 'app';
-      if (p.startsWith('/schule')) return 'schule';
-      if (p.startsWith('/pro')) return 'pro';
-      if (p.startsWith('/hilfe')) return 'hilfe';
-      if (p.startsWith('/lesezeichen')) return 'lesezeichen';
-      if (p.startsWith('/datenschutz')) return 'datenschutz';
-      if (p.startsWith('/impressum')) return 'impressum';
-      if (p.startsWith('/nutzungsbedingungen')) return 'terms';
-      if (p.startsWith('/tracking-parameter')) return 'tracking';
-      if (p.startsWith('/utm-parameter-entfernen')) return 'utm';
-      if (p.startsWith('/url-cleaner-tool-vergleich')) return 'vergleich';
-      if (p.startsWith('/quickstart')) return 'quickstart';
-      return '';
-    }
-
-    const key = currentKey();
-    if (key){
-      document.querySelectorAll('[data-page]').forEach(el=>{
-        if (el.getAttribute('data-page') === key) el.classList.add('active');
-      });
-    }
-
-    // ===== Bottom-sheet open/close =====
-    const btn = document.getElementById('moreBtn');
-    const menu = document.getElementById('moreMenu');
-    const overlay = document.getElementById('moreOverlay');
-    if(!btn || !menu || !overlay) return;
-
-    function lockScroll(lock){
-      document.body.style.overflow = lock ? 'hidden' : '';
-      document.body.style.touchAction = lock ? 'none' : '';
-    }
-    function openMenu(){
-      overlay.hidden = false; menu.hidden = false;
-      requestAnimationFrame(() => menu.classList.add('open'));
-      btn.setAttribute('aria-expanded','true');
-      lockScroll(true);
-    }
-    function closeMenu(){
-      menu.classList.remove('open');
-      btn.setAttribute('aria-expanded','false');
-      setTimeout(()=>{ menu.hidden=true; overlay.hidden=true; lockScroll(false); },180);
-    }
-
-    btn.addEventListener('click',(e)=>{
-      e.preventDefault();
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      isOpen ? closeMenu() : openMenu();
-    });
-    overlay.addEventListener('click', closeMenu);
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') closeMenu(); });
-  })();
-  </script>
+  <!-- SHELL JS: genau 1× hier -->
+  <script src="/js/ss-shell.js?v=2026-02-01-01"></script>
 </body>
 </html>
