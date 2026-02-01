@@ -668,29 +668,31 @@
         }
       }
 
-      // ===== AUTO-CLEAN on paste/typing (debounced) =====
-      let autoTimer = null;
-      let lastAutoValue = "";
-      function scheduleAutoClean(){
+// ===== AUTO-CLEAN on paste/typing (debounced) =====
+let autoTimer = null;
+let lastAutoValue = "";
+
+function hideResultAndImpact(){
+  if (resultCard) resultCard.hidden = true;
+  showMsg('', '');
+  impactClearLastLine();
+  const impactCard = byId("ssImpactCard");
+  if (impactCard) impactCard.hidden = true;
+}
+
+function scheduleAutoClean(){
   const v = (input ? input.value : "").trim();
+
   if (!v){
-    if (resultCard) resultCard.hidden = true;
-    showMsg('', '');
-    impactClearLastLine();
-    const impactCard = byId("ssImpactCard");
-    if (impactCard) impactCard.hidden = true;
+    hideResultAndImpact();
     lastAutoValue = "";
     return;
   }
 
   if (v === lastAutoValue) return;
 
-  if (!extractFirstUrl(v)) {
-    if (resultCard) resultCard.hidden = true;
-    showMsg('', '');
-    impactClearLastLine();
-    const impactCard = byId("ssImpactCard");
-    if (impactCard) impactCard.hidden = true;
+  if (!extractFirstUrl(v)){
+    hideResultAndImpact();
     lastAutoValue = "";
     return;
   }
@@ -703,69 +705,61 @@
     doClean();
   }, 220);
 }
-   // Bindings
+
+// ===== Bindings =====
+on(input, "input", scheduleAutoClean);
+
 on(btnClean, "click", doClean);
 
 on(btnClear, "click", ()=>{
-  if (input) input.value = '';
-  if (resultCard) resultCard.hidden = true;
-  showMsg('', '');
-  impactClearLastLine();
-
-  const ic = byId("ssImpactCard");
-  if (ic) ic.hidden = true;
-
+  if (input) input.value = "";
+  hideResultAndImpact();
   lastAutoValue = "";
   if (input) input.focus();
 });
-        
-const impactCard = byId("ssImpactCard");
-if (impactCard) impactCard.hidden = true;
-        
-        lastAutoValue = "";
+
+on(btnPaste, "click", async ()=>{
+  showMsg('', '');
+  try{
+    if (navigator.clipboard && navigator.clipboard.readText){
+      const tclip = await navigator.clipboard.readText();
+      if (tclip && tclip.trim()){
+        if (input) input.value = tclip.trim();
         if (input) input.focus();
-      });
+        scheduleAutoClean(); // <-- triggert Auto-Clean
+        return;
+      }
+    }
+    showMsg('note', t('pasteNote'));
+    if (input) input.focus();
+  }catch(e){
+    showMsg('note', t('pasteNote'));
+    if (input) input.focus();
+  }
+});
 
-      on(btnPaste, "click", async ()=>{
-        showMsg('', '');
-        try{
-          if (navigator.clipboard && navigator.clipboard.readText){
-            const tclip = await navigator.clipboard.readText();
-            if (tclip && tclip.trim()){
-              if (input) input.value = tclip.trim();
-              if (input) input.focus();
-              scheduleAutoClean();
-              return;
-            }
-          }
-          showMsg('note', 'iPad/Safari: Tippe ins Feld und nutze „Einfügen“. Der Browser blockiert Zwischenablage manchmal.');
-          if (input) input.focus();
-        }catch(e){
-          showMsg('note', 'iPad/Safari: Tippe ins Feld und nutze „Einfügen“. Der Browser blockiert Zwischenablage manchmal.');
-          if (input) input.focus();
-        }
-      });
+on(btnCopy, "click", async ()=>{
+  const text = (outUrl && outUrl.textContent || '').trim();
+  if(!text) return;
+  await copyText(text);
+  const old = btnCopy.textContent;
+  btnCopy.textContent = t('copied');
+  setTimeout(()=>btnCopy.textContent=old, 1200);
+});
 
-      on(btnCopy, "click", async ()=>{
-        const text = (outUrl && outUrl.textContent || '').trim();
-        if(!text) return;
-        await copyText(text);
-        const old = btnCopy.textContent;
-        btnCopy.textContent = 'Kopiert ✓';
-        setTimeout(()=>btnCopy.textContent=old, 900);
-      });
+on(btnShare, "click", async ()=>{
+  const text = (outUrl && outUrl.textContent || '').trim();
+  if(!text) return;
 
-      on(btnShare, "click", async ()=>{
-        const text = (outUrl && outUrl.textContent || '').trim();
-        if(!text) return;
-        if (navigator.share){
-          try{ await navigator.share({ url: text }); return; }catch(e){}
-        }
-        await copyText(text);
-        showMsg('note', 'Teilen ist nicht verfügbar (oder abgebrochen) — Link wurde kopiert.');
-      });
-
-      on(input, "input", scheduleAutoClean);
+  if (navigator.share){
+    try{
+      await navigator.share({ url: text });
+      return;
+    }catch(e){}
+  }
+  await copyText(text);
+  showMsg('note', t('shareFallback'));
+});
 
       // Prefill via ?url=... (auto-run) or ?u=...&run=1
       (function(){
