@@ -330,20 +330,37 @@
     }
     .moreMenu a:last-child{ margin-bottom: 0; }
     .moreMenu a:hover{ color: var(--text); background: rgba(255,255,255,.08); }
+    /* HERO CTA Boost */
+    .heroRow{ display:grid; gap: 10px; margin-top: 12px; }
+    .heroSecondary{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+
+    .btn.cta{
+      font-size: 15px;
+      padding: 14px 16px;
+      min-height: 48px;
+      border-radius: 16px;
+      box-shadow: 0 12px 34px rgba(0,0,0,.28);
+      letter-spacing: .1px;
+    }
+    .btn.primary.cta{ color: #061016; }
+
+    .heroMeta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      font-size: 12px;
+      color: var(--muted2);
+    }
+    .heroMeta a{ color: var(--muted2); text-decoration: underline; text-underline-offset: 3px; }
+    .heroMeta a:hover{ color: var(--text); }
+    .heroDot{ opacity:.35; }
   </style>
 </head>
-
 <body>
   <!-- STEP 3 (Master-Shell) -->
  <div id="ss-shell"></div>
 
   <div class="wrap">
-
-    <!-- ALT HEADER/NAV:
-         Diese Blöcke sind jetzt durch ss-shell.js ersetzt.
-         Du solltest sie später löschen, damit es nicht doppelt ist.
-         Ich lasse sie hier NICHT mehr drin (sonst wäre es doppelt).
-    -->
 
     <!-- HERO -->
     <section class="card">
@@ -364,11 +381,19 @@
         />
       </div>
 
-      <div class="row">
-        <a class="btn primary" href="/app/">Jetzt bereinigen</a>
-        <a class="btn" href="/schule/">SafeShare Schule</a>
-        <a class="btn ghost" href="/pro/">Pro für Profis</a>
-      </div>
+      <div class="heroRow">
+  <a class="btn primary cta" href="/app/">Jetzt bereinigen</a>
+  <div class="heroMeta">
+    <span>100% lokal im Browser</span><span class="heroDot">•</span>
+    <span>keine Anmeldung</span><span class="heroDot">•</span>
+    <a href="/hilfe/">Wie funktioniert das?</a>
+  </div>
+
+  <div class="heroSecondary">
+    <a class="btn" href="/schule/">SafeShare Schule</a>
+    <a class="btn ghost" href="/pro/">Pro für Profis</a>
+  </div>
+</div>
 
       <div class="note">
         SafeShare arbeitet <b>local-first</b>: Bereinigung im Browser. Links werden nicht hochgeladen.
