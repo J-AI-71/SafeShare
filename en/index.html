@@ -137,6 +137,7 @@
     }
     .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
 
+
     /* Hero */
     .hero{
       display:grid;
@@ -219,9 +220,32 @@
       color: var(--muted);
     }
     .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
+    /* HERO CTA Boost */
+    .heroRow{ display:grid; gap: 10px; margin-top: 12px; }
+    .heroSecondary{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+
+    .btn.cta{
+      font-size: 15px;
+      padding: 14px 16px;
+      min-height: 48px;
+      border-radius: 16px;
+      box-shadow: 0 12px 34px rgba(0,0,0,.28);
+      letter-spacing: .1px;
+    }
+    .btn.primary.cta{ color: #061016; }
+
+    .heroMeta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      font-size: 12px;
+      color: var(--muted2);
+    }
+    .heroMeta a{ color: var(--muted2); text-decoration: underline; text-underline-offset: 3px; }
+    .heroMeta a:hover{ color: var(--text); }
+    .heroDot{ opacity:.35; }
   </style>
 </head>
-
 <body>
   <!-- Master-Shell -->
   <div id="ss-shell"></div>
@@ -238,11 +262,19 @@
             Useful for analytics, unnecessary when you forward or share.
           </p>
 
-          <div class="row">
-            <a class="btn primary" href="/en/app/">Open App</a>
-            <a class="btn" href="/en/help/">Help</a>
-            <a class="btn ghost" href="/en/pro/">Pro</a>
-          </div>
+       <div class="heroRow">
+  <a class="btn primary cta" href="/en/app/">Clean now</a>
+  <div class="heroMeta">
+    <span>100% local in your browser</span><span class="heroDot">•</span>
+    <span>no signup</span><span class="heroDot">•</span>
+    <a href="/en/help/">How it works</a>
+  </div>
+
+  <div class="heroSecondary">
+    <a class="btn" href="/en/school/">SafeShare School</a>
+    <a class="btn ghost" href="/en/pro/">Pro for teams</a>
+  </div>
+</div>
 
           <div class="note">
             SafeShare removes common tracking parameters locally in your browser. Nothing is uploaded.
