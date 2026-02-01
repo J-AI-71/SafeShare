@@ -672,40 +672,52 @@
       let autoTimer = null;
       let lastAutoValue = "";
       function scheduleAutoClean(){
-        const v = (input ? input.value : "").trim();
-        if (!v){
-          if (resultCard) resultCard.hidden = true;
-          showMsg('', '');
-          impactClearLastLine();
-const impactCard = byId("ssImpactCard");
-if (impactCard) impactCard.hidden = true;
-          
-          lastAutoValue = "";
-          return;
-        }
-        if (v === lastAutoValue) return;
-        if (!extractFirstUrl(v)) return;
+  const v = (input ? input.value : "").trim();
+  if (!v){
+    if (resultCard) resultCard.hidden = true;
+    showMsg('', '');
+    impactClearLastLine();
+    const impactCard = byId("ssImpactCard");
+    if (impactCard) impactCard.hidden = true;
+    lastAutoValue = "";
+    return;
+  }
 
-        clearTimeout(autoTimer);
-        autoTimer = setTimeout(() => {
-          const now = (input ? input.value : "").trim();
-          if (now !== v) return;
-          lastAutoValue = v;
-          doClean();
-        }, 220);
-      }
+  if (v === lastAutoValue) return;
 
-      // Bindings
-      on(btnClean, "click", doClean);
+  if (!extractFirstUrl(v)) {
+    if (resultCard) resultCard.hidden = true;
+    showMsg('', '');
+    impactClearLastLine();
+    const impactCard = byId("ssImpactCard");
+    if (impactCard) impactCard.hidden = true;
+    lastAutoValue = "";
+    return;
+  }
 
-      on(btnClear, "click", ()=>{
-        if (input) input.value = '';
-       if (resultCard) resultCard.hidden = true;
-showMsg('', '');
-impactClearLastLine();
+  clearTimeout(autoTimer);
+  autoTimer = setTimeout(() => {
+    const now = (input ? input.value : "").trim();
+    if (now !== v) return;
+    lastAutoValue = v;
+    doClean();
+  }, 220);
+}
+   // Bindings
+on(btnClean, "click", doClean);
 
-const ic = byId("ssImpactCard");
-if (ic) ic.hidden = true;
+on(btnClear, "click", ()=>{
+  if (input) input.value = '';
+  if (resultCard) resultCard.hidden = true;
+  showMsg('', '');
+  impactClearLastLine();
+
+  const ic = byId("ssImpactCard");
+  if (ic) ic.hidden = true;
+
+  lastAutoValue = "";
+  if (input) input.focus();
+});
         
 const impactCard = byId("ssImpactCard");
 if (impactCard) impactCard.hidden = true;
