@@ -1,11 +1,11 @@
-<!-- /app/index.html (DE) -->
+<!-- /app/index.html (DE) — SafeShare App -->
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>SafeShare App – Links bereinigen & sauber teilen (local-first)</title>
-  <meta name="description" content="URL reinigen: SafeShare entfernt Tracking-Parameter (utm_*, gclid, fbclid …) und entpackt Redirects – 100% lokal im Browser. Clean → Copy → Share.">
+  <meta name="description" content="URL reinigen: SafeShare entfernt Tracking-Parameter (utm_*, gclid, fbclid …) und entpackt Redirects – 100% lokal im Browser. Einfügen → (Auto) Bereinigen → Kopieren/Teilen." />
   <meta name="robots" content="index,follow" />
 
   <link rel="canonical" href="https://safesharepro.com/app/" />
@@ -16,11 +16,14 @@
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
+  <!-- Google Search Console -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
+  <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
+  <!-- Open Graph -->
   <meta property="og:title" content="SafeShare App – Links bereinigen & sauber teilen (local-first)" />
-  <meta property="og:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → Bereinigen → Kopieren/Teilen." />
+  <meta property="og:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → (Auto) Bereinigen → Kopieren/Teilen." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:url" content="https://safesharepro.com/app/" />
@@ -29,12 +32,14 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SafeShare App – Links bereinigen & sauber teilen" />
-  <meta name="twitter:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → Bereinigen → Kopieren/Teilen." />
+  <meta name="twitter:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → (Auto) Bereinigen → Kopieren/Teilen." />
   <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-01-21-01" />
   <meta name="twitter:image:alt" content="SafeShare App – Vorschau" />
 
+  <!-- Favicons + PWA -->
   <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01">
@@ -42,7 +47,8 @@
   <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01">
 
   <!-- MASTER SHELL (NAV) -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-03">
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-28-01">
+  <script src="/js/ss-shell.js?v=2026-02-01-01" defer></script>
 
   <style>
     :root{
@@ -103,7 +109,6 @@
     h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 42px); line-height: 1.10; letter-spacing:-.2px; }
     h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
     p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-    ul{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.6; }
     .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
     .btn{
       appearance:none;
@@ -321,477 +326,419 @@
   </div>
 
   <script>
-  (function(){
-    const byId = (id) => document.getElementById(id);
-    const on = (el, ev, fn) => el && el.addEventListener(ev, fn);
+    (function(){
+      const byId = (id) => document.getElementById(id);
+      const on = (el, ev, fn) => el && el.addEventListener(ev, fn);
 
-    const input = byId('urlInput');
-    const msg = byId('msg');
-    const resultCard = byId('resultCard');
-    const outUrl = byId('outUrl');
-    const auditRow = byId('auditRow');
-    const btnOpen = byId('btnOpen');
+      const input = byId('urlInput');
+      const msg = byId('msg');
+      const resultCard = byId('resultCard');
+      const outUrl = byId('outUrl');
+      const auditRow = byId('auditRow');
+      const btnOpen = byId('btnOpen');
 
-    const btnClean = byId('btnClean');
-    const btnClear = byId('btnClear');
-    const btnPaste = byId('btnPaste');
-    const btnCopy = byId('btnCopy');
-    const btnShare = byId('btnShare');
+      const btnClean = byId('btnClean');
+      const btnClear = byId('btnClear');
+      const btnPaste = byId('btnPaste');
+      const btnCopy = byId('btnCopy');
+      const btnShare = byId('btnShare');
 
-    const TRACKING_KEYS = new Set([
-      'gclid','dclid','gbraid','wbraid',
-      'fbclid','msclkid','igshid',
-      'twclid','ttclid','li_fat_id',
-      'yclid',
-      'mc_cid','mc_eid','mkt_tok',
-      '_hsenc','_hsmi',
-      'srsltid',
-      '_ga','_gid','_gac',
-      '_fbp','_fbc',
-      'obclid','tblci'
-    ]);
+      const TRACKING_KEYS = new Set([
+        'gclid','dclid','gbraid','wbraid',
+        'fbclid','msclkid','igshid',
+        'twclid','ttclid','li_fat_id',
+        'yclid',
+        'mc_cid','mc_eid','mkt_tok',
+        '_hsenc','_hsmi',
+        'srsltid',
+        '_ga','_gid','_gac',
+        '_fbp','_fbc',
+        'obclid','tblci'
+      ]);
 
-    function showMsg(type, text){
-      if (!msg) return;
-      msg.hidden = !text;
-      msg.className = (type === 'note') ? 'note' : 'warn';
-      msg.textContent = text || '';
-    }
-
-    function normalizeUrl(s){
-      s = (s || '').trim();
-      if (!s) return '';
-      if (!/^[a-zA-Z][a-zA-Z0-9+\-.]*:/.test(s)) {
-        if (s.startsWith('//')) s = 'https:' + s;
-        else s = 'https://' + s;
+      function showMsg(type, text){
+        if (!msg) return;
+        msg.hidden = !text;
+        msg.className = (type === 'note') ? 'note' : 'warn';
+        msg.textContent = text || '';
       }
-      return s;
-    }
 
-    function extractFirstUrl(text){
-      const s = String(text || "").trim();
-      if (!s) return "";
-      try { return new URL(normalizeUrl(s)).toString(); } catch(e) {}
-      const m = s.match(/https?:\/\/[^\s<>"']+/i) || s.match(/www\.[^\s<>"']+/i);
-      if (!m) return "";
-      let candidate = m[0].replace(/[)\]\}.,;:!?]+$/g, "");
-      try { return new URL(normalizeUrl(candidate)).toString(); } catch(e) { return ""; }
-    }
+      function normalizeUrl(s){
+        s = (s || '').trim();
+        if (!s) return '';
+        if (!/^[a-zA-Z][a-zA-Z0-9+\-.]*:/.test(s)) {
+          if (s.startsWith('//')) s = 'https:' + s;
+          else s = 'https://' + s;
+        }
+        return s;
+      }
 
-    const WRAP_KEYS = ["url","u","target","redirect","dest","destination"];
-    function looksLikeUrl(v){
-      const s = String(v || "").trim();
-      return /^https?:\/\//i.test(s) || s.startsWith("//") || /^www\./i.test(s);
-    }
-    function tryDecode(v){
-      let s = String(v || "").trim();
-      for (let i=0;i<2;i++){
+      function extractFirstUrl(text){
+        const s = String(text || "").trim();
+        if (!s) return "";
+        try { return new URL(normalizeUrl(s)).toString(); } catch(e) {}
+        const m = s.match(/https?:\/\/[^\s<>"']+/i) || s.match(/www\.[^\s<>"']+/i);
+        if (!m) return "";
+        let candidate = m[0].replace(/[)\]\}.,;:!?]+$/g, "");
+        try { return new URL(normalizeUrl(candidate)).toString(); } catch(e) { return ""; }
+      }
+
+      const WRAP_KEYS = ["url","u","target","redirect","dest","destination"];
+      function looksLikeUrl(v){
+        const s = String(v || "").trim();
+        return /^https?:\/\//i.test(s) || s.startsWith("//") || /^www\./i.test(s);
+      }
+      function tryDecode(v){
+        let s = String(v || "").trim();
+        for (let i=0;i<2;i++){
+          try{
+            const dec = decodeURIComponent(s);
+            if (dec !== s) s = dec;
+          }catch(e){}
+        }
+        return s;
+      }
+      function unwrapRedirectOnce(url){
+        for (const k of WRAP_KEYS){
+          const v0 = url.searchParams.get(k);
+          if (!v0) continue;
+          const v = tryDecode(v0);
+          if (!looksLikeUrl(v)) continue;
+          try{ return new URL(normalizeUrl(v)); }catch(e){}
+        }
+        return url;
+      }
+
+      function cleanUrl(raw){
+        const original = (raw || '').trim();
+        if (!original) throw new Error('Bitte einen Link einfügen.');
+
+        const extracted = extractFirstUrl(original);
+        if (!extracted) throw new Error('Kein gültiger Link gefunden (nur Text erkannt).');
+
+        let url;
+        try{ url = new URL(extracted); }
+        catch(e){ throw new Error('Das sieht nicht wie eine gültige URL aus.'); }
+
+        for (let i=0;i<3;i++){
+          const next = unwrapRedirectOnce(url);
+          if (next.toString() === url.toString()) break;
+          url = next;
+        }
+
+        const removed = [];
+        const kept = [];
+
+        const keys = [];
+        url.searchParams.forEach((_, k)=>keys.push(k));
+
+        keys.forEach((k)=>{
+          const low = (k || '').toLowerCase();
+          const isUtm = low.startsWith('utm_');
+          const isTracking = TRACKING_KEYS.has(low);
+          if (isUtm || isTracking){
+            url.searchParams.delete(k);
+            removed.push(k);
+          } else {
+            kept.push(k);
+          }
+        });
+
+        return { cleaned: url.toString(), removed, kept };
+      }
+
+      async function copyText(text){
         try{
-          const dec = decodeURIComponent(s);
-          if (dec !== s) s = dec;
-        }catch(e){}
-      }
-      return s;
-    }
-    function unwrapRedirectOnce(url){
-      for (const k of WRAP_KEYS){
-        const v0 = url.searchParams.get(k);
-        if (!v0) continue;
-        const v = tryDecode(v0);
-        if (!looksLikeUrl(v)) continue;
-        try{ return new URL(normalizeUrl(v)); }catch(e){}
-      }
-      return url;
-    }
-
-    function cleanUrl(raw){
-      const original = (raw || '').trim();
-      if (!original) throw new Error('Bitte einen Link einfügen.');
-
-      const extracted = extractFirstUrl(original);
-      if (!extracted) throw new Error('Kein gültiger Link gefunden (nur Text erkannt).');
-
-      let url;
-      try{ url = new URL(extracted); }
-      catch(e){ throw new Error('Das sieht nicht wie eine gültige URL aus.'); }
-
-      for (let i=0;i<3;i++){
-        const next = unwrapRedirectOnce(url);
-        if (next.toString() === url.toString()) break;
-        url = next;
+          await navigator.clipboard.writeText(text);
+          return true;
+        }catch(e){
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly','');
+          ta.style.position='fixed';
+          ta.style.left='-9999px';
+          ta.style.top='0';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          try{ document.execCommand('copy'); }catch(_){}
+          document.body.removeChild(ta);
+          return true;
+        }
       }
 
-      const removed = [];
-      const kept = [];
+      function auditChip(label, keys){
+        const span = document.createElement('span');
+        span.appendChild(document.createTextNode(label + ': '));
+        const mono = document.createElement('span');
+        mono.className = 'mono';
+        mono.textContent = keys.join(', ');
+        span.appendChild(mono);
+        return span;
+      }
 
-      const keys = [];
-      url.searchParams.forEach((_, k)=>keys.push(k));
+      function renderResult(res){
+        if (resultCard) resultCard.hidden = false;
+        if (outUrl) outUrl.textContent = res.cleaned;
+        if (btnOpen) btnOpen.href = res.cleaned;
 
-      keys.forEach((k)=>{
-        const low = (k || '').toLowerCase();
-        const isUtm = low.startsWith('utm_');
-        const isTracking = TRACKING_KEYS.has(low);
-        if (isUtm || isTracking){
-          url.searchParams.delete(k);
-          removed.push(k);
-        } else {
-          kept.push(k);
+        if (auditRow){
+          auditRow.innerHTML = '';
+          const r = Array.from(new Set(res.removed));
+          const k = Array.from(new Set(res.kept));
+
+          if (r.length || k.length){
+            auditRow.hidden = false;
+            if (r.length) auditRow.appendChild(auditChip('Entfernt', r));
+            if (k.length) auditRow.appendChild(auditChip('Behalten', k));
+          } else {
+            auditRow.hidden = true;
+          }
+        }
+      }
+
+      // ===== Impact (RAM-only, wirklich "Nach Reload weg") =====
+      const impactCard = byId("ssImpactCard");
+
+      const AD_ID_KEYS = new Set([
+        "gclid","dclid","gbraid","wbraid",
+        "fbclid","msclkid","ttclid","twclid","li_fat_id",
+        "igshid","yclid",
+        "mc_cid","mc_eid","mkt_tok",
+        "srsltid"
+      ]);
+
+      const __SS_IMPACT = window.__SS_IMPACT || (window.__SS_IMPACT = {
+        linksCleaned: 0,
+        paramsRemoved: 0,
+        utmRemoved: 0,
+        adIdsRemoved: 0,
+        lastUpdatedISO: ""
+      });
+      const __SS_SEEN = window.__SS_SEEN || (window.__SS_SEEN = Object.create(null));
+
+      function impactFormat(n){ try{ return new Intl.NumberFormat("de-DE").format(n); }catch(e){ return String(n); } }
+      function impactSetText(id, text){ const el = byId(id); if (el) el.textContent = text; }
+
+      function impactClearLastLine(){
+        const wrap = byId("ssImpactLastLineWrap");
+        const line = byId("ssImpactLastLine");
+        if (line) line.textContent = "";
+        if (wrap) wrap.hidden = true;
+      }
+
+      function impactWriteLastLine(removedKeys){
+        const wrap = byId("ssImpactLastLineWrap");
+        const lineEl = byId("ssImpactLastLine");
+        if (!wrap || !lineEl) return;
+
+        const keys = Array.isArray(removedKeys) ? removedKeys.map(k => String(k || "").trim()).filter(Boolean) : [];
+        if (!keys.length){ impactClearLastLine(); return; }
+
+        const removedCount = keys.length;
+        const utm = keys.filter(k => k.toLowerCase().startsWith("utm_")).length;
+        const ad  = keys.filter(k => AD_ID_KEYS.has(k.toLowerCase())).length;
+
+        lineEl.textContent = `Entfernt: ${removedCount} Parameter${ad ? ` (${ad} Ad-IDs)` : ""}${utm ? `, davon ${utm} UTM` : ""}`;
+        wrap.hidden = false;
+      }
+
+      function impactShowIfAny(){
+        if (!impactCard) return;
+        const hasAny = (__SS_IMPACT.linksCleaned || __SS_IMPACT.paramsRemoved || __SS_IMPACT.adIdsRemoved || __SS_IMPACT.utmRemoved);
+        impactCard.hidden = !hasAny;
+      }
+
+      function impactUpdateUI(){
+        impactSetText("ssImpactLinks", impactFormat(__SS_IMPACT.linksCleaned));
+        impactSetText("ssImpactParams", impactFormat(__SS_IMPACT.paramsRemoved));
+        impactSetText("ssImpactUTM", impactFormat(__SS_IMPACT.utmRemoved));
+        impactSetText("ssImpactAdIds", impactFormat(__SS_IMPACT.adIdsRemoved));
+        impactSetText("ssImpactUpdated", __SS_IMPACT.lastUpdatedISO ? new Date(__SS_IMPACT.lastUpdatedISO).toLocaleString("de-DE") : "—");
+        impactShowIfAny();
+      }
+
+      function signature(cleanedUrl, removedKeys){
+        const r = Array.isArray(removedKeys) ? removedKeys.map(k=>String(k||"").trim().toLowerCase()).filter(Boolean) : [];
+        r.sort();
+        return String(cleanedUrl || "") + "||" + r.join(",");
+      }
+
+      function impactAddIfNew(cleanedUrl, removedKeys){
+        const keys = Array.isArray(removedKeys) ? removedKeys.map(k => String(k || "").trim()).filter(Boolean) : [];
+        if (keys.length === 0) return false; // zählt nur wenn wirklich was entfernt wurde
+
+        const sig = signature(cleanedUrl, keys);
+        if (__SS_SEEN[sig]) return false;
+        __SS_SEEN[sig] = 1;
+
+        __SS_IMPACT.linksCleaned += 1;
+        __SS_IMPACT.paramsRemoved += keys.length;
+        __SS_IMPACT.utmRemoved += keys.filter(k => k.toLowerCase().startsWith("utm_")).length;
+        __SS_IMPACT.adIdsRemoved += keys.filter(k => AD_ID_KEYS.has(k.toLowerCase())).length;
+        __SS_IMPACT.lastUpdatedISO = new Date().toISOString();
+
+        impactUpdateUI();
+        impactWriteLastLine(keys);
+        return true;
+      }
+
+      function impactReset(){
+        for (const k in __SS_SEEN) delete __SS_SEEN[k];
+        __SS_IMPACT.linksCleaned = 0;
+        __SS_IMPACT.paramsRemoved = 0;
+        __SS_IMPACT.utmRemoved = 0;
+        __SS_IMPACT.adIdsRemoved = 0;
+        __SS_IMPACT.lastUpdatedISO = "";
+        impactUpdateUI();
+        impactClearLastLine();
+      }
+
+      function impactInit(){
+        impactUpdateUI();     // nach Reload startet bei 0 (RAM)
+        impactClearLastLine();
+        on(byId("ssImpactReset"), "click", impactReset);
+      }
+
+      // ===== Main clean =====
+      function doClean(){
+        showMsg('', '');
+        if (resultCard) resultCard.hidden = true;
+
+        try{
+          const res = cleanUrl(input ? input.value : "");
+          renderResult(res);
+
+          // Impact: zählt nur wenn removed + nur einmal pro Signature
+          impactAddIfNew(res.cleaned, res.removed);
+          impactUpdateUI();
+          impactShowIfAny();
+
+          if (!res.removed || res.removed.length === 0){
+            showMsg('note', 'Dieser Link sieht schon sauber aus (keine typischen Tracking-Parameter gefunden).');
+          }
+
+          setTimeout(()=>{
+            const rc = byId('resultCard');
+            if (rc && !rc.hidden) rc.scrollIntoView({behavior:'smooth', block:'start'});
+          }, 30);
+        }catch(e){
+          showMsg('warn', e.message || 'Fehler beim Bereinigen.');
+        }
+      }
+
+      // ===== AUTO-CLEAN (debounced) =====
+      let autoTimer = null;
+      let lastAutoValue = "";
+
+      function hideResultAndImpact(){
+        if (resultCard) resultCard.hidden = true;
+        showMsg('', '');
+        impactClearLastLine();
+        if (impactCard) impactCard.hidden = true; // nur UI verstecken
+      }
+
+      function scheduleAutoClean(){
+        const v = (input ? input.value : "").trim();
+
+        if (!v){
+          lastAutoValue = "";
+          hideResultAndImpact();
+          return;
+        }
+
+        if (v === lastAutoValue) return;
+
+        const u = extractFirstUrl(v);
+        if (!u){
+          lastAutoValue = "";
+          hideResultAndImpact();
+          return;
+        }
+
+        clearTimeout(autoTimer);
+        autoTimer = setTimeout(() => {
+          const now = (input ? input.value : "").trim();
+          if (now !== v) return;
+          lastAutoValue = v;
+          doClean();
+        }, 220);
+      }
+
+      // ===== Bindings =====
+      on(input, "input", scheduleAutoClean);
+
+      on(btnClean, "click", doClean);
+
+      on(btnClear, "click", ()=>{
+        if (input) input.value = "";
+        lastAutoValue = "";
+        hideResultAndImpact();
+        if (input) input.focus();
+      });
+
+      on(btnPaste, "click", async ()=>{
+        showMsg('', '');
+        try{
+          if (navigator.clipboard && navigator.clipboard.readText){
+            const tclip = await navigator.clipboard.readText();
+            if (tclip && tclip.trim()){
+              if (input) input.value = tclip.trim();
+              if (input) input.focus();
+              scheduleAutoClean();
+              return;
+            }
+          }
+          showMsg('note', 'iPad/Safari: Feld antippen und „Einsetzen“ nutzen. Zwischenablage-Zugriff kann manchmal blockiert sein.');
+          if (input) input.focus();
+        }catch(e){
+          showMsg('note', 'iPad/Safari: Feld antippen und „Einsetzen“ nutzen. Zwischenablage-Zugriff kann manchmal blockiert sein.');
+          if (input) input.focus();
         }
       });
 
-      return { cleaned: url.toString(), removed, kept };
-    }
+      on(btnCopy, "click", async ()=>{
+        const text = (outUrl && outUrl.textContent || '').trim();
+        if(!text) return;
+        await copyText(text);
+        const old = btnCopy.textContent;
+        btnCopy.textContent = 'Kopiert ✓';
+        setTimeout(()=>btnCopy.textContent=old, 900);
+      });
 
-    async function copyText(text){
-      try{
-        await navigator.clipboard.writeText(text);
-        return true;
-      }catch(e){
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.setAttribute('readonly','');
-        ta.style.position='fixed';
-        ta.style.left='-9999px';
-        ta.style.top='0';
-        document.body.appendChild(ta);
-        ta.focus();
-        ta.select();
-        try{ document.execCommand('copy'); }catch(_){}
-        document.body.removeChild(ta);
-        return true;
-      }
-    }
+      on(btnShare, "click", async ()=>{
+        const text = (outUrl && outUrl.textContent || '').trim();
+        if(!text) return;
 
-    function auditChip(label, keys){
-      const span = document.createElement('span');
-      span.appendChild(document.createTextNode(label + ': '));
-      const mono = document.createElement('span');
-      mono.className = 'mono';
-      mono.textContent = keys.join(', ');
-      span.appendChild(mono);
-      return span;
-    }
-
-    function renderResult(res){
-      if (resultCard) resultCard.hidden = false;
-      if (outUrl) outUrl.textContent = res.cleaned;
-      if (btnOpen) btnOpen.href = res.cleaned;
-
-      if (auditRow){
-        auditRow.innerHTML = '';
-        const r = Array.from(new Set(res.removed));
-        const k = Array.from(new Set(res.kept));
-
-        if (r.length || k.length){
-          auditRow.hidden = false;
-          if (r.length) auditRow.appendChild(auditChip('Entfernt', r));
-          if (k.length) auditRow.appendChild(auditChip('Behalten', k));
-        } else {
-          auditRow.hidden = true;
+        if (navigator.share){
+          try{ await navigator.share({ url: text }); return; }catch(e){}
         }
-      }
-    }
+        await copyText(text);
+        showMsg('note', 'Teilen ist nicht verfügbar (oder abgebrochen) — Link wurde kopiert.');
+      });
 
-    // ===== Impact (session + no double count) =====
-    const IMPACT_KEY = "ss_impact_v3";
-    const SEEN_KEY   = "ss_seen_v3";
-    const AD_ID_KEYS = new Set([
-      "gclid","dclid","gbraid","wbraid",
-      "fbclid","msclkid","ttclid","twclid","li_fat_id",
-      "igshid","yclid",
-      "mc_cid","mc_eid","mkt_tok",
-      "srsltid"
-    ]);
+      // Prefill via ?url=... (auto-run) or ?u=...&run=1
+      (function(){
+        const sp = new URLSearchParams(location.search);
+        const incoming = sp.get('url') || sp.get('u');
+        const run = sp.get('run');
 
-    const __SS_MEM = window.__SS_MEM || (window.__SS_MEM = {});
-    let __SS_STORAGE_OK = null;
+        if (!incoming || !input) return;
 
-    function ssStorageOk(){
-      if (__SS_STORAGE_OK !== null) return __SS_STORAGE_OK;
-      try{
-        const k = "__ss_test__";
-        sessionStorage.setItem(k, "1");
-        sessionStorage.removeItem(k);
-        __SS_STORAGE_OK = true;
-      }catch(e){
-        __SS_STORAGE_OK = false;
-      }
-      return __SS_STORAGE_OK;
-    }
-    function ssStorageGet(k){
-      try{ if (ssStorageOk()) return sessionStorage.getItem(k); }catch(e){}
-      return (k in __SS_MEM) ? __SS_MEM[k] : null;
-    }
-    function ssStorageSet(k,v){
-      try{ if (ssStorageOk()) { sessionStorage.setItem(k, v); return; } }catch(e){}
-      __SS_MEM[k] = String(v);
-    }
-    function ssStorageDel(k){
-      try{ if (ssStorageOk()) { sessionStorage.removeItem(k); return; } }catch(e){}
-      delete __SS_MEM[k];
-    }
+        let value = incoming;
+        try { value = decodeURIComponent(incoming); } catch(e) {}
+        input.value = value;
 
-    function impactLoad(){
-      try{
-        const raw = ssStorageGet(IMPACT_KEY);
-        const d = raw ? JSON.parse(raw) : null;
-        return Object.assign({
-          linksCleaned: 0,
-          paramsRemoved: 0,
-          utmRemoved: 0,
-          adIdsRemoved: 0,
-          lastUpdatedISO: ""
-        }, d || {});
-      }catch(e){
-        return { linksCleaned:0, paramsRemoved:0, utmRemoved:0, adIdsRemoved:0, lastUpdatedISO:"" };
-      }
-    }
-    function impactSave(state){ try{ ssStorageSet(IMPACT_KEY, JSON.stringify(state)); }catch(e){} }
-    function impactFormat(n){ try{ return new Intl.NumberFormat("de-DE").format(n); }catch(e){ return String(n); } }
-    function impactSetText(id, text){ const el = byId(id); if (el) el.textContent = text; }
-
-    function impactShowCardIfAny(state){
-      const card = byId("ssImpactCard");
-      if (!card) return;
-      const hasAny = (state.linksCleaned || state.paramsRemoved || state.adIdsRemoved || state.utmRemoved);
-      card.hidden = !hasAny;
-    }
-
-    function impactClearLastLine(){
-      const wrap = byId("ssImpactLastLineWrap");
-      const line = byId("ssImpactLastLine");
-      if (line) line.textContent = "";
-      if (wrap) wrap.hidden = true;
-    }
-
-    function impactWriteLastLine(removedKeys){
-      const wrap = byId("ssImpactLastLineWrap");
-      const lineEl = byId("ssImpactLastLine");
-      if (!wrap || !lineEl) return;
-
-      const keys = Array.isArray(removedKeys) ? removedKeys.map(k => String(k || "").trim()).filter(Boolean) : [];
-      if (!keys.length){ impactClearLastLine(); return; }
-
-      const removedCount = keys.length;
-      const utm = keys.filter(k => k.toLowerCase().startsWith("utm_")).length;
-      const ad  = keys.filter(k => AD_ID_KEYS.has(k.toLowerCase())).length;
-
-      const text = `Entfernt: ${removedCount} Parameter${ad ? ` (${ad} Ad-IDs)` : ""}${utm ? `, davon ${utm} UTM` : ""}`;
-      lineEl.textContent = text;
-      wrap.hidden = false;
-    }
-
-    function impactUpdateUI(state){
-      impactSetText("ssImpactLinks", impactFormat(state.linksCleaned));
-      impactSetText("ssImpactParams", impactFormat(state.paramsRemoved));
-      impactSetText("ssImpactUTM", impactFormat(state.utmRemoved));
-      impactSetText("ssImpactAdIds", impactFormat(state.adIdsRemoved));
-      impactSetText("ssImpactUpdated", state.lastUpdatedISO ? new Date(state.lastUpdatedISO).toLocaleString("de-DE") : "—");
-      impactShowCardIfAny(state);
-    }
-
-    let __SEEN_MEM = { map: Object.create(null) };
-
-    function seenInitOnce(){
-      try{
-        const raw = ssStorageGet(SEEN_KEY);
-        if (!raw) return;
-        const d = JSON.parse(raw);
-        if (d && d.map && typeof d.map === "object") {
-          __SEEN_MEM.map = Object.assign(Object.create(null), d.map);
-        }
-      }catch(e){}
-    }
-    function seenPersistBestEffort(){ try{ ssStorageSet(SEEN_KEY, JSON.stringify({ map: __SEEN_MEM.map })); }catch(e){} }
-
-    function signature(cleanedUrl, removedKeys){
-      const r = Array.isArray(removedKeys) ? removedKeys.map(k=>String(k||"").trim().toLowerCase()).filter(Boolean) : [];
-      r.sort();
-      return String(cleanedUrl || "") + "||" + r.join(",");
-    }
-
-    function impactAddIfNew(cleanedUrl, removedKeys){
-      const keys = Array.isArray(removedKeys) ? removedKeys.map(k => String(k || "").trim()).filter(Boolean) : [];
-      if (keys.length === 0) return false;
-
-      const sig = signature(cleanedUrl, keys);
-      if (__SEEN_MEM.map[sig]) return false;
-
-      __SEEN_MEM.map[sig] = 1;
-      seenPersistBestEffort();
-
-      const state = impactLoad();
-      state.linksCleaned += 1;
-      state.paramsRemoved += keys.length;
-      state.utmRemoved += keys.filter(k => k.toLowerCase().startsWith("utm_")).length;
-      state.adIdsRemoved += keys.filter(k => AD_ID_KEYS.has(k.toLowerCase())).length;
-      state.lastUpdatedISO = new Date().toISOString();
-
-      impactSave(state);
-      impactUpdateUI(state);
-      impactWriteLastLine(keys);
-      return true;
-    }
-
-    function impactReset(){
-      __SEEN_MEM = { map: Object.create(null) };
-      ssStorageDel(IMPACT_KEY);
-      ssStorageDel(SEEN_KEY);
-      const state = { linksCleaned:0, paramsRemoved:0, utmRemoved:0, adIdsRemoved:0, lastUpdatedISO:"" };
-      impactSave(state);
-      impactUpdateUI(state);
-      impactClearLastLine();
-    }
-
-    function impactInit(){
-      seenInitOnce();
-      const state = impactLoad();
-      impactUpdateUI(state);
-      impactClearLastLine();
-      on(byId("ssImpactReset"), "click", impactReset);
-    }
-
-    // ===== Helpers: hide result + impact when input empty/invalid =====
-    function hideResultAndImpact(){
-      if (resultCard) resultCard.hidden = true;
-      showMsg('', '');
-      impactClearLastLine();
-      const impactCard = byId("ssImpactCard");
-      if (impactCard) impactCard.hidden = true;
-    }
-
-    // ===== Main clean =====
-    function doClean(){
-      showMsg('', '');
-      if (resultCard) resultCard.hidden = true;
-
-      try{
-        const res = cleanUrl(input ? input.value : "");
-        renderResult(res);
-
-        // Impact nur wenn wirklich was entfernt wurde + nur einmal pro Signature
-        impactAddIfNew(res.cleaned, res.removed);
-
-        if (!res.removed || res.removed.length === 0){
-          showMsg('note', 'Dieser Link sieht schon sauber aus (keine typischen Tracking-Parameter gefunden).');
+        const shouldRun = sp.has('url') || run === '1';
+        if (shouldRun){
+          setTimeout(()=>{ lastAutoValue=""; scheduleAutoClean(); }, 50);
         }
 
-        setTimeout(()=>{
-          const rc = byId('resultCard');
-          if (rc && !rc.hidden) rc.scrollIntoView({behavior:'smooth', block:'start'});
-        }, 30);
-      }catch(e){
-        showMsg('warn', e.message || 'Fehler beim Bereinigen.');
-      }
-    }
+        history.replaceState({}, '', location.pathname);
+      })();
 
-    // ===== AUTO-CLEAN on paste/typing (debounced) =====
-    let autoTimer = null;
-    let lastAutoValue = "";
-
-    function scheduleAutoClean(){
-      const v = (input ? input.value : "").trim();
-
-      if (!v){
-        hideResultAndImpact();
-        lastAutoValue = "";
-        return;
-      }
-
-      if (v === lastAutoValue) return;
-
-      if (!extractFirstUrl(v)){
-        hideResultAndImpact();
-        lastAutoValue = "";
-        return;
-      }
-
-      clearTimeout(autoTimer);
-      autoTimer = setTimeout(() => {
-        const now = (input ? input.value : "").trim();
-        if (now !== v) return;
-        lastAutoValue = v;
-        doClean();
-      }, 220);
-    }
-
-    // ===== Bindings =====
-    on(input, "input", scheduleAutoClean);
-
-    on(btnClean, "click", doClean);
-
-    on(btnClear, "click", ()=>{
-      if (input) input.value = "";
-      hideResultAndImpact();
-      lastAutoValue = "";
-      if (input) input.focus();
-    });
-
-    on(btnPaste, "click", async ()=>{
-      showMsg('', '');
-      try{
-        if (navigator.clipboard && navigator.clipboard.readText){
-          const tclip = await navigator.clipboard.readText();
-          if (tclip && tclip.trim()){
-            if (input) input.value = tclip.trim();
-            if (input) input.focus();
-            scheduleAutoClean();
-            return;
-          }
-        }
-        showMsg('note', 'iPad/Safari: Feld antippen und „Einfügen“ nutzen. Clipboard-Zugriff ist manchmal blockiert.');
-        if (input) input.focus();
-      }catch(e){
-        showMsg('note', 'iPad/Safari: Feld antippen und „Einfügen“ nutzen. Clipboard-Zugriff ist manchmal blockiert.');
-        if (input) input.focus();
-      }
-    });
-
-    on(btnCopy, "click", async ()=>{
-      const text = (outUrl && outUrl.textContent || '').trim();
-      if(!text) return;
-      await copyText(text);
-      const old = btnCopy.textContent;
-      btnCopy.textContent = 'Kopiert ✓';
-      setTimeout(()=>btnCopy.textContent=old, 900);
-    });
-
-    on(btnShare, "click", async ()=>{
-      const text = (outUrl && outUrl.textContent || '').trim();
-      if(!text) return;
-
-      if (navigator.share){
-        try{ await navigator.share({ url: text }); return; }catch(e){}
-      }
-      await copyText(text);
-      showMsg('note', 'Teilen nicht verfügbar (oder abgebrochen) — Link wurde kopiert.');
-    });
-
-    // Prefill via ?url=... (auto-run) oder ?u=...&run=1
-    (function(){
-      const sp = new URLSearchParams(location.search);
-      const incoming = sp.get('url') || sp.get('u');
-      const run = sp.get('run');
-
-      if (!incoming || !input) return;
-
-      let value = incoming;
-      try { value = decodeURIComponent(incoming); } catch(e) {}
-      input.value = value;
-
-      const shouldRun = sp.has('url') || run === '1';
-      if (shouldRun){
-        setTimeout(()=>{ lastAutoValue=""; scheduleAutoClean(); }, 50);
-      }
-
-      history.replaceState({}, '', location.pathname);
+      impactInit();
     })();
-
-    impactInit();
-  })();
   </script>
-
-  <!-- MASTER SHELL (NAV) JS: nur EINMAL laden -->
-  <script src="/js/ss-shell.js?v=2026-02-01-01"></script>
 </body>
 </html>
