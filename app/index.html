@@ -1,11 +1,11 @@
-<!-- /app/index.html (DE) — SafeShare App -->
+<!-- /app/index.html (DE) -->
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>SafeShare App – Links bereinigen & sauber teilen (local-first)</title>
-  <meta name="description" content="URL reinigen: SafeShare entfernt Tracking-Parameter (utm_*, gclid, fbclid …) und entpackt Redirects – 100% lokal im Browser. Einfügen → (Auto) Bereinigen → Kopieren/Teilen." />
+  <meta name="description" content="URL reinigen: SafeShare entfernt Tracking-Parameter (utm_*, gclid, fbclid …) und entpackt Redirects – 100% lokal im Browser. Clean → Copy → Share.">
   <meta name="robots" content="index,follow" />
 
   <link rel="canonical" href="https://safesharepro.com/app/" />
@@ -16,14 +16,11 @@
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
-  <!-- Google Search Console -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
-  <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Open Graph -->
   <meta property="og:title" content="SafeShare App – Links bereinigen & sauber teilen (local-first)" />
-  <meta property="og:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → (Auto) Bereinigen → Kopieren/Teilen." />
+  <meta property="og:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → Bereinigen → Kopieren/Teilen." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:url" content="https://safesharepro.com/app/" />
@@ -32,14 +29,12 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SafeShare App – Links bereinigen & sauber teilen" />
-  <meta name="twitter:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → (Auto) Bereinigen → Kopieren/Teilen." />
+  <meta name="twitter:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → Bereinigen → Kopieren/Teilen." />
   <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-01-21-01" />
   <meta name="twitter:image:alt" content="SafeShare App – Vorschau" />
 
-  <!-- Favicons + PWA -->
   <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01">
@@ -47,8 +42,7 @@
   <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01">
 
   <!-- MASTER SHELL (NAV) -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-28-01">
-  <script src="/js/ss-shell.js?v=2026-02-01-01" defer></script>
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-03">
 
   <style>
     :root{
@@ -566,7 +560,7 @@
 
       function impactAddIfNew(cleanedUrl, removedKeys){
         const keys = Array.isArray(removedKeys) ? removedKeys.map(k => String(k || "").trim()).filter(Boolean) : [];
-        if (keys.length === 0) return false; // zählt nur wenn wirklich was entfernt wurde
+        if (keys.length === 0) return false;
 
         const sig = signature(cleanedUrl, keys);
         if (__SS_SEEN[sig]) return false;
@@ -595,7 +589,7 @@
       }
 
       function impactInit(){
-        impactUpdateUI();     // nach Reload startet bei 0 (RAM)
+        impactUpdateUI();
         impactClearLastLine();
         on(byId("ssImpactReset"), "click", impactReset);
       }
@@ -609,9 +603,8 @@
           const res = cleanUrl(input ? input.value : "");
           renderResult(res);
 
-          // Impact: zählt nur wenn removed + nur einmal pro Signature
           impactAddIfNew(res.cleaned, res.removed);
-          impactUpdateUI();
+          impactUpdateUI();   // wichtig: zeigt ggf. vorhandene Summen wieder an
           impactShowIfAny();
 
           if (!res.removed || res.removed.length === 0){
@@ -635,7 +628,7 @@
         if (resultCard) resultCard.hidden = true;
         showMsg('', '');
         impactClearLastLine();
-        if (impactCard) impactCard.hidden = true; // nur UI verstecken
+        if (impactCard) impactCard.hidden = true;
       }
 
       function scheduleAutoClean(){
@@ -740,5 +733,8 @@
       impactInit();
     })();
   </script>
+
+  <!-- SHELL JS: genau 1× hier -->
+  <script src="/js/ss-shell.js?v=2026-02-01-01"></script>
 </body>
 </html>
