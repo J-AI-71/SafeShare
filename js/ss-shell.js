@@ -249,7 +249,7 @@
       `.trim();
 
       // 8) Footer-Markup
-      const footerHTML = `
+   const footerHTML = `
 <footer class="ss-footer" role="contentinfo">
   <div class="ss-footer__inner">
     <div class="ss-footer__brand">
@@ -265,16 +265,15 @@
       <a class="ss-footer__link" href="${LINKS.privacy}">${T.privacy}</a>
       <a class="ss-footer__link" href="${LINKS.imprint}">${T.imprint}</a>
       <a class="ss-footer__link" href="${LINKS.terms}">${T.terms}</a>
+      <a class="ss-footer__link" href="${LINKS.support}">${T.support}</a>
       <a class="ss-footer__link" href="${toCounterpartUrl()}">${T.langSwitch}</a>
       <a class="ss-footer__link" href="#top">${T.footerTop}</a>
     </nav>
 
-    <div class="ss-footer__meta">
-      <a class="ss-footer__support" href="${LINKS.support}">${T.support}</a>
-    </div>
+    <div class="ss-footer__meta"></div>
   </div>
 </footer>
-      `.trim();
+`.trim();
 
       // 9) Mount sicherstellen (Header-Shell)
       let mount = $("#ss-shell");
