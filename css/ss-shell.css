@@ -462,3 +462,77 @@ html.ss-noScroll, html.ss-noScroll body{
   .ss-footer__inner{ grid-template-columns: 1fr; }
   .ss-footer__meta{ justify-content:flex-start; }
 }
+/* === LEBENDIGER: feines Ambient-Light + echte Tiefe === */
+
+/* Hintergrund: minimaler Farb-Schimmer (sehr subtil) */
+body{
+  background:
+    radial-gradient(900px 600px at 20% -10%, rgba(47,227,183,.10), transparent 60%),
+    radial-gradient(700px 500px at 85% 10%, rgba(120,140,255,.08), transparent 60%),
+    radial-gradient(800px 700px at 50% 120%, rgba(255,255,255,.06), transparent 55%);
+}
+
+/* Cards: leichter „Glass“-Look + stärkerer Schatten */
+.ss-card{
+  background: rgba(255,255,255,.075);
+  border-color: rgba(255,255,255,.16);
+  box-shadow:
+    0 18px 55px rgba(0,0,0,.45),
+    0 1px 0 rgba(255,255,255,.06) inset;
+}
+
+/* Inner cards: klarer abgesetzt */
+.ss-card--inner{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.12);
+}
+
+/* „Lebendige“ Überschriften: etwas mehr Präsenz */
+.ss-card h1, .ss-card h2{
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+}
+
+/* Links: nicht blau/technisch, sondern wie UI */
+.ss-card a{
+  color: var(--ss-text);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(47,227,183,.35);
+}
+.ss-card a:hover{
+  border-bottom-color: rgba(47,227,183,.70);
+}
+
+/* Fokus: fühlbar, nicht hart */
+:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(47,227,183,.25), 0 0 0 6px rgba(47,227,183,.10);
+  border-radius: 14px;
+}
+
+/* Buttons: minimaler „depth“ */
+.ss-btn{
+  box-shadow: 0 1px 0 rgba(255,255,255,.06) inset;
+}
+.ss-btn--primary{
+  box-shadow:
+    0 0 0 1px rgba(47,227,183,.22),
+    0 14px 36px rgba(47,227,183,.14);
+}
+/* Text-Rhythmus: weniger technisch */
+.ss-card p{
+  max-width: 70ch;
+}
+
+/* Listen: etwas luftiger, weniger „Dokumentation“ */
+.ss-card ul{
+  margin-top: 12px;
+}
+.ss-card li{
+  margin: 8px 0;
+}
+
+/* Kleine „Handschrift“ im Kleinen: muted nicht zu klein */
+.ss-muted{
+  letter-spacing: .1px;
+}
+
