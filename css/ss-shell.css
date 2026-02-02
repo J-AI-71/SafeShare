@@ -1,5 +1,5 @@
 /* Datei: /css/ss-shell.css */
-/* SafeShare Shell v2026-01-28-01 (Schema B: EN under /en/<slug>/) */
+/* SafeShare Shell v2026-02-02-02 (Schema: EN under /en/<slug>/) */
 
 :root{
   /* Shell-Fallbacks (nutzt deine Seiten-Variablen, sonst Default) */
@@ -13,7 +13,153 @@
   --ss-shadow: var(--shadow, 0 18px 45px rgba(0,0,0,.35));
   --ss-pill-bg: rgba(255,255,255,.04);
   --ss-pill-bg-hover: rgba(255,255,255,.08);
+
+  /* Content-Komponenten (sanft, nicht "techy") */
+  --ss-radius: 18px;
+  --ss-radius-sm: 14px;
+  --ss-pad: 18px;
+  --ss-pad-sm: 14px;
+  --ss-max: 980px;
 }
+
+/* ---------------------------
+   Minimal Content Base (macht es „lebendiger“)
+---------------------------- */
+.ss-main{
+  max-width: var(--ss-max);
+  margin: 0 auto;
+  padding: 0 14px 28px;
+}
+
+.ss-section{
+  padding: 18px 0;
+}
+
+.ss-muted{ opacity: .72; }
+
+.ss-card{
+  background: var(--ss-bg);
+  border: 1px solid var(--ss-border);
+  border-radius: var(--ss-radius);
+  padding: var(--ss-pad);
+  box-shadow: var(--ss-shadow);
+}
+
+.ss-card--inner{
+  padding: var(--ss-pad-sm);
+  border-radius: var(--ss-radius-sm);
+  box-shadow: none;
+  background: rgba(255,255,255,.04);
+}
+
+.ss-card h1,
+.ss-card h2,
+.ss-card h3{
+  margin: 0 0 10px;
+  letter-spacing: .2px;
+}
+
+.ss-card p{
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.ss-card ul{
+  margin: 10px 0 0;
+  padding-left: 1.1em;
+  line-height: 1.6;
+}
+
+.ss-card li{ margin: 6px 0; }
+
+.ss-card hr{
+  border: 0;
+  height: 1px;
+  background: rgba(255,255,255,.12);
+  margin: 14px 0;
+  border-radius: 999px;
+}
+@media (prefers-color-scheme: light){
+  .ss-card hr{ background: rgba(17,24,39,.12); }
+}
+
+/* Buttons / Actions */
+.ss-actions{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.ss-btn{
+  appearance:none;
+  text-decoration:none;
+  color: inherit;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--ss-border);
+  background: rgba(255,255,255,.03);
+  cursor: pointer;
+  line-height: 1;
+  font: inherit;
+}
+
+.ss-btn:hover{
+  background: rgba(255,255,255,.07);
+}
+
+.ss-btn--primary{
+  background: var(--ss-active);
+  border-color: var(--ss-active-border);
+}
+
+.ss-btn--primary:hover{
+  background: rgba(47,227,183,.18);
+}
+
+/* Grids */
+.ss-grid{
+  display:grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+.ss-grid--2{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+.ss-grid--3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+
+@media (max-width: 900px){
+  .ss-grid--3{ grid-template-columns: 1fr; }
+}
+@media (max-width: 720px){
+  .ss-grid--2{ grid-template-columns: 1fr; }
+}
+
+/* Details/FAQ */
+details{
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  border-radius: var(--ss-radius-sm);
+  padding: 10px 12px;
+  margin: 10px 0;
+}
+summary{
+  cursor: pointer;
+  font-weight: 650;
+}
+details > *:not(summary){ margin-top: 10px; }
+@media (prefers-color-scheme: light){
+  details{
+    border: 1px solid rgba(17,24,39,.12);
+    background: rgba(17,24,39,.03);
+  }
+}
+
+/* ---------------------------
+   Header (dein bestehender Teil)
+---------------------------- */
 
 /* Header */
 .ss-header{
@@ -258,4 +404,61 @@ html.ss-noScroll, html.ss-noScroll body{
 /* Optional: weniger Motion */
 @media (prefers-reduced-motion: reduce){
   .ss-moreMenu{ transition: none; transform:none; opacity:1; }
+}
+
+/* ---------------------------
+   Footer (neu, passend zur Shell)
+---------------------------- */
+.ss-footer{
+  max-width: var(--ss-max);
+  margin: 18px auto 40px;
+  padding: 0 14px;
+}
+.ss-footer__inner{
+  border: 1px solid var(--ss-border);
+  background: var(--ss-pill-bg);
+  border-radius: var(--ss-radius);
+  box-shadow: var(--ss-shadow);
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 1.2fr 1.4fr .8fr;
+  gap: 12px;
+}
+.ss-footer__name{
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+.ss-footer__note,
+.ss-footer__made{
+  opacity: .72;
+  margin-top: 6px;
+  line-height: 1.35;
+}
+.ss-footer__links{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 10px 12px;
+  align-content:flex-start;
+}
+.ss-footer__link,
+.ss-footer__support{
+  text-decoration:none;
+  color: inherit;
+  border: 1px solid var(--ss-border);
+  background: rgba(255,255,255,.03);
+  padding: 8px 10px;
+  border-radius: 999px;
+}
+.ss-footer__link:hover,
+.ss-footer__support:hover{
+  background: rgba(255,255,255,.07);
+}
+.ss-footer__meta{
+  display:flex;
+  justify-content:flex-end;
+  align-items:flex-start;
+}
+@media (max-width: 900px){
+  .ss-footer__inner{ grid-template-columns: 1fr; }
+  .ss-footer__meta{ justify-content:flex-start; }
 }
