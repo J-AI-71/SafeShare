@@ -1,107 +1,150 @@
 /* Datei: /css/ss-shell.css */
-/* SafeShare Shell v2026-02-02-02 (Schema: EN under /en/<slug>/) */
+/* SafeShare Shell v2026-02-02-03 (Schema: EN under /en/<slug>/) */
 
+/* =========================
+   TOKENS + TYPO (merged)
+========================= */
 :root{
   /* Shell-Fallbacks (nutzt deine Seiten-Variablen, sonst Default) */
-  --ss-bg: var(--card, rgba(255,255,255,.06));
-  --ss-border: var(--border, rgba(255,255,255,.10));
-  --ss-text: var(--text, rgba(255,255,255,.92));
-  --ss-muted: var(--muted2, rgba(255,255,255,.60));
+  --ss-bg: rgba(255,255,255,.075);
+  --ss-border: rgba(255,255,255,.16);
+
+  /* Text: wärmer/lesbarer */
+  --ss-text: rgba(245,247,248,.96);
+  --ss-muted: rgba(210,214,218,.78);
+
   --ss-hover: rgba(255,255,255,.06);
-  --ss-active: rgba(47,227,183,.12);
-  --ss-active-border: rgba(47,227,183,.35);
+
+  /* Akzent: klarer, weniger lasch */
+  --ss-accent: rgb(47,227,183);
+  --ss-active: rgba(47,227,183,.22);
+  --ss-active-border: rgba(47,227,183,.60);
+
   --ss-shadow: var(--shadow, 0 18px 45px rgba(0,0,0,.35));
   --ss-pill-bg: rgba(255,255,255,.04);
   --ss-pill-bg-hover: rgba(255,255,255,.08);
 
-  /* Content-Komponenten (sanft, nicht "techy") */
+  /* Content-Komponenten */
   --ss-radius: 18px;
   --ss-radius-sm: 14px;
   --ss-pad: 18px;
   --ss-pad-sm: 14px;
   --ss-max: 980px;
-}
 
-/* === TYPO: modern, nicht altmodisch (System-Fonts) === */
-:root{
+  /* TYPO: modern, nicht altmodisch (System-Fonts) */
   --ss-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
              "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji",
              "Segoe UI Emoji";
   --ss-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
                   "Liberation Mono", "Courier New", monospace;
+
+  /* Optional: Glow/Depth fürs Leben */
+  --ss-accent-glow: 0 0 0 1px rgba(47,227,183,.22), 0 10px 30px rgba(47,227,183,.12);
 }
 
+/* Global type */
 html, body{
-  font-family: var(--ss-font);
-  font-weight: 450;               /* wirkt modern/ruhig */
+  font-family: var(--ss-font) !important;
+  font-weight: 450;
   letter-spacing: .1px;
+  color: var(--ss-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Überschriften klar & modern */
-h1, h2, h3, .ss-card h1, .ss-card h2, .ss-card h3{
-  font-family: var(--ss-font);
-  font-weight: 780;
-  letter-spacing: .2px;
-}
-
-/* Code nicht „Times“ */
+/* Code */
 code, pre{
-  font-family: var(--ss-font-mono);
+  font-family: var(--ss-font-mono) !important;
   font-size: .95em;
 }
-/* Weniger „Buch“-Anmutung */
-.ss-card p{ font-weight: 450; }
-.ss-card strong{ font-weight: 700; }
 
-/* ---------------------------
-   Minimal Content Base (macht es „lebendiger“)
----------------------------- */
+/* Headings klar & modern */
+h1, h2, h3, .ss-card h1, .ss-card h2, .ss-card h3{
+  font-family: var(--ss-font) !important;
+  font-weight: 780;
+  letter-spacing: .2px;
+  color: rgba(255,255,255,.98);
+}
+
+/* =========================
+   BACKGROUND (lebendig, aber ruhig)
+========================= */
+body{
+  background:
+    radial-gradient(900px 600px at 18% -10%, rgba(47,227,183,.12), transparent 62%),
+    radial-gradient(800px 560px at 88% 8%, rgba(120,140,255,.09), transparent 62%),
+    radial-gradient(900px 800px at 50% 120%, rgba(255,210,170,.07), transparent 58%);
+}
+
+/* =========================
+   CONTENT BASE
+========================= */
 .ss-main{
   max-width: var(--ss-max);
   margin: 0 auto;
   padding: 0 14px 28px;
 }
 
-.ss-section{
-  padding: 18px 0;
+.ss-section{ padding: 18px 0; }
+
+.ss-muted{
+  opacity: 1;
+  color: var(--ss-muted);
+  letter-spacing: .1px;
 }
 
-.ss-muted{ opacity: .72; }
-
+/* Cards: weniger grau, mehr Lichtkante */
 .ss-card{
-  background: var(--ss-bg);
+  background:
+    linear-gradient(180deg, rgba(47,227,183,.10), rgba(255,255,255,.06) 32%),
+    rgba(255,255,255,.06);
   border: 1px solid var(--ss-border);
   border-radius: var(--ss-radius);
   padding: var(--ss-pad);
-  box-shadow: var(--ss-shadow);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.08);
 }
 
 .ss-card--inner{
   padding: var(--ss-pad-sm);
   border-radius: var(--ss-radius-sm);
+  background: rgba(255,255,255,.065);
+  border: 1px solid rgba(255,255,255,.14);
   box-shadow: none;
-  background: rgba(255,255,255,.04);
 }
 
-.ss-card h1,
-.ss-card h2,
-.ss-card h3{
+/* Hero wärmer (nur erste Card im Main) */
+.ss-section:first-of-type .ss-card{
+  background:
+    radial-gradient(900px 280px at 20% 0%, rgba(255,210,170,.14), transparent 60%),
+    radial-gradient(800px 280px at 85% 10%, rgba(47,227,183,.14), transparent 62%),
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.06));
+  border-color: rgba(255,255,255,.18);
+}
+
+.ss-card h1, .ss-card h2, .ss-card h3{
   margin: 0 0 10px;
-  letter-spacing: .2px;
+}
+.ss-card h1, .ss-card h2{
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
 }
 
+/* Text-Rhythmus */
 .ss-card p{
   margin: 10px 0;
-  line-height: 1.6;
+  line-height: 1.7;
+  max-width: 70ch;
+  font-weight: 450;
 }
+.ss-card strong{ font-weight: 700; color: rgba(255,255,255,.98); }
 
 .ss-card ul{
-  margin: 10px 0 0;
+  margin: 12px 0 0;
   padding-left: 1.1em;
-  line-height: 1.6;
+  line-height: 1.7;
 }
-
-.ss-card li{ margin: 6px 0; }
+.ss-card li{ margin: 8px 0; }
 
 .ss-card hr{
   border: 0;
@@ -110,11 +153,20 @@ code, pre{
   margin: 14px 0;
   border-radius: 999px;
 }
-@media (prefers-color-scheme: light){
-  .ss-card hr{ background: rgba(17,24,39,.12); }
+
+/* Links: nicht blau/technisch */
+.ss-card a{
+  color: var(--ss-text);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(47,227,183,.35);
+}
+.ss-card a:hover{
+  border-bottom-color: rgba(47,227,183,.72);
 }
 
-/* Buttons / Actions */
+/* =========================
+   BUTTONS / ACTIONS
+========================= */
 .ss-actions{
   display:flex;
   gap: 10px;
@@ -132,27 +184,30 @@ code, pre{
   gap: 8px;
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid var(--ss-border);
-  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
   cursor: pointer;
   line-height: 1;
   font: inherit;
+  box-shadow: 0 1px 0 rgba(255,255,255,.06) inset;
 }
 
-.ss-btn:hover{
-  background: rgba(255,255,255,.07);
-}
+.ss-btn:hover{ background: rgba(255,255,255,.09); }
 
 .ss-btn--primary{
-  background: var(--ss-active);
-  border-color: var(--ss-active-border);
+  background: linear-gradient(180deg, rgba(47,227,183,.45), rgba(47,227,183,.28));
+  border-color: rgba(47,227,183,.70);
+  color: #081917;
+  box-shadow: var(--ss-accent-glow);
 }
-
 .ss-btn--primary:hover{
-  background: rgba(47,227,183,.18);
+  background: linear-gradient(180deg, rgba(47,227,183,.52), rgba(47,227,183,.32));
+  border-color: rgba(47,227,183,.82);
 }
 
-/* Grids */
+/* =========================
+   GRIDS
+========================= */
 .ss-grid{
   display:grid;
   gap: 12px;
@@ -168,35 +223,36 @@ code, pre{
   .ss-grid--2{ grid-template-columns: 1fr; }
 }
 
-/* Details/FAQ */
+/* =========================
+   DETAILS / FAQ
+========================= */
 details{
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
   border-radius: var(--ss-radius-sm);
   padding: 10px 12px;
   margin: 10px 0;
 }
 summary{
   cursor: pointer;
-  font-weight: 650;
+  font-weight: 750;
 }
 details > *:not(summary){ margin-top: 10px; }
-@media (prefers-color-scheme: light){
-  details{
-    border: 1px solid rgba(17,24,39,.12);
-    background: rgba(17,24,39,.03);
-  }
+
+/* Focus: fühlbar, nicht hart */
+:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(47,227,183,.25), 0 0 0 6px rgba(47,227,183,.10);
+  border-radius: 14px;
 }
 
-/* ---------------------------
-   Header (dein bestehender Teil)
----------------------------- */
-
-/* Header */
+/* =========================
+   HEADER (dein bestehender Teil, kompatibel)
+========================= */
 .ss-header{
   position: sticky; top: 0; z-index: 50;
   display:flex; align-items:center;
-  justify-content:flex-start; /* PATCH: statt space-between */
+  justify-content:flex-start;
   gap: 12px;
   padding: 10px 14px;
   background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,0));
@@ -204,13 +260,12 @@ details > *:not(summary){ margin-top: 10px; }
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* Brand */
 .ss-brand{
   display:flex; align-items:center; gap:10px;
   text-decoration:none;
   color: var(--ss-text);
   min-width: 0;
-  flex: 0 0 auto; /* PATCH */
+  flex: 0 0 auto;
 }
 .ss-brand__mark{
   width: 20px; height: 20px;
@@ -229,15 +284,12 @@ details > *:not(summary){ margin-top: 10px; }
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  max-width: 160px; /* PATCH (optional, stabilisiert Ellipsis) */
+  max-width: 160px;
 }
-
-/* PATCH: sehr schmal → Brand-Text ausblenden (statt "S.") */
 @media (max-width: 390px){
   .ss-brand__name{ display:none; }
 }
 
-/* Nav capsule */
 .ss-nav{
   display:flex; gap: 10px;
   overflow-x:auto;
@@ -246,26 +298,24 @@ details > *:not(summary){ margin-top: 10px; }
 
   padding: 6px;
   border-radius: 999px;
-  border: 1px solid var(--ss-border);
-  background: var(--ss-pill-bg);
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.045);
   box-shadow: var(--ss-shadow);
 
-  flex: 1 1 auto;  /* PATCH: Nav nimmt Mitte ein */
-  min-width: 0;    /* PATCH: wichtig für Flex */
+  flex: 1 1 auto;
+  min-width: 0;
 }
 .ss-nav::-webkit-scrollbar{ display:none; }
 
-/* PATCH: Mobile → Extra-Tabs im Primary ausblenden (gehen ins Mehr-Menü) */
 @media (max-width: 719.98px){
   .ss-nav__link--extra{ display:none; }
 }
 
-/* Links + More button: gleiche Capsule-Optik */
 .ss-nav__link,
 .ss-moreBtn{
   appearance:none;
   text-decoration:none;
-  color: rgba(255,255,255,.72);
+  color: rgba(255,255,255,.78);
 
   display:inline-flex;
   align-items:center;
@@ -284,45 +334,37 @@ details > *:not(summary){ margin-top: 10px; }
   cursor: pointer;
 }
 
-@media (prefers-color-scheme: light){
-  .ss-nav__link,
-  .ss-moreBtn{
-    color: rgba(17,24,39,.72);
-  }
-}
-
 .ss-nav__link:hover,
 .ss-moreBtn:hover{
-  background: rgba(255,255,255,.04);
-  border-color: var(--ss-border);
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.16);
   color: var(--ss-text);
 }
 
 .ss-nav__link.is-active{
-  background: var(--ss-active);
-  border-color: var(--ss-active-border);
+  background: rgba(47,227,183,.22);
+  border-color: rgba(47,227,183,.60);
   color: var(--ss-text);
+  box-shadow: 0 0 0 1px rgba(47,227,183,.18);
 }
 
-/* More button bekommt Basis-Hintergrund wie Capsule */
 .ss-moreBtn{
-  background: var(--ss-pill-bg);
-  border-color: var(--ss-border);
+  background: rgba(255,255,255,.045);
+  border-color: rgba(255,255,255,.18);
   color: var(--ss-text);
-  flex: 0 0 auto; /* PATCH */
+  flex: 0 0 auto;
 }
 .ss-moreBtn:hover{
-  background: var(--ss-pill-bg-hover);
+  background: rgba(255,255,255,.08);
 }
-
-/* PATCH: Mehr-Button active-State (wenn school/pro/help aktiv ist) */
 .ss-moreBtn.is-active{
-  background: var(--ss-active);
-  border-color: var(--ss-active-border);
+  background: rgba(47,227,183,.22);
+  border-color: rgba(47,227,183,.60);
   color: var(--ss-text);
+  box-shadow: 0 0 0 1px rgba(47,227,183,.18);
 }
 
-/* Scroll lock (auf html + body) */
+/* Scroll lock */
 html.ss-noScroll, html.ss-noScroll body{
   overflow: hidden !important;
   touch-action: none;
@@ -332,7 +374,7 @@ html.ss-noScroll, html.ss-noScroll body{
 .ss-moreOverlay{
   position: fixed; inset: 0; z-index: 9998;
   display: grid;
-  align-items: end;            /* bottom-sheet */
+  align-items: end;
   justify-items: center;
   padding: 12px;
 }
@@ -363,22 +405,6 @@ html.ss-noScroll, html.ss-noScroll body{
 .ss-moreOverlay:not([hidden]) .ss-moreMenu{
   transform: translateY(0);
   opacity: 1;
-}
-
-@media (prefers-color-scheme: light){
-  .ss-moreBackdrop{ background: rgba(17,24,39,.06); }
-  .ss-moreMenu{
-    background: rgba(255,255,255,.98);
-    border: 1px solid rgba(17,24,39,.12);
-    box-shadow: 0 18px 45px rgba(17,24,39,.12);
-    color: rgba(17,24,39,.95);
-  }
-}
-
-/* Desktop: zentriert statt bottom-sheet */
-@media (min-width: 980px){
-  .ss-moreOverlay{ align-items: center; }
-  .ss-moreMenu{ max-height: min(80vh, 560px); }
 }
 
 .ss-moreTop{
@@ -413,41 +439,33 @@ html.ss-noScroll, html.ss-noScroll body{
   border: 1px solid rgba(255,255,255,.10);
   background: rgba(255,255,255,.03);
 }
-.ss-moreLink:hover{
-  background: rgba(255,255,255,.08);
-}
+.ss-moreLink:hover{ background: rgba(255,255,255,.08); }
 
-/* PATCH: Separator im Mehr-Menü (wird nur genutzt, wenn Element existiert) */
 .ss-moreSep{
   height: 1px;
   margin: 10px 6px;
   background: rgba(255,255,255,.12);
   border-radius: 999px;
 }
-@media (prefers-color-scheme: light){
-  .ss-moreSep{ background: rgba(17,24,39,.12); }
-}
 
-/* HARD FIX: verhindert "verschwommen", wenn hidden nicht wirklich hidden ist */
 #ssMoreOverlay[hidden]{ display:none !important; }
 .ss-moreOverlay[hidden]{ display:none !important; }
 
-/* Optional: weniger Motion */
 @media (prefers-reduced-motion: reduce){
   .ss-moreMenu{ transition: none; transform:none; opacity:1; }
 }
 
-/* ---------------------------
-   Footer (neu, passend zur Shell)
----------------------------- */
+/* =========================
+   FOOTER (passt zur neuen Farb-Hierarchie)
+========================= */
 .ss-footer{
   max-width: var(--ss-max);
   margin: 18px auto 40px;
   padding: 0 14px;
 }
 .ss-footer__inner{
-  border: 1px solid var(--ss-border);
-  background: var(--ss-pill-bg);
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.045);
   border-radius: var(--ss-radius);
   box-shadow: var(--ss-shadow);
   padding: 14px;
@@ -455,13 +473,9 @@ html.ss-noScroll, html.ss-noScroll body{
   grid-template-columns: 1.2fr 1.4fr .8fr;
   gap: 12px;
 }
-.ss-footer__name{
-  font-weight: 800;
-  letter-spacing: .2px;
-}
-.ss-footer__note,
-.ss-footer__made{
-  opacity: .72;
+.ss-footer__name{ font-weight: 800; letter-spacing: .2px; }
+.ss-footer__note, .ss-footer__made{
+  color: var(--ss-muted);
   margin-top: 6px;
   line-height: 1.35;
 }
@@ -471,18 +485,16 @@ html.ss-noScroll, html.ss-noScroll body{
   gap: 10px 12px;
   align-content:flex-start;
 }
-.ss-footer__link,
-.ss-footer__support{
+.ss-footer__link, .ss-footer__support{
   text-decoration:none;
-  color: inherit;
-  border: 1px solid var(--ss-border);
-  background: rgba(255,255,255,.03);
+  color: var(--ss-text);
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
   padding: 8px 10px;
   border-radius: 999px;
 }
-.ss-footer__link:hover,
-.ss-footer__support:hover{
-  background: rgba(255,255,255,.07);
+.ss-footer__link:hover, .ss-footer__support:hover{
+  background: rgba(255,255,255,.09);
 }
 .ss-footer__meta{
   display:flex;
@@ -493,77 +505,3 @@ html.ss-noScroll, html.ss-noScroll body{
   .ss-footer__inner{ grid-template-columns: 1fr; }
   .ss-footer__meta{ justify-content:flex-start; }
 }
-/* === LEBENDIGER: feines Ambient-Light + echte Tiefe === */
-
-/* Hintergrund: minimaler Farb-Schimmer (sehr subtil) */
-body{
-  background:
-    radial-gradient(900px 600px at 20% -10%, rgba(47,227,183,.10), transparent 60%),
-    radial-gradient(700px 500px at 85% 10%, rgba(120,140,255,.08), transparent 60%),
-    radial-gradient(800px 700px at 50% 120%, rgba(255,255,255,.06), transparent 55%);
-}
-
-/* Cards: leichter „Glass“-Look + stärkerer Schatten */
-.ss-card{
-  background: rgba(255,255,255,.075);
-  border-color: rgba(255,255,255,.16);
-  box-shadow:
-    0 18px 55px rgba(0,0,0,.45),
-    0 1px 0 rgba(255,255,255,.06) inset;
-}
-
-/* Inner cards: klarer abgesetzt */
-.ss-card--inner{
-  background: rgba(255,255,255,.06);
-  border-color: rgba(255,255,255,.12);
-}
-
-/* „Lebendige“ Überschriften: etwas mehr Präsenz */
-.ss-card h1, .ss-card h2{
-  text-shadow: 0 1px 0 rgba(0,0,0,.25);
-}
-
-/* Links: nicht blau/technisch, sondern wie UI */
-.ss-card a{
-  color: var(--ss-text);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(47,227,183,.35);
-}
-.ss-card a:hover{
-  border-bottom-color: rgba(47,227,183,.70);
-}
-
-/* Fokus: fühlbar, nicht hart */
-:focus-visible{
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(47,227,183,.25), 0 0 0 6px rgba(47,227,183,.10);
-  border-radius: 14px;
-}
-
-/* Buttons: minimaler „depth“ */
-.ss-btn{
-  box-shadow: 0 1px 0 rgba(255,255,255,.06) inset;
-}
-.ss-btn--primary{
-  box-shadow:
-    0 0 0 1px rgba(47,227,183,.22),
-    0 14px 36px rgba(47,227,183,.14);
-}
-/* Text-Rhythmus: weniger technisch */
-.ss-card p{
-  max-width: 70ch;
-}
-
-/* Listen: etwas luftiger, weniger „Dokumentation“ */
-.ss-card ul{
-  margin-top: 12px;
-}
-.ss-card li{
-  margin: 8px 0;
-}
-
-/* Kleine „Handschrift“ im Kleinen: muted nicht zu klein */
-.ss-muted{
-  letter-spacing: .1px;
-}
-
