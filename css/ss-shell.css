@@ -1,11 +1,11 @@
 /* Datei: /css/ss-shell.css */
-/* SafeShare Shell v2026-02-02-03 (Schema: EN under /en/<slug>/) */
+/* SafeShare Shell v2026-02-02-05 (Schema: EN under /en/<slug>/) */
 
 /* =========================
-   TOKENS + TYPO (merged)
+   TOKENS + TYPO
 ========================= */
 :root{
-  /* Shell-Fallbacks (nutzt deine Seiten-Variablen, sonst Default) */
+  /* Basis: weniger grau, besserer Kontrast */
   --ss-bg: rgba(255,255,255,.075);
   --ss-border: rgba(255,255,255,.16);
 
@@ -15,34 +15,32 @@
 
   --ss-hover: rgba(255,255,255,.06);
 
-  /* Akzent: klarer, weniger lasch */
-  --ss-accent: rgb(47,227,183);
-  --ss-active: rgba(47,227,183,.22);
-  --ss-active-border: rgba(47,227,183,.60);
+  /* Akzent (soft mint) */
+  --ss-active: rgba(80,210,175,.20);
+  --ss-active-border: rgba(80,210,175,.52);
 
-  --ss-shadow: var(--shadow, 0 18px 45px rgba(0,0,0,.35));
+  --ss-shadow: 0 18px 45px rgba(0,0,0,.35);
   --ss-pill-bg: rgba(255,255,255,.04);
   --ss-pill-bg-hover: rgba(255,255,255,.08);
 
-  /* Content-Komponenten */
+  /* Content */
   --ss-radius: 18px;
   --ss-radius-sm: 14px;
   --ss-pad: 18px;
   --ss-pad-sm: 14px;
   --ss-max: 980px;
 
-  /* TYPO: modern, nicht altmodisch (System-Fonts) */
+  /* Fonts */
   --ss-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
              "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji",
              "Segoe UI Emoji";
   --ss-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
                   "Liberation Mono", "Courier New", monospace;
 
-  /* Optional: Glow/Depth fürs Leben */
-  --ss-accent-glow: 0 0 0 1px rgba(47,227,183,.22), 0 10px 30px rgba(47,227,183,.12);
+  /* Glow */
+  --ss-accent-glow: 0 0 0 1px rgba(80,210,175,.18), 0 14px 36px rgba(80,210,175,.12);
 }
 
-/* Global type */
 html, body{
   font-family: var(--ss-font) !important;
   font-weight: 450;
@@ -50,6 +48,23 @@ html, body{
   color: var(--ss-text);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  margin: 0;
+}
+
+/* Hintergrund: lebendig, aber ruhig */
+body{
+  background:
+    radial-gradient(900px 600px at 18% -10%, rgba(80,210,175,.12), transparent 62%),
+    radial-gradient(800px 560px at 88% 8%, rgba(120,140,255,.09), transparent 62%),
+    radial-gradient(900px 800px at 50% 120%, rgba(255,210,170,.07), transparent 58%);
+}
+
+/* Headings */
+h1, h2, h3, .ss-card h1, .ss-card h2, .ss-card h3{
+  font-family: var(--ss-font) !important;
+  font-weight: 780;
+  letter-spacing: .2px;
+  color: rgba(255,255,255,.98);
 }
 
 /* Code */
@@ -58,27 +73,11 @@ code, pre{
   font-size: .95em;
 }
 
-/* Headings klar & modern */
-h1, h2, h3, .ss-card h1, .ss-card h2, .ss-card h3{
-  font-family: var(--ss-font) !important;
-  font-weight: 780;
-  letter-spacing: .2px;
-  color: rgba(255,255,255,.98);
-}
-
-/* =========================
-   BACKGROUND (lebendig, aber ruhig)
-========================= */
-body{
-  background:
-    radial-gradient(900px 600px at 18% -10%, rgba(47,227,183,.12), transparent 62%),
-    radial-gradient(800px 560px at 88% 8%, rgba(120,140,255,.09), transparent 62%),
-    radial-gradient(900px 800px at 50% 120%, rgba(255,210,170,.07), transparent 58%);
-}
-
 /* =========================
    CONTENT BASE
 ========================= */
+#top{ scroll-margin-top: 90px; } /* für "Nach oben" */
+
 .ss-main{
   max-width: var(--ss-max);
   margin: 0 auto;
@@ -93,10 +92,9 @@ body{
   letter-spacing: .1px;
 }
 
-/* Cards: weniger grau, mehr Lichtkante */
 .ss-card{
   background:
-    linear-gradient(180deg, rgba(47,227,183,.10), rgba(255,255,255,.06) 32%),
+    linear-gradient(180deg, rgba(80,210,175,.09), rgba(255,255,255,.06) 32%),
     rgba(255,255,255,.06);
   border: 1px solid var(--ss-border);
   border-radius: var(--ss-radius);
@@ -114,11 +112,11 @@ body{
   box-shadow: none;
 }
 
-/* Hero wärmer (nur erste Card im Main) */
+/* Hero wärmer (erste Section-Card) */
 .ss-section:first-of-type .ss-card{
   background:
-    radial-gradient(900px 280px at 20% 0%, rgba(255,210,170,.14), transparent 60%),
-    radial-gradient(800px 280px at 85% 10%, rgba(47,227,183,.14), transparent 62%),
+    radial-gradient(900px 280px at 20% 0%, rgba(255,210,170,.16), transparent 60%),
+    radial-gradient(800px 280px at 85% 10%, rgba(80,210,175,.16), transparent 62%),
     linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.06));
   border-color: rgba(255,255,255,.18);
 }
@@ -130,14 +128,16 @@ body{
   text-shadow: 0 1px 0 rgba(0,0,0,.25);
 }
 
-/* Text-Rhythmus */
 .ss-card p{
   margin: 10px 0;
   line-height: 1.7;
   max-width: 70ch;
   font-weight: 450;
 }
-.ss-card strong{ font-weight: 700; color: rgba(255,255,255,.98); }
+.ss-card strong{
+  font-weight: 700;
+  color: rgba(255,255,255,.98);
+}
 
 .ss-card ul{
   margin: 12px 0 0;
@@ -154,14 +154,14 @@ body{
   border-radius: 999px;
 }
 
-/* Links: nicht blau/technisch */
+/* Links im Content (nicht blau/tech) */
 .ss-card a{
   color: var(--ss-text);
   text-decoration: none;
-  border-bottom: 1px solid rgba(47,227,183,.35);
+  border-bottom: 1px solid rgba(80,210,175,.30);
 }
 .ss-card a:hover{
-  border-bottom-color: rgba(47,227,183,.72);
+  border-bottom-color: rgba(80,210,175,.55);
 }
 
 /* =========================
@@ -195,14 +195,14 @@ body{
 .ss-btn:hover{ background: rgba(255,255,255,.09); }
 
 .ss-btn--primary{
-  background: linear-gradient(180deg, rgba(47,227,183,.45), rgba(47,227,183,.28));
-  border-color: rgba(47,227,183,.70);
-  color: #081917;
+  background: linear-gradient(180deg, rgba(80,210,175,.44), rgba(80,210,175,.26));
+  border-color: rgba(80,210,175,.62);
+  color: rgba(7,24,20,.92);
   box-shadow: var(--ss-accent-glow);
 }
 .ss-btn--primary:hover{
-  background: linear-gradient(180deg, rgba(47,227,183,.52), rgba(47,227,183,.32));
-  border-color: rgba(47,227,183,.82);
+  background: linear-gradient(180deg, rgba(80,210,175,.50), rgba(80,210,175,.30));
+  border-color: rgba(80,210,175,.72);
 }
 
 /* =========================
@@ -239,15 +239,15 @@ summary{
 }
 details > *:not(summary){ margin-top: 10px; }
 
-/* Focus: fühlbar, nicht hart */
+/* Focus */
 :focus-visible{
   outline: none;
-  box-shadow: 0 0 0 2px rgba(47,227,183,.25), 0 0 0 6px rgba(47,227,183,.10);
+  box-shadow: 0 0 0 2px rgba(80,210,175,.22), 0 0 0 6px rgba(80,210,175,.10);
   border-radius: 14px;
 }
 
 /* =========================
-   HEADER (dein bestehender Teil, kompatibel)
+   HEADER / NAV (Shell)
 ========================= */
 .ss-header{
   position: sticky; top: 0; z-index: 50;
@@ -342,10 +342,10 @@ details > *:not(summary){ margin-top: 10px; }
 }
 
 .ss-nav__link.is-active{
-  background: rgba(47,227,183,.22);
-  border-color: rgba(47,227,183,.60);
+  background: rgba(80,210,175,.18);
+  border-color: rgba(80,210,175,.52);
   color: var(--ss-text);
-  box-shadow: 0 0 0 1px rgba(47,227,183,.18);
+  box-shadow: 0 0 0 1px rgba(80,210,175,.16);
 }
 
 .ss-moreBtn{
@@ -354,14 +354,12 @@ details > *:not(summary){ margin-top: 10px; }
   color: var(--ss-text);
   flex: 0 0 auto;
 }
-.ss-moreBtn:hover{
-  background: rgba(255,255,255,.08);
-}
+.ss-moreBtn:hover{ background: rgba(255,255,255,.08); }
 .ss-moreBtn.is-active{
-  background: rgba(47,227,183,.22);
-  border-color: rgba(47,227,183,.60);
+  background: rgba(80,210,175,.18);
+  border-color: rgba(80,210,175,.52);
   color: var(--ss-text);
-  box-shadow: 0 0 0 1px rgba(47,227,183,.18);
+  box-shadow: 0 0 0 1px rgba(80,210,175,.16);
 }
 
 /* Scroll lock */
@@ -370,7 +368,9 @@ html.ss-noScroll, html.ss-noScroll body{
   touch-action: none;
 }
 
-/* Overlay */
+/* =========================
+   MORE MENU (Overlay)
+========================= */
 .ss-moreOverlay{
   position: fixed; inset: 0; z-index: 9998;
   display: grid;
@@ -385,7 +385,6 @@ html.ss-noScroll, html.ss-noScroll body{
   -webkit-backdrop-filter: blur(2px);
 }
 
-/* Bottom-sheet Menü */
 .ss-moreMenu{
   position: relative;
   width: min(520px, calc(100vw - 24px));
@@ -476,7 +475,6 @@ html.ss-noScroll, html.ss-noScroll body{
   position: relative;
 }
 
-/* dezente Top-Line */
 .ss-footer__inner::before{
   content:"";
   position:absolute;
@@ -486,23 +484,10 @@ html.ss-noScroll, html.ss-noScroll body{
   opacity: .9;
 }
 
-.ss-footer__brand{
-  display:flex;
-  flex-direction:column;
-  gap: 6px;
-}
+.ss-footer__brand{ display:flex; flex-direction:column; gap: 6px; }
+.ss-footer__name{ font-weight: 820; letter-spacing: .2px; }
+.ss-footer__note{ color: var(--ss-muted); line-height: 1.4; }
 
-.ss-footer__name{
-  font-weight: 820;
-  letter-spacing: .2px;
-}
-
-.ss-footer__note{
-  color: var(--ss-muted);
-  line-height: 1.4;
-}
-
-/* Links: keine Underlines, keine Pills */
 .ss-footer__nav{
   display:flex;
   flex-wrap:wrap;
@@ -528,23 +513,17 @@ html.ss-noScroll, html.ss-noScroll body{
   position: relative;
 }
 
-/* Hover: dezenter “Underline”-Sweep nur bei Hover */
 .ss-footer__link::after{
   content:"";
   position:absolute;
   left:0; right:0; bottom:-2px;
   height: 1px;
-  background: rgba(80,210,175,.0);
+  background: rgba(80,210,175,0);
   transition: background .14s ease;
 }
-.ss-footer__link:hover{
-  color: rgba(255,255,255,.96);
-}
-.ss-footer__link:hover::after{
-  background: rgba(80,210,175,.45);
-}
+.ss-footer__link:hover{ color: rgba(255,255,255,.96); }
+.ss-footer__link:hover::after{ background: rgba(80,210,175,.45); }
 
-/* Kleine Separator-Dots (optisch wertiger als Striche) */
 .ss-footer__dot{
   width: 3px; height: 3px;
   border-radius: 999px;
@@ -553,8 +532,141 @@ html.ss-noScroll, html.ss-noScroll body{
   transform: translateY(-1px);
 }
 
-/* Light mode */
+/* =========================
+   LIGHT MODE (komplett)
+========================= */
 @media (prefers-color-scheme: light){
+
+  :root{
+    --ss-text: rgba(17,24,39,.92);
+    --ss-muted: rgba(17,24,39,.66);
+
+    --ss-border: rgba(17,24,39,.14);
+    --ss-pill-bg: rgba(17,24,39,.04);
+    --ss-pill-bg-hover: rgba(17,24,39,.07);
+
+    /* weicher Mint im Light */
+    --ss-active: rgba(80, 210, 175, .18);
+    --ss-active-border: rgba(40, 165, 140, .34);
+    --ss-accent-glow: 0 0 0 1px rgba(80,210,175,.14), 0 12px 26px rgba(80,210,175,.08);
+  }
+
+  body{
+    background:
+      radial-gradient(900px 650px at 18% -10%, rgba(80,210,175,.18), transparent 62%),
+      radial-gradient(820px 580px at 88% 8%, rgba(120,140,255,.12), transparent 62%),
+      radial-gradient(900px 800px at 50% 120%, rgba(255,210,170,.22), transparent 58%),
+      linear-gradient(180deg, rgba(255,255,255,1), rgba(250,251,252,1));
+    color: var(--ss-text);
+  }
+
+  .ss-header{
+    background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,0));
+  }
+
+  .ss-nav{
+    border-color: rgba(17,24,39,.12);
+    background: rgba(255,255,255,.72);
+    box-shadow: 0 18px 45px rgba(17,24,39,.10);
+  }
+
+  .ss-nav__link,
+  .ss-moreBtn{ color: rgba(17,24,39,.70); }
+
+  .ss-nav__link:hover,
+  .ss-moreBtn:hover{
+    background: rgba(17,24,39,.05);
+    border-color: rgba(17,24,39,.12);
+    color: rgba(17,24,39,.92);
+  }
+
+  .ss-nav__link.is-active,
+  .ss-moreBtn.is-active{
+    background: rgba(80,210,175,.16);
+    border-color: rgba(40,165,140,.32);
+    color: rgba(17,24,39,.92);
+    box-shadow: 0 0 0 1px rgba(80,210,175,.12);
+  }
+
+  .ss-moreBtn{
+    background: rgba(255,255,255,.72);
+    border-color: rgba(17,24,39,.12);
+  }
+
+  .ss-card{
+    background:
+      linear-gradient(180deg, rgba(80,210,175,.10), rgba(255,255,255,.82) 38%),
+      rgba(255,255,255,.82);
+    border-color: rgba(17,24,39,.12);
+    box-shadow:
+      0 20px 60px rgba(17,24,39,.12),
+      inset 0 1px 0 rgba(255,255,255,.80);
+  }
+
+  .ss-card--inner{
+    background: rgba(255,255,255,.74);
+    border-color: rgba(17,24,39,.10);
+  }
+
+  .ss-section:first-of-type .ss-card{
+    background:
+      radial-gradient(900px 280px at 20% 0%, rgba(255,210,170,.40), transparent 60%),
+      radial-gradient(800px 280px at 85% 10%, rgba(80,210,175,.18), transparent 62%),
+      linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.80));
+    border-color: rgba(17,24,39,.12);
+  }
+
+  .ss-btn{
+    background: rgba(255,255,255,.82);
+    border-color: rgba(17,24,39,.12);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.80);
+  }
+  .ss-btn:hover{ background: rgba(255,255,255,.92); }
+
+  .ss-btn--primary{
+    background: linear-gradient(180deg, rgba(80,210,175,.46), rgba(80,210,175,.26));
+    border-color: rgba(40,165,140,.34);
+    color: rgba(7,24,20,.92);
+    box-shadow: var(--ss-accent-glow);
+  }
+
+  /* Links in Content (Dark->Light) */
+  .ss-card a{
+    color: rgba(17,24,39,.92);
+    border-bottom-color: rgba(40,165,140,.28);
+  }
+  .ss-card a:hover{
+    border-bottom-color: rgba(40,165,140,.48);
+  }
+
+  details{
+    border-color: rgba(17,24,39,.12);
+    background: rgba(255,255,255,.78);
+  }
+
+  .ss-moreBackdrop{ background: rgba(17,24,39,.08); }
+  .ss-moreMenu{
+    background: rgba(255,255,255,.98);
+    border-color: rgba(17,24,39,.12);
+    box-shadow: 0 18px 45px rgba(17,24,39,.16);
+    color: rgba(17,24,39,.95);
+  }
+
+  .ss-moreClose{
+    border-color: rgba(17,24,39,.12);
+    background: rgba(17,24,39,.03);
+  }
+  .ss-moreClose:hover{ background: rgba(17,24,39,.06); }
+
+  .ss-moreLink{
+    border-color: rgba(17,24,39,.12);
+    background: rgba(17,24,39,.03);
+  }
+  .ss-moreLink:hover{ background: rgba(17,24,39,.06); }
+
+  .ss-moreSep{ background: rgba(17,24,39,.12); }
+
+  /* Footer light */
   .ss-footer__inner{
     border: 1px solid rgba(17,24,39,.10);
     background: rgba(255,255,255,.78);
@@ -579,196 +691,9 @@ html.ss-noScroll, html.ss-noScroll body{
     background: rgba(17,24,39,.18);
   }
 }
-/* =========================
-   LIGHT MODE – Mint weicher (Override)
-   -> ans ENDE (unter den Light-Block)
-========================= */
-@media (prefers-color-scheme: light){
 
-  :root{
-    /* Weicher, „organischer“ Mint (weniger neon/tech) */
-    --ss-active: rgba(80, 210, 175, .18);
-    --ss-active-border: rgba(40, 165, 140, .34);
-    --ss-accent-glow: 0 0 0 1px rgba(80,210,175,.14), 0 12px 26px rgba(80,210,175,.08);
-  }
-
-  /* Active Tabs / More */
-  .ss-nav__link.is-active,
-  .ss-moreBtn.is-active{
-    background: rgba(80,210,175,.16);
-    border-color: rgba(40,165,140,.32);
-    box-shadow: 0 0 0 1px rgba(80,210,175,.12);
-  }
-
-  /* Primary Button */
-  .ss-btn--primary{
-    background: linear-gradient(180deg, rgba(80,210,175,.46), rgba(80,210,175,.26));
-    border-color: rgba(40,165,140,.34);
-    color: rgba(7,24,20,.92);
-    box-shadow: var(--ss-accent-glow);
-  }
-
-  /* Links: weicher */
-  .ss-card a{
-    border-bottom-color: rgba(40,165,140,.28);
-  }
-  .ss-card a:hover{
-    border-bottom-color: rgba(40,165,140,.48);
-  }
-
-  /* Cards: Mint-Schimmer etwas softer */
-  .ss-card{
-    background:
-      linear-gradient(180deg, rgba(80,210,175,.10), rgba(255,255,255,.82) 38%),
-      rgba(255,255,255,.82);
-  }
-  .ss-section:first-of-type .ss-card{
-    background:
-      radial-gradient(900px 280px at 20% 0%, rgba(255,210,170,.40), transparent 60%),
-      radial-gradient(800px 280px at 85% 10%, rgba(80,210,175,.18), transparent 62%),
-      linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.80));
-  }
-}
-/* =========================
-   DARK MODE – Mint weicher (Override)
-   -> ans ENDE (nach allen anderen Regeln)
-========================= */
-@media (prefers-color-scheme: dark){
-
-  :root{
-    /* Organischer Mint (weniger neon/tech) */
-    --ss-active: rgba(80,210,175,.20);
-    --ss-active-border: rgba(80,210,175,.52);
-    --ss-accent-glow: 0 0 0 1px rgba(80,210,175,.18), 0 14px 36px rgba(80,210,175,.12);
-  }
-
-  /* Tabs / More active */
-  .ss-nav__link.is-active,
-  .ss-moreBtn.is-active{
-    background: rgba(80,210,175,.18);
-    border-color: rgba(80,210,175,.52);
-    box-shadow: 0 0 0 1px rgba(80,210,175,.16);
-  }
-
-  /* Primary Button: softer + „alive“ */
-  .ss-btn--primary{
-    background: linear-gradient(180deg, rgba(80,210,175,.44), rgba(80,210,175,.26));
-    border-color: rgba(80,210,175,.62);
-    color: rgba(7,24,20,.92);
-    box-shadow: var(--ss-accent-glow);
-  }
-
-  /* Links: weicher */
-  .ss-card a{
-    border-bottom-color: rgba(80,210,175,.30);
-  }
-  .ss-card a:hover{
-    border-bottom-color: rgba(80,210,175,.55);
-  }
-
-  /* Cards: Mint-Schimmer minimal softer */
-  .ss-card{
-    background:
-      linear-gradient(180deg, rgba(80,210,175,.09), rgba(255,255,255,.06) 32%),
-      rgba(255,255,255,.06);
-  }
-
-  /* Hero: warm + soft mint */
-  .ss-section:first-of-type .ss-card{
-    background:
-      radial-gradient(900px 280px at 20% 0%, rgba(255,210,170,.16), transparent 60%),
-      radial-gradient(800px 280px at 85% 10%, rgba(80,210,175,.16), transparent 62%),
-      linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.06));
-  }
-}
-/* =========================
-   FOOTER – ruhiger, weniger "Pill-Navi"
-   -> ans ENDE von ss-shell.css
-========================= */
-
-.ss-footer{ margin: 18px auto 46px; }
-
-/* Container weniger prominent */
-.ss-footer__inner{
-  background: rgba(255,255,255,.035);
-  border: 1px solid rgba(255,255,255,.10);
-  box-shadow: 0 14px 38px rgba(0,0,0,.28);
-  padding: 16px 16px 14px;
-  gap: 14px;
-}
-
-/* Links NICHT mehr als Buttons */
-.ss-footer__link,
-.ss-footer__support{
-  border: 0;
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
-  color: var(--ss-muted);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(80,210,175,.22);
-}
-
-.ss-footer__link:hover,
-.ss-footer__support:hover{
-  background: transparent;
-  color: var(--ss-text);
-  border-bottom-color: rgba(80,210,175,.50);
-}
-
-/* Link-Layout: wie echte Footer-Links */
-.ss-footer__links{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 14px;
-  align-content: flex-start;
-}
-
-/* Brand-Text etwas wärmer */
-.ss-footer__note,
-.ss-footer__made{
-  color: var(--ss-muted);
-  opacity: 1;
-}
-
-/* Support nicht abgesetzt rechts */
-.ss-footer__meta{
-  justify-content: flex-start;
-}
-
-/* Optional: kleine Linie oben im Footer */
-.ss-footer__inner{
-  position: relative;
-}
-.ss-footer__inner::before{
-  content:"";
-  position:absolute;
-  left: 14px;
-  right: 14px;
-  top: 10px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(80,210,175,.28), transparent);
-  opacity: .85;
-}
-
-/* Light-Mode: Footer wie „Papier“, Links dunkel */
-@media (prefers-color-scheme: light){
-  .ss-footer__inner{
-    background: rgba(255,255,255,.78);
-    border: 1px solid rgba(17,24,39,.10);
-    box-shadow: 0 18px 40px rgba(17,24,39,.10);
-  }
-  .ss-footer__link,
-  .ss-footer__support{
-    color: rgba(17,24,39,.70);
-    border-bottom-color: rgba(40,165,140,.26);
-  }
-  .ss-footer__link:hover,
-  .ss-footer__support:hover{
-    color: rgba(17,24,39,.92);
-    border-bottom-color: rgba(40,165,140,.52);
-  }
-  .ss-footer__inner::before{
-    background: linear-gradient(90deg, transparent, rgba(40,165,140,.22), transparent);
-  }
+/* Desktop: More-Overlay zentrieren */
+@media (min-width: 980px){
+  .ss-moreOverlay{ align-items: center; }
+  .ss-moreMenu{ max-height: min(80vh, 560px); }
 }
