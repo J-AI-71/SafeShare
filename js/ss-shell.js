@@ -1,5 +1,5 @@
 /*! Datei: /js/ss-shell.js */
-/*! SafeShare Shell v2026-02-02-02 (Schema: EN under /en/<slug>/) */
+/*! SafeShare Shell v2026-02-02-05 (Schema: EN under /en/<slug>/) */
 (function () {
   "use strict";
 
@@ -249,32 +249,31 @@
       `.trim();
 
       // 8) Footer-Markup
-   const footerHTML = `
+const footerHTML = `
 <footer class="ss-footer" role="contentinfo">
   <div class="ss-footer__inner">
     <div class="ss-footer__brand">
       <div class="ss-footer__name">SafeShare</div>
       <div class="ss-footer__note">${T.footerNote}</div>
-      <div class="ss-footer__made">${T.footerMade}</div>
     </div>
 
-    <nav class="ss-footer__links" aria-label="Footer">
-      <a class="ss-footer__link" href="${LINKS.app}">${T.app}</a>
-      <a class="ss-footer__link" href="${LINKS.pro}">${T.pro}</a>
-      <a class="ss-footer__link" href="${LINKS.help}">${T.help}</a>
-      <a class="ss-footer__link" href="${LINKS.privacy}">${T.privacy}</a>
-      <a class="ss-footer__link" href="${LINKS.imprint}">${T.imprint}</a>
-      <a class="ss-footer__link" href="${LINKS.terms}">${T.terms}</a>
+    <nav class="ss-footer__nav" aria-label="Footer">
+      <a class="ss-footer__link" href="${LINKS.app}">${T.app}</a><span class="ss-footer__dot"></span>
+      <a class="ss-footer__link" href="${LINKS.pro}">${T.pro}</a><span class="ss-footer__dot"></span>
+      <a class="ss-footer__link" href="${LINKS.help}">${T.help}</a><span class="ss-footer__dot"></span>
+      <a class="ss-footer__link" href="${LINKS.privacy}">${T.privacy}</a><span class="ss-footer__dot"></span>
+      <a class="ss-footer__link" href="${LINKS.imprint}">${T.imprint}</a><span class="ss-footer__dot"></span>
+      <a class="ss-footer__link" href="${LINKS.terms}">${T.terms}</a><span class="ss-footer__dot"></span>
       <a class="ss-footer__link" href="${LINKS.support}">${T.support}</a>
-      <a class="ss-footer__link" href="${toCounterpartUrl()}">${T.langSwitch}</a>
-      <a class="ss-footer__link" href="#top">${T.footerTop}</a>
     </nav>
 
-    <div class="ss-footer__meta"></div>
+    <div class="ss-footer__util" aria-label="Utility">
+      <a class="ss-footer__link" href="${toCounterpartUrl()}">${T.langSwitch}</a><span class="ss-footer__dot"></span>
+      <a class="ss-footer__link" href="#top">${T.footerTop}</a>
+    </div>
   </div>
 </footer>
 `.trim();
-
       // 9) Mount sicherstellen (Header-Shell)
       let mount = $("#ss-shell");
       if (!mount) {
