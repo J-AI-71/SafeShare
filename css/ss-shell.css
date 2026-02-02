@@ -697,3 +697,113 @@ html.ss-noScroll, html.ss-noScroll body{
   .ss-moreOverlay{ align-items: center; }
   .ss-moreMenu{ max-height: min(80vh, 560px); }
 }
+/* =========================
+   FOOTER – Feinschliff (kompakter, ruhiger)
+   -> ans ENDE von ss-shell.css
+========================= */
+
+.ss-footer{ margin: 18px auto 40px; }
+
+.ss-footer__inner{
+  padding: 14px 14px 12px;            /* weniger Höhe */
+  box-shadow: 0 18px 55px rgba(0,0,0,.30);
+}
+
+/* Top-Line etwas zurücknehmen */
+.ss-footer__inner::before{
+  opacity: .65;
+}
+
+/* Trennlinie zwischen Brand und Nav minimal dezenter */
+.ss-footer__nav{
+  border-top-color: rgba(255,255,255,.08);
+  padding-top: 10px;
+}
+
+/* Dots: kleiner + transparenter */
+.ss-footer__dot{
+  width: 2px;
+  height: 2px;
+  background: rgba(255,255,255,.16);
+  transform: translateY(-1px);
+}
+
+/* Links: etwas “edler” (weniger hell = weniger “UI-Label”) */
+.ss-footer__link{
+  color: rgba(255,255,255,.80);
+}
+.ss-footer__link:hover{
+  color: rgba(255,255,255,.94);
+}
+
+/* Utility-Zeile: kleiner + ruhiger */
+.ss-footer__util{
+  font-size: .95em;
+  color: rgba(210,214,218,.72);
+}
+
+/* Light mode entsprechend */
+@media (prefers-color-scheme: light){
+  .ss-footer__inner{
+    box-shadow: 0 18px 45px rgba(17,24,39,.09);
+  }
+  .ss-footer__dot{
+    background: rgba(17,24,39,.14);
+  }
+  .ss-footer__nav{
+    border-top-color: rgba(17,24,39,.08);
+  }
+  .ss-footer__link{
+    color: rgba(17,24,39,.78);
+  }
+  .ss-footer__link:hover{
+    color: rgba(17,24,39,.92);
+  }
+  .ss-footer__util{
+    color: rgba(17,24,39,.62);
+  }
+}
+/* =========================
+   iPad Fix: Footer-Links sauber umbrechen (Grid)
+   -> ans ENDE von ss-shell.css
+========================= */
+
+/* iPad / Tablets (Portrait+Landscape) */
+@media (min-width: 700px) and (max-width: 1100px){
+
+  /* etwas kompakter */
+  .ss-footer__inner{ padding: 14px 14px 12px; }
+
+  /* Nav als Grid statt flex-wrap */
+  .ss-footer__nav{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 Spalten = 2 Zeilen für 7 Links */
+    gap: 10px 18px;
+    align-items: start;
+    border-top-color: rgba(255,255,255,.08);
+    padding-top: 10px;
+  }
+
+  /* Dots im Grid ausblenden (braucht man dann nicht) */
+  .ss-footer__dot{ display: none !important; }
+
+  /* Links im Grid: keine „Wackelbreite“ */
+  .ss-footer__link{
+    white-space: nowrap;
+    justify-self: start;
+  }
+
+  /* Utility bleibt eine Zeile */
+  .ss-footer__util{
+    display:flex;
+    gap: 14px;
+    flex-wrap: nowrap;
+  }
+}
+
+/* iPad Light Mode passend */
+@media (prefers-color-scheme: light) and (min-width: 700px) and (max-width: 1100px){
+  .ss-footer__nav{ border-top-color: rgba(17,24,39,.08); }
+}
+
+
