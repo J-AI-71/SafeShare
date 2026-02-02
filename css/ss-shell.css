@@ -774,3 +774,94 @@ html.ss-noScroll, html.ss-noScroll body{
       linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.06));
   }
 }
+/* =========================
+   FOOTER – ruhiger, weniger "Pill-Navi"
+   -> ans ENDE von ss-shell.css
+========================= */
+
+.ss-footer{ margin: 18px auto 46px; }
+
+/* Container weniger prominent */
+.ss-footer__inner{
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 14px 38px rgba(0,0,0,.28);
+  padding: 16px 16px 14px;
+  gap: 14px;
+}
+
+/* Links NICHT mehr als Buttons */
+.ss-footer__link,
+.ss-footer__support{
+  border: 0;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: var(--ss-muted);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(80,210,175,.22);
+}
+
+.ss-footer__link:hover,
+.ss-footer__support:hover{
+  background: transparent;
+  color: var(--ss-text);
+  border-bottom-color: rgba(80,210,175,.50);
+}
+
+/* Link-Layout: wie echte Footer-Links */
+.ss-footer__links{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-content: flex-start;
+}
+
+/* Brand-Text etwas wärmer */
+.ss-footer__note,
+.ss-footer__made{
+  color: var(--ss-muted);
+  opacity: 1;
+}
+
+/* Support nicht abgesetzt rechts */
+.ss-footer__meta{
+  justify-content: flex-start;
+}
+
+/* Optional: kleine Linie oben im Footer */
+.ss-footer__inner{
+  position: relative;
+}
+.ss-footer__inner::before{
+  content:"";
+  position:absolute;
+  left: 14px;
+  right: 14px;
+  top: 10px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(80,210,175,.28), transparent);
+  opacity: .85;
+}
+
+/* Light-Mode: Footer wie „Papier“, Links dunkel */
+@media (prefers-color-scheme: light){
+  .ss-footer__inner{
+    background: rgba(255,255,255,.78);
+    border: 1px solid rgba(17,24,39,.10);
+    box-shadow: 0 18px 40px rgba(17,24,39,.10);
+  }
+  .ss-footer__link,
+  .ss-footer__support{
+    color: rgba(17,24,39,.70);
+    border-bottom-color: rgba(40,165,140,.26);
+  }
+  .ss-footer__link:hover,
+  .ss-footer__support:hover{
+    color: rgba(17,24,39,.92);
+    border-bottom-color: rgba(40,165,140,.52);
+  }
+  .ss-footer__inner::before{
+    background: linear-gradient(90deg, transparent, rgba(40,165,140,.22), transparent);
+  }
+}
