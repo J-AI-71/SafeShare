@@ -456,220 +456,127 @@ html.ss-noScroll, html.ss-noScroll body{
 }
 
 /* =========================
-   FOOTER (passt zur neuen Farb-Hierarchie)
+   FOOTER (clean + hochwertig)
 ========================= */
 .ss-footer{
   max-width: var(--ss-max);
-  margin: 18px auto 40px;
+  margin: 22px auto 48px;
   padding: 0 14px;
 }
+
 .ss-footer__inner{
-  border: 1px solid rgba(255,255,255,.16);
-  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.035);
   border-radius: var(--ss-radius);
-  box-shadow: var(--ss-shadow);
-  padding: 14px;
+  box-shadow: 0 22px 70px rgba(0,0,0,.35);
+  padding: 16px 16px 14px;
   display: grid;
-  grid-template-columns: 1.2fr 1.4fr .8fr;
+  grid-template-columns: 1fr;
   gap: 12px;
+  position: relative;
 }
-.ss-footer__name{ font-weight: 800; letter-spacing: .2px; }
-.ss-footer__note, .ss-footer__made{
+
+/* dezente Top-Line */
+.ss-footer__inner::before{
+  content:"";
+  position:absolute;
+  left: 16px; right: 16px; top: 10px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(80,210,175,.28), transparent);
+  opacity: .9;
+}
+
+.ss-footer__brand{
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+}
+
+.ss-footer__name{
+  font-weight: 820;
+  letter-spacing: .2px;
+}
+
+.ss-footer__note{
   color: var(--ss-muted);
-  margin-top: 6px;
-  line-height: 1.35;
+  line-height: 1.4;
 }
-.ss-footer__links{
+
+/* Links: keine Underlines, keine Pills */
+.ss-footer__nav{
   display:flex;
   flex-wrap:wrap;
-  gap: 10px 12px;
-  align-content:flex-start;
+  gap: 10px 14px;
+  align-items:center;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,.10);
 }
-.ss-footer__link, .ss-footer__support{
-  text-decoration:none;
-  color: var(--ss-text);
-  border: 1px solid rgba(255,255,255,.16);
-  background: rgba(255,255,255,.06);
-  padding: 8px 10px;
-  border-radius: 999px;
-}
-.ss-footer__link:hover, .ss-footer__support:hover{
-  background: rgba(255,255,255,.09);
-}
-.ss-footer__meta{
+
+.ss-footer__util{
   display:flex;
-  justify-content:flex-end;
-  align-items:flex-start;
+  flex-wrap:wrap;
+  gap: 10px 14px;
+  align-items:center;
+  color: var(--ss-muted);
 }
-@media (max-width: 900px){
-  .ss-footer__inner{ grid-template-columns: 1fr; }
-  .ss-footer__meta{ justify-content:flex-start; }
+
+.ss-footer__link{
+  color: rgba(255,255,255,.86);
+  text-decoration: none;
+  padding: 2px 0;
+  border-radius: 8px;
+  position: relative;
 }
-/* =========================
-   LIGHT MODE (v2026-02-02-03)
-   -> ans ENDE von ss-shell.css
-========================= */
+
+/* Hover: dezenter “Underline”-Sweep nur bei Hover */
+.ss-footer__link::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-2px;
+  height: 1px;
+  background: rgba(80,210,175,.0);
+  transition: background .14s ease;
+}
+.ss-footer__link:hover{
+  color: rgba(255,255,255,.96);
+}
+.ss-footer__link:hover::after{
+  background: rgba(80,210,175,.45);
+}
+
+/* Kleine Separator-Dots (optisch wertiger als Striche) */
+.ss-footer__dot{
+  width: 3px; height: 3px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.22);
+  display:inline-block;
+  transform: translateY(-1px);
+}
+
+/* Light mode */
 @media (prefers-color-scheme: light){
-
-  :root{
-    /* Warmes, helles Grundgefühl (nicht klinisch) */
-    --ss-text: rgba(17,24,39,.92);
-    --ss-muted: rgba(17,24,39,.66);
-
-    --ss-border: rgba(17,24,39,.14);
-    --ss-pill-bg: rgba(17,24,39,.04);
-    --ss-pill-bg-hover: rgba(17,24,39,.07);
-
-    /* Akzent bleibt, aber im Light nicht grell */
-    --ss-active: rgba(47,227,183,.22);
-    --ss-active-border: rgba(10,160,130,.42);
-    --ss-accent-glow: 0 0 0 1px rgba(47,227,183,.18), 0 12px 26px rgba(47,227,183,.10);
-  }
-
-  body{
-    /* Warmes Papier + Mint/Blue Schimmer */
-    background:
-      radial-gradient(900px 650px at 18% -10%, rgba(47,227,183,.18), transparent 62%),
-      radial-gradient(820px 580px at 88% 8%, rgba(120,140,255,.12), transparent 62%),
-      radial-gradient(900px 800px at 50% 120%, rgba(255,210,170,.22), transparent 58%),
-      linear-gradient(180deg, rgba(255,255,255,1), rgba(250,251,252,1));
-    color: var(--ss-text);
-  }
-
-  /* Header: heller Blur statt dunkler Kante */
-  .ss-header{
-    background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,0));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-
-  /* Nav Capsule */
-  .ss-nav{
-    border-color: rgba(17,24,39,.12);
-    background: rgba(255,255,255,.72);
-    box-shadow: 0 18px 45px rgba(17,24,39,.10);
-  }
-
-  .ss-nav__link,
-  .ss-moreBtn{
-    color: rgba(17,24,39,.70);
-  }
-
-  .ss-nav__link:hover,
-  .ss-moreBtn:hover{
-    background: rgba(17,24,39,.05);
-    border-color: rgba(17,24,39,.12);
-    color: rgba(17,24,39,.92);
-  }
-
-  .ss-nav__link.is-active,
-  .ss-moreBtn.is-active{
-    background: rgba(47,227,183,.20);
-    border-color: rgba(10,160,130,.42);
-    color: rgba(17,24,39,.92);
-    box-shadow: 0 0 0 1px rgba(47,227,183,.18);
-  }
-
-  .ss-moreBtn{
-    background: rgba(255,255,255,.72);
-    border-color: rgba(17,24,39,.12);
-  }
-
-  /* Cards: warm + klar, weniger grau */
-  .ss-card{
-    background:
-      linear-gradient(180deg, rgba(47,227,183,.12), rgba(255,255,255,.82) 38%),
-      rgba(255,255,255,.82);
-    border-color: rgba(17,24,39,.12);
-    box-shadow:
-      0 20px 60px rgba(17,24,39,.12),
-      inset 0 1px 0 rgba(255,255,255,.80);
-  }
-
-  .ss-card--inner{
-    background: rgba(255,255,255,.74);
-    border-color: rgba(17,24,39,.10);
-  }
-
-  /* Hero wärmer im Light */
-  .ss-section:first-of-type .ss-card{
-    background:
-      radial-gradient(900px 280px at 20% 0%, rgba(255,210,170,.40), transparent 60%),
-      radial-gradient(800px 280px at 85% 10%, rgba(47,227,183,.26), transparent 62%),
-      linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.80));
-    border-color: rgba(17,24,39,.12);
-  }
-
-  /* Buttons */
-  .ss-btn{
-    background: rgba(255,255,255,.82);
-    border-color: rgba(17,24,39,.12);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.80);
-  }
-  .ss-btn:hover{
-    background: rgba(255,255,255,.92);
-  }
-
-  .ss-btn--primary{
-    background: linear-gradient(180deg, rgba(47,227,183,.55), rgba(47,227,183,.34));
-    border-color: rgba(10,160,130,.46);
-    color: rgba(7,24,20,.92);
-    box-shadow: var(--ss-accent-glow);
-  }
-
-  /* Links: UI-Style */
-  .ss-card a{
-    color: rgba(17,24,39,.92);
-    border-bottom-color: rgba(10,160,130,.35);
-  }
-  .ss-card a:hover{
-    border-bottom-color: rgba(10,160,130,.65);
-  }
-
-  /* Details / FAQ */
-  details{
-    border-color: rgba(17,24,39,.12);
-    background: rgba(255,255,255,.78);
-  }
-
-  /* More menu: echtes Light-Sheet */
-  .ss-moreBackdrop{ background: rgba(17,24,39,.08); }
-  .ss-moreMenu{
-    background: rgba(255,255,255,.98);
-    border-color: rgba(17,24,39,.12);
-    box-shadow: 0 18px 45px rgba(17,24,39,.16);
-    color: rgba(17,24,39,.95);
-  }
-  .ss-moreClose{
-    border-color: rgba(17,24,39,.12);
-    background: rgba(17,24,39,.03);
-  }
-  .ss-moreClose:hover{ background: rgba(17,24,39,.06); }
-
-  .ss-moreLink{
-    border-color: rgba(17,24,39,.12);
-    background: rgba(17,24,39,.03);
-  }
-  .ss-moreLink:hover{
-    background: rgba(17,24,39,.06);
-  }
-  .ss-moreSep{ background: rgba(17,24,39,.12); }
-
-  /* Footer */
   .ss-footer__inner{
-    border-color: rgba(17,24,39,.12);
-    background: rgba(255,255,255,.72);
-    box-shadow: 0 18px 45px rgba(17,24,39,.10);
+    border: 1px solid rgba(17,24,39,.10);
+    background: rgba(255,255,255,.78);
+    box-shadow: 0 22px 60px rgba(17,24,39,.10);
   }
-  .ss-footer__link,
-  .ss-footer__support{
-    border-color: rgba(17,24,39,.12);
-    background: rgba(17,24,39,.03);
-    color: rgba(17,24,39,.90);
+  .ss-footer__inner::before{
+    background: linear-gradient(90deg, transparent, rgba(40,165,140,.22), transparent);
   }
-  .ss-footer__link:hover,
-  .ss-footer__support:hover{
-    background: rgba(17,24,39,.06);
+  .ss-footer__nav{
+    border-top: 1px solid rgba(17,24,39,.10);
+  }
+  .ss-footer__link{
+    color: rgba(17,24,39,.82);
+  }
+  .ss-footer__link:hover{
+    color: rgba(17,24,39,.94);
+  }
+  .ss-footer__link:hover::after{
+    background: rgba(40,165,140,.45);
+  }
+  .ss-footer__dot{
+    background: rgba(17,24,39,.18);
   }
 }
 /* =========================
