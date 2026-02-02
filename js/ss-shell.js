@@ -1,5 +1,5 @@
 /*! Datei: /js/ss-shell.js */
-/*! SafeShare Shell v2026-02-01-03 (Schema B: EN under /en/<slug>/) */
+/*! SafeShare Shell v2026-02-02-02 (Schema: EN under /en/<slug>/) */
 (function () {
   "use strict";
 
@@ -12,7 +12,7 @@
       const htmlLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
       const isEN = path.startsWith("/en/") || htmlLang.startsWith("en");
 
-      // 2) Links (Schema B)
+      // 2) Links (Schema: EN unter /en/<slug>/)
       const LINKS = isEN
         ? {
             home: "/en/",
@@ -24,7 +24,7 @@
 
             // Learn (EN folders in repo)
             tracking: "/en/tracking-parameters/",
-            utm: "/en/remove-utm-parameter/",          // IMPORTANT: singular (repo folder)
+            utm: "/en/remove-utm-parameter/",
             comparison: "/en/url-cleaner-comparison/",
             email: "/en/email-link-cleaning/",
             messenger: "/en/messenger-link-cleaning/",
@@ -85,6 +85,11 @@
             terms: "Terms",
             close: "Close",
             langSwitch: "Deutsch",
+
+            // Footer
+            footerNote: "Local-first. No account. No tracking.",
+            footerMade: "Made for clean sharing.",
+            footerTop: "Top",
           }
         : {
             start: "Start",
@@ -110,6 +115,11 @@
             terms: "Nutzungsbedingungen",
             close: "Schließen",
             langSwitch: "English",
+
+            // Footer
+            footerNote: "Local-first. Kein Konto. Kein Tracking.",
+            footerMade: "Gemacht für sauberes Teilen.",
+            footerTop: "Nach oben",
           };
 
       // 4) Logo
@@ -175,7 +185,7 @@
         return "/en/";
       }
 
-      // 7) Shell-Markup
+      // 7) Shell-Markup (Header + More)
       const shellHTML = `
 <header class="ss-header" role="banner">
   <a class="ss-brand" href="${LINKS.home}" aria-label="SafeShare">
@@ -238,7 +248,35 @@
 </div>
       `.trim();
 
-      // 8) Mount sicherstellen (falls #ss-shell fehlt)
+      // 8) Footer-Markup
+      const footerHTML = `
+<footer class="ss-footer" role="contentinfo">
+  <div class="ss-footer__inner">
+    <div class="ss-footer__brand">
+      <div class="ss-footer__name">SafeShare</div>
+      <div class="ss-footer__note">${T.footerNote}</div>
+      <div class="ss-footer__made">${T.footerMade}</div>
+    </div>
+
+    <nav class="ss-footer__links" aria-label="Footer">
+      <a class="ss-footer__link" href="${LINKS.app}">${T.app}</a>
+      <a class="ss-footer__link" href="${LINKS.pro}">${T.pro}</a>
+      <a class="ss-footer__link" href="${LINKS.help}">${T.help}</a>
+      <a class="ss-footer__link" href="${LINKS.privacy}">${T.privacy}</a>
+      <a class="ss-footer__link" href="${LINKS.imprint}">${T.imprint}</a>
+      <a class="ss-footer__link" href="${LINKS.terms}">${T.terms}</a>
+      <a class="ss-footer__link" href="${toCounterpartUrl()}">${T.langSwitch}</a>
+      <a class="ss-footer__link" href="#top">${T.footerTop}</a>
+    </nav>
+
+    <div class="ss-footer__meta">
+      <a class="ss-footer__support" href="${LINKS.support}">${T.support}</a>
+    </div>
+  </div>
+</footer>
+      `.trim();
+
+      // 9) Mount sicherstellen (Header-Shell)
       let mount = $("#ss-shell");
       if (!mount) {
         mount = document.createElement("div");
@@ -250,7 +288,16 @@
       }
       mount.innerHTML = shellHTML;
 
-      // 9) Active-State
+      // 10) Footer mount sicherstellen
+      let fmount = $("#ss-footer");
+      if (!fmount) {
+        fmount = document.createElement("div");
+        fmount.id = "ss-footer";
+        document.body.appendChild(fmount);
+      }
+      fmount.innerHTML = footerHTML;
+
+      // 11) Active-State
       function setActive() {
         const p = norm(location.pathname);
 
@@ -304,7 +351,7 @@
       }
       setActive();
 
-      // 10) Mehr-Menü open/close
+      // 12) Mehr-Menü open/close
       const btn = $("#ssMoreBtn");
       const overlay = $("#ssMoreOverlay");
 
