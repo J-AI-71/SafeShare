@@ -22,6 +22,37 @@
   --ss-max: 980px;
 }
 
+/* === TYPO: modern, nicht altmodisch (System-Fonts) === */
+:root{
+  --ss-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+             "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji",
+             "Segoe UI Emoji";
+  --ss-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                  "Liberation Mono", "Courier New", monospace;
+}
+
+html, body{
+  font-family: var(--ss-font);
+  font-weight: 450;               /* wirkt modern/ruhig */
+  letter-spacing: .1px;
+}
+
+/* Überschriften klar & modern */
+h1, h2, h3, .ss-card h1, .ss-card h2, .ss-card h3{
+  font-family: var(--ss-font);
+  font-weight: 780;
+  letter-spacing: .2px;
+}
+
+/* Code nicht „Times“ */
+code, pre{
+  font-family: var(--ss-font-mono);
+  font-size: .95em;
+}
+/* Weniger „Buch“-Anmutung */
+.ss-card p{ font-weight: 450; }
+.ss-card strong{ font-weight: 700; }
+
 /* ---------------------------
    Minimal Content Base (macht es „lebendiger“)
 ---------------------------- */
