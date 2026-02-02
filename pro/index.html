@@ -1,465 +1,253 @@
-<!-- Datei: /pro/index.html (DE) – Header/Tabs raus, Placeholder rein -->
+<!-- /pro/index.html (DE) — SafeShare Pro -->
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>SafeShare Pro – Policies, Allowlist, Audit</title>
-  <meta name="description" content="SafeShare Pro: erweiterte Link-Analyse, transparente Erklärungen, optionales Auswählen/Allowlist – local-first. Für Profis und Teams.">
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
+
+  <title>SafeShare Pro – Klarheit & Workflow für saubere Links</title>
+  <meta name="description" content="SafeShare Pro: mehr Klarheit, bessere Routinen (Copy → Clean → Share) und verlässlicher Offline-Workflow – ohne Konto, ohne Tracking, ohne Abo." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
   <link rel="canonical" href="https://safesharepro.com/pro/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/pro/" />
-  <link rel="alternate" hreflang="en" href="https://safesharepro.com/pro/en/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/pro/en/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/pro/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/pro/" />
 
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Open Graph / Social Preview -->
-  <meta property="og:title" content="SafeShare Pro – Policies, Allowlist, Audit" />
-  <meta property="og:description" content="SafeShare Pro: Bulk-Clean, Presets/Policies, Allowlist/Blocklist und Audit pro Link – vollständig lokal. Kein Upload." />
+  <!-- Social -->
+  <meta property="og:title" content="SafeShare Pro – Klarheit & Workflow für saubere Links" />
+  <meta property="og:description" content="Mehr Klarheit, bessere Routinen und verlässlicher Offline-Workflow – ohne Konto, ohne Tracking, ohne Abo." />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="SafeShare" />
   <meta property="og:url" content="https://safesharepro.com/pro/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-pro.png?v=2026-01-05-02" />
+  <meta property="og:site_name" content="SafeShare" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-pro.png?v=2026-02-02-01" />
   <meta property="og:image:alt" content="SafeShare Pro – Vorschau" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SafeShare Pro – Policies, Allowlist, Audit" />
-  <meta name="twitter:description" content="Bulk-Clean, Policies, Allowlist/Blocklist und Audit pro Link – vollständig lokal. Kein Upload." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-pro.png?v=2026-01-05-02" />
-  <meta name="twitter:image:alt" content="SafeShare Pro – Vorschau" />
+  <meta name="twitter:title" content="SafeShare Pro – Klarheit & Workflow für saubere Links" />
+  <meta name="twitter:description" content="Mehr Klarheit, bessere Routinen und verlässlicher Offline-Workflow – ohne Konto, ohne Tracking, ohne Abo." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-pro.png?v=2026-02-02-01" />
 
-  <!-- Favicons + PWA -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-01">
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01">
-
-  <!-- MASTER SHELL -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-01">
-<script src="/js/ss-shell.js?v=2026-01-25-01" defer></script>
-
-  <style>
-    :root{
-      --bg0:#070a12; --bg1:#070b14; --bg2:#0b1020;
-      --card: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.60);
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
-      --radius: 18px;
-      --mint: #2fe3b7;
-      --mint2: rgba(47,227,183,.18);
-      --mint3: rgba(47,227,183,.28);
-      --warn: rgba(255,197,84,.16);
-      --ok: rgba(47,227,183,.16);
-      --bad: rgba(255,84,84,.14);
-      --max: 1120px;
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#f6f7fb; --bg1:#ffffff; --bg2:#f2f6ff;
-        --card:#ffffff;
-        --border: rgba(17,24,39,.12);
-        --text: rgba(17,24,39,.95);
-        --muted: rgba(17,24,39,.72);
-        --muted2: rgba(17,24,39,.62);
-        --shadow: 0 18px 45px rgba(17,24,39,.10);
-        --warn: rgba(255,197,84,.22);
-        --ok: rgba(47,227,183,.18);
-        --bad: rgba(255,84,84,.12);
-      }
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(47,227,183,.18), transparent 55%),
-        radial-gradient(900px 520px at 85% 10%, rgba(255,197,84,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-    }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
-
-    .card{
-      margin-top: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 42px); line-height: 1.10; letter-spacing:-.2px; }
-    h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
-    h3{ margin: 14px 0 8px; font-size: 15px; letter-spacing: -0.1px; }
-    p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-    ul, ol{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.6; }
-
-    .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor:pointer;
-      user-select:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      text-decoration:none;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); }
-    .btn.primary{ background: var(--mint2); border-color: rgba(47,227,183,.35); }
-    .btn.primary:hover{ background: var(--mint3); }
-    .btn.ghost{ background: transparent; color: var(--muted); }
-    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.04); }
-
-    .note,.warn,.bad{
-      margin-top: 12px;
-      border-left: 3px solid rgba(47,227,183,.55);
-      background: var(--ok);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text);
-    }
-    .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
-    .bad{ border-left-color: rgba(255,84,84,.55); background: var(--bad); }
-
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    @media(min-width: 980px){
-      .grid2{ grid-template-columns: 1fr 1fr; }
-    }
-    .box{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding: 12px;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      font-size: 12px; color: var(--muted);
-      white-space: nowrap;
-    }
-    .pill b{ color: var(--text); font-weight: 850; }
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
-
-    .example{
-      margin-top: 10px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-      word-break: break-word;
-    }
-
-    .price{
-      font-size: 22px;
-      font-weight: 850;
-      letter-spacing: -0.2px;
-      margin: 6px 0 10px;
-      color: var(--text);
-    }
-    .price small{
-      font-size: 12px;
-      font-weight: 650;
-      color: var(--muted2);
-      margin-left: 6px;
-    }
-
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 14px;
-    }
-    @media(min-width: 920px){
-      .footGrid{ grid-template-columns: 1.2fr .8fr; }
-    }
-    .footLinks{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-start;
-    }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      text-decoration:none;
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-  </style>
+  <!-- Shell (Master-Flow) -->
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-02-01" />
 </head>
 
 <body>
-  <!-- HEADER/TABS/MORE: ersetzt durch Master-Shell -->
-  <div id="ss-shell"></div>
-
-  <div class="wrap">
+  <main class="ss-main" id="top">
 
     <!-- HERO -->
-    <section class="card">
-      <h1>SafeShare Pro</h1>
-      <p>
-        Für alle, die Links <b>bewusst</b> teilen: nachvollziehbar entfernen (Tracking) – und bewusst behalten
-        (Affiliate/Funktion). Pro ist für Profis, Publisher und Teams.
-      </p>
+    <section class="ss-section" aria-labelledby="pro-hero-title">
+      <div class="ss-card">
+        <h1 id="pro-hero-title">SafeShare Pro</h1>
+        <p><strong>Mehr Klarheit, bessere Routinen, weniger Reibung.</strong> Pro ist für Menschen, die Links regelmäßig teilen und nachvollziehen wollen, was beim Bereinigen passiert – ohne Konto, ohne Tracking, ohne Abo.</p>
+        <p class="ss-muted">Local-first im Browser. Du kannst SafeShare auch kostenlos nutzen.</p>
 
-      <div class="row">
-        <a class="btn primary" href="#pricing">Pro kaufen</a>
-        <a class="btn" href="/app/">App (gratis) testen</a>
-        <a class="btn ghost" href="/hilfe/#prostart">Pro-Workflow</a>
-      </div>
-
-      <div class="note">
-        Pro bleibt <b>local-first</b>: Die Bereinigung passiert im Browser/Offline-Paket – keine Link-Uploads als „Server-Cleaner“.
+        <div class="ss-actions">
+          <a class="ss-btn ss-btn--primary" href="#pakete">Pakete ansehen</a>
+          <a class="ss-btn" href="/app/">Kostenlos nutzen</a>
+        </div>
       </div>
     </section>
 
-    <!-- FOR WHOM -->
-    <section class="card">
-      <h2>Für wen lohnt sich Pro?</h2>
-      <div class="grid2">
-        <div class="box">
-          <h3>Publishing / Journalismus / Social-Team</h3>
-          <ul>
-            <li>Du postest viele Links – und willst, dass sie sauber wirken.</li>
-            <li>Du willst Standard-Tracking raus, aber funktionale Parameter nicht zerstören.</li>
-            <li>Du brauchst einen klaren Prozess, der reproduzierbar ist.</li>
-          </ul>
-        </div>
-        <div class="box">
-          <h3>Affiliate / Partner / Growth</h3>
-          <ul>
-            <li>Du musst Attribution (z. B. <span class="mono">ref</span>, <span class="mono">tag</span>) bewusst behalten.</li>
-            <li>Du willst pro Domain klare Regeln: was darf bleiben, was fliegt raus.</li>
-            <li>Du willst nachvollziehen, was verändert wurde.</li>
-          </ul>
-        </div>
-      </div>
+    <!-- PACKAGES / PRICING -->
+    <section class="ss-section" id="pakete" aria-labelledby="packages-title">
+      <div class="ss-card">
+        <h2 id="packages-title">Pakete</h2>
+        <p class="ss-muted">Wähle das Paket, das zu deinem Alltag passt. Keine künstlichen Limits, kein Upsell-Druck.</p>
 
-      <div class="warn">
-        Pro ist kein „Anonymitäts-Tool“. Es ist Link-Hygiene: weniger Ballast im Link – klarer, respektvoller, nachvollziehbarer.
-      </div>
-    </section>
+        <div class="ss-grid ss-grid--3">
+          <!-- Supporter -->
+          <article class="ss-card ss-card--inner" aria-label="Supporter">
+            <h3>Supporter</h3>
+            <p class="ss-muted">Für dich, wenn du das Projekt tragen willst – auch ohne Pro zu brauchen.</p>
+            <ul>
+              <li>Unterstützt Wartung & Weiterentwicklung</li>
+              <li>Ohne Konto, ohne Tracking</li>
+              <li>Keine Abo-Pflicht</li>
+            </ul>
+            <div class="ss-actions">
+              <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/cFHy7" rel="noopener noreferrer">Supporter werden</a>
+              <a class="ss-btn" href="#warum-pro-kostet">Warum das hilft</a>
+            </div>
+          </article>
 
-    <!-- FEATURES -->
-    <section class="card">
-      <h2>Was ist in Pro anders als in der App?</h2>
+          <!-- Pro Person -->
+          <article class="ss-card ss-card--inner" aria-label="Pro Person">
+            <h3>Pro Person</h3>
+            <p class="ss-muted">Für Einzelpersonen, die regelmäßig Links teilen und Klarheit im Workflow wollen.</p>
+            <ul>
+              <li>Transparenz: was entfernt wurde – und warum</li>
+              <li>Komfort & Routine (Copy → Clean → Share)</li>
+              <li>Offline-/Pro-Workflow</li>
+            </ul>
+            <div class="ss-actions">
+              <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/djqDz" rel="noopener noreferrer">Pro Person kaufen</a>
+              <a class="ss-btn" href="/app/">Erst kostenlos nutzen</a>
+            </div>
+          </article>
 
-      <div class="grid2">
-        <div class="box">
-          <div class="pill"><b>Audit</b> Was wurde geändert?</div>
-          <p>
-            Du siehst, welche Parameter entfernt wurden (removed) – und welche bewusst bleiben (kept).
-            Damit findest du Fehler schnell (z. B. wenn ein „funktionaler“ Key doch nötig war).
-          </p>
-        </div>
-        <div class="box">
-          <div class="pill"><b>Allowlist</b> bewusst behalten</div>
-          <p>
-            Pro erlaubt Schlüssel gezielt – z. B. Affiliate- oder Funktions-Keys – statt „alles weg“.
-            So brichst du keine Attribution/Einnahmen und keine wichtigen Funktionen.
-          </p>
+          <!-- Pro Team -->
+          <article class="ss-card ss-card--inner" aria-label="Pro Team">
+            <h3>Pro Team</h3>
+            <p class="ss-muted">Für Teams, die Link-Hygiene konsistent machen wollen – ohne Nutzer-Tracking.</p>
+            <ul>
+              <li>Gemeinsamer Standard für saubere Links</li>
+              <li>Weniger Reibung im Team-Alltag</li>
+              <li>Faire Team-Lizenz</li>
+            </ul>
+            <div class="ss-actions">
+              <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/oXFsk" rel="noopener noreferrer">Pro Team kaufen</a>
+              <a class="ss-btn" href="#faq">FAQ</a>
+            </div>
+          </article>
         </div>
 
-        <div class="box">
-          <div class="pill"><b>Policies</b> Standard / Publisher / Streng</div>
-          <p>
-            Presets je nach Kontext: <b>Standard</b> (typisches Tracking), <b>Publisher/Affiliate</b> (Attribution behalten),
-            <b>Streng</b> (maximales Entfernen) – plus Custom.
-          </p>
-        </div>
-        <div class="box">
-          <div class="pill"><b>Workflow</b> reproduzierbar</div>
-          <p>
-            Pro ist für wiederkehrende Fälle gebaut: Domains, Regeln, wiederholbare Entscheidungen –
-            statt jedes Mal zu raten.
-          </p>
-        </div>
-      </div>
-
-      <div class="example mono">
-        Beispiel: Affiliate-Key behalten, Tracking entfernen → Policy + Allowlist + Audit statt „Blind-Clean“
+        <p class="ss-muted" style="margin-top:1rem">
+          Hinweise: Kein Abo. Kein Konto. Local-first. Keine falschen Sicherheitsversprechen.
+        </p>
       </div>
     </section>
 
-    <!-- HOW IT WORKS -->
-    <section class="card" id="how">
-      <h2>So läuft Pro (nach dem Kauf)</h2>
-      <ol>
-        <li>Payhip-Download öffnen</li>
-        <li><b>01-START.html</b> starten</li>
-        <li>Von dort Pro-App öffnen + optional Handbuch</li>
-      </ol>
-      <div class="note">
-        Pro ist ein <b>Offline-Download</b>. Starte immer über <b>01-START.html</b> aus deinem Paket,
-        damit Links/Dateien stimmen und Pro nicht versehentlich „öffentlich“ rumliegt.
-      </div>
-      <div class="row">
-        <a class="btn" href="/hilfe/#prostart">Details in Hilfe</a>
-        <a class="btn ghost" href="/hilfe/#ios">iPad/iPhone Hinweise</a>
+    <!-- WHY PRO COSTS -->
+    <section class="ss-section" id="warum-pro-kostet" aria-labelledby="why-pro-title">
+      <div class="ss-card">
+        <h2 id="why-pro-title">Warum Pro Geld kostet</h2>
+
+        <p><strong>Du kannst SafeShare kostenlos nutzen.</strong> Link-Reinigung ist hier kein Lockmittel und keine „E-Mail-gegen-Freebie“-Nummer – sondern der Kern: local-first im Browser, ohne Konto, ohne Datensammelei.</p>
+
+        <h3>Was kostenlos ist – und bleibt</h3>
+        <ul>
+          <li>Links bereinigen (Tracking-Parameter entfernen, saubere URLs erzeugen)</li>
+          <li>Local-first: läuft im Browser, ohne Server-Zwischenstation</li>
+          <li>Kein Account, kein Login, kein Abo-Zwang</li>
+          <li>Keine Angst-UI, keine künstlichen Limits, keine Dark Patterns</li>
+        </ul>
+
+        <h3>Datenschutz ist hier keine Ware</h3>
+        <p>Viele Tools verkaufen „Privatsphäre“ als Premium-Feature. Hier ist Privatsphäre das Fundament – nicht der Aufpreis. Pro bedeutet nicht „mehr Privatsphäre gegen Geld“, sondern <strong>mehr Klarheit und besserer Workflow</strong> für Menschen, die das Thema regelmäßig nutzen.</p>
+
+        <h3>Wofür du bei Pro tatsächlich zahlst</h3>
+        <p>Du zahlst für Arbeit, Pflege und Verlässlichkeit – nicht für Druck oder Psychotricks. Pro finanziert:</p>
+        <ul>
+          <li><strong>Weiterentwicklung</strong> (neue Parameter, neue Redirect-Patterns, neue Plattform-Sonderfälle)</li>
+          <li><strong>Wartung</strong> (Browser-Updates, iOS/Safari-Eigenheiten, Regression-Fixes)</li>
+          <li><strong>Qualität & Stabilität</strong> (saubere Releases, Tests, nachvollziehbare Änderungen)</li>
+          <li><strong>Dokumentation</strong> (Handbuch, Erklärungen, Beispiele)</li>
+          <li><strong>Offline-/Pro-Workflow</strong> (Komfortfunktionen, die man nicht „mal eben“ baut)</li>
+        </ul>
+
+        <h3>Für wen Pro sinnvoll ist</h3>
+        <ul>
+          <li>du teilst häufig Links (Arbeit, Projekte, Community, Kundenkontakt)</li>
+          <li>du willst <strong>Transparenz</strong>: was entfernt wurde – und warum</li>
+          <li>du willst <strong>Zeit sparen</strong> und eine saubere Routine (Copy → Clean → Share)</li>
+          <li>du willst das Projekt unterstützen, damit es unabhängig bleiben kann</li>
+        </ul>
+
+        <h3>Für wen Pro nicht gedacht ist</h3>
+        <ul>
+          <li>du reinigst nur selten Links</li>
+          <li>dir ist egal, welche Parameter in Links hängen</li>
+          <li>du suchst „Unsichtbarkeit“ (das wird hier nicht versprochen)</li>
+        </ul>
+
+        <hr />
+
+        <p><strong>Klare Entscheidung ohne Druck:</strong> Du musst Pro nicht kaufen, um SafeShare zu nutzen. Wenn du Pro kaufst, ist das eine bewusste Entscheidung für weniger Reibung, mehr Klarheit – und die Zukunft eines Tools ohne Tracking.</p>
+
+        <div class="ss-actions">
+          <a class="ss-btn ss-btn--primary" href="#pakete">Pakete ansehen</a>
+          <a class="ss-btn" href="/app/">Kostenlos nutzen</a>
+        </div>
       </div>
     </section>
 
-    <!-- PRICING -->
-    <section class="card" id="pricing">
-      <h2>Pro kaufen</h2>
-      <p>Wähle das passende Paket. (Download &amp; Checkout über Payhip.)</p>
-
-      <div class="grid2">
-
-        <div class="box">
-          <h3>Supporter (ohne Pro-App)</h3>
-          <div class="price">9 € <small>einmalig</small></div>
-          <ul>
-            <li>Handbuch (PDF) + Diagnose-Check (HTML)</li>
-            <li>Offline nutzbar</li>
-            <li>Ideal zum Einstieg / Support</li>
-          </ul>
-          <p class="muted" style="margin-top:8px">
-            Für alle, die SafeShare unterstützen und Handbuch + Diagnose-Check möchten (ohne Pro-App).
-          </p>
-          <div class="row">
-            <a class="btn primary" href="https://payhip.com/b/cFHy7" target="_blank" rel="noopener">Supporter öffnen</a>
+    <!-- WHO / WHO NOT (short, optional) -->
+    <section class="ss-section" id="fuer-wen" aria-labelledby="fit-title">
+      <div class="ss-card">
+        <h2 id="fit-title">Passt Pro zu mir?</h2>
+        <div class="ss-grid ss-grid--2">
+          <div class="ss-card ss-card--inner">
+            <h3>Pro passt, wenn…</h3>
+            <ul>
+              <li>du Links häufig teilst</li>
+              <li>du Klarheit statt Bauchgefühl willst</li>
+              <li>du verlässliche Routinen willst</li>
+              <li>du Offline-/Pro-Workflow nutzt oder nutzen willst</li>
+            </ul>
+          </div>
+          <div class="ss-card ss-card--inner">
+            <h3>Pro ist nicht nötig, wenn…</h3>
+            <ul>
+              <li>du nur selten Links bereinigst</li>
+              <li>dir Details egal sind</li>
+              <li>du nur „einmal kurz“ reinigen willst</li>
+              <li>du „magische Unsichtbarkeit“ erwartest</li>
+            </ul>
           </div>
         </div>
-
-        <div class="box">
-          <h3>Pro Person (1 Person)</h3>
-          <div class="price">49 € <small>einmalig</small></div>
-          <ul>
-            <li>Für Einzelpersonen</li>
-            <li>Offline-Download</li>
-            <li>Policies / Allowlist / Audit</li>
-          </ul>
-          <div class="row">
-            <a class="btn primary" href="https://payhip.com/b/djqDz" target="_blank" rel="noopener">Pro Person öffnen</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <h3>Pro Team (bis 5 Seats)</h3>
-          <div class="price">249 € <small>einmalig</small></div>
-          <ul>
-            <li>Für Teams/Organisationen (bis 5)</li>
-            <li>Offline-Download</li>
-            <li>Policies / Allowlist / Audit</li>
-          </ul>
-          <div class="row">
-            <a class="btn primary" href="https://payhip.com/b/oXFsk" target="_blank" rel="noopener">Pro Team öffnen</a>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="note" style="margin-top:12px">
-        <b>Lizenz:</b> Einmaliger Kauf. Nutzung gemäß Lizenz (Person/Team). Weitergabe außerhalb der Lizenz ist nicht erlaubt.
-        <br><b>Updates:</b> Kleine Verbesserungen/Bugfixes innerhalb der aktuellen Version können enthalten sein.
-        Größere Updates bzw. neue Hauptversionen können kostenpflichtig sein.
-        <br><b>Support:</b> Support ist für Käufer:innen (bitte Bestellnummer/Receipt mitschicken).
-      </div>
-
-      <div class="note" style="margin-top:12px">
-        Support: <a class="mono" href="mailto:listings@safesharepro.com">listings@safesharepro.com</a>
-      </div>
-
-      <div class="note" style="margin-top:12px">
-        Preise in EUR. Steuern/VAT ggf. im Checkout je nach Land.
-      </div>
-
-      <div class="warn">
-        Wichtig: Pro läuft offline, aber du bist nicht „unsichtbar“. Pro reduziert nur Tracking-Ballast im Link selbst.
       </div>
     </section>
 
     <!-- FAQ -->
-    <section class="card" id="faq">
-      <h2>FAQ (kurz)</h2>
+    <section class="ss-section" id="faq" aria-labelledby="faq-title">
+      <div class="ss-card">
+        <h2 id="faq-title">FAQ</h2>
 
-      <div class="grid2">
-        <div class="box">
-          <h3>Warum nicht einfach alles entfernen?</h3>
-          <p>
-            Weil manche Parameter funktional oder Attribution sind. Pro ist dafür da, Entfernen und Behalten sauber zu trennen.
-          </p>
-        </div>
-        <div class="box">
-          <h3>Was, wenn ein Link nach Clean nicht funktioniert?</h3>
-          <p>
-            Dann war vermutlich ein Key funktional. Pro hilft: Audit ansehen → Key erlauben (Allowlist) → neu bereinigen.
-          </p>
-        </div>
-      </div>
+        <details>
+          <summary>Ist Pro ein Abo?</summary>
+          <p>Nein. Pro ist als einmaliger Kauf gedacht (je nach Paket). SafeShare selbst bleibt kostenlos nutzbar.</p>
+        </details>
 
-      <div class="row">
-        <a class="btn" href="/tracking-parameter/">Tracking erklärt</a>
-        <a class="btn" href="/url-cleaner-tool-vergleich/">Tool-Vergleich</a>
-        <a class="btn ghost" href="/hilfe/#kontakt">Support</a>
+        <details>
+          <summary>Was bedeutet „local-first“ konkret?</summary>
+          <p>Der Link wird in deinem Browser bereinigt. Du gibst deine Links nicht an einen Dienst weiter, der sie serverseitig verarbeitet.</p>
+        </details>
+
+        <details>
+          <summary>Verspricht SafeShare Anonymität oder Unsichtbarkeit?</summary>
+          <p>Nein. SafeShare entfernt Tracking-Parameter und Link-Ballast. Das ist Link-Hygiene – kein Unsichtbarkeitsversprechen.</p>
+        </details>
+
+        <details>
+          <summary>Wie funktionieren Updates?</summary>
+          <p>Pro finanziert Weiterentwicklung und Wartung. Details zu Update-Zeiträumen/Versionen kannst du in der jeweiligen Produktbeschreibung nachlesen.</p>
+        </details>
+
+        <details>
+          <summary>Ich habe Fragen vor dem Kauf – wohin schreibe ich?</summary>
+          <p>Support & Listings: <a href="mailto:listings@safesharepro.com">listings@safesharepro.com</a></p>
+        </details>
+
+        <div class="ss-actions" style="margin-top:1rem">
+          <a class="ss-btn ss-btn--primary" href="#pakete">Pakete ansehen</a>
+          <a class="ss-btn" href="/app/">Kostenlos nutzen</a>
+        </div>
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-      <div class="footGrid">
-        <div>
-          <div><strong>SafeShare</strong> – Links teilen. Ohne Ballast.</div>
-          <div>App: schnell &amp; einfach · Pro: Policies, Allowlist, Audit.</div>
-          <div>Support: <a class="mono" href="mailto:listings@safesharepro.com">listings@safesharepro.com</a></div>
+    <!-- Footer CTA -->
+    <section class="ss-section" aria-label="Abschluss">
+      <div class="ss-card">
+        <p><strong>Ohne Druck.</strong> Wenn du Pro willst: nimm es. Wenn nicht: nutze SafeShare kostenlos.</p>
+        <div class="ss-actions">
+          <a class="ss-btn ss-btn--primary" href="#pakete">Pro ansehen</a>
+          <a class="ss-btn" href="/app/">Link bereinigen</a>
         </div>
-        <div class="footLinks">
-          <a data-page="start" href="/">Start</a>
-          <a data-page="app" href="/app/">App</a>
-          <a data-page="schule" href="/schule/">Schule</a>
-          <a data-page="pro" href="/pro/">Pro</a>
-          <a data-page="hilfe" href="/hilfe/">Hilfe</a>
-          <a data-page="lesezeichen" href="/lesezeichen/">Lesezeichen</a>
-          <a data-page="datenschutz" href="/datenschutz/">Datenschutz</a>
-          <a data-page="impressum" href="/impressum/">Impressum</a>
-          <a data-page="terms" href="/nutzungsbedingungen/">Nutzungsbedingungen</a>
-        </div>
+        <p class="ss-muted" style="margin-top:.75rem">Kein Abo. Kein Konto. Keine Datensammelei.</p>
       </div>
-    </footer>
-  </div>
+    </section>
+
+  </main>
+
+  <script src="/js/ss-shell.js?v=2026-02-02-01" defer></script>
 </body>
 </html>
