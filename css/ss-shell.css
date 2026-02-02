@@ -672,3 +672,53 @@ html.ss-noScroll, html.ss-noScroll body{
     background: rgba(17,24,39,.06);
   }
 }
+/* =========================
+   LIGHT MODE – Mint weicher (Override)
+   -> ans ENDE (unter den Light-Block)
+========================= */
+@media (prefers-color-scheme: light){
+
+  :root{
+    /* Weicher, „organischer“ Mint (weniger neon/tech) */
+    --ss-active: rgba(80, 210, 175, .18);
+    --ss-active-border: rgba(40, 165, 140, .34);
+    --ss-accent-glow: 0 0 0 1px rgba(80,210,175,.14), 0 12px 26px rgba(80,210,175,.08);
+  }
+
+  /* Active Tabs / More */
+  .ss-nav__link.is-active,
+  .ss-moreBtn.is-active{
+    background: rgba(80,210,175,.16);
+    border-color: rgba(40,165,140,.32);
+    box-shadow: 0 0 0 1px rgba(80,210,175,.12);
+  }
+
+  /* Primary Button */
+  .ss-btn--primary{
+    background: linear-gradient(180deg, rgba(80,210,175,.46), rgba(80,210,175,.26));
+    border-color: rgba(40,165,140,.34);
+    color: rgba(7,24,20,.92);
+    box-shadow: var(--ss-accent-glow);
+  }
+
+  /* Links: weicher */
+  .ss-card a{
+    border-bottom-color: rgba(40,165,140,.28);
+  }
+  .ss-card a:hover{
+    border-bottom-color: rgba(40,165,140,.48);
+  }
+
+  /* Cards: Mint-Schimmer etwas softer */
+  .ss-card{
+    background:
+      linear-gradient(180deg, rgba(80,210,175,.10), rgba(255,255,255,.82) 38%),
+      rgba(255,255,255,.82);
+  }
+  .ss-section:first-of-type .ss-card{
+    background:
+      radial-gradient(900px 280px at 20% 0%, rgba(255,210,170,.40), transparent 60%),
+      radial-gradient(800px 280px at 85% 10%, rgba(80,210,175,.18), transparent 62%),
+      linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.80));
+  }
+}
