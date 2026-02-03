@@ -1,65 +1,108 @@
 /* Datei: /css/ss-shell.css */
-/* SafeShare Shell v2026-02-03-01 (Schema: EN under /en/<slug>/) */
+/* SafeShare Shell v2026-02-03-01 (EN under /en/<slug>/) */
 
 /* ---------------------------
    Tokens / Defaults
 ---------------------------- */
 :root{
-  /* Shell-Fallbacks (nutzt deine Seiten-Variablen, sonst Default) */
-  --ss-bg: var(--card, rgba(255,255,255,.075));
-  --ss-border: var(--border, rgba(255,255,255,.14));
-  --ss-text: var(--text, rgba(255,255,255,.92));
-  --ss-muted: var(--muted2, rgba(255,255,255,.62));
+  --ss-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+             "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  --ss-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                  "Liberation Mono","Courier New", monospace;
 
-  --ss-hover: rgba(255,255,255,.06);
-  --ss-active: rgba(47,227,183,.14);
-  --ss-active-border: rgba(47,227,183,.38);
+  /* Layout */
+  --ss-max: 980px;
+  --ss-radius: 20px;
+  --ss-radius-sm: 16px;
+  --ss-pad: 18px;
+  --ss-pad-sm: 14px;
 
-  --ss-shadow: var(--shadow, 0 18px 55px rgba(0,0,0,.45));
+  /* Dark (Default) */
+  --ss-bg: rgba(255,255,255,.075);
+  --ss-border: rgba(255,255,255,.14);
+  --ss-text: rgba(255,255,255,.92);
+  --ss-muted: rgba(255,255,255,.72);
+  --ss-muted2: rgba(255,255,255,.60);
+
+  --ss-shadow: 0 18px 55px rgba(0,0,0,.45);
+  --ss-shadow-soft: 0 12px 38px rgba(0,0,0,.34);
+
+  /* Accent */
+  --ss-accent: rgba(47,227,183,1);
+  --ss-accent-soft: rgba(47,227,183,.14);
+  --ss-accent-border: rgba(47,227,183,.35);
+
+  /* Pills */
   --ss-pill-bg: rgba(255,255,255,.045);
   --ss-pill-bg-hover: rgba(255,255,255,.085);
 
-  --ss-radius: 18px;
-  --ss-radius-sm: 14px;
-  --ss-pad: 18px;
-  --ss-pad-sm: 14px;
-  --ss-max: 980px;
+  /* Hover */
+  --ss-hover: rgba(255,255,255,.06);
 
-  /* Typo: modern System */
-  --ss-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-             "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji",
-             "Segoe UI Emoji";
-  --ss-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-                  "Liberation Mono", "Courier New", monospace;
+  /* Focus */
+  --ss-focus: 0 0 0 2px rgba(47,227,183,.22), 0 0 0 6px rgba(47,227,183,.10);
 }
 
 @media (prefers-color-scheme: light){
   :root{
-    --ss-bg: rgba(255,255,255,.96);
+    --ss-bg: rgba(255,255,255,.92);
     --ss-border: rgba(17,24,39,.12);
     --ss-text: rgba(17,24,39,.95);
-    --ss-muted: rgba(17,24,39,.62);
-
-    --ss-hover: rgba(17,24,39,.05);
-    --ss-active: rgba(17,130,98,.10);
-    --ss-active-border: rgba(17,130,98,.28);
+    --ss-muted: rgba(17,24,39,.74);
+    --ss-muted2: rgba(17,24,39,.60);
 
     --ss-shadow: 0 18px 45px rgba(17,24,39,.10);
-    --ss-pill-bg: rgba(17,24,39,.03);
-    --ss-pill-bg-hover: rgba(17,24,39,.06);
+    --ss-shadow-soft: 0 12px 34px rgba(17,24,39,.08);
+
+    --ss-pill-bg: rgba(17,24,39,.04);
+    --ss-pill-bg-hover: rgba(17,24,39,.07);
+
+    --ss-hover: rgba(17,24,39,.04);
+
+    --ss-focus: 0 0 0 2px rgba(17,130,98,.18), 0 0 0 6px rgba(17,130,98,.10);
   }
 }
 
+/* ---------------------------
+   Base
+---------------------------- */
 html, body{
   font-family: var(--ss-font);
   font-weight: 450;
   letter-spacing: .1px;
 }
 
-h1, h2, h3, .ss-card h1, .ss-card h2, .ss-card h3{
+*{ box-sizing:border-box; }
+
+body{
+  margin: 0;
+  color: var(--ss-text);
+
+  /* Ambient background (dark) */
+  background:
+    radial-gradient(900px 600px at 18% -10%, rgba(47,227,183,.11), transparent 62%),
+    radial-gradient(760px 540px at 86% 8%, rgba(255,197,84,.09), transparent 64%),
+    radial-gradient(900px 760px at 50% 118%, rgba(255,255,255,.06), transparent 58%),
+    linear-gradient(180deg, #0b0f18, #070a12 55%, #0b1020);
+}
+
+@media (prefers-color-scheme: light){
+  body{
+    background:
+      radial-gradient(900px 600px at 18% -10%, rgba(47,227,183,.12), transparent 62%),
+      radial-gradient(760px 540px at 86% 8%, rgba(255,197,84,.10), transparent 64%),
+      linear-gradient(180deg, #ffffff, #f6f7fb 58%, #f2f6ff);
+  }
+}
+
+a{ color: inherit; }
+
+/* Headings */
+h1, h2, h3{
   font-family: var(--ss-font);
   font-weight: 780;
   letter-spacing: .2px;
+  margin: 0 0 10px;
 }
 
 code, pre{
@@ -68,7 +111,7 @@ code, pre{
 }
 
 /* ---------------------------
-   Page base helpers
+   Content layout helpers
 ---------------------------- */
 .ss-main{
   max-width: var(--ss-max);
@@ -76,12 +119,15 @@ code, pre{
   padding: 0 14px 28px;
 }
 
-.ss-section{ padding: 18px 0; }
-.ss-muted{ opacity: .72; }
+.ss-section{
+  padding: 18px 0;
+}
 
-/* Cards: weich + lebendig */
+.ss-muted{ color: var(--ss-muted2); }
+.ss-mutedStrong{ color: var(--ss-muted); }
+
+/* Cards */
 .ss-card{
-  position: relative;
   background: var(--ss-bg);
   border: 1px solid var(--ss-border);
   border-radius: var(--ss-radius);
@@ -89,78 +135,41 @@ code, pre{
   box-shadow:
     var(--ss-shadow),
     0 1px 0 rgba(255,255,255,.06) inset;
-  overflow: hidden;
 }
 
 @media (prefers-color-scheme: light){
   .ss-card{
     box-shadow:
       var(--ss-shadow),
-      0 1px 0 rgba(17,24,39,.04) inset;
+      0 1px 0 rgba(255,255,255,.70) inset;
   }
 }
 
-/* Inner cards: klar abgesetzt */
 .ss-card--inner{
   padding: var(--ss-pad-sm);
   border-radius: var(--ss-radius-sm);
-  box-shadow: none;
   background: rgba(255,255,255,.055);
-  border: 1px solid rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.11);
+  box-shadow: none;
 }
 
 @media (prefers-color-scheme: light){
   .ss-card--inner{
     background: rgba(17,24,39,.03);
-    border-color: rgba(17,24,39,.10);
+    border: 1px solid rgba(17,24,39,.10);
   }
-}
-
-/* Hero: wärmer, weniger „Card“, weicher Verlauf */
-.ss-card.ss-hero::before{
-  content:"";
-  position:absolute; inset:-2px;
-  background:
-    radial-gradient(900px 520px at 18% -10%, rgba(47,227,183,.20), transparent 60%),
-    radial-gradient(900px 520px at 86% 8%, rgba(255,197,84,.14), transparent 62%),
-    radial-gradient(900px 620px at 50% 120%, rgba(255,255,255,.08), transparent 60%);
-  pointer-events:none;
-  filter: blur(0px);
-  opacity: .95;
-}
-
-@media (prefers-color-scheme: light){
-  .ss-card.ss-hero::before{
-    background:
-      radial-gradient(900px 520px at 18% -10%, rgba(17,130,98,.12), transparent 60%),
-      radial-gradient(900px 520px at 86% 8%, rgba(255,197,84,.16), transparent 62%),
-      radial-gradient(900px 620px at 50% 120%, rgba(17,24,39,.03), transparent 60%);
-    opacity: 1;
-  }
-}
-
-/* Hero kicker (dein neuer Satz) */
-.ss-hero-kicker{
-  margin: 6px 0 12px;
-  font-weight: 650;
-  letter-spacing: .15px;
-  opacity: .85;
-}
-
-.ss-card h1, .ss-card h2{
-  text-shadow: 0 1px 0 rgba(0,0,0,.22);
 }
 
 .ss-card p{
   margin: 10px 0;
-  line-height: 1.6;
+  line-height: 1.65;
   max-width: 70ch;
 }
 
 .ss-card ul{
   margin: 12px 0 0;
   padding-left: 1.1em;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 .ss-card li{ margin: 8px 0; }
 
@@ -175,9 +184,8 @@ code, pre{
   .ss-card hr{ background: rgba(17,24,39,.12); }
 }
 
-/* Links: UI-artig */
+/* Links inside cards */
 .ss-card a{
-  color: var(--ss-text);
   text-decoration: none;
   border-bottom: 1px solid rgba(47,227,183,.35);
 }
@@ -185,14 +193,47 @@ code, pre{
   border-bottom-color: rgba(47,227,183,.70);
 }
 
-/* Focus: weich */
+/* Focus */
 :focus-visible{
   outline: none;
-  box-shadow: 0 0 0 2px rgba(47,227,183,.25), 0 0 0 6px rgba(47,227,183,.10);
+  box-shadow: var(--ss-focus);
   border-radius: 14px;
 }
 
-/* Buttons / Actions */
+/* ---------------------------
+   Hero warm / softer
+   Add class: .ss-hero on the hero card: <div class="ss-card ss-hero">
+---------------------------- */
+.ss-hero{
+  /* less "card", more "panel" */
+  background:
+    radial-gradient(1100px 460px at 10% 0%, rgba(47,227,183,.14), transparent 60%),
+    radial-gradient(900px 520px at 92% 14%, rgba(255,197,84,.10), transparent 65%),
+    rgba(255,255,255,.065);
+  border-color: rgba(255,255,255,.16);
+  box-shadow: var(--ss-shadow-soft);
+}
+
+@media (prefers-color-scheme: light){
+  .ss-hero{
+    background:
+      radial-gradient(1100px 460px at 10% 0%, rgba(47,227,183,.12), transparent 60%),
+      radial-gradient(900px 520px at 92% 14%, rgba(255,197,84,.10), transparent 65%),
+      rgba(255,255,255,.92);
+    border-color: rgba(17,24,39,.12);
+    box-shadow: var(--ss-shadow-soft);
+  }
+}
+
+.ss-hero-kicker{
+  margin: 6px 0 12px;
+  font-size: 1.06rem;
+  color: var(--ss-muted);
+}
+
+/* ---------------------------
+   Buttons / Actions
+---------------------------- */
 .ss-actions{
   display:flex;
   gap: 10px;
@@ -202,15 +243,12 @@ code, pre{
 
 .ss-btn{
   appearance:none;
-  text-decoration:none !important;
-  border-bottom: none !important;
-
+  text-decoration:none;
   color: inherit;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap: 8px;
-
   padding: 10px 14px;
   border-radius: 999px;
   border: 1px solid var(--ss-border);
@@ -218,22 +256,37 @@ code, pre{
   cursor: pointer;
   line-height: 1;
   font: inherit;
-
   box-shadow: 0 1px 0 rgba(255,255,255,.06) inset;
+}
+
+@media (prefers-color-scheme: light){
+  .ss-btn{
+    background: rgba(17,24,39,.03);
+    box-shadow: 0 1px 0 rgba(255,255,255,.65) inset;
+  }
 }
 
 .ss-btn:hover{ background: rgba(255,255,255,.07); }
 
+@media (prefers-color-scheme: light){
+  .ss-btn:hover{ background: rgba(17,24,39,.06); }
+}
+
 .ss-btn--primary{
-  background: var(--ss-active);
-  border-color: var(--ss-active-border);
+  background: var(--ss-accent-soft);
+  border-color: var(--ss-accent-border);
   box-shadow:
     0 0 0 1px rgba(47,227,183,.18),
     0 14px 36px rgba(47,227,183,.12);
 }
-.ss-btn--primary:hover{ background: rgba(47,227,183,.18); }
 
-/* Grids */
+.ss-btn--primary:hover{
+  background: rgba(47,227,183,.18);
+}
+
+/* ---------------------------
+   Grids
+---------------------------- */
 .ss-grid{
   display:grid;
   gap: 12px;
@@ -249,7 +302,9 @@ code, pre{
   .ss-grid--2{ grid-template-columns: 1fr; }
 }
 
-/* Details/FAQ */
+/* ---------------------------
+   Details / FAQ
+---------------------------- */
 details{
   border: 1px solid rgba(255,255,255,.10);
   background: rgba(255,255,255,.03);
@@ -257,8 +312,12 @@ details{
   padding: 10px 12px;
   margin: 10px 0;
 }
-summary{ cursor: pointer; font-weight: 650; }
+summary{
+  cursor: pointer;
+  font-weight: 650;
+}
 details > *:not(summary){ margin-top: 10px; }
+
 @media (prefers-color-scheme: light){
   details{
     border: 1px solid rgba(17,24,39,.12);
@@ -266,16 +325,8 @@ details > *:not(summary){ margin-top: 10px; }
   }
 }
 
-/* Scroll anchor helper */
-#was-pro-abnimmt,
-#what-pro-feels-like,
-#pakete,
-#packages{
-  scroll-margin-top: 92px;
-}
-
 /* ---------------------------
-   Header / Nav shell
+   Header / Nav (Shell)
 ---------------------------- */
 .ss-header{
   position: sticky; top: 0; z-index: 50;
@@ -283,11 +334,19 @@ details > *:not(summary){ margin-top: 10px; }
   justify-content:flex-start;
   gap: 12px;
   padding: 10px 14px;
-  background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,0));
+
+  background: linear-gradient(180deg, rgba(0,0,0,.26), rgba(0,0,0,0));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
+@media (prefers-color-scheme: light){
+  .ss-header{
+    background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,0));
+  }
+}
+
+/* Brand */
 .ss-brand{
   display:flex; align-items:center; gap:10px;
   text-decoration:none;
@@ -318,6 +377,7 @@ details > *:not(summary){ margin-top: 10px; }
   .ss-brand__name{ display:none; }
 }
 
+/* Nav capsule */
 .ss-nav{
   display:flex; gap: 10px;
   overflow-x:auto;
@@ -328,22 +388,23 @@ details > *:not(summary){ margin-top: 10px; }
   border-radius: 999px;
   border: 1px solid var(--ss-border);
   background: var(--ss-pill-bg);
-  box-shadow: var(--ss-shadow);
+  box-shadow: var(--ss-shadow-soft);
 
   flex: 1 1 auto;
   min-width: 0;
 }
 .ss-nav::-webkit-scrollbar{ display:none; }
 
+/* Mobile: hide extras */
 @media (max-width: 719.98px){
   .ss-nav__link--extra{ display:none; }
 }
 
+/* Links + More button */
 .ss-nav__link,
 .ss-moreBtn{
   appearance:none;
   text-decoration:none;
-  color: rgba(255,255,255,.72);
 
   display:inline-flex;
   align-items:center;
@@ -360,6 +421,8 @@ details > *:not(summary){ margin-top: 10px; }
   line-height: 1;
   font: inherit;
   cursor: pointer;
+
+  color: rgba(255,255,255,.72);
 }
 
 @media (prefers-color-scheme: light){
@@ -369,16 +432,23 @@ details > *:not(summary){ margin-top: 10px; }
 
 .ss-nav__link:hover,
 .ss-moreBtn:hover{
-  background: rgba(255,255,255,.04);
+  background: rgba(255,255,255,.05);
   border-color: var(--ss-border);
   color: var(--ss-text);
 }
+
+@media (prefers-color-scheme: light){
+  .ss-nav__link:hover,
+  .ss-moreBtn:hover{ background: rgba(17,24,39,.05); }
+}
+
 .ss-nav__link.is-active{
-  background: var(--ss-active);
-  border-color: var(--ss-active-border);
+  background: var(--ss-accent-soft);
+  border-color: var(--ss-accent-border);
   color: var(--ss-text);
 }
 
+/* More button base */
 .ss-moreBtn{
   background: var(--ss-pill-bg);
   border-color: var(--ss-border);
@@ -386,10 +456,10 @@ details > *:not(summary){ margin-top: 10px; }
   flex: 0 0 auto;
 }
 .ss-moreBtn:hover{ background: var(--ss-pill-bg-hover); }
+
 .ss-moreBtn.is-active{
-  background: var(--ss-active);
-  border-color: var(--ss-active-border);
-  color: var(--ss-text);
+  background: var(--ss-accent-soft);
+  border-color: var(--ss-accent-border);
 }
 
 /* Scroll lock */
@@ -413,7 +483,7 @@ html.ss-noScroll, html.ss-noScroll body{
   -webkit-backdrop-filter: blur(2px);
 }
 
-/* Bottom-sheet */
+/* Menu sheet */
 .ss-moreMenu{
   position: relative;
   width: min(520px, calc(100vw - 24px));
@@ -445,6 +515,7 @@ html.ss-noScroll, html.ss-noScroll body{
   }
 }
 
+/* Desktop center */
 @media (min-width: 980px){
   .ss-moreOverlay{ align-items: center; }
   .ss-moreMenu{ max-height: min(80vh, 560px); }
@@ -502,24 +573,31 @@ html.ss-noScroll, html.ss-noScroll body{
 }
 
 /* ---------------------------
-   Footer (nicht billig: echte Struktur + 3 Spalten)
+   Footer (Shell) – not cheap
+   Uses: <footer class="ss-footer"><div class="ss-footer__inner">…</div></footer>
 ---------------------------- */
 .ss-footer{
   max-width: var(--ss-max);
-  margin: 22px auto 44px;
+  margin: 18px auto 44px;
   padding: 0 14px;
 }
 
 .ss-footer__inner{
   border: 1px solid var(--ss-border);
-  background: var(--ss-pill-bg);
+  background: rgba(255,255,255,.035);
   border-radius: var(--ss-radius);
-  box-shadow: var(--ss-shadow);
+  box-shadow: var(--ss-shadow-soft);
   padding: 16px;
-
-  display:grid;
-  grid-template-columns: 1.3fr 1fr 1fr;
+  display: grid;
   gap: 14px;
+}
+
+/* 3 columns on iPad/desktop */
+@media (min-width: 820px){
+  .ss-footer__inner{
+    grid-template-columns: 1.15fr 1.25fr .6fr;
+    align-items: start;
+  }
 }
 
 .ss-footer__brand{
@@ -528,60 +606,70 @@ html.ss-noScroll, html.ss-noScroll body{
 .ss-footer__name{
   font-weight: 820;
   letter-spacing: .2px;
-  margin-bottom: 6px;
 }
-.ss-footer__note{
-  opacity: .75;
-  line-height: 1.45;
-  max-width: 52ch;
-}
-
-.ss-footer__colTitle{
-  font-weight: 750;
-  opacity: .9;
-  margin: 2px 0 10px;
+.ss-footer__tagline{
+  margin-top: 6px;
+  color: var(--ss-muted2);
+  line-height: 1.35;
 }
 
 .ss-footer__links{
   display:flex;
   flex-wrap: wrap;
   gap: 10px 10px;
+  align-content:flex-start;
 }
 
 .ss-footer__link{
   text-decoration:none;
   color: inherit;
-
   border: 1px solid var(--ss-border);
   background: rgba(255,255,255,.03);
   padding: 8px 10px;
   border-radius: 999px;
+  display:inline-flex;
   line-height: 1;
 }
-.ss-footer__link:hover{ background: rgba(255,255,255,.07); }
-
-/* Small meta line (optional) */
-.ss-footer__meta{
-  opacity: .70;
-  font-size: 12px;
-  line-height: 1.35;
-  margin-top: 10px;
+.ss-footer__link:hover{
+  background: rgba(255,255,255,.07);
 }
 
-/* iPad / schmaler: 2 Spalten, dann 1 */
-@media (max-width: 980px){
-  .ss-footer__inner{ grid-template-columns: 1.2fr 1fr; }
-}
-@media (max-width: 720px){
-  .ss-footer__inner{ grid-template-columns: 1fr; }
-}
-
-/* Light tweaks */
 @media (prefers-color-scheme: light){
-  .ss-footer__link{
-    background: rgba(17,24,39,.02);
-  }
-  .ss-footer__link:hover{
-    background: rgba(17,24,39,.05);
-  }
+  .ss-footer__inner{ background: rgba(17,24,39,.02); }
+  .ss-footer__link{ background: rgba(17,24,39,.03); }
+  .ss-footer__link:hover{ background: rgba(17,24,39,.06); }
+}
+
+.ss-footer__meta{
+  display:flex;
+  justify-content:flex-end;
+  align-items:flex-start;
+  gap: 10px;
+}
+@media (max-width: 819.98px){
+  .ss-footer__meta{ justify-content:flex-start; }
+}
+
+.ss-footer__support{
+  text-decoration:none;
+  color: var(--ss-text);
+  border: 1px solid var(--ss-accent-border);
+  background: var(--ss-accent-soft);
+  padding: 8px 10px;
+  border-radius: 999px;
+  display:inline-flex;
+  line-height: 1;
+  box-shadow: 0 10px 26px rgba(47,227,183,.10);
+}
+.ss-footer__support:hover{ background: rgba(47,227,183,.18); }
+
+/* ---------------------------
+   Anchor comfort with sticky header
+---------------------------- */
+#was-pro-abnimmt,
+#what-pro-feels-like,
+#pakete,
+#packages,
+#faq{
+  scroll-margin-top: 92px;
 }
