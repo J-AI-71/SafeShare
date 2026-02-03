@@ -42,7 +42,7 @@
   <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01">
 
   <!-- MASTER SHELL (NAV) -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-03">
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-02-06">
 
   <style>
     :root{
@@ -215,109 +215,107 @@
 </head>
 
 <body>
-  <!-- NAV -->
   <div id="ss-shell"></div>
 
-  <div class="wrap">
-    <section class="card">
-      <h1>Link bereinigen</h1>
-      <p class="muted">
-        Tracking-Parameter sind Zusatzinfos am Link – wie Etiketten. SafeShare entfernt typische Tracking-Keys lokal im Browser.
-        Nichts wird hochgeladen.
-      </p>
-      <div class="note">Hinweis: Das ist kein „Unsichtbar“-Versprechen. Es ist Link-Hygiene beim Teilen.</div>
-    </section>
-
-    <section class="card" id="cleaner">
-      <h2>URL einfügen</h2>
-      <p class="muted">Einfügen → (Auto) Bereinigen → Ergebnis kopieren/teilen.</p>
-
-      <textarea class="field mono" id="urlInput" placeholder="https://example.com/page?utm_source=...&fbclid=..."></textarea>
-
-      <div class="row">
-        <button class="btn primary" id="btnClean" type="button">Bereinigen</button>
-        <button class="btn" id="btnPaste" type="button">Einfügen</button>
-        <button class="btn ghost" id="btnClear" type="button">Leeren</button>
-      </div>
-
-      <div class="warn" id="msg" hidden></div>
-    </section>
-
-    <section class="card" id="resultCard" hidden>
-      <h2>Ergebnis</h2>
-      <div class="resultBox mono" id="outUrl"></div>
-
-      <div class="row">
-        <button class="btn primary" id="btnCopy" type="button">Kopieren</button>
-        <a class="btn" id="btnOpen" href="#" target="_blank" rel="noopener">Öffnen</a>
-        <button class="btn" id="btnShare" type="button">Teilen</button>
-      </div>
-
-      <div class="kv" id="auditRow" hidden></div>
-
-      <div class="note" style="margin-top:12px">
-        Wenn der bereinigte Link nicht funktioniert: Original öffnen → vergleichen. Wenn nur der bereinigte Link scheitert,
-        war ein entfernter Parameter vermutlich funktional. Dann konservativer reinigen (oder Pro: Audit/Allowlist/Policies).
+  <main class="ss-main">
+    <!-- HERO / Intro -->
+    <section class="ss-section">
+      <div class="ss-card">
+        <h1>Link bereinigen</h1>
+        <p class="ss-muted">
+          Tracking-Parameter sind Zusatzinfos am Link – wie Etiketten. SafeShare entfernt typische Tracking-Keys lokal im Browser.
+          Nichts wird hochgeladen.
+        </p>
+        <div class="ss-card ss-card--inner">
+          Hinweis: Das ist kein „Unsichtbar“-Versprechen. Es ist Link-Hygiene beim Teilen.
+        </div>
       </div>
     </section>
 
-    <section class="card" id="ssImpactCard" hidden>
-      <div class="ssImpactHeaderRow">
-        <h2 style="margin:0">Impact</h2>
-        <span class="ssImpactSessionLabel">Session (dieser Tab)</span>
-      </div>
+    <!-- Cleaner -->
+    <section class="ss-section" id="cleaner">
+      <div class="ss-card">
+        <h2>URL einfügen</h2>
+        <p class="ss-muted">Einfügen → (Auto) Bereinigen → Ergebnis kopieren/teilen.</p>
 
-      <div class="ssImpactGrid">
-        <div class="ssImpactItem">
-          <div class="ssImpactNum" id="ssImpactLinks">0</div>
-          <div class="ssImpactLabel">Links bereinigt</div>
-        </div>
-        <div class="ssImpactItem">
-          <div class="ssImpactNum" id="ssImpactParams">0</div>
-          <div class="ssImpactLabel">Parameter entfernt</div>
-        </div>
-        <div class="ssImpactItem">
-          <div class="ssImpactNum" id="ssImpactAdIds">0</div>
-          <div class="ssImpactLabel">Ad-IDs entfernt</div>
-        </div>
-        <div class="ssImpactItem">
-          <div class="ssImpactNum" id="ssImpactUTM">0</div>
-          <div class="ssImpactLabel">UTM entfernt</div>
-        </div>
-      </div>
+        <textarea class="field mono" id="urlInput" placeholder="https://example.com/page?utm_source=...&fbclid=..."></textarea>
 
-      <p class="muted2">
-        Gespeichert werden nur Summen lokal in diesem Tab (keine URLs, keine Domains). (Nach Reload weg.)
-      </p>
+        <div class="ss-actions">
+          <button class="ss-btn ss-btn--primary" id="btnClean" type="button">Bereinigen</button>
+          <button class="ss-btn" id="btnPaste" type="button">Einfügen</button>
+          <button class="ss-btn" id="btnClear" type="button">Leeren</button>
+        </div>
 
-      <div class="row">
-        <button class="btn ghost" type="button" id="ssImpactReset">Statistik zurücksetzen</button>
-        <span class="muted2">Zuletzt: <span id="ssImpactUpdated">—</span></span>
-      </div>
-
-      <div class="ssImpactLast" id="ssImpactLastLineWrap" hidden>
-        <span class="ssImpactLastTitle">Letzter Link:</span>
-        <span id="ssImpactLastLine"></span>
+        <div class="warn" id="msg" hidden></div>
       </div>
     </section>
 
-    <footer>
-      <div class="footGrid">
-        <div>
-          <div><strong>SafeShare</strong> – Links teilen ohne Ballast.</div>
-          <div>Local-first: Bereinigung passiert in deinem Browser.</div>
+    <!-- Result -->
+    <section class="ss-section" id="resultCard" hidden>
+      <div class="ss-card">
+        <h2>Ergebnis</h2>
+        <div class="resultBox mono" id="outUrl"></div>
+
+        <div class="ss-actions">
+          <button class="ss-btn ss-btn--primary" id="btnCopy" type="button">Kopieren</button>
+          <a class="ss-btn" id="btnOpen" href="#" target="_blank" rel="noopener">Öffnen</a>
+          <button class="ss-btn" id="btnShare" type="button">Teilen</button>
         </div>
-        <div class="footLinks">
-          <a href="/">Start</a>
-          <a href="/app/">App</a>
-          <a href="/schule/">Schule</a>
-          <a href="/pro/">Pro</a>
-          <a href="/hilfe/">Hilfe</a>
-          <a href="/en/app/" title="English">EN</a>
+
+        <div class="kv" id="auditRow" hidden></div>
+
+        <div class="ss-card ss-card--inner" style="margin-top:12px">
+          Wenn der bereinigte Link nicht funktioniert: Original öffnen → vergleichen. Wenn nur der bereinigte Link scheitert,
+          war ein entfernter Parameter vermutlich funktional. Dann konservativer reinigen (oder Pro: Audit/Allowlist/Policies).
         </div>
       </div>
-    </footer>
-  </div>
+    </section>
+
+    <!-- Impact -->
+    <section class="ss-section" id="ssImpactCard" hidden>
+      <div class="ss-card">
+        <div class="ssImpactHeaderRow">
+          <h2 style="margin:0">Impact</h2>
+          <span class="ssImpactSessionLabel">Session (dieser Tab)</span>
+        </div>
+
+        <div class="ssImpactGrid">
+          <div class="ssImpactItem">
+            <div class="ssImpactNum" id="ssImpactLinks">0</div>
+            <div class="ssImpactLabel">Links bereinigt</div>
+          </div>
+          <div class="ssImpactItem">
+            <div class="ssImpactNum" id="ssImpactParams">0</div>
+            <div class="ssImpactLabel">Parameter entfernt</div>
+          </div>
+          <div class="ssImpactItem">
+            <div class="ssImpactNum" id="ssImpactAdIds">0</div>
+            <div class="ssImpactLabel">Ad-IDs entfernt</div>
+          </div>
+          <div class="ssImpactItem">
+            <div class="ssImpactNum" id="ssImpactUTM">0</div>
+            <div class="ssImpactLabel">UTM entfernt</div>
+          </div>
+        </div>
+
+        <p class="ss-muted">
+          Gespeichert werden nur Summen lokal in diesem Tab (keine URLs, keine Domains). (Nach Reload weg.)
+        </p>
+
+        <div class="ss-actions">
+          <button class="ss-btn" type="button" id="ssImpactReset">Statistik zurücksetzen</button>
+          <span class="ss-muted">Zuletzt: <span id="ssImpactUpdated">—</span></span>
+        </div>
+
+        <div class="ssImpactLast" id="ssImpactLastLineWrap" hidden>
+          <span class="ssImpactLastTitle">Letzter Link:</span>
+          <span id="ssImpactLastLine"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="ss-footer"></div>
 
   <script>
     (function(){
@@ -735,6 +733,6 @@
   </script>
 
   <!-- SHELL JS: genau 1× hier -->
-  <script src="/js/ss-shell.js?v=2026-02-01-01"></script>
+ <script src="/js/ss-shell.js?v=2026-02-02-06" defer></script>
 </body>
 </html>
