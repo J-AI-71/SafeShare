@@ -240,6 +240,8 @@ const LOGO_SRC = "/assets/brand/logo-glyph-mint-512.png";
   const LOGO_SRC = "/assets/brand/logo-glyph-mint-512.png";
 const LOGO_FALLBACK = "/assets/brand/glyph-mint-512.png"; // falls du so eine Datei hast
 
-  
+  <img class="ss-brand__img" src="${LOGO_SRC}" alt=""
+     aria-hidden="true" width="20" height="20" loading="eager" decoding="async"
+     onerror="this.onerror=null;this.src='${LOGO_FALLBACK}';">
   
 })();
