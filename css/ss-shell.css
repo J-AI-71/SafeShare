@@ -550,3 +550,52 @@ html.ss-noScroll, html.ss-noScroll body{
   .ss-footer__inner{ grid-template-columns: 1fr; }
   .ss-footer__meta{ justify-content:flex-start; }
 }
+/* Logo: wirkt schnell "wertiger" */
+.ss-brand__mark{
+  width: 24px;
+  height: 24px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* dezenter Badge statt nacktes Icon */
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 10px 24px rgba(0,0,0,.22);
+}
+
+@media (prefers-color-scheme: light){
+  .ss-brand__mark{
+    background: rgba(17,24,39,.03);
+    border-color: rgba(17,24,39,.10);
+    box-shadow: 0 10px 24px rgba(17,24,39,.10);
+  }
+}
+
+.ss-brand__img{
+  width: 20px;
+  height: 20px;
+  display: block;
+  border-radius: 7px;
+
+  /* iOS: sauberer, weniger pixelig */
+  image-rendering: auto;
+  transform: translateZ(0);
+}
+
+.ss-brand__img{
+  filter: saturate(1.15) contrast(1.05);
+}
+@media (prefers-color-scheme: light){
+  .ss-brand__img{
+    filter: saturate(1.05) contrast(1.02);
+  }
+}
+
+.ss-brand__mark{ width:20px; height:20px; display:inline-flex; }
+.ss-brand__img{ width:20px; height:20px; display:block; }
+
+.ss-brand__mark{ width:20px !important; height:20px !important; display:inline-flex !important; }
+.ss-brand__img{ width:20px !important; height:20px !important; display:block !important; opacity:1 !important; }
+
