@@ -284,6 +284,12 @@ code, pre{
   background: rgba(47,227,183,.18);
 }
 
+.ss-btn--ghost{
+  background: transparent;
+  border-color: transparent;
+  opacity: .7;
+}
+.ss-btn--ghost:hover{ opacity: 1; background: rgba(255,255,255,.04); }
 /* ---------------------------
    Grids
 ---------------------------- */
