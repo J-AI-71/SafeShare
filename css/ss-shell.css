@@ -1,83 +1,75 @@
 /* Datei: /css/ss-shell.css */
-/* SafeShare Shell v2026-02-02-05 (Schema: EN under /en/<slug>/) */
+/* SafeShare Shell v2026-02-03-01 (Schema: EN under /en/<slug>/) */
 
-/* =========================
-   TOKENS + TYPO
-========================= */
+/* ---------------------------
+   Tokens / Defaults
+---------------------------- */
 :root{
-  /* Basis: weniger grau, besserer Kontrast */
-  --ss-bg: rgba(255,255,255,.075);
-  --ss-border: rgba(255,255,255,.16);
-
-  /* Text: wärmer/lesbarer */
-  --ss-text: rgba(245,247,248,.96);
-  --ss-muted: rgba(210,214,218,.78);
+  /* Shell-Fallbacks (nutzt deine Seiten-Variablen, sonst Default) */
+  --ss-bg: var(--card, rgba(255,255,255,.075));
+  --ss-border: var(--border, rgba(255,255,255,.14));
+  --ss-text: var(--text, rgba(255,255,255,.92));
+  --ss-muted: var(--muted2, rgba(255,255,255,.62));
 
   --ss-hover: rgba(255,255,255,.06);
+  --ss-active: rgba(47,227,183,.14);
+  --ss-active-border: rgba(47,227,183,.38);
 
-  /* Akzent (soft mint) */
-  --ss-active: rgba(80,210,175,.20);
-  --ss-active-border: rgba(80,210,175,.52);
+  --ss-shadow: var(--shadow, 0 18px 55px rgba(0,0,0,.45));
+  --ss-pill-bg: rgba(255,255,255,.045);
+  --ss-pill-bg-hover: rgba(255,255,255,.085);
 
-  --ss-shadow: 0 18px 45px rgba(0,0,0,.35);
-  --ss-pill-bg: rgba(255,255,255,.04);
-  --ss-pill-bg-hover: rgba(255,255,255,.08);
-
-  /* Content */
   --ss-radius: 18px;
   --ss-radius-sm: 14px;
   --ss-pad: 18px;
   --ss-pad-sm: 14px;
   --ss-max: 980px;
 
-  /* Fonts */
+  /* Typo: modern System */
   --ss-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
              "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji",
              "Segoe UI Emoji";
   --ss-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
                   "Liberation Mono", "Courier New", monospace;
+}
 
-  /* Glow */
-  --ss-accent-glow: 0 0 0 1px rgba(80,210,175,.18), 0 14px 36px rgba(80,210,175,.12);
+@media (prefers-color-scheme: light){
+  :root{
+    --ss-bg: rgba(255,255,255,.96);
+    --ss-border: rgba(17,24,39,.12);
+    --ss-text: rgba(17,24,39,.95);
+    --ss-muted: rgba(17,24,39,.62);
+
+    --ss-hover: rgba(17,24,39,.05);
+    --ss-active: rgba(17,130,98,.10);
+    --ss-active-border: rgba(17,130,98,.28);
+
+    --ss-shadow: 0 18px 45px rgba(17,24,39,.10);
+    --ss-pill-bg: rgba(17,24,39,.03);
+    --ss-pill-bg-hover: rgba(17,24,39,.06);
+  }
 }
 
 html, body{
-  font-family: var(--ss-font) !important;
+  font-family: var(--ss-font);
   font-weight: 450;
   letter-spacing: .1px;
-  color: var(--ss-text);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  margin: 0;
 }
 
-/* Hintergrund: lebendig, aber ruhig */
-body{
-  background:
-    radial-gradient(900px 600px at 18% -10%, rgba(80,210,175,.12), transparent 62%),
-    radial-gradient(800px 560px at 88% 8%, rgba(120,140,255,.09), transparent 62%),
-    radial-gradient(900px 800px at 50% 120%, rgba(255,210,170,.07), transparent 58%);
-}
-
-/* Headings */
 h1, h2, h3, .ss-card h1, .ss-card h2, .ss-card h3{
-  font-family: var(--ss-font) !important;
+  font-family: var(--ss-font);
   font-weight: 780;
   letter-spacing: .2px;
-  color: rgba(255,255,255,.98);
 }
 
-/* Code */
 code, pre{
-  font-family: var(--ss-font-mono) !important;
+  font-family: var(--ss-font-mono);
   font-size: .95em;
 }
 
-/* =========================
-   CONTENT BASE
-========================= */
-#top{ scroll-margin-top: 90px; } /* für "Nach oben" */
-
+/* ---------------------------
+   Page base helpers
+---------------------------- */
 .ss-main{
   max-width: var(--ss-max);
   margin: 0 auto;
@@ -85,64 +77,90 @@ code, pre{
 }
 
 .ss-section{ padding: 18px 0; }
+.ss-muted{ opacity: .72; }
 
-.ss-muted{
-  opacity: 1;
-  color: var(--ss-muted);
-  letter-spacing: .1px;
-}
-
+/* Cards: weich + lebendig */
 .ss-card{
-  background:
-    linear-gradient(180deg, rgba(80,210,175,.09), rgba(255,255,255,.06) 32%),
-    rgba(255,255,255,.06);
+  position: relative;
+  background: var(--ss-bg);
   border: 1px solid var(--ss-border);
   border-radius: var(--ss-radius);
   padding: var(--ss-pad);
   box-shadow:
-    0 20px 60px rgba(0,0,0,.45),
-    inset 0 1px 0 rgba(255,255,255,.08);
+    var(--ss-shadow),
+    0 1px 0 rgba(255,255,255,.06) inset;
+  overflow: hidden;
 }
 
+@media (prefers-color-scheme: light){
+  .ss-card{
+    box-shadow:
+      var(--ss-shadow),
+      0 1px 0 rgba(17,24,39,.04) inset;
+  }
+}
+
+/* Inner cards: klar abgesetzt */
 .ss-card--inner{
   padding: var(--ss-pad-sm);
   border-radius: var(--ss-radius-sm);
-  background: rgba(255,255,255,.065);
-  border: 1px solid rgba(255,255,255,.14);
   box-shadow: none;
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.10);
 }
 
-/* Hero wärmer (erste Section-Card) */
-.ss-section:first-of-type .ss-card{
+@media (prefers-color-scheme: light){
+  .ss-card--inner{
+    background: rgba(17,24,39,.03);
+    border-color: rgba(17,24,39,.10);
+  }
+}
+
+/* Hero: wärmer, weniger „Card“, weicher Verlauf */
+.ss-card.ss-hero::before{
+  content:"";
+  position:absolute; inset:-2px;
   background:
-    radial-gradient(900px 280px at 20% 0%, rgba(255,210,170,.16), transparent 60%),
-    radial-gradient(800px 280px at 85% 10%, rgba(80,210,175,.16), transparent 62%),
-    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.06));
-  border-color: rgba(255,255,255,.18);
+    radial-gradient(900px 520px at 18% -10%, rgba(47,227,183,.20), transparent 60%),
+    radial-gradient(900px 520px at 86% 8%, rgba(255,197,84,.14), transparent 62%),
+    radial-gradient(900px 620px at 50% 120%, rgba(255,255,255,.08), transparent 60%);
+  pointer-events:none;
+  filter: blur(0px);
+  opacity: .95;
 }
 
-.ss-card h1, .ss-card h2, .ss-card h3{
-  margin: 0 0 10px;
+@media (prefers-color-scheme: light){
+  .ss-card.ss-hero::before{
+    background:
+      radial-gradient(900px 520px at 18% -10%, rgba(17,130,98,.12), transparent 60%),
+      radial-gradient(900px 520px at 86% 8%, rgba(255,197,84,.16), transparent 62%),
+      radial-gradient(900px 620px at 50% 120%, rgba(17,24,39,.03), transparent 60%);
+    opacity: 1;
+  }
 }
+
+/* Hero kicker (dein neuer Satz) */
+.ss-hero-kicker{
+  margin: 6px 0 12px;
+  font-weight: 650;
+  letter-spacing: .15px;
+  opacity: .85;
+}
+
 .ss-card h1, .ss-card h2{
-  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+  text-shadow: 0 1px 0 rgba(0,0,0,.22);
 }
 
 .ss-card p{
   margin: 10px 0;
-  line-height: 1.7;
+  line-height: 1.6;
   max-width: 70ch;
-  font-weight: 450;
-}
-.ss-card strong{
-  font-weight: 700;
-  color: rgba(255,255,255,.98);
 }
 
 .ss-card ul{
   margin: 12px 0 0;
   padding-left: 1.1em;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 .ss-card li{ margin: 8px 0; }
 
@@ -153,20 +171,28 @@ code, pre{
   margin: 14px 0;
   border-radius: 999px;
 }
+@media (prefers-color-scheme: light){
+  .ss-card hr{ background: rgba(17,24,39,.12); }
+}
 
-/* Links im Content (nicht blau/tech) */
+/* Links: UI-artig */
 .ss-card a{
   color: var(--ss-text);
   text-decoration: none;
-  border-bottom: 1px solid rgba(80,210,175,.30);
+  border-bottom: 1px solid rgba(47,227,183,.35);
 }
 .ss-card a:hover{
-  border-bottom-color: rgba(80,210,175,.55);
+  border-bottom-color: rgba(47,227,183,.70);
 }
 
-/* =========================
-   BUTTONS / ACTIONS
-========================= */
+/* Focus: weich */
+:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(47,227,183,.25), 0 0 0 6px rgba(47,227,183,.10);
+  border-radius: 14px;
+}
+
+/* Buttons / Actions */
 .ss-actions{
   display:flex;
   gap: 10px;
@@ -176,38 +202,38 @@ code, pre{
 
 .ss-btn{
   appearance:none;
-  text-decoration:none;
+  text-decoration:none !important;
+  border-bottom: none !important;
+
   color: inherit;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap: 8px;
+
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.06);
+  border: 1px solid var(--ss-border);
+  background: rgba(255,255,255,.03);
   cursor: pointer;
   line-height: 1;
   font: inherit;
+
   box-shadow: 0 1px 0 rgba(255,255,255,.06) inset;
 }
 
-.ss-btn:hover{ background: rgba(255,255,255,.09); }
+.ss-btn:hover{ background: rgba(255,255,255,.07); }
 
 .ss-btn--primary{
-  background: linear-gradient(180deg, rgba(80,210,175,.44), rgba(80,210,175,.26));
-  border-color: rgba(80,210,175,.62);
-  color: rgba(7,24,20,.92);
-  box-shadow: var(--ss-accent-glow);
+  background: var(--ss-active);
+  border-color: var(--ss-active-border);
+  box-shadow:
+    0 0 0 1px rgba(47,227,183,.18),
+    0 14px 36px rgba(47,227,183,.12);
 }
-.ss-btn--primary:hover{
-  background: linear-gradient(180deg, rgba(80,210,175,.50), rgba(80,210,175,.30));
-  border-color: rgba(80,210,175,.72);
-}
+.ss-btn--primary:hover{ background: rgba(47,227,183,.18); }
 
-/* =========================
-   GRIDS
-========================= */
+/* Grids */
 .ss-grid{
   display:grid;
   gap: 12px;
@@ -223,32 +249,34 @@ code, pre{
   .ss-grid--2{ grid-template-columns: 1fr; }
 }
 
-/* =========================
-   DETAILS / FAQ
-========================= */
+/* Details/FAQ */
 details{
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
   border-radius: var(--ss-radius-sm);
   padding: 10px 12px;
   margin: 10px 0;
 }
-summary{
-  cursor: pointer;
-  font-weight: 750;
-}
+summary{ cursor: pointer; font-weight: 650; }
 details > *:not(summary){ margin-top: 10px; }
-
-/* Focus */
-:focus-visible{
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(80,210,175,.22), 0 0 0 6px rgba(80,210,175,.10);
-  border-radius: 14px;
+@media (prefers-color-scheme: light){
+  details{
+    border: 1px solid rgba(17,24,39,.12);
+    background: rgba(17,24,39,.03);
+  }
 }
 
-/* =========================
-   HEADER / NAV (Shell)
-========================= */
+/* Scroll anchor helper */
+#was-pro-abnimmt,
+#what-pro-feels-like,
+#pakete,
+#packages{
+  scroll-margin-top: 92px;
+}
+
+/* ---------------------------
+   Header / Nav shell
+---------------------------- */
 .ss-header{
   position: sticky; top: 0; z-index: 50;
   display:flex; align-items:center;
@@ -298,8 +326,8 @@ details > *:not(summary){ margin-top: 10px; }
 
   padding: 6px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.045);
+  border: 1px solid var(--ss-border);
+  background: var(--ss-pill-bg);
   box-shadow: var(--ss-shadow);
 
   flex: 1 1 auto;
@@ -315,7 +343,7 @@ details > *:not(summary){ margin-top: 10px; }
 .ss-moreBtn{
   appearance:none;
   text-decoration:none;
-  color: rgba(255,255,255,.78);
+  color: rgba(255,255,255,.72);
 
   display:inline-flex;
   align-items:center;
@@ -334,32 +362,34 @@ details > *:not(summary){ margin-top: 10px; }
   cursor: pointer;
 }
 
-.ss-nav__link:hover,
-.ss-moreBtn:hover{
-  background: rgba(255,255,255,.06);
-  border-color: rgba(255,255,255,.16);
-  color: var(--ss-text);
+@media (prefers-color-scheme: light){
+  .ss-nav__link,
+  .ss-moreBtn{ color: rgba(17,24,39,.72); }
 }
 
-.ss-nav__link.is-active{
-  background: rgba(80,210,175,.18);
-  border-color: rgba(80,210,175,.52);
+.ss-nav__link:hover,
+.ss-moreBtn:hover{
+  background: rgba(255,255,255,.04);
+  border-color: var(--ss-border);
   color: var(--ss-text);
-  box-shadow: 0 0 0 1px rgba(80,210,175,.16);
+}
+.ss-nav__link.is-active{
+  background: var(--ss-active);
+  border-color: var(--ss-active-border);
+  color: var(--ss-text);
 }
 
 .ss-moreBtn{
-  background: rgba(255,255,255,.045);
-  border-color: rgba(255,255,255,.18);
+  background: var(--ss-pill-bg);
+  border-color: var(--ss-border);
   color: var(--ss-text);
   flex: 0 0 auto;
 }
-.ss-moreBtn:hover{ background: rgba(255,255,255,.08); }
+.ss-moreBtn:hover{ background: var(--ss-pill-bg-hover); }
 .ss-moreBtn.is-active{
-  background: rgba(80,210,175,.18);
-  border-color: rgba(80,210,175,.52);
+  background: var(--ss-active);
+  border-color: var(--ss-active-border);
   color: var(--ss-text);
-  box-shadow: 0 0 0 1px rgba(80,210,175,.16);
 }
 
 /* Scroll lock */
@@ -368,9 +398,7 @@ html.ss-noScroll, html.ss-noScroll body{
   touch-action: none;
 }
 
-/* =========================
-   MORE MENU (Overlay)
-========================= */
+/* Overlay */
 .ss-moreOverlay{
   position: fixed; inset: 0; z-index: 9998;
   display: grid;
@@ -385,6 +413,7 @@ html.ss-noScroll, html.ss-noScroll body{
   -webkit-backdrop-filter: blur(2px);
 }
 
+/* Bottom-sheet */
 .ss-moreMenu{
   position: relative;
   width: min(520px, calc(100vw - 24px));
@@ -404,6 +433,21 @@ html.ss-noScroll, html.ss-noScroll body{
 .ss-moreOverlay:not([hidden]) .ss-moreMenu{
   transform: translateY(0);
   opacity: 1;
+}
+
+@media (prefers-color-scheme: light){
+  .ss-moreBackdrop{ background: rgba(17,24,39,.06); }
+  .ss-moreMenu{
+    background: rgba(255,255,255,.98);
+    border: 1px solid rgba(17,24,39,.12);
+    box-shadow: 0 18px 45px rgba(17,24,39,.12);
+    color: rgba(17,24,39,.95);
+  }
+}
+
+@media (min-width: 980px){
+  .ss-moreOverlay{ align-items: center; }
+  .ss-moreMenu{ max-height: min(80vh, 560px); }
 }
 
 .ss-moreTop{
@@ -446,623 +490,98 @@ html.ss-noScroll, html.ss-noScroll body{
   background: rgba(255,255,255,.12);
   border-radius: 999px;
 }
+@media (prefers-color-scheme: light){
+  .ss-moreSep{ background: rgba(17,24,39,.12); }
+}
 
-#ssMoreOverlay[hidden]{ display:none !important; }
+#ssMoreOverlay[hidden],
 .ss-moreOverlay[hidden]{ display:none !important; }
 
 @media (prefers-reduced-motion: reduce){
   .ss-moreMenu{ transition: none; transform:none; opacity:1; }
 }
 
-/* =========================
-   FOOTER (clean + hochwertig)
-========================= */
+/* ---------------------------
+   Footer (nicht billig: echte Struktur + 3 Spalten)
+---------------------------- */
 .ss-footer{
   max-width: var(--ss-max);
-  margin: 22px auto 48px;
+  margin: 22px auto 44px;
   padding: 0 14px;
 }
 
 .ss-footer__inner{
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.035);
+  border: 1px solid var(--ss-border);
+  background: var(--ss-pill-bg);
   border-radius: var(--ss-radius);
-  box-shadow: 0 22px 70px rgba(0,0,0,.35);
-  padding: 16px 16px 14px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  position: relative;
-}
+  box-shadow: var(--ss-shadow);
+  padding: 16px;
 
-.ss-footer__inner::before{
-  content:"";
-  position:absolute;
-  left: 16px; right: 16px; top: 10px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(80,210,175,.28), transparent);
-  opacity: .9;
-}
-
-.ss-footer__brand{ display:flex; flex-direction:column; gap: 6px; }
-.ss-footer__name{ font-weight: 820; letter-spacing: .2px; }
-.ss-footer__note{ color: var(--ss-muted); line-height: 1.4; }
-
-.ss-footer__nav{
-  display:flex;
-  flex-wrap:wrap;
-  gap: 10px 14px;
-  align-items:center;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255,255,255,.10);
-}
-
-.ss-footer__util{
-  display:flex;
-  flex-wrap:wrap;
-  gap: 10px 14px;
-  align-items:center;
-  color: var(--ss-muted);
-}
-
-.ss-footer__link{
-  color: rgba(255,255,255,.86);
-  text-decoration: none;
-  padding: 2px 0;
-  border-radius: 8px;
-  position: relative;
-}
-
-.ss-footer__link::after{
-  content:"";
-  position:absolute;
-  left:0; right:0; bottom:-2px;
-  height: 1px;
-  background: rgba(80,210,175,0);
-  transition: background .14s ease;
-}
-.ss-footer__link:hover{ color: rgba(255,255,255,.96); }
-.ss-footer__link:hover::after{ background: rgba(80,210,175,.45); }
-
-.ss-footer__dot{
-  width: 3px; height: 3px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.22);
-  display:inline-block;
-  transform: translateY(-1px);
-}
-
-/* =========================
-   LIGHT MODE (komplett)
-========================= */
-@media (prefers-color-scheme: light){
-
-  :root{
-    --ss-text: rgba(17,24,39,.92);
-    --ss-muted: rgba(17,24,39,.66);
-
-    --ss-border: rgba(17,24,39,.14);
-    --ss-pill-bg: rgba(17,24,39,.04);
-    --ss-pill-bg-hover: rgba(17,24,39,.07);
-
-    /* weicher Mint im Light */
-    --ss-active: rgba(80, 210, 175, .18);
-    --ss-active-border: rgba(40, 165, 140, .34);
-    --ss-accent-glow: 0 0 0 1px rgba(80,210,175,.14), 0 12px 26px rgba(80,210,175,.08);
-  }
-
-  body{
-    background:
-      radial-gradient(900px 650px at 18% -10%, rgba(80,210,175,.18), transparent 62%),
-      radial-gradient(820px 580px at 88% 8%, rgba(120,140,255,.12), transparent 62%),
-      radial-gradient(900px 800px at 50% 120%, rgba(255,210,170,.22), transparent 58%),
-      linear-gradient(180deg, rgba(255,255,255,1), rgba(250,251,252,1));
-    color: var(--ss-text);
-  }
-
-  .ss-header{
-    background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,0));
-  }
-
-  .ss-nav{
-    border-color: rgba(17,24,39,.12);
-    background: rgba(255,255,255,.72);
-    box-shadow: 0 18px 45px rgba(17,24,39,.10);
-  }
-
-  .ss-nav__link,
-  .ss-moreBtn{ color: rgba(17,24,39,.70); }
-
-  .ss-nav__link:hover,
-  .ss-moreBtn:hover{
-    background: rgba(17,24,39,.05);
-    border-color: rgba(17,24,39,.12);
-    color: rgba(17,24,39,.92);
-  }
-
-  .ss-nav__link.is-active,
-  .ss-moreBtn.is-active{
-    background: rgba(80,210,175,.16);
-    border-color: rgba(40,165,140,.32);
-    color: rgba(17,24,39,.92);
-    box-shadow: 0 0 0 1px rgba(80,210,175,.12);
-  }
-
-  .ss-moreBtn{
-    background: rgba(255,255,255,.72);
-    border-color: rgba(17,24,39,.12);
-  }
-
-  .ss-card{
-    background:
-      linear-gradient(180deg, rgba(80,210,175,.10), rgba(255,255,255,.82) 38%),
-      rgba(255,255,255,.82);
-    border-color: rgba(17,24,39,.12);
-    box-shadow:
-      0 20px 60px rgba(17,24,39,.12),
-      inset 0 1px 0 rgba(255,255,255,.80);
-  }
-
-  .ss-card--inner{
-    background: rgba(255,255,255,.74);
-    border-color: rgba(17,24,39,.10);
-  }
-
-  .ss-section:first-of-type .ss-card{
-    background:
-      radial-gradient(900px 280px at 20% 0%, rgba(255,210,170,.40), transparent 60%),
-      radial-gradient(800px 280px at 85% 10%, rgba(80,210,175,.18), transparent 62%),
-      linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.80));
-    border-color: rgba(17,24,39,.12);
-  }
-
-  .ss-btn{
-    background: rgba(255,255,255,.82);
-    border-color: rgba(17,24,39,.12);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.80);
-  }
-  .ss-btn:hover{ background: rgba(255,255,255,.92); }
-
-  .ss-btn--primary{
-    background: linear-gradient(180deg, rgba(80,210,175,.46), rgba(80,210,175,.26));
-    border-color: rgba(40,165,140,.34);
-    color: rgba(7,24,20,.92);
-    box-shadow: var(--ss-accent-glow);
-  }
-
-  /* Links in Content (Dark->Light) */
-  .ss-card a{
-    color: rgba(17,24,39,.92);
-    border-bottom-color: rgba(40,165,140,.28);
-  }
-  .ss-card a:hover{
-    border-bottom-color: rgba(40,165,140,.48);
-  }
-
-  details{
-    border-color: rgba(17,24,39,.12);
-    background: rgba(255,255,255,.78);
-  }
-
-  .ss-moreBackdrop{ background: rgba(17,24,39,.08); }
-  .ss-moreMenu{
-    background: rgba(255,255,255,.98);
-    border-color: rgba(17,24,39,.12);
-    box-shadow: 0 18px 45px rgba(17,24,39,.16);
-    color: rgba(17,24,39,.95);
-  }
-
-  .ss-moreClose{
-    border-color: rgba(17,24,39,.12);
-    background: rgba(17,24,39,.03);
-  }
-  .ss-moreClose:hover{ background: rgba(17,24,39,.06); }
-
-  .ss-moreLink{
-    border-color: rgba(17,24,39,.12);
-    background: rgba(17,24,39,.03);
-  }
-  .ss-moreLink:hover{ background: rgba(17,24,39,.06); }
-
-  .ss-moreSep{ background: rgba(17,24,39,.12); }
-
-  /* Footer light */
-  .ss-footer__inner{
-    border: 1px solid rgba(17,24,39,.10);
-    background: rgba(255,255,255,.78);
-    box-shadow: 0 22px 60px rgba(17,24,39,.10);
-  }
-  .ss-footer__inner::before{
-    background: linear-gradient(90deg, transparent, rgba(40,165,140,.22), transparent);
-  }
-  .ss-footer__nav{
-    border-top: 1px solid rgba(17,24,39,.10);
-  }
-  .ss-footer__link{
-    color: rgba(17,24,39,.82);
-  }
-  .ss-footer__link:hover{
-    color: rgba(17,24,39,.94);
-  }
-  .ss-footer__link:hover::after{
-    background: rgba(40,165,140,.45);
-  }
-  .ss-footer__dot{
-    background: rgba(17,24,39,.18);
-  }
-}
-
-/* Desktop: More-Overlay zentrieren */
-@media (min-width: 980px){
-  .ss-moreOverlay{ align-items: center; }
-  .ss-moreMenu{ max-height: min(80vh, 560px); }
-}
-/* =========================
-   FOOTER – Feinschliff (kompakter, ruhiger)
-   -> ans ENDE von ss-shell.css
-========================= */
-
-.ss-footer{ margin: 18px auto 40px; }
-
-.ss-footer__inner{
-  padding: 14px 14px 12px;            /* weniger Höhe */
-  box-shadow: 0 18px 55px rgba(0,0,0,.30);
-}
-
-/* Top-Line etwas zurücknehmen */
-.ss-footer__inner::before{
-  opacity: .65;
-}
-
-/* Trennlinie zwischen Brand und Nav minimal dezenter */
-.ss-footer__nav{
-  border-top-color: rgba(255,255,255,.08);
-  padding-top: 10px;
-}
-
-/* Dots: kleiner + transparenter */
-.ss-footer__dot{
-  width: 2px;
-  height: 2px;
-  background: rgba(255,255,255,.16);
-  transform: translateY(-1px);
-}
-
-/* Links: etwas “edler” (weniger hell = weniger “UI-Label”) */
-.ss-footer__link{
-  color: rgba(255,255,255,.80);
-}
-.ss-footer__link:hover{
-  color: rgba(255,255,255,.94);
-}
-
-/* Utility-Zeile: kleiner + ruhiger */
-.ss-footer__util{
-  font-size: .95em;
-  color: rgba(210,214,218,.72);
-}
-
-/* Light mode entsprechend */
-@media (prefers-color-scheme: light){
-  .ss-footer__inner{
-    box-shadow: 0 18px 45px rgba(17,24,39,.09);
-  }
-  .ss-footer__dot{
-    background: rgba(17,24,39,.14);
-  }
-  .ss-footer__nav{
-    border-top-color: rgba(17,24,39,.08);
-  }
-  .ss-footer__link{
-    color: rgba(17,24,39,.78);
-  }
-  .ss-footer__link:hover{
-    color: rgba(17,24,39,.92);
-  }
-  .ss-footer__util{
-    color: rgba(17,24,39,.62);
-  }
-}
-/* iPad Fix (auch Desktop-Viewport): Footer-Nav als Grid 3 Spalten */
-@supports (-webkit-touch-callout: none){
-  @media (pointer: coarse) and (min-width: 700px) and (max-width: 1400px){
-
-    .ss-footer__nav{
-      display: grid !important;
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-      gap: 10px 18px !important;
-      align-items: start !important;
-    }
-
-    .ss-footer__dot{ display: none !important; }
-
-    .ss-footer__link{
-      white-space: nowrap !important;
-      justify-self: start !important;
-    }
-
-    .ss-footer__util{
-      display:flex !important;
-      gap: 14px !important;
-      flex-wrap: nowrap !important;
-    }
-  }
-}
-  /* Nav als Grid statt flex-wrap */
-  .ss-footer__nav{
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 Spalten = 2 Zeilen für 7 Links */
-    gap: 10px 18px;
-    align-items: start;
-    border-top-color: rgba(255,255,255,.08);
-    padding-top: 10px;
-  }
-
-  /* Dots im Grid ausblenden (braucht man dann nicht) */
-  .ss-footer__dot{ display: none !important; }
-
-  /* Links im Grid: keine „Wackelbreite“ */
-  .ss-footer__link{
-    white-space: nowrap;
-    justify-self: start;
-  }
-
-  /* Utility bleibt eine Zeile */
-  .ss-footer__util{
-    display:flex;
-    gap: 14px;
-    flex-wrap: nowrap;
-  }
-}
-
-/* iPad Light Mode passend */
-@media (prefers-color-scheme: light) and (min-width: 700px) and (max-width: 1100px){
-  .ss-footer__nav{ border-top-color: rgba(17,24,39,.08); }
-}
-/* =========================
-   iPad Fix: Footer-Links sauber umbrechen (Grid 3 Spalten)
-   -> ans ENDE von ss-shell.css
-========================= */
-@media (min-width: 700px) and (max-width: 1100px){
-
-  .ss-footer__inner{ padding: 14px 14px 12px; }
-
-  .ss-footer__nav{
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 Spalten */
-    gap: 10px 18px;
-    align-items: start;
-    border-top-color: rgba(255,255,255,.08);
-    padding-top: 10px;
-  }
-
-  /* Dots im Grid ausblenden */
-  .ss-footer__dot{ display: none !important; }
-
-  .ss-footer__link{
-    white-space: nowrap;
-    justify-self: start;
-  }
-
-  .ss-footer__util{
-    display:flex;
-    gap: 14px;
-    flex-wrap: nowrap;
-  }
-}
-
-@media (prefers-color-scheme: light) and (min-width: 700px) and (max-width: 1100px){
-  .ss-footer__nav{ border-top-color: rgba(17,24,39,.08); }
-}
-/* Footer final polish */
-.ss-footer{
-  margin: 20px auto 44px;
-}
-
-.ss-footer__inner{
-  padding: 14px 16px 12px;
-  background: rgba(255,255,255,.025);
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 14px 40px rgba(0,0,0,.25);
+  display:grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 14px;
 }
 
 .ss-footer__brand{
-  margin-bottom: 8px;
+  min-width: 0;
 }
-.ss-footer__brand strong{
-  font-weight: 700;
+.ss-footer__name{
+  font-weight: 820;
+  letter-spacing: .2px;
+  margin-bottom: 6px;
 }
 .ss-footer__note{
-  font-size: .95em;
-  color: var(--ss-muted);
+  opacity: .75;
+  line-height: 1.45;
+  max-width: 52ch;
 }
 
-.ss-footer__meta,
-.ss-footer__util{
-  display: flex;
+.ss-footer__colTitle{
+  font-weight: 750;
+  opacity: .9;
+  margin: 2px 0 10px;
+}
+
+.ss-footer__links{
+  display:flex;
   flex-wrap: wrap;
-  gap: 10px;
-  font-size: .9em;
-  color: var(--ss-muted);
+  gap: 10px 10px;
 }
 
-.ss-footer__meta a,
-.ss-footer__util a{
+.ss-footer__link{
+  text-decoration:none;
   color: inherit;
-  text-decoration: none;
+
+  border: 1px solid var(--ss-border);
+  background: rgba(255,255,255,.03);
+  padding: 8px 10px;
+  border-radius: 999px;
+  line-height: 1;
+}
+.ss-footer__link:hover{ background: rgba(255,255,255,.07); }
+
+/* Small meta line (optional) */
+.ss-footer__meta{
+  opacity: .70;
+  font-size: 12px;
+  line-height: 1.35;
+  margin-top: 10px;
 }
 
-.ss-footer__meta a:hover,
-.ss-footer__util a:hover{
-  color: var(--ss-text);
+/* iPad / schmaler: 2 Spalten, dann 1 */
+@media (max-width: 980px){
+  .ss-footer__inner{ grid-template-columns: 1.2fr 1fr; }
 }
-/* =========================
-   HERO – wärmer, weniger "Card"
-   -> ans ENDE von ss-shell.css
-========================= */
-
-/* Annahme: Hero ist erste Section + erste Card */
-.ss-section:first-of-type{
-  position: relative;
-  padding-top: 26px;
+@media (max-width: 720px){
+  .ss-footer__inner{ grid-template-columns: 1fr; }
 }
 
-/* Umgebungsglanz hinter dem Hero */
-.ss-section:first-of-type::before{
-  content:"";
-  position:absolute;
-  inset: -40px -20px 0 -20px;
-  z-index: 0;
-  background:
-    radial-gradient(900px 320px at 20% 0%, rgba(255,210,170,.28), transparent 60%),
-    radial-gradient(900px 320px at 80% 10%, rgba(80,210,175,.22), transparent 62%);
-  pointer-events:none;
-}
-
-/* Hero-Card selbst */
-.ss-section:first-of-type .ss-card{
-  position: relative;
-  z-index: 1;
-
-  /* Card entschärfen */
-  background: rgba(255,255,255,.035);
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 18px 60px rgba(0,0,0,.35);
-
-  /* mehr Luft, weniger Box-Gefühl */
-  padding: 26px 24px;
-}
-
-/* Headline im Hero etwas freier */
-.ss-section:first-of-type .ss-card h1{
-  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
-  line-height: 1.25;
-  margin-bottom: 12px;
-}
-
-/* Subtext weicher */
-.ss-section:first-of-type .ss-card p{
-  font-size: 1.05em;
-  color: rgba(245,247,248,.88);
-}
-
-/* Buttons im Hero: leicht schwebend */
-.ss-section:first-of-type .ss-btn--primary{
-  box-shadow:
-    0 0 0 1px rgba(80,210,175,.22),
-    0 18px 44px rgba(80,210,175,.18);
-}
+/* Light tweaks */
 @media (prefers-color-scheme: light){
-
-  .ss-section:first-of-type::before{
-    background:
-      radial-gradient(900px 320px at 20% 0%, rgba(255,210,170,.55), transparent 60%),
-      radial-gradient(900px 320px at 80% 10%, rgba(80,210,175,.28), transparent 62%);
+  .ss-footer__link{
+    background: rgba(17,24,39,.02);
   }
-
-  .ss-section:first-of-type .ss-card{
-    background: rgba(255,255,255,.88);
-    border: 1px solid rgba(17,24,39,.10);
-    box-shadow: 0 22px 60px rgba(17,24,39,.14);
-  }
-
-  .ss-section:first-of-type .ss-card p{
-    color: rgba(17,24,39,.80);
+  .ss-footer__link:hover{
+    background: rgba(17,24,39,.05);
   }
 }
-/* =========================
-   HERO – noch weicher (weniger Rahmen, mehr Ambient)
-   -> ans ENDE von ss-shell.css
-========================= */
-
-/* mehr Luft am Anfang */
-.ss-section:first-of-type{ padding-top: 30px; }
-
-/* weicheres, größeres Licht */
-.ss-section:first-of-type::before{
-  inset: -70px -28px 0 -28px;
-  background:
-    radial-gradient(1100px 420px at 18% 0%, rgba(255,210,170,.32), transparent 62%),
-    radial-gradient(1100px 420px at 82% 6%, rgba(80,210,175,.24), transparent 64%),
-    radial-gradient(900px 520px at 50% 120%, rgba(255,255,255,.06), transparent 58%);
-  filter: blur(2px);
-  opacity: .95;
-}
-
-/* Hero-Card: fast "kein Kasten" */
-.ss-section:first-of-type .ss-card{
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.028));
-  border-color: rgba(255,255,255,.05);
-  box-shadow:
-    0 26px 90px rgba(0,0,0,.34),
-    inset 0 1px 0 rgba(255,255,255,.06);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-/* Kanten weniger "UI" */
-.ss-section:first-of-type .ss-card{
-  border-radius: calc(var(--ss-radius) + 6px);
-}
-
-/* Text noch ruhiger */
-.ss-section:first-of-type .ss-card p{
-  color: rgba(245,247,248,.86);
-}
-
-/* Buttons: weniger hart, mehr soft */
-.ss-section:first-of-type .ss-btn{
-  border-color: rgba(255,255,255,.14);
-  background: rgba(255,255,255,.06);
-}
-.ss-section:first-of-type .ss-btn:hover{
-  background: rgba(255,255,255,.09);
-}
-.ss-section:first-of-type .ss-btn--primary{
-  background: linear-gradient(180deg, rgba(80,210,175,.40), rgba(80,210,175,.22));
-  border-color: rgba(80,210,175,.46);
-  box-shadow:
-    0 0 0 1px rgba(80,210,175,.16),
-    0 22px 60px rgba(80,210,175,.16);
-}
-
-/* LIGHT MODE: sehr soft, “papier + warmes licht” */
-@media (prefers-color-scheme: light){
-
-  .ss-section:first-of-type::before{
-    background:
-      radial-gradient(1100px 420px at 18% 0%, rgba(255,210,170,.62), transparent 62%),
-      radial-gradient(1100px 420px at 82% 6%, rgba(80,210,175,.30), transparent 64%),
-      radial-gradient(900px 520px at 50% 120%, rgba(120,140,255,.10), transparent 58%);
-    filter: blur(2px);
-    opacity: 1;
-  }
-
-  .ss-section:first-of-type .ss-card{
-    background: rgba(255,255,255,.92);
-    border-color: rgba(17,24,39,.08);
-    box-shadow: 0 28px 80px rgba(17,24,39,.12);
-  }
-
-  .ss-section:first-of-type .ss-btn{
-    background: rgba(255,255,255,.88);
-    border-color: rgba(17,24,39,.10);
-  }
-
-  .ss-section:first-of-type .ss-btn--primary{
-    background: linear-gradient(180deg, rgba(80,210,175,.46), rgba(80,210,175,.24));
-    border-color: rgba(40,165,140,.30);
-    box-shadow:
-      0 0 0 1px rgba(80,210,175,.12),
-      0 18px 44px rgba(80,210,175,.10);
-  }
-}
-.ss-hero-kicker{
-  margin: 8px 0 0;
-  font-size: 1.05em;
-  line-height: 1.5;
-  color: var(--ss-text);
-  opacity: .92;
-}
-#was-pro-abnimmt, #what-pro-feels-like{ scroll-margin-top: clamp(92px, 10vh, 120px); }
