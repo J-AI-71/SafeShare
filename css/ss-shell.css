@@ -1065,4 +1065,4 @@ html.ss-noScroll, html.ss-noScroll body{
   color: var(--ss-text);
   opacity: .92;
 }
-#was-pro-abnimmt, #what-pro-feels-like{ scroll-margin-top: 92px; }
+#was-pro-abnimmt, #what-pro-feels-like{ scroll-margin-top: clamp(92px, 10vh, 120px); }
