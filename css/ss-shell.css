@@ -896,3 +896,77 @@ html.ss-noScroll, html.ss-noScroll body{
 .ss-footer__util a:hover{
   color: var(--ss-text);
 }
+/* =========================
+   HERO – wärmer, weniger "Card"
+   -> ans ENDE von ss-shell.css
+========================= */
+
+/* Annahme: Hero ist erste Section + erste Card */
+.ss-section:first-of-type{
+  position: relative;
+  padding-top: 26px;
+}
+
+/* Umgebungsglanz hinter dem Hero */
+.ss-section:first-of-type::before{
+  content:"";
+  position:absolute;
+  inset: -40px -20px 0 -20px;
+  z-index: 0;
+  background:
+    radial-gradient(900px 320px at 20% 0%, rgba(255,210,170,.28), transparent 60%),
+    radial-gradient(900px 320px at 80% 10%, rgba(80,210,175,.22), transparent 62%);
+  pointer-events:none;
+}
+
+/* Hero-Card selbst */
+.ss-section:first-of-type .ss-card{
+  position: relative;
+  z-index: 1;
+
+  /* Card entschärfen */
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+
+  /* mehr Luft, weniger Box-Gefühl */
+  padding: 26px 24px;
+}
+
+/* Headline im Hero etwas freier */
+.ss-section:first-of-type .ss-card h1{
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+/* Subtext weicher */
+.ss-section:first-of-type .ss-card p{
+  font-size: 1.05em;
+  color: rgba(245,247,248,.88);
+}
+
+/* Buttons im Hero: leicht schwebend */
+.ss-section:first-of-type .ss-btn--primary{
+  box-shadow:
+    0 0 0 1px rgba(80,210,175,.22),
+    0 18px 44px rgba(80,210,175,.18);
+}
+@media (prefers-color-scheme: light){
+
+  .ss-section:first-of-type::before{
+    background:
+      radial-gradient(900px 320px at 20% 0%, rgba(255,210,170,.55), transparent 60%),
+      radial-gradient(900px 320px at 80% 10%, rgba(80,210,175,.28), transparent 62%);
+  }
+
+  .ss-section:first-of-type .ss-card{
+    background: rgba(255,255,255,.88);
+    border: 1px solid rgba(17,24,39,.10);
+    box-shadow: 0 22px 60px rgba(17,24,39,.14);
+  }
+
+  .ss-section:first-of-type .ss-card p{
+    color: rgba(17,24,39,.80);
+  }
+}
