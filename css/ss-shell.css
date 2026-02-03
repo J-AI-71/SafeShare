@@ -763,17 +763,31 @@ html.ss-noScroll, html.ss-noScroll body{
     color: rgba(17,24,39,.62);
   }
 }
-/* =========================
-   iPad Fix: Footer-Links sauber umbrechen (Grid)
-   -> ans ENDE von ss-shell.css
-========================= */
+/* iPad Fix (auch Desktop-Viewport): Footer-Nav als Grid 3 Spalten */
+@supports (-webkit-touch-callout: none){
+  @media (pointer: coarse) and (min-width: 700px) and (max-width: 1400px){
 
-/* iPad / Tablets (Portrait+Landscape) */
-@media (min-width: 700px) and (max-width: 1100px){
+    .ss-footer__nav{
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 10px 18px !important;
+      align-items: start !important;
+    }
 
-  /* etwas kompakter */
-  .ss-footer__inner{ padding: 14px 14px 12px; }
+    .ss-footer__dot{ display: none !important; }
 
+    .ss-footer__link{
+      white-space: nowrap !important;
+      justify-self: start !important;
+    }
+
+    .ss-footer__util{
+      display:flex !important;
+      gap: 14px !important;
+      flex-wrap: nowrap !important;
+    }
+  }
+}
   /* Nav als Grid statt flex-wrap */
   .ss-footer__nav{
     display: grid;
