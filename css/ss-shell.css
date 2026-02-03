@@ -1058,3 +1058,10 @@ html.ss-noScroll, html.ss-noScroll body{
       0 18px 44px rgba(80,210,175,.10);
   }
 }
+.ss-hero-kicker{
+  margin: 8px 0 0;
+  font-size: 1.05em;
+  line-height: 1.5;
+  color: var(--ss-text);
+  opacity: .92;
+}
