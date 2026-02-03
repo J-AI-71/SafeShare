@@ -970,3 +970,91 @@ html.ss-noScroll, html.ss-noScroll body{
     color: rgba(17,24,39,.80);
   }
 }
+/* =========================
+   HERO – noch weicher (weniger Rahmen, mehr Ambient)
+   -> ans ENDE von ss-shell.css
+========================= */
+
+/* mehr Luft am Anfang */
+.ss-section:first-of-type{ padding-top: 30px; }
+
+/* weicheres, größeres Licht */
+.ss-section:first-of-type::before{
+  inset: -70px -28px 0 -28px;
+  background:
+    radial-gradient(1100px 420px at 18% 0%, rgba(255,210,170,.32), transparent 62%),
+    radial-gradient(1100px 420px at 82% 6%, rgba(80,210,175,.24), transparent 64%),
+    radial-gradient(900px 520px at 50% 120%, rgba(255,255,255,.06), transparent 58%);
+  filter: blur(2px);
+  opacity: .95;
+}
+
+/* Hero-Card: fast "kein Kasten" */
+.ss-section:first-of-type .ss-card{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.028));
+  border-color: rgba(255,255,255,.05);
+  box-shadow:
+    0 26px 90px rgba(0,0,0,.34),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Kanten weniger "UI" */
+.ss-section:first-of-type .ss-card{
+  border-radius: calc(var(--ss-radius) + 6px);
+}
+
+/* Text noch ruhiger */
+.ss-section:first-of-type .ss-card p{
+  color: rgba(245,247,248,.86);
+}
+
+/* Buttons: weniger hart, mehr soft */
+.ss-section:first-of-type .ss-btn{
+  border-color: rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+}
+.ss-section:first-of-type .ss-btn:hover{
+  background: rgba(255,255,255,.09);
+}
+.ss-section:first-of-type .ss-btn--primary{
+  background: linear-gradient(180deg, rgba(80,210,175,.40), rgba(80,210,175,.22));
+  border-color: rgba(80,210,175,.46);
+  box-shadow:
+    0 0 0 1px rgba(80,210,175,.16),
+    0 22px 60px rgba(80,210,175,.16);
+}
+
+/* LIGHT MODE: sehr soft, “papier + warmes licht” */
+@media (prefers-color-scheme: light){
+
+  .ss-section:first-of-type::before{
+    background:
+      radial-gradient(1100px 420px at 18% 0%, rgba(255,210,170,.62), transparent 62%),
+      radial-gradient(1100px 420px at 82% 6%, rgba(80,210,175,.30), transparent 64%),
+      radial-gradient(900px 520px at 50% 120%, rgba(120,140,255,.10), transparent 58%);
+    filter: blur(2px);
+    opacity: 1;
+  }
+
+  .ss-section:first-of-type .ss-card{
+    background: rgba(255,255,255,.92);
+    border-color: rgba(17,24,39,.08);
+    box-shadow: 0 28px 80px rgba(17,24,39,.12);
+  }
+
+  .ss-section:first-of-type .ss-btn{
+    background: rgba(255,255,255,.88);
+    border-color: rgba(17,24,39,.10);
+  }
+
+  .ss-section:first-of-type .ss-btn--primary{
+    background: linear-gradient(180deg, rgba(80,210,175,.46), rgba(80,210,175,.24));
+    border-color: rgba(40,165,140,.30);
+    box-shadow:
+      0 0 0 1px rgba(80,210,175,.12),
+      0 18px 44px rgba(80,210,175,.10);
+  }
+}
