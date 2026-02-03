@@ -599,3 +599,35 @@ html.ss-noScroll, html.ss-noScroll body{
 .ss-brand__mark{ width:20px !important; height:20px !important; display:inline-flex !important; }
 .ss-brand__img{ width:20px !important; height:20px !important; display:block !important; opacity:1 !important; }
 
+/* === Brand mark (Nav + Footer) === */
+.ss-brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width: 0;
+}
+
+.ss-brand__logo{
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  display:block;
+  border-radius: 10px;
+  /* ruhiger, hochwertiger */
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,.25));
+  opacity: .96;
+}
+
+@media (min-width: 920px){
+  .ss-brand__logo{ width: 30px; height: 30px; }
+}
+
+@media (prefers-color-scheme: light){
+  .ss-brand__logo{
+    filter: drop-shadow(0 10px 24px rgba(17,24,39,.12));
+    opacity: .98;
+  }
+}
+
+/* Wenn du SVG mit currentColor nutzt, wirkt das automatisch.
+   Bei PNG nehmen wir das Bild, Farbe kommt aus dem PNG. */
