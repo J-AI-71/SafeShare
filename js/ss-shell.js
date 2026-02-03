@@ -1,7 +1,32 @@
 /* /js/ss-shell.js */
 /* SafeShare Shell v2026-02-03-01 */
 /* Mounts: #ss-shell (nav) + #ss-footer (footer) */
+(function () {
+  const h = document.getElementById("ss-shell");
+  const f = document.getElementById("ss-footer");
 
+  if (h) {
+    h.innerHTML = `
+      <div style="
+        position:sticky;top:0;z-index:9999;
+        background:#111;color:#fff;
+        padding:12px 16px;
+        font:600 14px system-ui">
+        ✅ SHELL TEST — NAV IST DA
+      </div>`;
+  }
+
+  if (f) {
+    f.innerHTML = `
+      <div style="
+        margin:40px 0;
+        padding:16px;
+        background:#eee;color:#000;
+        font:14px system-ui">
+        ✅ SHELL TEST — FOOTER IST DA
+      </div>`;
+  }
+})();
 (function () {
   "use strict";
 
