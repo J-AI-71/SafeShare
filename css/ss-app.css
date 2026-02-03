@@ -1,0 +1,165 @@
+/* =========================================
+   SafeShare App – UI only
+   Datei: /css/ss-app.css
+   Zweck:
+   - NUR App-Komponenten
+   - KEIN Layout, KEINE Buttons, KEIN Footer
+   - Nutzt Variablen aus ss-shell.css
+========================================= */
+
+/* ---------- Basics ---------- */
+.mono{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco,
+               Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* ---------- Hinweise ---------- */
+.note,
+.warn{
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.note{
+  background: var(--ok, rgba(47,227,183,.16));
+  border-left: 3px solid rgba(47,227,183,.55);
+}
+
+.warn{
+  background: var(--warn, rgba(255,197,84,.18));
+  border-left: 3px solid rgba(255,197,84,.55);
+}
+
+/* ---------- Eingabefeld ---------- */
+.field{
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--ss-border, rgba(255,255,255,.10));
+  background: rgba(255,255,255,.04);
+  color: var(--ss-text);
+  padding: 12px 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  outline: none;
+}
+
+textarea.field{
+  min-height: 110px;
+  resize: vertical;
+}
+
+.field:focus{
+  border-color: var(--ss-active-border);
+  box-shadow: 0 0 0 2px rgba(47,227,183,.22);
+}
+
+/* ---------- Ergebnis ---------- */
+.resultBox{
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--ss-border, rgba(255,255,255,.10));
+  background: rgba(255,255,255,.03);
+  color: var(--ss-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* ---------- Audit-Chips ---------- */
+.kv{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--ss-muted2);
+  margin-top: 12px;
+}
+
+.kv span{
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--ss-border, rgba(255,255,255,.10));
+  background: rgba(255,255,255,.03);
+}
+
+/* ---------- Impact ---------- */
+.ssImpactGrid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.ssImpactItem{
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--ss-border, rgba(255,255,255,.10));
+  background: rgba(255,255,255,.04);
+}
+
+.ssImpactNum{
+  font-size: 1.6rem;
+  font-weight: 780;
+  letter-spacing: -.02em;
+}
+
+.ssImpactLabel{
+  font-size: .9rem;
+  color: var(--ss-muted2);
+}
+
+.ssImpactHeaderRow{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ssImpactSessionLabel{
+  font-size: 12px;
+  color: var(--ss-muted2);
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--ss-border, rgba(255,255,255,.10));
+  background: rgba(255,255,255,.03);
+}
+
+.ssImpactLast{
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px dashed rgba(255,255,255,.14);
+  background: rgba(255,255,255,.03);
+  color: var(--ss-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.ssImpactLastTitle{
+  color: var(--ss-muted2);
+  margin-right: 6px;
+}
+
+/* ---------- Light Mode ---------- */
+@media (prefers-color-scheme: light){
+  .field,
+  .resultBox,
+  .ssImpactItem{
+    background: rgba(17,24,39,.03);
+  }
+
+  .ssImpactLast{
+    background: rgba(17,24,39,.03);
+    border-color: rgba(17,24,39,.14);
+  }
+
+  .ssImpactSessionLabel,
+  .kv span{
+    background: rgba(17,24,39,.03);
+    border-color: rgba(17,24,39,.12);
+  }
+}
