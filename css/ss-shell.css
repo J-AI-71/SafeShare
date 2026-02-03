@@ -673,3 +673,20 @@ html.ss-noScroll, html.ss-noScroll body{
 #faq{
   scroll-margin-top: 92px;
 }
+/* HERO – offener, weniger Box */
+.ss-hero{
+  background:
+    radial-gradient(900px 400px at 20% -20%, rgba(47,227,183,.18), transparent 55%),
+    radial-gradient(700px 420px at 80% -10%, rgba(255,197,84,.16), transparent 60%),
+    var(--ss-bg);
+  border-color: rgba(255,255,255,.10);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.35),
+    0 1px 0 rgba(255,255,255,.06) inset;
+}
+.ss-hero h1{ font-size: clamp(28px, 4.6vw, 44px); }
+.ss-hero .ss-hero-kicker{
+  margin-top: 6px;
+  font-weight: 600;
+  opacity: .75;
+}
