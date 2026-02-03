@@ -249,28 +249,33 @@
       `.trim();
 
       // 8) Footer-Markup
-const footerHTML = `
 <footer class="ss-footer" role="contentinfo">
   <div class="ss-footer__inner">
+
     <div class="ss-footer__brand">
-      <div class="ss-footer__name">SafeShare</div>
-      <div class="ss-footer__note">${T.footerNote}</div>
+      <strong>SafeShare</strong>
+      <div class="ss-footer__note">
+        Local-first. No account. No tracking.
+      </div>
     </div>
 
-    <nav class="ss-footer__nav" aria-label="Footer">
-      <a class="ss-footer__link" href="${LINKS.app}">${T.app}</a><span class="ss-footer__dot"></span>
-      <a class="ss-footer__link" href="${LINKS.pro}">${T.pro}</a><span class="ss-footer__dot"></span>
-      <a class="ss-footer__link" href="${LINKS.help}">${T.help}</a><span class="ss-footer__dot"></span>
-      <a class="ss-footer__link" href="${LINKS.privacy}">${T.privacy}</a><span class="ss-footer__dot"></span>
-      <a class="ss-footer__link" href="${LINKS.imprint}">${T.imprint}</a><span class="ss-footer__dot"></span>
-      <a class="ss-footer__link" href="${LINKS.terms}">${T.terms}</a><span class="ss-footer__dot"></span>
-      <a class="ss-footer__link" href="${LINKS.support}">${T.support}</a>
+    <nav class="ss-footer__meta">
+      <a href="/app/">App</a>
+      <a href="/pro/">Pro</a>
+      <a href="/help/">Help</a>
+      <span>•</span>
+      <a href="/privacy/">Privacy</a>
+      <a href="/imprint/">Imprint</a>
+      <a href="/terms/">Terms</a>
+      <a href="mailto:listings@safesharepro.com">Support</a>
     </nav>
 
-    <div class="ss-footer__util" aria-label="Utility">
-      <a class="ss-footer__link" href="${toCounterpartUrl()}">${T.langSwitch}</a><span class="ss-footer__dot"></span>
-      <a class="ss-footer__link" href="#top">${T.footerTop}</a>
+    <div class="ss-footer__util">
+      <a href="/de/">Deutsch</a>
+      <span>·</span>
+      <a href="#top">Top</a>
     </div>
+
   </div>
 </footer>
 `.trim();
