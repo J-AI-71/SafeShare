@@ -840,5 +840,5 @@ html.ss-noScroll, html.ss-noScroll body{
 @media (prefers-color-scheme: light) and (min-width: 700px) and (max-width: 1100px){
   .ss-footer__nav{ border-top-color: rgba(17,24,39,.08); }
 }
-
+.ss-footer__inner{ outline: 2px solid red !important; }
 
