@@ -234,4 +234,12 @@
   } else {
     init();
   }
+
+const LOGO_SRC = "/assets/brand/logo-glyph-mint-512.png";
+
+  const LOGO_SRC = "/assets/brand/logo-glyph-mint-512.png";
+const LOGO_FALLBACK = "/assets/brand/glyph-mint-512.png"; // falls du so eine Datei hast
+
+  
+  
 })();
