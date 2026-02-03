@@ -235,13 +235,21 @@
     init();
   }
 
-const LOGO_SRC = "/assets/brand/logo-glyph-mint-512.png";
-
-  const LOGO_SRC = "/assets/brand/logo-glyph-mint-512.png";
-const LOGO_FALLBACK = "/assets/brand/glyph-mint-512.png"; // falls du so eine Datei hast
-
+<a class="ss-brand" href="/" aria-label="SafeShare Home">
+  <img class="ss-brand__logo" src="/assets/brand/mark-192.png?v=2026-02-03-02" alt="" />
+  <span class="ss-brand__name">SafeShare</span>
+</a>
+  
   <img class="ss-brand__img" src="${LOGO_SRC}" alt=""
      aria-hidden="true" width="20" height="20" loading="eager" decoding="async"
      onerror="this.onerror=null;this.src='${LOGO_FALLBACK}';">
-  
+
+<div class="ss-footerBrand">
+  <img class="ss-brand__logo" src="/assets/brand/mark-192.png?v=2026-02-03-02" alt="" />
+  <div>
+    <div class="ss-footerTitle">SafeShare</div>
+    <div class="ss-footerTagline">Local-first. No account. No tracking.</div>
+  </div>
+</div>
+       
 })();
