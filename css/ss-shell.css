@@ -669,6 +669,20 @@ html.ss-noScroll, html.ss-noScroll body{
 }
 .ss-footer__support:hover{ background: rgba(47,227,183,.18); }
 
+/* Footer – ruhiger Abschluss */
+.ss-footer__inner{
+  background: rgba(255,255,255,.02);
+  border-color: rgba(255,255,255,.08);
+  box-shadow: none;
+}
+.ss-footer__links a{
+  opacity: .8;
+}
+.ss-footer__links a:hover{
+  opacity: 1;
+  background: rgba(255,255,255,.04);
+}
+
 /* ---------------------------
    Anchor comfort with sticky header
 ---------------------------- */
