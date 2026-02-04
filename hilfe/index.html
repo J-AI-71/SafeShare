@@ -1,20 +1,24 @@
+<!-- /hilfe/index.html (DE) — SafeShare Hilfe (bereinigt: Page-CSS + Master-Shell) -->
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
+
   <title>Hilfe – SafeShare</title>
-  <meta name="description" content="Hilfe & FAQ zu SafeShare: Tracking-Parameter entfernen, typische Probleme, Beispiele und Tipps – für WhatsApp, YouTube, Newsletter & mehr.">
+  <meta name="description" content="Hilfe & FAQ zu SafeShare: Tracking-Parameter entfernen, typische Probleme, Beispiele und Tipps – für WhatsApp, YouTube, Newsletter & mehr." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#111111" />
 
   <!-- Canonical: Ordner-URL -->
   <link rel="canonical" href="https://safesharepro.com/hilfe/" />
 
-  <!-- hreflang -->
+  <!-- hreflang (Schema: EN unter /en/<slug>/) -->
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/hilfe/" />
-  <link rel="alternate" hreflang="en" href="https://safesharepro.com/help/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/help/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/help/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/help/" />
 
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
@@ -26,8 +30,9 @@
   <meta property="og:description" content="Antworten auf die wichtigsten Fragen zu SafeShare: Was wird entfernt, was bleibt, wie nutzt du es schnell (Copy → Clean → Share) – local-first, ohne Upload." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
+  <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://safesharepro.com/hilfe/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.jpg?v=2026-01-21-01" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
   <meta property="og:image:alt" content="SafeShare Hilfe – Vorschau" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -36,380 +41,289 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SafeShare Hilfe – FAQ & Tipps" />
   <meta name="twitter:description" content="FAQ & Tipps zu SafeShare: Tracking-Parameter entfernen, Link-Hygiene, local-first – ohne Upload." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.jpg?v=2026-01-21-01" />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
   <meta name="twitter:image:alt" content="SafeShare Hilfe – Vorschau" />
 
-  <!-- Favicons + PWA (ABSOLUTE Pfade!) -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-01">
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01">
-  <meta name="theme-color" content="#111111">
+  <!-- Icons / Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-03">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-03">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-03">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-03">
 
-  <!-- MASTER SHELL -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-01">
-<script src="/js/ss-shell.js?v=2026-01-25-01" defer></script>
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-03">
 
-  <style>
-    :root{
-      --bg0:#070a12; --bg1:#070b14; --bg2:#0b1020;
-      --card: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.60);
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
-      --radius: 18px;
-      --mint: #2fe3b7;
-      --mint2: rgba(47,227,183,.18);
-      --mint3: rgba(47,227,183,.28);
-      --warn: rgba(255,197,84,.16);
-      --ok: rgba(47,227,183,.16);
-      --bad: rgba(255,84,84,.14);
-      --max: 1120px;
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#f6f7fb; --bg1:#ffffff; --bg2:#f2f6ff;
-        --card:#ffffff;
-        --border: rgba(17,24,39,.12);
-        --text: rgba(17,24,39,.95);
-        --muted: rgba(17,24,39,.72);
-        --muted2: rgba(17,24,39,.62);
-        --shadow: 0 18px 45px rgba(17,24,39,.10);
-        --warn: rgba(255,197,84,.22);
-        --ok: rgba(47,227,183,.18);
-        --bad: rgba(255,84,84,.12);
-      }
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(47,227,183,.18), transparent 55%),
-        radial-gradient(900px 520px at 85% 10%, rgba(255,197,84,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-    }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
-
-    .card{
-      margin-top: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 42px); line-height: 1.10; letter-spacing:-.2px; }
-    h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
-    h3{ margin: 14px 0 8px; font-size: 15px; letter-spacing: -0.1px; }
-    p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-    ul, ol{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.6; }
-
-    .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor:pointer;
-      user-select:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); }
-    .btn.primary{ background: rgba(47,227,183,.18); border-color: rgba(47,227,183,.35); }
-    .btn.primary:hover{ background: rgba(47,227,183,.28); }
-    .btn.ghost{ background: transparent; color: var(--muted); }
-    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.04); }
-
-    .note,.warn,.bad{
-      margin-top: 12px;
-      border-left: 3px solid rgba(47,227,183,.55);
-      background: var(--ok);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text);
-    }
-    .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
-    .bad{ border-left-color: rgba(255,84,84,.55); background: var(--bad); }
-
-    .grid2{ display:grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
-    @media(min-width: 980px){ .grid2{ grid-template-columns: 1fr 1fr; } }
-    .box{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding: 12px;
-    }
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
-    .chips{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 10px; }
-    .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      font-size: 12px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .chip b{ color: var(--text); font-weight: 850; }
-
-    footer{ margin-top: 18px; padding: 18px 4px 10px; color: var(--muted2); font-size: 12px; line-height: 1.55; }
-    .footGrid{
-      display:grid; grid-template-columns: 1fr; gap: 10px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 14px;
-    }
-    @media(min-width: 920px){ .footGrid{ grid-template-columns: 1.2fr .8fr; } }
-    .footLinks{ display:flex; gap: 10px; flex-wrap: wrap; justify-content:flex-start; }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-  </style>
+  <!-- Page + Shell -->
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03">
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03">
 </head>
 
 <body>
-  <!-- MASTER NAV PLACEHOLDER -->
+  <!-- Shell mounts -->
   <div id="ss-shell"></div>
 
-  <div class="wrap">
+  <main class="ss-main" id="top">
 
-    <section class="card">
-      <h1>Hilfe</h1>
-      <p>Kurzer Einstieg, typische Stolperfallen und saubere Debug-Schritte – ohne Panik.</p>
+    <!-- HERO -->
+    <section class="ss-section" aria-labelledby="help-hero-title">
+      <div class="ss-card">
+        <h1 id="help-hero-title">Hilfe</h1>
+        <p class="ss-hero-kicker">Kurzer Einstieg, typische Stolperfallen und saubere Debug-Schritte – ohne Panik.</p>
 
-      <div class="chips" aria-label="Flow">
-        <span class="chip"><b>1</b> Copy</span>
-        <span class="chip"><b>2</b> Clean</span>
-        <span class="chip"><b>3</b> Share</span>
-      </div>
-
-      <div class="row">
-        <a class="btn primary" href="/app/">App öffnen</a>
-        <a class="btn" href="/pro/">Pro ansehen</a>
-        <a class="btn ghost" href="#kontakt">Support</a>
-      </div>
-
-      <div class="note">
-        SafeShare entfernt nur Tracking-Parameter <b>im Link selbst</b> (z. B. <span class="mono">utm_*</span>, <span class="mono">fbclid</span>, <span class="mono">gclid</span>).
-        Es ändert nichts an Browser/Account/IP – es macht dich nicht anonym.
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>App (QuickStart)</h2>
-      <p class="muted">
-        Sofort starten: Demo-Link wird eingefügt und direkt bereinigt. (local-first, ohne Upload)
-      </p>
-
-      <div class="row">
-        <a class="btn primary" href="/app/">Zur App</a>
-
-        <a class="btn" href="/app/?u=https%3A%2F%2Fde.wikipedia.org%2Fwiki%2FUniform_Resource_Locator%3Futm_source%3Dsafeshare-demo%26utm_medium%3Dhelp%26utm_campaign%3Dquickstart%26gclid%3DTEST123%26fbclid%3DTEST456&run=1">
-          Demo starten
-        </a>
-
-        <a class="btn ghost" href="/app/#cleaner">Direkt zur Eingabe</a>
-      </div>
-
-      <div class="note" style="margin-top:12px">
-        Format für Demo-Links:
-        <span class="mono">/app/?u=ENCODED_URL&amp;run=1</span>
-        (u = URL-encoded Link, run=1 = sofort bereinigen).
-      </div>
-    </section>
-
-    <section class="card" id="start">
-      <h2>Schnellstart (App)</h2>
-      <ol>
-        <li>Link kopieren</li>
-        <li>In <a href="/app/"><b>/app/</b></a> einfügen</li>
-        <li><b>Bereinigen</b> → Ergebnis kopieren/teilen</li>
-      </ol>
-
-      <div class="warn">
-        Wenn ein Link nach der Bereinigung nicht funktioniert:
-        1) Original-Link öffnen (Gegencheck) · 2) bereinigten Link öffnen ·
-        3) wenn nur der bereinigte Link scheitert, war ein Parameter vermutlich funktional → Pro (Audit/Whitelist) oder konservativer bereinigen.
-      </div>
-    </section>
-
-    <section class="card" id="prostart">
-      <h2>Pro (optional)</h2>
-      <div class="grid2">
-        <div class="box">
-          <h3>Wann lohnt sich Pro?</h3>
-          <ul>
-            <li>Du veröffentlichst Links (Journalismus, Social-Team, Publisher).</li>
-            <li>Du willst bewusst Attribution behalten (Affiliate/Partner).</li>
-            <li>Du brauchst Nachvollziehbarkeit: <b>Audit</b> + <b>Whitelist</b> + Presets.</li>
-          </ul>
-          <div class="row">
-            <a class="btn primary" href="/pro/">Mehr zu SafeShare Pro</a>
-          </div>
-          <p class="muted" style="margin-top:10px;opacity:.85">
-            Wenn du nur gelegentlich UTM & Klick-IDs entfernen willst: Die kostenlose App reicht.
-          </p>
+        <div class="ss-actions">
+          <a class="ss-btn ss-btn--primary" href="/app/">App öffnen</a>
+          <a class="ss-btn" href="/pro/">Pro ansehen</a>
+          <a class="ss-btn ss-btn--ghost" href="#kontakt">Support</a>
         </div>
 
-        <div class="box">
-          <h3>Nach dem Kauf (Payhip)</h3>
-          <ol>
-            <li>Payhip-Download öffnen</li>
-            <li><b>01-START.html</b> starten</li>
-            <li>Von dort Pro-App + Handbuch öffnen</li>
-          </ol>
-          <div class="row">
-            <a class="btn primary" href="https://payhip.com/b/djqDz" target="_blank" rel="noopener">Pro Person</a>
-            <a class="btn" href="https://payhip.com/b/oXFsk" target="_blank" rel="noopener">Pro Team</a>
-          </div>
-
-          <p class="muted" style="margin-top:10px;opacity:.85">
-            Im Paket: <code>02-app-pro.html</code>, <code>03-handbuch-pro.pdf</code>
-          </p>
-
-          <div class="note" style="margin-top:10px">
-            Pro ist ein <b>Offline-Download</b> (nicht als öffentliche Webseite).
-            Starte immer über <b>01-START.html</b> aus deinem Payhip-Download – so bleibt Pro privat und funktioniert auch ohne Internet.
-          </div>
+        <div class="ss-note" style="margin-top:12px">
+          SafeShare eliminiert Tracking-Parameter <strong>im Link selbst</strong> (z. B. <code>utm_*</code>, <code>fbclid</code>, <code>gclid</code>).
+          Es ändert nichts an Browser/Account/IP – es macht dich nicht anonym.
         </div>
       </div>
     </section>
 
-    <section class="card" id="problems">
-      <h2>Typische Probleme – sauber lösen</h2>
+    <!-- QUICKSTART -->
+    <section class="ss-section" aria-labelledby="qs-title">
+      <div class="ss-card">
+        <h2 id="qs-title">App (QuickStart)</h2>
+        <p class="ss-muted">
+          Sofort testen: Demo-Link wird eingefügt und direkt bereinigt. (local-first, ohne Upload)
+        </p>
 
-      <div class="grid2">
-        <div class="box">
-          <h3>Link ist nach Bereinigung „kaputt“</h3>
-          <ul>
-            <li><b>Vergleich:</b> Original-Link öffnen → bereinigten Link öffnen.</li>
-            <li>Wenn nur der bereinigte Link scheitert: ein Parameter war vermutlich <b>funktional</b>.</li>
-            <li><b>Pro-Ansatz:</b> Preset <b>konservativ</b> + Audit prüfen + Schlüssel whitelisten (z. B. <span class="mono">id</span>, <span class="mono">q</span>, <span class="mono">page</span>, <span class="mono">lang</span>).</li>
-          </ul>
-          <div class="warn">
-            Häufig „funktional“/kritisch: <span class="mono">token</span>, <span class="mono">sig</span>, <span class="mono">signature</span>, <span class="mono">expires</span>, <span class="mono">state</span>, <span class="mono">nonce</span>.
+        <div class="ss-actions">
+          <a class="ss-btn ss-btn--primary" href="/app/">Zur App</a>
+          <a class="ss-btn"
+             href="/app/?u=https%3A%2F%2Fde.wikipedia.org%2Fwiki%2FUniform_Resource_Locator%3Futm_source%3Dsafeshare-demo%26utm_medium%3Dhelp%26utm_campaign%3Dquickstart%26gclid%3DTEST123%26fbclid%3DTEST456&run=1">
+            Demo starten
+          </a>
+          <a class="ss-btn ss-btn--ghost" href="/app/#cleaner">Direkt zur Eingabe</a>
+        </div>
+
+        <div class="ss-note" style="margin-top:12px">
+          Format für Demo-Links: <code>/app/?u=ENCODED_URL&amp;run=1</code>
+          (<code>u</code> = URL-encoded Link, <code>run=1</code> = sofort bereinigen).
+        </div>
+      </div>
+    </section>
+
+    <!-- START -->
+    <section class="ss-section" id="start" aria-labelledby="start-title">
+      <div class="ss-card">
+        <h2 id="start-title">Schnellstart (App)</h2>
+        <ol>
+          <li>Link kopieren</li>
+          <li>In <a href="/app/"><strong>/app/</strong></a> einfügen</li>
+          <li><strong>Bereinigen</strong> → Ergebnis kopieren/teilen</li>
+        </ol>
+
+        <div class="ss-warn" style="margin-top:12px">
+          Wenn ein Link nach der Bereinigung nicht funktioniert:
+          1) Original-Link öffnen (Gegencheck) · 2) bereinigten Link öffnen ·
+          3) wenn nur der bereinigte Link scheitert, war ein Parameter vermutlich funktional → Pro (Audit/Whitelist) oder konservativer bereinigen.
+        </div>
+      </div>
+    </section>
+
+    <!-- PRO -->
+    <section class="ss-section" id="prostart" aria-labelledby="pro-title">
+      <div class="ss-card">
+        <h2 id="pro-title">Pro (optional)</h2>
+
+        <div class="ss-grid ss-grid--2" style="margin-top:12px">
+          <div class="ss-card ss-card--inner">
+            <h3>Wann lohnt sich Pro?</h3>
+            <ul>
+              <li>Du veröffentlichst Links (Journalismus, Social-Team, Publisher).</li>
+              <li>Du willst bewusst Attribution behalten (Affiliate/Partner).</li>
+              <li>Du brauchst Nachvollziehbarkeit: <strong>Audit</strong> + <strong>Whitelist</strong> + Presets.</li>
+            </ul>
+
+            <div class="ss-actions">
+              <a class="ss-btn ss-btn--primary" href="/pro/">Mehr zu SafeShare Pro</a>
+            </div>
+
+            <p class="ss-muted" style="margin-top:10px">
+              Wenn du nur gelegentlich UTM & Klick-IDs entfernen willst: Die kostenlose App reicht.
+            </p>
           </div>
-        </div>
 
-        <div class="box">
-          <h3>Affiliate/Partner-Attribution fehlt</h3>
-          <ul>
-            <li>Wenn du Attribution behalten willst: nutze Pro + Whitelist.</li>
-            <li>Typische Keys: <span class="mono">ref</span>, <span class="mono">tag</span>, <span class="mono">affid</span>, <span class="mono">partner</span>.</li>
-            <li>Dann Link neu bereinigen und Audit prüfen.</li>
-          </ul>
-          <div class="note">
-            Die App entfernt bewusst <span class="mono">utm_*</span>. Wenn du UTM bewusst behalten willst, ist das ein Pro-Case (Whitelist/Policy).
-          </div>
-        </div>
+          <div class="ss-card ss-card--inner">
+            <h3>Nach dem Kauf (Payhip)</h3>
+            <ol>
+              <li>Payhip-Download öffnen</li>
+              <li><strong>01-START.html</strong> starten</li>
+              <li>Von dort Pro-App + Handbuch öffnen</li>
+            </ol>
 
-        <div class="box">
-          <h3>404 bei Pro</h3>
-          <ul>
-            <li>Pro läuft als Offline-Paket. Öffne Pro über <span class="mono">01-START.html</span> im Payhip-Download.</li>
-            <li>Wenn du Dateien umbenannt hast: Links in <span class="mono">01-START.html</span> im Paket prüfen.</li>
-          </ul>
-        </div>
+            <div class="ss-actions">
+              <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/djqDz" target="_blank" rel="noopener nofollow">Pro Person</a>
+              <a class="ss-btn" href="https://payhip.com/b/oXFsk" target="_blank" rel="noopener nofollow">Pro Team</a>
+            </div>
 
-        <div class="box">
-          <h3>„Es passiert nichts“ / Ergebnis wirkt falsch</h3>
-          <ul>
-            <li>Link neu kopieren (nicht aus Autovervollständigung).</li>
-            <li>Seite neu laden, dann erneut testen.</li>
-            <li>Wenn möglich: in einem privaten Tab testen.</li>
-          </ul>
-          <div class="note">
-            Wenn du magst: schick eine Beispiel-URL (ohne private Daten) + was du erwartest. Dann kann man das Muster schnell erkennen.
+            <p class="ss-muted" style="margin-top:10px">
+              Im Paket z. B.: <code>02-app-pro.html</code>, <code>03-handbuch-pro.pdf</code>
+            </p>
+
+            <div class="ss-note" style="margin-top:10px">
+              Pro ist ein <strong>Offline-Download</strong> (nicht als öffentliche Webseite).
+              Starte immer über <strong>01-START.html</strong> aus deinem Payhip-Download – so bleibt Pro privat und funktioniert auch ohne Internet.
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="card" id="ios">
-      <h2>iPad / iPhone Hinweise</h2>
-      <ul>
-        <li>Stabiler Standard-Workflow: App öffnen → Link einfügen → Ergebnis kopieren → teilen.</li>
-        <li>Bookmarklets können auf iOS je nach Browser/Version unzuverlässig sein. Wenn’s hakt: Copy/Paste in der App ist stabil.</li>
-      </ul>
-      <div class="note">
-        Optional später: iOS Shortcut (Share Sheet → Clean with SafeShare) als besonders schneller Workflow.
-      </div>
-    </section>
+    <!-- PROBLEMS -->
+    <section class="ss-section" id="problems" aria-labelledby="problems-title">
+      <div class="ss-card">
+        <h2 id="problems-title">Typische Probleme – sauber lösen</h2>
 
-    <section class="card" aria-label="Links nach Kanal">
-      <h2>Links nach Kanal bereinigen</h2>
-      <div class="row">
-        <a class="btn" href="/email-links-bereinigen/">E-Mail</a>
-        <a class="btn" href="/messenger-links-bereinigen/">Messenger</a>
-        <a class="btn" href="/social-links-bereinigen/">Social</a>
-      </div>
-    </section>
+        <div class="ss-grid ss-grid--2" style="margin-top:12px">
+          <div class="ss-card ss-card--inner">
+            <h3>Link ist nach Bereinigung „kaputt“</h3>
+            <ul>
+              <li><strong>Vergleich:</strong> Original-Link öffnen → bereinigten Link öffnen.</li>
+              <li>Wenn nur der bereinigte Link scheitert: ein Parameter war vermutlich <strong>funktional</strong>.</li>
+              <li><strong>Pro-Ansatz:</strong> Preset konservativ + Audit prüfen + Schlüssel whitelisten (z. B. <code>id</code>, <code>q</code>, <code>page</code>, <code>lang</code>).</li>
+            </ul>
 
-    <section class="card" id="ios-shortcuts" aria-label="iOS Share-Sheet Shortcuts">
-      <h2>iOS / iPad: 1-Tap „Clean & Share“</h2>
-      <p class="muted">
-        Wenn du Links oft aus Mail/Messenger/Social teilst: nutze die iOS Share-Sheet Shortcuts.
-        Link teilen → Shortcut → sauberer Link direkt zum Weiterteilen.
-      </p>
-      <div class="row">
-        <a class="btn primary" href="/shortcuts/">Shortcuts installieren</a>
-        <a class="btn" href="/app/">Oder: App öffnen</a>
-      </div>
-      <p class="muted" style="font-size:12px; opacity:.9">
-        Hinweis: Shortcuts entfernen URL-Tracking-Parameter. Sie ersetzen kein Blocken von Cookies/Fingerprinting.
-      </p>
-    </section>
+            <div class="ss-warn" style="margin-top:10px">
+              Häufig „funktional“/kritisch: <code>token</code>, <code>sig</code>, <code>signature</code>, <code>expires</code>, <code>state</code>, <code>nonce</code>.
+            </div>
+          </div>
 
-    <section class="card" id="kontakt">
-      <h2>Support</h2>
-      <p>Wenn du einen reproduzierbaren Fehler hast, schick bitte:</p>
-      <ul>
-        <li>1 Beispiel-URL (gern „entschärft“/ohne private Tokens)</li>
-        <li>Was du erwartest</li>
-        <li>Was tatsächlich passiert</li>
-        <li>Optional: Screenshot des Audits (Pro)</li>
-      </ul>
-      <div class="box">
-        <p style="margin:0"><b>E-Mail:</b> <span class="mono">listings@safesharepro.com</span></p>
-      </div>
-    </section>
+          <div class="ss-card ss-card--inner">
+            <h3>Affiliate/Partner-Attribution fehlt</h3>
+            <ul>
+              <li>Wenn du Attribution behalten willst: nutze Pro + Whitelist.</li>
+              <li>Typische Keys: <code>ref</code>, <code>tag</code>, <code>affid</code>, <code>partner</code>.</li>
+              <li>Dann Link neu bereinigen und Audit prüfen.</li>
+            </ul>
 
-    <footer>
-      <div class="footGrid">
-        <div>
-          <div><strong>SafeShare</strong> – Links teilen. Ohne Ballast.</div>
-          <div>App: schnell & einfach · Pro: Policies, Whitelist, Audit.</div>
-        </div>
-        <div class="footLinks">
-          <a href="/">Start</a>
-          <a href="/app/">App</a>
-          <a href="/schule/">Schule</a>
-          <a href="/pro/">Pro</a>
-          <a href="/hilfe/">Hilfe</a>
-          <a href="/datenschutz/">Datenschutz</a>
-          <a href="/impressum/">Impressum</a>
-          <a href="/nutzungsbedingungen/">Nutzungsbedingungen</a>
+            <div class="ss-note" style="margin-top:10px">
+              Die App entfernt bewusst <code>utm_*</code>. Wenn du UTM bewusst behalten willst, ist das ein Pro-Case (Whitelist/Policy).
+            </div>
+          </div>
+
+          <div class="ss-card ss-card--inner">
+            <h3>404 bei Pro</h3>
+            <ul>
+              <li>Pro läuft als Offline-Paket. Öffne Pro über <code>01-START.html</code> im Payhip-Download.</li>
+              <li>Wenn du Dateien umbenannt hast: Links in <code>01-START.html</code> im Paket prüfen.</li>
+            </ul>
+          </div>
+
+          <div class="ss-card ss-card--inner">
+            <h3>„Es passiert nichts“ / Ergebnis wirkt falsch</h3>
+            <ul>
+              <li>Link neu kopieren (nicht aus Autovervollständigung).</li>
+              <li>Seite neu laden, dann erneut testen.</li>
+              <li>Wenn möglich: in einem privaten Tab testen.</li>
+            </ul>
+
+            <div class="ss-note" style="margin-top:10px">
+              Wenn du magst: schick eine Beispiel-URL (ohne private Daten) + was du erwartest. Dann kann man das Muster schnell erkennen.
+            </div>
+          </div>
         </div>
       </div>
-    </footer>
-  </div>
+    </section>
+
+    <!-- iOS -->
+    <section class="ss-section" id="ios" aria-labelledby="ios-title">
+      <div class="ss-card">
+        <h2 id="ios-title">iPad / iPhone Hinweise</h2>
+        <ul>
+          <li>Stabiler Standard-Workflow: App öffnen → Link einfügen → Ergebnis kopieren → teilen.</li>
+          <li>Bookmarklets können auf iOS je nach Browser/Version unzuverlässig sein. Wenn’s hakt: Copy/Paste in der App ist stabil.</li>
+        </ul>
+
+        <div class="ss-note" style="margin-top:10px">
+          Optional später: iOS Shortcut (Share Sheet → Clean with SafeShare) als besonders schneller Workflow.
+        </div>
+      </div>
+    </section>
+
+    <!-- Channels -->
+    <section class="ss-section" aria-labelledby="channels-title">
+      <div class="ss-card">
+        <h2 id="channels-title">Links nach Kanal bereinigen</h2>
+        <div class="ss-actions">
+          <a class="ss-btn" href="/email-links-bereinigen/">E-Mail</a>
+          <a class="ss-btn" href="/messenger-links-bereinigen/">Messenger</a>
+          <a class="ss-btn" href="/social-links-bereinigen/">Social</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shortcuts -->
+    <section class="ss-section" id="ios-shortcuts" aria-labelledby="shortcuts-title">
+      <div class="ss-card">
+        <h2 id="shortcuts-title">iOS / iPad: 1-Tap „Clean & Share“</h2>
+        <p class="ss-muted">
+          Wenn du Links oft aus Mail/Messenger/Social teilst: nutze die iOS Share-Sheet Shortcuts.
+          Link teilen → Shortcut → sauberer Link direkt zum Weiterteilen.
+        </p>
+
+        <div class="ss-actions">
+          <a class="ss-btn ss-btn--primary" href="/shortcuts/">Shortcuts installieren</a>
+          <a class="ss-btn" href="/app/">Oder: App öffnen</a>
+        </div>
+
+        <p class="ss-muted" style="margin-top:10px;font-size:12px">
+          Hinweis: Shortcuts entfernen URL-Tracking-Parameter. Sie ersetzen kein Blocken von Cookies/Fingerprinting.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="ss-section" aria-labelledby="faq-title">
+      <div class="ss-card">
+        <h2 id="faq-title">FAQ</h2>
+
+        <details>
+          <summary>Macht SafeShare „anonym“ oder „unsichtbar“?</summary>
+          <p>Nein. SafeShare entfernt Tracking-Parameter und Link-Ballast. Das ist Link-Hygiene – kein Unsichtbarkeitsversprechen.</p>
+        </details>
+
+        <details>
+          <summary>Was wird entfernt – und was bleibt?</summary>
+          <p>Entfernt werden typische Tracking-Keys (z. B. <code>utm_*</code>, <code>fbclid</code>, <code>gclid</code>). Funktionale Parameter (z. B. <code>id</code>, <code>q</code>) bleiben üblicherweise erhalten. Wenn ein Link nach dem Clean „kaputt“ ist, war ein Parameter wahrscheinlich funktional.</p>
+        </details>
+
+        <details>
+          <summary>Wie erreiche ich dich, wenn ich Fragen habe?</summary>
+          <p>Support & Listings: <a href="mailto:listings@safesharepro.com">listings@safesharepro.com</a></p>
+        </details>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="ss-section" id="kontakt" aria-labelledby="contact-title">
+      <div class="ss-card">
+        <h2 id="contact-title">Support</h2>
+        <p class="ss-muted">Wenn du einen reproduzierbaren Fehler hast, schick bitte:</p>
+        <ul>
+          <li>1 Beispiel-URL (gern „entschärft“/ohne private Tokens)</li>
+          <li>Was du erwartest</li>
+          <li>Was tatsächlich passiert</li>
+          <li>Optional: Screenshot des Audits (Pro)</li>
+        </ul>
+
+        <div class="ss-card ss-card--inner" style="margin-top:12px">
+          <p style="margin:0"><strong>E-Mail:</strong> <a href="mailto:listings@safesharepro.com">listings@safesharepro.com</a></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="ss-footer"></div>
+
+  <!-- Shell JS -->
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03">
+<link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03">
+<script src="/js/ss-shell.js?v=2026-02-04-07" defer></script>
 </body>
 </html>
