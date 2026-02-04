@@ -1,5 +1,5 @@
 /* /js/ss-shell.js */
-/* SafeShare Shell v2026-02-04-01 */
+/* SafeShare Shell v2026-02-04-02 */
 
 (function () {
   function ready(fn){
@@ -8,47 +8,96 @@
     } else fn();
   }
 
-  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-01";
-  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-01";
+  // Logo: nimm PNG (stabil). Wenn nicht vorhanden, fallback auf favicon.
+  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-02";
+  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-02";
 
-  function isEN(){
-    return location.pathname.startsWith("/en/");
+  function isEN(){ return location.pathname.startsWith("/en/"); }
+  function text(de, en){ return isEN() ? en : de; }
+
+  // Primary pages
+  function hrefFor(key){
+    const mapDE = { start:"/", app:"/app/", pro:"/pro/", schule:"/schule/", hilfe:"/hilfe/" };
+    const mapEN = { start:"/en/", app:"/en/app/", pro:"/en/pro/", schule:"/en/school/", hilfe:"/en/help/" };
+    return (isEN() ? mapEN : mapDE)[key] || (isEN()?"/en/":"/");
   }
 
-  function hrefFor(slug){
-    // slug like "app", "pro", "schule", "hilfe"
-    return isEN() ? `/en/${slug}/` : `/${slug}/`;
+  // Learn pages (match your repo folders)
+  function learnHref(key){
+    const mapDE = {
+      tracking:"/tracking-parameter/",
+      utm:"/utm-parameter-entfernen/",
+      compare:"/url-cleaner-tool-vergleich/",
+      email:"/email-links-bereinigen/",
+      messenger:"/messenger-links-bereinigen/",
+      social:"/social-links-bereinigen/"
+    };
+    const mapEN = {
+      tracking:"/en/tracking-parameters/",
+      utm:"/en/remove-utm-parameter/",
+      compare:"/en/url-cleaner-comparison/",
+      email:"/en/email-link-cleaning/",
+      messenger:"/en/messenger-link-cleaning/",
+      social:"/en/social-link-cleaning/"
+    };
+    return (isEN() ? mapEN : mapDE)[key];
   }
 
-  function text(tDe, tEn){ return isEN() ? tEn : tDe; }
+  // Legal pages
+  function legalHref(key){
+    const mapDE = { privacy:"/datenschutz/", imprint:"/impressum/", terms:"/nutzungsbedingungen/" };
+    const mapEN = { privacy:"/en/privacy/", imprint:"/en/imprint/", terms:"/en/terms/" };
+    return (isEN() ? mapEN : mapDE)[key];
+  }
+
+  function normalizePath(p){
+    // ensure trailing slash
+    if (!p.endsWith("/")) p += "/";
+    return p;
+  }
+
+  function active(key){
+    const p = normalizePath(location.pathname);
+    const a = normalizePath(hrefFor(key));
+    if (key === "start") return (p === "/" || p === "/en/") ? " is-active" : "";
+    return p.startsWith(a) ? " is-active" : "";
+  }
+
+  function langToggleHref(){
+    const p = normalizePath(location.pathname);
+
+    if (isEN()){
+      // /en/... -> /...
+      const dePath = p.replace(/^\/en\//, "/");
+      return dePath;
+    }
+    // /... -> /en/...
+    if (p === "/") return "/en/";
+    return "/en" + p;
+  }
+
+  function ensureMount(id, where){
+    let el = document.getElementById(id);
+    if (el) return el;
+    el = document.createElement("div");
+    el.id = id;
+    if (where === "top"){
+      (document.body || document.documentElement).insertBefore(el, document.body.firstChild);
+    } else {
+      document.body.appendChild(el);
+    }
+    return el;
+  }
 
   function injectShell(){
-    // Ensure mounts exist (hard-failsafe)
-    let shell = document.getElementById("ss-shell");
-    if (!shell) {
-      shell = document.createElement("div");
-      shell.id = "ss-shell";
-      (document.body || document.documentElement).insertBefore(shell, document.body.firstChild);
-    }
-    let footer = document.getElementById("ss-footer");
-    if (!footer) {
-      footer = document.createElement("div");
-      footer.id = "ss-footer";
-      document.body.appendChild(footer);
-    }
+    // hard failsafe mounts
+    const shell = ensureMount("ss-shell", "top");
+    const footer = ensureMount("ss-footer", "bottom");
 
-    const active = (key) => {
-      const p = location.pathname;
-      const a = isEN() ? `/en/${key}/` : `/${key}/`;
-      if (key === "start") return p === "/" || p === "/en/";
-      return p.startsWith(a) ? " is-active" : "";
-    };
-
-    // Top nav
     shell.innerHTML = `
       <header class="ss-header" role="banner">
         <div class="ss-header__inner">
-          <a class="ss-brand" href="${isEN()?"/en/":"/"}" aria-label="SafeShare Home">
+          <a class="ss-brand" href="${hrefFor("start")}" aria-label="SafeShare Home">
             <img class="ss-brand__logo" src="${LOGO_SRC}" alt=""
               width="20" height="20" loading="eager" decoding="async"
               onerror="this.onerror=null;this.src='${LOGO_FALLBACK}';">
@@ -56,9 +105,9 @@
           </a>
 
           <nav class="ss-nav" aria-label="Primary">
-            <a class="ss-nav__link${active("start")}" href="${isEN()?"/en/":"/"}">${text("Start","Start")}</a>
-            <a class="ss-nav__link${active("app")}" href="${hrefFor("app")}">${text("App","App")}</a>
-            <a class="ss-nav__link${active("pro")}" href="${hrefFor("pro")}">${text("Pro","Pro")}</a>
+            <a class="ss-nav__link${active("start")}" href="${hrefFor("start")}">${text("Start","Start")}</a>
+            <a class="ss-nav__link${active("app")}" href="${hrefFor("app")}">App</a>
+            <a class="ss-nav__link${active("pro")}" href="${hrefFor("pro")}">Pro</a>
             <a class="ss-nav__link${active("schule")}" href="${hrefFor("schule")}">${text("Schule","School")}</a>
             <a class="ss-nav__link${active("hilfe")}" href="${hrefFor("hilfe")}">${text("Hilfe","Help")}</a>
 
@@ -79,28 +128,28 @@
           <div class="ss-more__section">
             <div class="ss-more__label">${text("Lernen","Learn")}</div>
             <div class="ss-more__grid">
-              <a class="ss-pill" href="${isEN()?"/en/tracking-parameter/":"/tracking-parameter/"}">${text("Tracking-Parameter","Tracking parameters")}</a>
-              <a class="ss-pill" href="${isEN()?"/en/utm-remove/":"/utm-parameter-entfernen/"}">${text("UTM entfernen","Remove UTM")}</a>
-              <a class="ss-pill" href="${isEN()?"/en/compare/":"/vergleich/"}">${text("Vergleich","Compare")}</a>
-              <a class="ss-pill" href="${isEN()?"/en/email-links/":"/email-links/"}">${text("E-Mail-Links","Email links")}</a>
-              <a class="ss-pill" href="${isEN()?"/en/messenger-links/":"/messenger-links/"}">${text("Messenger-Links","Messenger links")}</a>
-              <a class="ss-pill" href="${isEN()?"/en/social-links/":"/social-links/"}">${text("Social-Links","Social links")}</a>
+              <a class="ss-pill" href="${learnHref("tracking")}">${text("Tracking-Parameter","Tracking parameters")}</a>
+              <a class="ss-pill" href="${learnHref("utm")}">${text("UTM entfernen","Remove UTM")}</a>
+              <a class="ss-pill" href="${learnHref("compare")}">${text("Vergleich","Compare")}</a>
+              <a class="ss-pill" href="${learnHref("email")}">${text("E-Mail-Links","Email links")}</a>
+              <a class="ss-pill" href="${learnHref("messenger")}">${text("Messenger-Links","Messenger links")}</a>
+              <a class="ss-pill" href="${learnHref("social")}">${text("Social-Links","Social links")}</a>
             </div>
           </div>
 
           <div class="ss-more__section">
             <div class="ss-more__label">${text("Rechtliches","Legal")}</div>
             <div class="ss-more__grid">
-              <a class="ss-pill" href="${isEN()?"/en/privacy/":"/datenschutz/"}">${text("Datenschutz","Privacy")}</a>
-              <a class="ss-pill" href="${isEN()?"/en/imprint/":"/impressum/"}">${text("Impressum","Imprint")}</a>
-              <a class="ss-pill" href="${isEN()?"/en/terms/":"/nutzungsbedingungen/"}">${text("Nutzungsbedingungen","Terms")}</a>
+              <a class="ss-pill" href="${legalHref("privacy")}">${text("Datenschutz","Privacy")}</a>
+              <a class="ss-pill" href="${legalHref("imprint")}">${text("Impressum","Imprint")}</a>
+              <a class="ss-pill" href="${legalHref("terms")}">${text("Nutzungsbedingungen","Terms")}</a>
             </div>
           </div>
 
           <div class="ss-more__section">
             <div class="ss-more__label">${text("Sprache","Language")}</div>
             <div class="ss-more__grid">
-              <a class="ss-pill" href="${isEN()? location.pathname.replace(/^\/en\//, "/") : ("/en" + location.pathname)}">${text("English","Deutsch")}</a>
+              <a class="ss-pill" href="${langToggleHref()}">${text("English","Deutsch")}</a>
               <a class="ss-pill" href="#top">${text("Nach oben","Top")}</a>
             </div>
           </div>
@@ -115,7 +164,6 @@
       </div>
     `;
 
-    // Footer
     footer.innerHTML = `
       <footer class="ss-footer" role="contentinfo">
         <div class="ss-footer__inner">
@@ -130,12 +178,12 @@
           </div>
 
           <div class="ss-footerLinks">
-            <a href="${isEN()?"/en/":"/"}">${text("Start","Start")}</a>
-            <a href="${hrefFor("app")}">${text("App","App")}</a>
-            <a href="${hrefFor("pro")}">${text("Pro","Pro")}</a>
+            <a href="${hrefFor("start")}">${text("Start","Start")}</a>
+            <a href="${hrefFor("app")}">App</a>
+            <a href="${hrefFor("pro")}">Pro</a>
             <a href="${hrefFor("hilfe")}">${text("Hilfe","Help")}</a>
-            <a href="${isEN()?"/en/privacy/":"/datenschutz/"}">${text("Datenschutz","Privacy")}</a>
-            <a href="${isEN()?"/en/imprint/":"/impressum/"}">${text("Impressum","Imprint")}</a>
+            <a href="${legalHref("privacy")}">${text("Datenschutz","Privacy")}</a>
+            <a href="${legalHref("imprint")}">${text("Impressum","Imprint")}</a>
           </div>
         </div>
       </footer>
@@ -148,7 +196,6 @@
     const btn = document.querySelector(".ss-moreBtn");
     const modal = document.getElementById("ss-more");
     const closeBtn = modal ? modal.querySelector(".ss-more__close") : null;
-
     if (!btn || !modal || !closeBtn) return;
 
     const open = () => {
@@ -167,10 +214,7 @@
     btn.addEventListener("click", () => (modal.hidden ? open() : close()));
     closeBtn.addEventListener("click", close);
 
-    modal.addEventListener("click", (e) => {
-      // click outside panel closes
-      if (e.target === modal) close();
-    });
+    modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !modal.hidden) close();
