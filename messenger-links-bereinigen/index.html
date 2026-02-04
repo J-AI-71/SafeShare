@@ -6,13 +6,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
   <title>Messenger-Links bereinigen – SafeShare (WhatsApp, Signal, Teams)</title>
-  <meta name="description" content="Messenger-Links bereinigen: Sauber teilen in WhatsApp, Signal &amp; Co. SafeShare entfernt Tracking-Parameter lokal – ohne Upload, ohne Konto.">
+  <meta name="description" content="Messenger-Links bereinigen: Sauber teilen in WhatsApp, Signal & Co. SafeShare entfernt Tracking-Parameter lokal – ohne Upload, ohne Konto." />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://safesharepro.com/messenger-links-bereinigen/" />
-
-  <link rel="alternate" hreflang="de" href="https://safesharepro.com/messenger-links-bereinigen/" />
-  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/messenger-links-clean/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/messenger-links-clean/" />
 
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
@@ -41,84 +37,85 @@
   <meta name="twitter:image:alt" content="SafeShare – Messenger Links bereinigen" />
 
   <!-- Favicons + PWA (absolut) -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-03">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-03">
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-03">
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-01" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01" />
 
   <!-- Page + Shell -->
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03">
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03">
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03" />
 </head>
 
 <body>
-  <a class="skip" href="#content">Zum Inhalt springen</a>
+  <a class="ss-skip" href="#top">Zum Inhalt springen</a>
 
   <!-- Shell mounts -->
   <div id="ss-shell"></div>
 
   <main class="ss-main" id="top">
-    <div class="wrap" id="content">
+    <header class="ss-card">
+      <h1>Links in Messengern bereinigen (WhatsApp, Signal, Slack, Teams)</h1>
+      <p>
+        In Gruppen-Chats verbreiten sich Links schnell. Wenn Tracking-IDs mitlaufen (z. B. <code>utm_*</code>, Klick-IDs),
+        landen sie nicht nur bei Empfänger:innen, sondern oft auch in Tools, Screenshots, Ticket-Systemen und Logs.
+      </p>
 
-      <section class="grid2" aria-label="Messenger Links bereinigen">
-        <section class="card">
-          <h1>Links in Messengern bereinigen (WhatsApp, Signal, Slack, Teams)</h1>
-          <p>
-            In Gruppen-Chats verbreiten sich Links schnell. Wenn Tracking-IDs mitlaufen (<code>utm_*</code>, Klick-IDs),
-            landen sie nicht nur bei Empfänger:innen, sondern oft auch in Tools, Screenshots, Ticket-Systemen und Logs.
+      <div class="ss-row ss-wrap">
+        <span class="ss-pill"><code>utm_*</code></span>
+        <span class="ss-pill"><code>fbclid</code></span>
+        <span class="ss-pill"><code>gclid</code></span>
+        <span class="ss-pill"><code>msclkid</code></span>
+        <span class="ss-pill"><code>igshid</code></span>
+      </div>
+
+      <div class="ss-row ss-wrap">
+        <a class="ss-btn ss-btn--primary" href="/app/">App öffnen</a>
+        <a class="ss-btn" href="/pro/">Pro: Bulk + Audit</a>
+      </div>
+
+      <p class="ss-note">
+        Local-first im Browser. Kein Upload. Keine Link-Profile.
+      </p>
+    </header>
+
+    <section class="ss-grid ss-grid--2">
+      <section class="ss-card" aria-label="Schnelle Workflows">
+        <h2>Schnell-Workflows</h2>
+
+        <details open>
+          <summary>iPhone/iPad: Teilen → bereinigen → teilen</summary>
+          <ol>
+            <li>Im Messenger: Link antippen/markieren → <b>Teilen</b>.</li>
+            <li>SafeShare öffnen, Link einfügen → bereinigen → kopieren/teilen.</li>
+            <li>Sauberen Link in den Chat senden.</li>
+          </ol>
+          <p class="ss-muted">
+            Wenn du es 1-Klick willst: Shortcut im Share-Sheet ist der nächste Schritt (Roadmap).
           </p>
+        </details>
 
-          <div class="row">
-            <span class="pill"><b><code>utm_*</code></b></span>
-            <span class="pill"><b><code>fbclid</code></b></span>
-            <span class="pill"><b><code>gclid</code></b></span>
-            <span class="pill"><b><code>msclkid</code></b></span>
-            <span class="pill"><b><code>igshid</code></b></span>
-          </div>
+        <details>
+          <summary>Desktop: Copy → Clean → Paste</summary>
+          <ol>
+            <li>Link kopieren.</li>
+            <li>SafeShare App öffnen → einfügen → bereinigen.</li>
+            <li>In Slack/Teams/Telegram einfügen.</li>
+          </ol>
+          <p class="ss-muted">Später: Browser-Extension „Bereinigen &amp; kopieren“ (Roadmap).</p>
+        </details>
 
-          <div class="row">
-            <a class="btn primary" href="/app/">App öffnen</a>
-            <a class="btn" href="/pro/">Pro: Bulk &amp; Audit</a>
-          </div>
-
-          <div class="note">Local-first im Browser. Kein Upload. Kein Profiling.</div>
-        </section>
-
-        <aside class="card" aria-label="Schnelle Workflows">
-          <h2>Schnell-Workflows</h2>
-
-          <details open>
-            <summary>iPhone/iPad: Teilen → bereinigen → teilen</summary>
-            <ol>
-              <li>Im Messenger: Link antippen/markieren → <b>Teilen</b>.</li>
-              <li>SafeShare öffnen, Link einfügen → bereinigen → kopieren/teilen.</li>
-              <li>Sauberen Link in den Chat senden.</li>
-            </ol>
-            <p>Wenn du es 1-Klick willst: Shortcut im Share-Sheet ist der nächste Schritt (Roadmap).</p>
-          </details>
-
-          <details>
-            <summary>Desktop: Copy → Clean → Paste</summary>
-            <ol>
-              <li>Link kopieren.</li>
-              <li>SafeShare App öffnen → einfügen → bereinigen.</li>
-              <li>In Slack/Teams/Telegram einfügen.</li>
-            </ol>
-            <p>Später: Browser-Extension „Bereinigen &amp; kopieren“ (Roadmap).</p>
-          </details>
-
-          <details>
-            <summary>Pro: Mehrere Links aus dem Chat auf einmal</summary>
-            <p>
-              Viele Links aus einem Thread? Pro kann Bulk-Clean + Audit pro Link.
-              Ideal, wenn du Links aus Gruppen-Chats in Dokus/Tickets übernimmst.
-            </p>
-          </details>
-        </aside>
+        <details>
+          <summary>Pro: Mehrere Links aus dem Chat auf einmal</summary>
+          <p class="ss-muted">
+            Viele Links aus einem Thread? Pro kann Bulk-Clean + Audit pro Link.
+            Ideal, wenn du Links aus Gruppen-Chats in Dokus/Tickets übernimmst.
+          </p>
+        </details>
       </section>
 
-      <section class="card" aria-label="Warum das Datensammlung reduziert">
+      <aside class="ss-card" aria-label="Warum das hilft">
         <h2>Warum das Datensammlung reduziert</h2>
         <p>
           Messenger sind „Verteiler“. Ein Link kann in Sekunden an viele Orte kopiert werden.
@@ -130,53 +127,52 @@
           <li>Mehr Vertrauen: saubere Links wirken nachvollziehbarer.</li>
         </ul>
 
-        <div class="warn">
+        <div class="ss-warn">
           Ehrliche Grenze: SafeShare entfernt IDs <b>im Link</b>, nicht Tracking auf der Zielseite (Cookies/Fingerprinting) oder Server-Logs.
         </div>
-      </section>
+      </aside>
+    </section>
 
-      <section class="card" id="faq" aria-label="FAQ">
-        <h2>FAQ</h2>
+    <section class="ss-card" id="faq" aria-label="FAQ">
+      <h2>FAQ</h2>
 
-        <details class="card">
-          <summary>Warum ist Messenger besonders kritisch?</summary>
-          <p>
-            Weil Links häufig weiterkopiert werden: Chat → Ticket → Wiki → Mail. Jede Station kann Logs/Backups erzeugen.
-            SafeShare minimiert, was im Link selbst an IDs steckt.
-          </p>
-        </details>
+      <details>
+        <summary>Warum ist Messenger besonders kritisch?</summary>
+        <p>
+          Weil Links häufig weiterkopiert werden: Chat → Ticket → Wiki → Mail. Jede Station kann Logs/Backups erzeugen.
+          SafeShare minimiert, was im Link selbst an IDs steckt.
+        </p>
+      </details>
 
-        <details class="card">
-          <summary>Entfernt SafeShare auch „normale“ Parameter?</summary>
-          <p>Standard lässt normale Parameter in Ruhe. Streng/Custom kann mehr entfernen – je nach Policy.</p>
-        </details>
+      <details>
+        <summary>Entfernt SafeShare auch „normale“ Parameter?</summary>
+        <p>Standard lässt normale Parameter in Ruhe. Streng/Custom kann mehr entfernen – je nach Policy.</p>
+      </details>
 
-        <details class="card">
-          <summary>Was ist mit Cookies/Fingerprinting auf der Zielseite?</summary>
-          <p>
-            SafeShare reduziert URL-IDs, aber nicht Tracking-Techniken der Zielseite.
-            Dafür wäre eine separate „Isolated Open“/Extension-Ebene nötig (Roadmap).
-          </p>
-        </details>
-      </section>
+      <details>
+        <summary>Was ist mit Cookies/Fingerprinting auf der Zielseite?</summary>
+        <p>
+          SafeShare reduziert URL-IDs, aber nicht Tracking-Techniken der Zielseite.
+          Dafür wäre eine separate „Isolated Open“/Extension-Ebene nötig (Roadmap).
+        </p>
+      </details>
+    </section>
 
-    </div>
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"Warum ist Messenger besonders kritisch?","acceptedAnswer":{"@type":"Answer","text":"Weil Links häufig weiterkopiert werden: Chat → Ticket → Wiki → Mail. Jede Station kann Logs/Backups erzeugen. SafeShare minimiert, was im Link selbst an IDs steckt."}},
+        {"@type":"Question","name":"Entfernt SafeShare auch „normale“ Parameter?","acceptedAnswer":{"@type":"Answer","text":"Standard lässt normale Parameter in Ruhe. Streng/Custom kann mehr entfernen – je nach Policy."}},
+        {"@type":"Question","name":"Was ist mit Cookies/Fingerprinting auf der Zielseite?","acceptedAnswer":{"@type":"Answer","text":"SafeShare reduziert URL-IDs, aber nicht Tracking-Techniken der Zielseite. Dafür wäre eine separate Isolated-Open/Extension-Ebene nötig (Roadmap)."}}
+      ]
+    }
+    </script>
   </main>
 
   <div id="ss-footer"></div>
-
-  <!-- FAQ Schema -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {"@type":"Question","name":"Warum ist Messenger besonders kritisch?","acceptedAnswer":{"@type":"Answer","text":"Weil Links häufig weiterkopiert werden: Chat → Ticket → Wiki → Mail. Jede Station kann Logs/Backups erzeugen. SafeShare minimiert, was im Link selbst an IDs steckt."}},
-      {"@type":"Question","name":"Entfernt SafeShare auch „normale“ Parameter?","acceptedAnswer":{"@type":"Answer","text":"Standard lässt normale Parameter in Ruhe. Streng/Custom kann mehr entfernen – je nach Policy."}},
-      {"@type":"Question","name":"Was ist mit Cookies/Fingerprinting auf der Zielseite?","acceptedAnswer":{"@type":"Answer","text":"SafeShare reduziert URL-IDs, aber nicht Tracking-Techniken der Zielseite. Dafür wäre eine separate Isolated-Open/Extension-Ebene nötig."}}
-    ]
-  }
-  </script>
 
   <!-- Shell JS -->
   <script src="/js/ss-shell.js?v=2026-02-04-07" defer></script>
