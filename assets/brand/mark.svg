@@ -1,4 +1,5 @@
-<!-- /assets/brand/mark.svg -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="SafeShare">
-  <image href="/assets/brand/mark-192.png" x="0" y="0" width="192" height="192" preserveAspectRatio="xMidYMid meet"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SafeShare">
+  <g fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <!-- HIER: deine Pfade/Shaping (Hand + Schild) -->
+  </g>
 </svg>
