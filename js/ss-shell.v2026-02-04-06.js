@@ -1,6 +1,6 @@
 /* /js/ss-shell.js */
 /* SafeShare Shell v2026-02-04-06 */
-
+console.log("SS-SHELL LOADED v2026-02-04-06");
 (function () {
   function ready(fn){
     if (document.readyState === "loading") {
