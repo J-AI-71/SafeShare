@@ -1,5 +1,5 @@
 /* /css/ss-page.css */
-/* SafeShare Page Base v2026-02-04-01 */
+/* SafeShare Page Base v2026-02-04-03 */
 
 /* ---------- Base tokens (fallbacks) ---------- */
 :root{
@@ -19,7 +19,7 @@
   --bg1: #0b1020;
 
   --text: rgba(255,255,255,.92);
-  --muted: rgba(255,255,255,.70);
+  --muted: rgba(255,255,255,.72);
   --muted2: rgba(255,255,255,.60);
 
   --card: rgba(255,255,255,.06);
@@ -29,6 +29,7 @@
   /* Accent (mint) */
   --acc: rgb(47,227,183);
   --accSoft: rgba(47,227,183,.12);
+  --accSoft2: rgba(47,227,183,.18);
   --accBorder: rgba(47,227,183,.35);
 
   /* Effects */
@@ -42,7 +43,7 @@
     --bg1: #ffffff;
 
     --text: rgba(17,24,39,.95);
-    --muted: rgba(17,24,39,.70);
+    --muted: rgba(17,24,39,.72);
     --muted2: rgba(17,24,39,.62);
 
     --card: #ffffff;
@@ -55,15 +56,16 @@
 }
 
 /* ---------- Page background ---------- */
-html, body{
-  height: 100%;
-}
+html, body{ height: 100%; }
+*{ box-sizing: border-box; }
+img{ max-width: 100%; height: auto; }
+a{ color: inherit; }
+
 body{
   margin: 0;
   font-family: var(--font);
   color: var(--text);
 
-  /* soft safe gradient */
   background:
     radial-gradient(900px 520px at 20% 10%, rgba(47,227,183,.18), transparent 60%),
     radial-gradient(820px 520px at 80% 20%, rgba(255,200,140,.10), transparent 62%),
@@ -76,13 +78,13 @@ body{
   body{ background-attachment: scroll; }
 }
 
-*{ box-sizing: border-box; }
-
-a{ color: inherit; }
-img{ max-width: 100%; height: auto; }
+/* iOS/Safari: fixed backgrounds können “komisch” wirken */
+@supports (-webkit-touch-callout: none){
+  body{ background-attachment: scroll; }
+}
 
 /* ---------- Main wrapper (works with your shell) ---------- */
-/* Your shell already sets .ss-main max width; keep this as a fallback and to ensure typography. */
+/* Shell setzt .ss-main bereits; hier als Fallback + konsistente Typo */
 .ss-main{
   max-width: var(--max);
   margin: 0 auto;
@@ -90,9 +92,7 @@ img{ max-width: 100%; height: auto; }
 }
 
 /* ---------- Sections / Cards ---------- */
-.ss-section{
-  margin: 14px 0;
-}
+.ss-section{ margin: 14px 0; }
 
 .ss-card{
   background: var(--card);
@@ -117,6 +117,7 @@ h1,h2,h3{
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
+
 h1{ font-size: clamp(30px, 4.5vw, 46px); }
 h2{ font-size: clamp(22px, 3.3vw, 30px); }
 h3{ font-size: 18px; }
@@ -124,15 +125,19 @@ h3{ font-size: 18px; }
 p{
   margin: 0 0 12px;
   line-height: 1.55;
-  color: var(--text);
+  color: var(--muted); /* wichtig: sonst wirkt alles “zu laut” */
 }
+
+strong{ color: var(--text); }
 
 .ss-muted{ color: var(--muted2); }
 .ss-hero-kicker{
   margin: 2px 0 14px;
   color: var(--muted);
-  font-weight: 600;
+  font-weight: 650;
 }
+
+.ss-mono{ font-family: var(--mono); }
 
 code{
   font-family: var(--mono);
@@ -141,7 +146,9 @@ code{
   border-radius: 10px;
   border: 1px solid var(--border);
   background: rgba(0,0,0,.20);
+  color: var(--text);
 }
+
 @media (prefers-color-scheme: light){
   code{ background: rgba(17,24,39,.05); }
 }
@@ -156,11 +163,12 @@ hr{
 }
 
 /* ---------- Lists ---------- */
-ul{
+ul, ol{
   margin: 10px 0 14px 20px;
   padding: 0;
+  color: var(--muted);
 }
-li{ margin: 6px 0; color: var(--text); }
+li{ margin: 6px 0; }
 li::marker{ color: var(--muted2); }
 
 /* ---------- Grid helpers ---------- */
@@ -168,7 +176,6 @@ li::marker{ color: var(--muted2); }
   display: grid;
   gap: 12px;
 }
-
 @media (min-width: 720px){
   .ss-grid--2{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ss-grid--3{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -204,9 +211,7 @@ li::marker{ color: var(--muted2); }
   }
 }
 
-.ss-btn:hover{
-  background: rgba(255,255,255,.07);
-}
+.ss-btn:hover{ background: rgba(255,255,255,.07); }
 @media (prefers-color-scheme: light){
   .ss-btn:hover{ background: rgba(17,24,39,.06); }
 }
@@ -220,21 +225,55 @@ li::marker{ color: var(--muted2); }
   border-color: var(--accBorder);
   background: var(--accSoft);
 }
-
-.ss-btn--primary:hover{
-  background: rgba(47,227,183,.18);
-}
+.ss-btn--primary:hover{ background: var(--accSoft2); }
 
 .ss-btn--ghost{
   border-color: transparent;
   background: transparent;
+  color: var(--muted);
 }
-
 .ss-btn--ghost:hover{
+  color: var(--text);
   background: rgba(255,255,255,.06);
 }
 @media (prefers-color-scheme: light){
   .ss-btn--ghost:hover{ background: rgba(17,24,39,.05); }
+}
+
+/* ---------- Notes / Warnings (fehlten dir bisher) ---------- */
+.ss-note, .ss-warn{
+  border-radius: 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(47,227,183,.10);
+  color: var(--text);
+}
+.ss-warn{
+  background: rgba(255,197,84,.14);
+  border-color: rgba(255,197,84,.22);
+}
+
+@media (prefers-color-scheme: light){
+  .ss-note{
+    background: rgba(17,130,98,.08);
+    border-color: rgba(17,24,39,.12);
+  }
+  .ss-warn{
+    background: rgba(255,197,84,.20);
+    border-color: rgba(17,24,39,.12);
+  }
+}
+
+/* ---------- Hero media (fehlte dir bisher) ---------- */
+.ss-heroMedia img{
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.02);
+}
+@media (prefers-color-scheme: light){
+  .ss-heroMedia img{ background: rgba(17,24,39,.02); }
 }
 
 /* ---------- Details / FAQ ---------- */
@@ -254,7 +293,7 @@ details{
 
 summary{
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 750;
   color: var(--text);
   list-style: none;
 }
@@ -265,10 +304,7 @@ details[open]{
   border-color: rgba(47,227,183,.25);
 }
 
-details p{
-  margin: 10px 0 2px;
-  color: var(--muted);
-}
+details p{ margin: 10px 0 2px; color: var(--muted); }
 
 /* ---------- Small utilities ---------- */
 .ss-center{ text-align: center; }
