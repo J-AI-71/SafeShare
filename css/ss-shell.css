@@ -113,7 +113,9 @@
   filter: drop-shadow(0 1px 0 rgba(0,0,0,.20));
 }
 @media (prefers-color-scheme: light){
-  .ss-brand__logo{
+.ss-brand__logo{
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
     filter: drop-shadow(0 1px 0 rgba(17,24,39,.10));
   }
 }
@@ -132,8 +134,9 @@
 
   padding: 6px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+}
 
   /* new: nicer edge */
   box-shadow: 0 8px 18px rgba(0,0,0,.18);
@@ -172,8 +175,8 @@
 
 /* Active */
 .ss-nav__link.is-active{
-  background: var(--ss-active);
-  border-color: var(--ss-active-border);
+  background: rgba(47,227,183,.16);
+  border-color: rgba(47,227,183,.42);
   box-shadow: inset 0 0 0 1px rgba(47,227,183,.08);
 }
 
