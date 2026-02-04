@@ -1,390 +1,211 @@
-<!-- File: /tracking-parameter/index.html (DE) -->
+<!-- /tracking-parameter/index.html (DE) — SafeShare Tracking-Parameter (bereinigt: Page-CSS + Master-Shell, kein Inline-Design) -->
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
+
   <title>Tracking-Parameter – was ist das? – SafeShare</title>
   <meta name="description" content="Tracking-Parameter erklärt: gclid, fbclid, utm_* & Co. Wo sie vorkommen, was sie verraten können – und wie du sie vor dem Teilen entfernst." />
   <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://safesharepro.com/tracking-parameter/" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
-  <!-- Google Search Console -->
+  <!-- Canonical + hreflang -->
+  <link rel="canonical" href="https://safesharepro.com/tracking-parameter/" />
+  <link rel="alternate" hreflang="de" href="https://safesharepro.com/tracking-parameter/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/tracking-parameters/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/tracking-parameters/" />
+
+  <!-- Verification -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
-  <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Open Graph / Social Preview -->
+  <!-- Social -->
   <meta property="og:title" content="Tracking-Parameter – SafeShare" />
   <meta property="og:description" content="Was sind Tracking-Parameter (fbclid, gclid, utm_…)? Warum sie unnötige Infos mitverteilen – und wie du Links local-first bereinigst." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
+  <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://safesharepro.com/tracking-parameter/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.jpg" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
   <meta property="og:image:alt" content="SafeShare – Tracking-Parameter (Vorschau)" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Tracking-Parameter – SafeShare" />
   <meta name="twitter:description" content="Erklärung + Lösung: Tracking-Parameter erkennen und local-first aus Links entfernen." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.jpg" />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
   <meta name="twitter:image:alt" content="SafeShare – Tracking-Parameter (Vorschau)" />
 
-  <!-- Favicons + PWA (absolute for slugs) -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-25-01" />
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01" />
+  <!-- Icons / Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-03">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-03">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-03">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-03">
 
-  <!-- MASTER SHELL (NAV) -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-03" />
-  <script src="/js/ss-shell.js?v=2026-01-25-03" defer></script>
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-03" />
 
-  <style>
-    :root{
-      --bg0:#070a12; --bg1:#070b14; --bg2:#0b1020;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.045);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.60);
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
-      --radius: 18px;
-      --mint: #2fe3b7;
-      --mint2: rgba(47,227,183,.18);
-      --mint3: rgba(47,227,183,.28);
-      --warn: rgba(255,197,84,.16);
-      --ok: rgba(47,227,183,.16);
-      --bad: rgba(255,84,84,.14);
-      --focus: 0 0 0 3px rgba(47,227,183,.22);
-      --max: 1120px;
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#f6f7fb; --bg1:#ffffff; --bg2:#f2f6ff;
-        --card:#ffffff; --card2:#f5f7ff;
-        --border: rgba(17,24,39,.12);
-        --text: rgba(17,24,39,.95);
-        --muted: rgba(17,24,39,.72);
-        --muted2: rgba(17,24,39,.62);
-        --shadow: 0 18px 45px rgba(17,24,39,.10);
-        --warn: rgba(255,197,84,.22);
-        --ok: rgba(47,227,183,.18);
-        --bad: rgba(255,84,84,.12);
-        --focus: 0 0 0 3px rgba(17,130,98,.22);
-      }
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(47,227,183,.18), transparent 55%),
-        radial-gradient(900px 520px at 85% 10%, rgba(255,197,84,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-    }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
-
-    .card{
-      margin-top: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 42px); line-height: 1.10; letter-spacing:-.2px; }
-    h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
-    h3{ margin: 14px 0 8px; font-size: 15px; letter-spacing: -0.1px; }
-    p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-    ul, ol{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.6; }
-
-    .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor:pointer;
-      user-select:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); }
-    .btn.primary{ background: var(--mint2); border-color: rgba(47,227,183,.35); }
-    .btn.primary:hover{ background: var(--mint3); }
-    .btn.ghost{ background: transparent; color: var(--muted); }
-    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.04); }
-
-    .note,.warn,.bad{
-      margin-top: 12px;
-      border-left: 3px solid rgba(47,227,183,.55);
-      background: var(--ok);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text);
-    }
-    .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
-    .bad{ border-left-color: rgba(255,84,84,.55); background: var(--bad); }
-
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    @media(min-width: 980px){
-      .grid2{ grid-template-columns: 1fr 1fr; }
-    }
-    .box{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding: 12px;
-    }
-    .chipRow{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 8px; }
-    .chip{
-      display:inline-flex; align-items:center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      font-size: 12px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .chip b{ color: var(--text); font-weight: 850; }
-    .example{
-      margin-top: 10px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-      word-break: break-word;
-    }
-
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 14px;
-    }
-    @media(min-width: 920px){
-      .footGrid{ grid-template-columns: 1.2fr .8fr; }
-    }
-    .footLinks{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-start;
-    }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-  </style>
+  <!-- Page + Shell -->
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03" />
 </head>
 
 <body>
-  <!-- MASTER NAV MOUNT -->
   <div id="ss-shell"></div>
 
-  <div class="wrap">
+  <main class="ss-main">
+    <!-- HERO -->
+    <section class="ss-section" aria-labelledby="tp-title">
+      <div class="ss-card">
+        <h1 id="tp-title">Was sind Tracking-Parameter?</h1>
 
-    <section class="card">
-      <h1>Was sind Tracking-Parameter?</h1>
-      <p>
-        Tracking-Parameter sind Zusatzinfos am Link, die Herkunft/Kampagnen/Klick-IDs beschreiben.
-        Sie sind wie „Etiketten“: technisch nicht nötig für den Inhalt – aber nützlich für Messung/Attribution.
-      </p>
+        <p class="ss-hero-kicker">
+          Tracking-Parameter sind Zusatzinfos am Link – wie Etiketten/Aufkleber am Paket (<code>utm_*</code>, <code>fbclid</code>, <code>gclid</code> …).
+        </p>
 
-      <div class="row">
-        <a class="btn primary" href="/app/">Link bereinigen</a>
-        <a class="btn" href="/utm-parameter-entfernen/">UTM</a>
-        <a class="btn ghost" href="/pro/">Pro (Audit/Allowlist)</a>
-      </div>
+        <p>
+          Für Auswertung manchmal nützlich, beim Weiterleiten häufig nur Ballast.
+          SafeShare entfernt typische Tracking-Keys <strong>local-first im Browser</strong>.
+        </p>
 
-      <div class="note">
-        SafeShare entfernt Parameter local-first im Browser. Links werden nicht hochgeladen.
+        <div class="ss-actions">
+          <a class="ss-btn ss-btn--primary" href="/app/">Link bereinigen</a>
+          <a class="ss-btn" href="/utm-parameter-entfernen/">UTM erklärt</a>
+          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro (Audit/Policies)</a>
+        </div>
+
+        <p class="ss-muted" style="margin-top:12px">
+          Links werden nicht hochgeladen. Kein Konto. Kein Tracking.
+        </p>
       </div>
     </section>
 
-    <section class="card">
-      <h2>Typische Tracking-Keys (Beispiele)</h2>
+    <!-- TYPISCHE KEYS -->
+    <section class="ss-section" aria-labelledby="keys-title">
+      <div class="ss-card">
+        <h2 id="keys-title">Typische Tracking-Keys</h2>
 
-      <div class="grid2">
-        <div class="box">
-          <h3>Marketing-Kampagnen</h3>
-          <div class="chipRow">
-            <span class="chip"><b>utm_*</b></span>
-            <span class="chip">utm_source</span>
-            <span class="chip">utm_medium</span>
-            <span class="chip">utm_campaign</span>
-            <span class="chip">utm_content</span>
-            <span class="chip">utm_term</span>
+        <div class="ss-grid ss-grid--2" style="margin-top:12px">
+          <div class="ss-card ss-card--inner">
+            <h3>Marketing-Kampagnen</h3>
+            <ul>
+              <li><code>utm_source</code> / <code>utm_medium</code> / <code>utm_campaign</code></li>
+              <li><code>utm_content</code> / <code>utm_term</code></li>
+            </ul>
+            <p class="ss-muted">
+              Dienen der Auswertung: „Woher kam der Klick? Welche Kampagne?“
+            </p>
           </div>
-          <p style="margin-top:10px">Dienen der Auswertung: „Woher kam der Klick? Welche Kampagne?“</p>
+
+          <div class="ss-card ss-card--inner">
+            <h3>Klick-IDs (plattform-spezifisch)</h3>
+            <ul>
+              <li><code>gclid</code>, <code>fbclid</code>, <code>msclkid</code></li>
+              <li><code>igshid</code>, <code>twclid</code>, <code>ttclid</code> …</li>
+            </ul>
+            <p class="ss-muted">
+              IDs zur Messung/Zuordnung. Beim Teilen meist Ballast.
+            </p>
+          </div>
         </div>
 
-        <div class="box">
-          <h3>Klick-IDs (plattform-spezifisch)</h3>
-          <div class="chipRow">
-            <span class="chip">gclid</span>
-            <span class="chip">fbclid</span>
-            <span class="chip">msclkid</span>
-            <span class="chip">igshid</span>
-            <span class="chip">mc_cid</span>
-            <span class="chip">mc_eid</span>
-          </div>
-          <p style="margin-top:10px">IDs, die Plattformen/Tools zur Messung und Zuordnung nutzen. Beim Weiterleiten meist Ballast.</p>
-        </div>
-      </div>
-
-      <div class="example mono">https://example.com/page?utm_source=twitter&amp;utm_medium=social&amp;fbclid=XYZ</div>
-
-      <div class="note">
-        Faustregel: <b>utm_*</b> und viele <b>*clid</b>-Keys sind klassische „Etiketten“. SafeShare entfernt diese typischerweise.
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Wichtig: Nicht alles mit „?“ ist Tracking</h2>
-      <p>
-        Manche Parameter sind <b>funktional</b> (Sprache, Produktvariante, Filter, Suche, Pagination) und müssen bleiben,
-        sonst verändert sich die Seite oder sie funktioniert nicht.
-      </p>
-
-      <div class="grid2">
-        <div class="box">
-          <h3>Funktional (häufig)</h3>
-          <div class="chipRow">
-            <span class="chip">lang=de</span>
-            <span class="chip">q=search</span>
-            <span class="chip">page=2</span>
-            <span class="chip">sort=price</span>
-            <span class="chip">id=123</span>
-            <span class="chip">category=…</span>
-          </div>
-          <p style="margin-top:10px">Diese Keys steuern Inhalt/Ansicht. Blindes Entfernen ist riskant.</p>
-        </div>
-
-        <div class="box">
-          <h3>Kritisch (oft „nicht anfassen“)</h3>
-          <div class="chipRow">
-            <span class="chip">token</span>
-            <span class="chip">sig</span>
-            <span class="chip">signature</span>
-            <span class="chip">expires</span>
-            <span class="chip">state</span>
-            <span class="chip">nonce</span>
-          </div>
-          <p style="margin-top:10px">Hängt oft an Sicherheit/Signaturen/Session-Flow. Wenn so ein Link kaputtgeht: konservativ bleiben + prüfen.</p>
-        </div>
-      </div>
-
-      <div class="warn">
-        Wenn ein Link nach der Bereinigung nicht funktioniert: erst Original öffnen → dann bereinigt öffnen.
-        Wenn nur „bereinigt“ scheitert, war vermutlich ein Parameter funktional. Pro hilft hier mit <b>Audit</b> + <b>Allowlist</b>.
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Affiliate/Partner: nicht automatisch „böse“</h2>
-      <p>Manche Parameter sind Zuordnung (Attribution) – und sollen bewusst bleiben, wenn du dafür verantwortlich bist.</p>
-
-      <div class="grid2">
-        <div class="box">
-          <h3>Typische Partner-Keys</h3>
-          <div class="chipRow">
-            <span class="chip">ref</span>
-            <span class="chip">tag</span>
-            <span class="chip">affid</span>
-            <span class="chip">partner</span>
-            <span class="chip">utm_source</span>
-          </div>
-          <p style="margin-top:10px">Entfernen kann Vergütung/Zuordnung brechen. Pro: Allowlist pro Domain/Policy.</p>
-        </div>
-
-        <div class="box">
-          <h3>Publishing-Workflow</h3>
-          <ul>
-            <li>Default: Tracking-Etiketten entfernen</li>
-            <li>Attribution nur dort behalten, wo sie gewollt ist</li>
-            <li>Bei Unsicherheit: konservativ + testen</li>
-          </ul>
+        <div class="ss-card ss-card--inner" style="margin-top:12px">
+          <p class="ss-muted" style="margin:0">
+            Beispiel: <code>https://example.com/page?utm_source=twitter&amp;utm_medium=social&amp;fbclid=XYZ</code>
+          </p>
         </div>
       </div>
     </section>
 
-    <section class="card">
-      <h2>So nutzt du SafeShare sinnvoll</h2>
-      <ul>
-        <li><b>App:</b> Entfernt typische Tracking-Parameter für Alltag/Sharing.</li>
-        <li><b>Pro:</b> Für Profis: Presets/Policies + Allowlist (Whitelist) + Audit („Was wurde geändert“).</li>
-      </ul>
+    <!-- NICHT ALLES ENTFERNEN -->
+    <section class="ss-section" aria-labelledby="notall-title">
+      <div class="ss-card">
+        <h2 id="notall-title">Nicht alles mit „?“ ist Tracking</h2>
+        <p>
+          Manche Parameter sind <strong>funktional</strong> (Sprache, Produktvariante, Filter, Suche, Pagination).
+          Entfernst du sie, kann sich die Seite ändern oder der Link bricht.
+        </p>
 
-      <div class="row">
-        <a class="btn primary" href="/app/">App öffnen</a>
-        <a class="btn" href="/pro/">Pro ansehen</a>
-        <a class="btn ghost" href="/hilfe/#problems">Hilfe / Troubleshooting</a>
+        <div class="ss-grid ss-grid--2" style="margin-top:12px">
+          <div class="ss-card ss-card--inner">
+            <h3>Funktional (häufig)</h3>
+            <ul>
+              <li><code>lang=de</code>, <code>q=…</code>, <code>page=2</code></li>
+              <li><code>sort=…</code>, <code>id=123</code>, <code>category=…</code></li>
+            </ul>
+            <p class="ss-muted">Diese Keys steuern Inhalt/Ansicht.</p>
+          </div>
+
+          <div class="ss-card ss-card--inner">
+            <h3>Kritisch (oft „nicht anfassen“)</h3>
+            <ul>
+              <li><code>token</code>, <code>sig</code>, <code>signature</code></li>
+              <li><code>expires</code>, <code>state</code>, <code>nonce</code></li>
+            </ul>
+            <p class="ss-muted">Hängt oft an Sicherheit/Signaturen/Session-Flow.</p>
+          </div>
+        </div>
+
+        <div class="ss-warn" style="margin-top:12px">
+          Wenn ein Link nach der Bereinigung nicht funktioniert: Original öffnen → bereinigten Link öffnen.
+          Wenn nur „bereinigt“ scheitert, war vermutlich ein Parameter funktional. Pro hilft mit <strong>Audit</strong> + <strong>Allowlist</strong>.
+        </div>
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-      <div class="footGrid">
-        <div>
-          <div><strong>SafeShare</strong> – Links teilen. Ohne Ballast.</div>
-          <div>App: schnell &amp; einfach · Pro: Policies, Whitelist, Audit.</div>
-        </div>
+    <!-- AFFILIATE -->
+    <section class="ss-section" aria-labelledby="aff-title">
+      <div class="ss-card">
+        <h2 id="aff-title">Affiliate/Partner: nicht automatisch „böse“</h2>
+        <p>
+          Manche Parameter sind Zuordnung (Attribution) – und sollen bewusst bleiben, wenn du dafür verantwortlich bist.
+        </p>
 
-        <!-- Wichtig: Footer ohne data-page (Active-State macht ss-shell.js, nicht die Seite) -->
-        <div class="footLinks">
-          <a href="/">Start</a>
-          <a href="/app/">App</a>
-          <a href="/schule/">Schule</a>
-          <a href="/utm-parameter-entfernen/">UTM</a>
-          <a href="/tracking-parameter/">Tracking</a>
-          <a href="/pro/">Pro</a>
-          <a href="/hilfe/">Hilfe</a>
-          <a href="/lesezeichen/">Lesezeichen</a>
-          <a href="/datenschutz/">Datenschutz</a>
-          <a href="/impressum/">Impressum</a>
-          <a href="/nutzungsbedingungen/">Nutzungsbedingungen</a>
+        <div class="ss-grid ss-grid--2" style="margin-top:12px">
+          <div class="ss-card ss-card--inner">
+            <h3>Typische Partner-Keys</h3>
+            <ul>
+              <li><code>ref</code>, <code>tag</code>, <code>affid</code>, <code>partner</code></li>
+              <li>teils auch <code>utm_*</code> (wenn bewusst gesetzt)</li>
+            </ul>
+            <p class="ss-muted">Pro: Allowlist pro Domain/Policy.</p>
+          </div>
+
+          <div class="ss-card ss-card--inner">
+            <h3>Publishing-Workflow</h3>
+            <ul>
+              <li>Default: Tracking-Etiketten entfernen</li>
+              <li>Attribution nur dort behalten, wo gewollt</li>
+              <li>Bei Unsicherheit: konservativ + testen</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </footer>
+    </section>
 
-  </div>
+    <!-- CTA -->
+    <section class="ss-section" aria-labelledby="cta-title">
+      <div class="ss-card">
+        <h2 id="cta-title">So nutzt du SafeShare sinnvoll</h2>
+        <ul>
+          <li><strong>App:</strong> Entfernt typische Tracking-Parameter für Alltag/Sharing.</li>
+          <li><strong>Pro:</strong> Für Profis: Policies/Allowlist + Audit („Was wurde geändert?“).</li>
+        </ul>
+
+        <div class="ss-actions" style="margin-top:12px">
+          <a class="ss-btn ss-btn--primary" href="/app/">App öffnen</a>
+          <a class="ss-btn" href="/pro/">Pro ansehen</a>
+          <a class="ss-btn ss-btn--ghost" href="/hilfe/#problems">Hilfe / Troubleshooting</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="ss-footer"></div>
+  <script src="/js/ss-shell.js?v=2026-02-04-07" defer></script>
 </body>
 </html>
