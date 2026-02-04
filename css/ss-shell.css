@@ -389,3 +389,20 @@
 
 /* Optional: if you use anchors, avoid header overlap */
 #top{ scroll-margin-top: 92px; }
+.ss-hero{
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(47,227,183,.18), transparent 45%),
+    var(--ss-bg);
+  border: 1px solid var(--ss-border);
+  box-shadow: var(--ss-shadow);
+}
+
+.ss-hero h1{
+  font-size: clamp(28px, 4vw, 40px);
+  letter-spacing: -0.02em;
+}
+
+.ss-hero .ss-hero-kicker{
+  font-size: 16px;
+  color: var(--ss-muted);
+}
