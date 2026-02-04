@@ -18,10 +18,17 @@
 
   function normalizePath(p){
     p = stripQueryHash(p || "/");
-    p = p.replace(/index\.html$/i, "");      // /x/index.html -> /x/
-    if (!p.startsWith("/")) p = "/" + p;     // leading slash
-    const hasExt = /\.[a-z0-9]+$/i.test(p);  // file.ext?
-    if (!hasExt && !p.endsWith("/")) p += "/"; // folder paths always trailing slash
+
+    // remove trailing index.html
+    p = p.replace(/index\.html$/i, "");
+
+    // ensure leading slash
+    if (!p.startsWith("/")) p = "/" + p;
+
+    // add trailing slash for folder-like paths (no file extension)
+    const hasExt = /\.[a-z0-9]+$/i.test(p);
+    if (!hasExt && !p.endsWith("/")) p += "/";
+
     return p;
   }
 
@@ -33,14 +40,11 @@
     return currentPath().startsWith("/en/");
   }
 
-  function text(de, en){
-    return isEN() ? en : de;
-  }
+  function text(de, en){ return isEN() ? en : de; }
 
-  // ---------- slug mapping (DE ≠ EN) ----------
+  // ✅ DE ≠ EN mapping (Folder-URLs, always with trailing slash)
   const SLUG = {
     start:    { de: "/", en: "/en/" },
-
     app:      { de: "/app/", en: "/en/app/" },
     pro:      { de: "/pro/", en: "/en/pro/" },
     school:   { de: "/schule/", en: "/en/school/" },
@@ -66,49 +70,40 @@
 
   function active(key){
     const p = currentPath();
-
-    if (key === "start"){
-      return (p === "/" || p === "/en/") ? " is-active" : "";
-    }
+    if (key === "start") return (p === "/" || p === "/en/") ? " is-active" : "";
     const target = normalizePath(href(key));
     return p.startsWith(target) ? " is-active" : "";
   }
 
-  // ---------- Language peer (robust) ----------
-  // IMPORTANT: "start" must NOT be matched by startsWith("/") – that would hijack every page.
+  // ✅ robust peer language: longest-prefix match across known pairs
   function langPeerHref(){
     const p = currentPath();
 
-    // explicit start
     if (p === "/") return "/en/";
     if (p === "/en/") return "/";
 
-    // build pairs excluding start, then longest match wins
     const pairs = [];
     for (const k of Object.keys(SLUG)){
       if (k === "start") continue;
       pairs.push([ normalizePath(SLUG[k].de), normalizePath(SLUG[k].en) ]);
     }
 
-    // sort by longest of BOTH sides
-    pairs.sort((a,b) => Math.max(b[0].length, b[1].length) - Math.max(a[0].length, a[1].length));
+    // sort by longest DE path first (prevents accidental short matches)
+    pairs.sort((a,b) => b[0].length - a[0].length);
 
     for (const [de, en] of pairs){
       if (p.startsWith(en)) return de; // EN -> DE
       if (p.startsWith(de)) return en; // DE -> EN
     }
 
-    // fallback:
-    // if EN unknown page: drop /en/ prefix
-    if (p.startsWith("/en/")){
+    // fallback guess
+    if (isEN()){
       const deGuess = normalizePath(p.replace(/^\/en\//, "/"));
       return deGuess || "/";
     }
-    // if DE unknown page: prefix /en
-    return (p === "/") ? "/en/" : normalizePath("/en" + p);
+    return "/en/";
   }
 
-  // ---------- render ----------
   function injectShell(){
     // mounts (failsafe)
     let shell = document.getElementById("ss-shell");
@@ -117,7 +112,6 @@
       shell.id = "ss-shell";
       (document.body || document.documentElement).insertBefore(shell, document.body.firstChild);
     }
-
     let footer = document.getElementById("ss-footer");
     if (!footer) {
       footer = document.createElement("div");
@@ -182,7 +176,8 @@
           <div class="ss-more__section">
             <div class="ss-more__label ss-more__labelRow">
               <span>${text("Sprache","Language")}</span>
-              <a class="ss-langLink" href="${langPeerHref()}" aria-label="${isEN() ? "Zur deutschen Version" : "Switch to English"}">
+              <a class="ss-langLink" href="${langPeerHref()}"
+                 aria-label="${isEN() ? "Zur deutschen Version" : "Switch to English"}">
                 ${isEN() ? "DE" : "EN"}
               </a>
             </div>
@@ -252,8 +247,14 @@
     modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) close(); });
 
-    // Auto-close on any navigation click inside modal
-    modal.querySelectorAll("a").forEach(a => a.addEventListener("click", close));
+    // auto-close when navigating via modal links
+    modal.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        modal.hidden = true;
+        btn.setAttribute("aria-expanded","false");
+        document.documentElement.classList.remove("ss-modalOpen");
+      });
+    });
   }
 
   ready(injectShell);
