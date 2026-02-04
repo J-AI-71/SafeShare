@@ -406,3 +406,38 @@
   font-size: 16px;
   color: var(--ss-muted);
 }
+.ss-more__labelRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.ss-langLink{
+  font-size: 12px;
+  letter-spacing: .02em;
+  color: var(--ss-muted);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.ss-langLink:hover{
+  color: var(--ss-text);
+  border-color: rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+}
+
+@media (prefers-color-scheme: light){
+  .ss-langLink:hover{
+    border-color: rgba(17,24,39,.12);
+    background: rgba(17,24,39,.03);
+  }
+}
+
+.ss-langLink:focus-visible{
+  outline: none;
+  box-shadow: var(--ss-focus);
+}
