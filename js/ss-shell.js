@@ -149,11 +149,40 @@ function langPeerHref(){
          <div class="ss-more__section">
   <div class="ss-more__label ss-more__labelRow">
     <span>${text("Sprache","Language")}</span>
-    <a class="ss-langLink" href="${langToggleHref()}">
-      ${text("English","Deutsch")}
+<a class="ss-langLink" href="${langToggleHref()}">${isEN() ? "DE" : "EN"}</a>
+<span class="ss-langHint">${text("EN","DE")}</span>
     </a>
   </div>
 </div>
+function langToggleHref(){
+  const p = location.pathname;
+
+  const pairs = [
+    [SLUG.school.en, SLUG.school.de],
+    [SLUG.help.en,   SLUG.help.de],
+    [SLUG.tracking.en, SLUG.tracking.de],
+    [SLUG.utm.en, SLUG.utm.de],
+    [SLUG.compare.en, SLUG.compare.de],
+    [SLUG.email.en, SLUG.email.de],
+    [SLUG.messenger.en, SLUG.messenger.de],
+    [SLUG.social.en, SLUG.social.de],
+    [SLUG.privacy.en, SLUG.privacy.de],
+    [SLUG.imprint.en, SLUG.imprint.de],
+    [SLUG.terms.en, SLUG.terms.de],
+    [SLUG.app.en, SLUG.app.de],
+    [SLUG.pro.en, SLUG.pro.de],
+    [SLUG.start.en, SLUG.start.de],
+  ];
+
+  for (const [en, de] of pairs){
+    if (p.startsWith(en)) return de;
+    if (p.startsWith(de)) return en;
+  }
+
+  // Fallback: nur wenn unbekannt
+  return isEN() ? p.replace(/^\/en\//, "/") : (p === "/" ? "/en/" : "/en" + p);
+}
+
           <div class="ss-more__section">
             <div class="ss-more__label">${text("Support","Support")}</div>
             <div class="ss-more__grid">
