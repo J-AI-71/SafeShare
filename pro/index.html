@@ -282,32 +282,9 @@
         <p class="ss-muted" style="margin-top:10px">Kein Abo. Kein Konto. Keine Datensammelei.</p>
       </div>
     </section>
-
-  </main>
-
-  <!-- SafeShare Shell Bootstrap (fix: Nav+Footer fehlen) -->
-<script>
-(function () {
-  // verhindert Doppel-Laden
-  if (window.__SS_SHELL_BOOTSTRAPPED__) return;
-  window.__SS_SHELL_BOOTSTRAPPED__ = true;
-
-  // Mounts sicherstellen (auch wenn im HTML vergessen)
-  if (!document.getElementById("ss-shell")) {
-    var m = document.createElement("div");
-    m.id = "ss-shell";
-    (document.body || document.documentElement).insertBefore(m, document.body.firstChild);
-  }
-  if (!document.getElementById("ss-footer")) {
-    var f = document.createElement("div");
-    f.id = "ss-footer";
-    document.body.appendChild(f);
-  }
-</script>
-  
-     </main>
+    </main>
 
   <div id="ss-footer"></div>
-  <script src="/js/ss-shell.js?v=2026-02-04-02" defer></script>
+  <script src="/js/ss-shell.js?v=2026-02-04-02"></script>
 </body>
 </html>
