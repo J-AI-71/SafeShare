@@ -35,15 +35,20 @@
   <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-01-21-01" />
   <meta name="twitter:image:alt" content="SafeShare App – Vorschau" />
 
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-25-01">
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01">
+  <!-- Icons / Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-01">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-01">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-01">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-01">
 
-  <!-- MASTER SHELL (NAV) -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-02-02">
-  <link rel="stylesheet" href="/css/ss-app.css?v=2026-02-02-01">
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-01">
+  <meta name="theme-color" content="#111111">
+  <meta name="color-scheme" content="dark light">
+  
+  <!-- Shell -->
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03">
+</head>
 
   <style>
     :root{
@@ -218,7 +223,7 @@
 <body>
   <div id="ss-shell"></div>
 
-  <main class="ss-main">
+  <main class="ss-main" id="top">
     <!-- HERO / Intro -->
     <section class="ss-section">
       <div class="ss-card">
@@ -734,7 +739,7 @@
   </script>
 
   <!-- SHELL JS: genau 1× hier -->
- <script src="/js/ss-shell.js?v=2026-02-02-06" defer></script>
-  
+  <div id="ss-footer"></div>
+  <script src="/js/ss-shell.js?v=2026-02-04-03" defer></script>  
 </body>
 </html>
