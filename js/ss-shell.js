@@ -48,26 +48,22 @@
   }
 
   // ✅ Language toggle über Mapping (nicht über replace("/en/",""))
-  function langToggleHref(){
-    const p = location.pathname;
+function langToggleHref(){
+  const map = {
+    "/pro/": "/en/pro/",
+    "/app/": "/en/app/",
+    "/schule/": "/en/school/",
+    "/hilfe/": "/en/help/"
+  };
 
-    // 1) Exakte Treffer in Mapping finden
-    for (const k in SLUG){
-      const de = SLUG[k].de;
-      const en = SLUG[k].en;
-      if (p === de || p.startsWith(de)) return en;
-      if (p === en || p.startsWith(en)) return de;
-    }
+  const p = location.pathname;
 
-    // 2) Fallback (wenn Seite nicht in Mapping ist)
-    if (isEN()){
-      // /en/... -> /...
-      return p.replace(/^\/en\//, "/");
-    }
-    // /... -> /en/...
-    return (p === "/") ? "/en/" : ("/en" + p);
+  if (isEN()){
+    return p.replace(/^\/en\//, "/");
   }
 
+  return map[p] || "/en/";
+}
   function injectShell(){
     // Mounts (failsafe)
     let shell = document.getElementById("ss-shell");
