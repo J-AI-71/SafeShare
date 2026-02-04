@@ -1,3 +1,7 @@
+Im letzten Block (/email-links-bereinigen/index.html) hast du Master-Shell oben (Mount ist da), aber kein Shell-Footer-Mount am Ende. Außerdem hast du zwar ss-shell.js im <head> (defer) eingebunden – das ist ok – dann brauchst du unten keinen zweiten Script-Load, sondern nur den Footer-Mount.
+
+Hier ist die korrigierte Komplettdatei (ich habe deinen inhaltlichen Footer ersetzt durch den Shell-Footer-Mount, damit es nicht doppelt ist):
+
 <!-- Datei: /email-links-bereinigen/index.html -->
 <!doctype html>
 <html lang="de">
@@ -200,34 +204,11 @@
       padding: 12px;
     }
 
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footLinks{
-      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-start;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 14px;
-    }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-
     @media (prefers-color-scheme: light){
       details, code{ border-color: rgba(17,24,39,.12); }
       details{ background: rgba(17,24,39,.03); }
       code{ background: rgba(17,24,39,.04); }
       .box{ border-color: rgba(17,24,39,.12); background: rgba(17,24,39,.03); }
-      .footLinks{ border-top-color: rgba(17,24,39,.10); }
-      .footLinks a{ border-color: rgba(17,24,39,.12); background: rgba(17,24,39,.03); }
     }
   </style>
 </head>
@@ -348,15 +329,8 @@
         </details>
       </section>
 
-      <footer>
-        <div class="footLinks">
-          <a href="/email-links-bereinigen/">E-Mail</a>
-          <a href="/messenger-links-bereinigen/">Messenger</a>
-          <a href="/social-links-bereinigen/">Social</a>
-          <a href="/hilfe/">Hilfe</a>
-        </div>
-        <p style="margin-top:10px">SafeShare: Links bereinigen vor dem Senden/Teilen. Local-first. Kein Upload.</p>
-      </footer>
+      <!-- SHELL FOOTER MOUNT -->
+      <div id="ss-footer"></div>
     </main>
   </div>
 
