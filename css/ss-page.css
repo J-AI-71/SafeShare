@@ -1,0 +1,274 @@
+/* /css/ss-page.css */
+/* SafeShare Page Base v2026-02-04-01 */
+
+/* ---------- Base tokens (fallbacks) ---------- */
+:root{
+  color-scheme: dark light;
+
+  /* Layout */
+  --max: 1120px;
+  --pad: 16px;
+  --radius: 22px;
+
+  /* Typography */
+  --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Dark (default) */
+  --bg0: #070a12;
+  --bg1: #0b1020;
+
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.70);
+  --muted2: rgba(255,255,255,.60);
+
+  --card: rgba(255,255,255,.06);
+  --card2: rgba(255,255,255,.045);
+  --border: rgba(255,255,255,.10);
+
+  /* Accent (mint) */
+  --acc: rgb(47,227,183);
+  --accSoft: rgba(47,227,183,.12);
+  --accBorder: rgba(47,227,183,.35);
+
+  /* Effects */
+  --shadow: 0 18px 45px rgba(0,0,0,.35);
+  --focus: 0 0 0 3px rgba(47,227,183,.22);
+}
+
+@media (prefers-color-scheme: light){
+  :root{
+    --bg0: #f7f8fb;
+    --bg1: #ffffff;
+
+    --text: rgba(17,24,39,.95);
+    --muted: rgba(17,24,39,.70);
+    --muted2: rgba(17,24,39,.62);
+
+    --card: #ffffff;
+    --card2: rgba(17,24,39,.03);
+    --border: rgba(17,24,39,.12);
+
+    --shadow: 0 18px 45px rgba(17,24,39,.10);
+    --focus: 0 0 0 3px rgba(17,130,98,.22);
+  }
+}
+
+/* ---------- Page background ---------- */
+html, body{
+  height: 100%;
+}
+body{
+  margin: 0;
+  font-family: var(--font);
+  color: var(--text);
+
+  /* soft safe gradient */
+  background:
+    radial-gradient(900px 520px at 20% 10%, rgba(47,227,183,.18), transparent 60%),
+    radial-gradient(820px 520px at 80% 20%, rgba(255,200,140,.10), transparent 62%),
+    radial-gradient(900px 700px at 55% 85%, rgba(120,130,255,.10), transparent 60%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+  background-attachment: fixed;
+}
+
+@media (prefers-reduced-motion: reduce){
+  body{ background-attachment: scroll; }
+}
+
+*{ box-sizing: border-box; }
+
+a{ color: inherit; }
+img{ max-width: 100%; height: auto; }
+
+/* ---------- Main wrapper (works with your shell) ---------- */
+/* Your shell already sets .ss-main max width; keep this as a fallback and to ensure typography. */
+.ss-main{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 12px var(--pad) 46px;
+}
+
+/* ---------- Sections / Cards ---------- */
+.ss-section{
+  margin: 14px 0;
+}
+
+.ss-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+@media (min-width: 720px){
+  .ss-card{ padding: 22px; }
+}
+
+.ss-card--inner{
+  background: var(--card2);
+  box-shadow: none;
+}
+
+/* ---------- Typography ---------- */
+h1,h2,h3{
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+h1{ font-size: clamp(30px, 4.5vw, 46px); }
+h2{ font-size: clamp(22px, 3.3vw, 30px); }
+h3{ font-size: 18px; }
+
+p{
+  margin: 0 0 12px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.ss-muted{ color: var(--muted2); }
+.ss-hero-kicker{
+  margin: 2px 0 14px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+code{
+  font-family: var(--mono);
+  font-size: 0.95em;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,.20);
+}
+@media (prefers-color-scheme: light){
+  code{ background: rgba(17,24,39,.05); }
+}
+
+hr{
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,.10);
+  margin: 16px 0;
+}
+@media (prefers-color-scheme: light){
+  hr{ border-top-color: rgba(17,24,39,.12); }
+}
+
+/* ---------- Lists ---------- */
+ul{
+  margin: 10px 0 14px 20px;
+  padding: 0;
+}
+li{ margin: 6px 0; color: var(--text); }
+li::marker{ color: var(--muted2); }
+
+/* ---------- Grid helpers ---------- */
+.ss-grid{
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 720px){
+  .ss-grid--2{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ss-grid--3{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- Actions / Buttons ---------- */
+.ss-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.ss-btn{
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+
+  padding: 10px 14px;
+  border-radius: 999px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (prefers-color-scheme: light){
+  .ss-btn{
+    border-color: rgba(17,24,39,.12);
+    background: rgba(17,24,39,.03);
+  }
+}
+
+.ss-btn:hover{
+  background: rgba(255,255,255,.07);
+}
+@media (prefers-color-scheme: light){
+  .ss-btn:hover{ background: rgba(17,24,39,.06); }
+}
+
+.ss-btn:focus-visible{
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.ss-btn--primary{
+  border-color: var(--accBorder);
+  background: var(--accSoft);
+}
+
+.ss-btn--primary:hover{
+  background: rgba(47,227,183,.18);
+}
+
+.ss-btn--ghost{
+  border-color: transparent;
+  background: transparent;
+}
+
+.ss-btn--ghost:hover{
+  background: rgba(255,255,255,.06);
+}
+@media (prefers-color-scheme: light){
+  .ss-btn--ghost:hover{ background: rgba(17,24,39,.05); }
+}
+
+/* ---------- Details / FAQ ---------- */
+details{
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  border-radius: 16px;
+  padding: 10px 12px;
+  margin: 10px 0;
+}
+@media (prefers-color-scheme: light){
+  details{
+    border-color: rgba(17,24,39,.12);
+    background: rgba(17,24,39,.03);
+  }
+}
+
+summary{
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--text);
+  list-style: none;
+}
+summary::-webkit-details-marker{ display:none; }
+
+details[open]{
+  background: rgba(47,227,183,.06);
+  border-color: rgba(47,227,183,.25);
+}
+
+details p{
+  margin: 10px 0 2px;
+  color: var(--muted);
+}
+
+/* ---------- Small utilities ---------- */
+.ss-center{ text-align: center; }
