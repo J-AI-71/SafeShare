@@ -1,8 +1,4 @@
-Im letzten Block (/email-links-bereinigen/index.html) hast du Master-Shell oben (Mount ist da), aber kein Shell-Footer-Mount am Ende. Außerdem hast du zwar ss-shell.js im <head> (defer) eingebunden – das ist ok – dann brauchst du unten keinen zweiten Script-Load, sondern nur den Footer-Mount.
-
-Hier ist die korrigierte Komplettdatei (ich habe deinen inhaltlichen Footer ersetzt durch den Shell-Footer-Mount, damit es nicht doppelt ist):
-
-<!-- Datei: /email-links-bereinigen/index.html -->
+<!-- Datei: /email-links-bereinigen/index.html (DE) — final: ss-page.css + ss-shell.css oben, ss-main Wrapper, ss-footer + ss-shell.js unten -->
 <!doctype html>
 <html lang="de">
 <head>
@@ -13,6 +9,10 @@ Hier ist die korrigierte Komplettdatei (ich habe deinen inhaltlichen Footer erse
   <meta name="description" content="E-Mail-Links bereinigen: Tracking-Parameter aus Newsletter- und Marketing-Links entfernen – lokal im Browser, bevor du weiterleitest oder speicherst.">
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://safesharepro.com/email-links-bereinigen/" />
+
+  <link rel="alternate" hreflang="de" href="https://safesharepro.com/email-links-bereinigen/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/email-link-cleaning/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/email-link-cleaning/" />
 
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
@@ -41,15 +41,15 @@ Hier ist die korrigierte Komplettdatei (ich habe deinen inhaltlichen Footer erse
   <meta name="twitter:image:alt" content="SafeShare – E-Mail Links bereinigen" />
 
   <!-- Favicons + PWA (absolut) -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-01">
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01">
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-01">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-01">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-01">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-01">
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-01">
 
-  <!-- MASTER SHELL -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-01-02" />
-  <script src="/js/ss-shell.js?v=2026-02-01-02" defer></script>
+  <!-- Page + Shell -->
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03">
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03">
 
   <style>
     :root{
@@ -95,7 +95,6 @@ Hier ist die korrigierte Komplettdatei (ich habe deinen inhaltlichen Footer erse
         linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
     }
     a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
 
     .skip{
       position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
@@ -107,6 +106,9 @@ Hier ist die korrigierte Komplettdatei (ich habe deinen inhaltlichen Footer erse
       box-shadow: var(--shadow);
       z-index: 99999;
     }
+
+    /* page layout (works with ss-main) */
+    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
 
     .card{
       margin-top: 14px;
@@ -214,14 +216,14 @@ Hier ist die korrigierte Komplettdatei (ich habe deinen inhaltlichen Footer erse
 </head>
 
 <body>
-  <a class="skip" href="#content">Zum Inhalt springen</a>
-
-  <!-- MASTER SHELL MOUNT -->
+  <!-- Shell mounts -->
   <div id="ss-shell"></div>
 
-  <div class="wrap">
-    <main id="content">
-      <section class="grid2" aria-label="E-Mail Links bereinigen">
+  <main class="ss-main" id="top">
+    <a class="skip" href="#content">Zum Inhalt springen</a>
+
+    <div class="wrap">
+      <section class="grid2" aria-label="E-Mail Links bereinigen" id="content">
         <section class="card">
           <h1>Links in E-Mails bereinigen (Outlook, Gmail, Newsletter)</h1>
           <p>
@@ -329,22 +331,25 @@ Hier ist die korrigierte Komplettdatei (ich habe deinen inhaltlichen Footer erse
         </details>
       </section>
 
-      <!-- SHELL FOOTER MOUNT -->
-      <div id="ss-footer"></div>
-    </main>
-  </div>
+      <script type="application/ld+json">
+      {
+        "@context":"https://schema.org",
+        "@type":"FAQPage",
+        "mainEntity":[
+          {"@type":"Question","name":"Warum ist E-Mail besonders relevant?","acceptedAnswer":{"@type":"Answer","text":"Weil E-Mails archiviert werden: Postfach → Weiterleitung → Ticket/CRM → Backup. Tracking-IDs im Link werden Teil dieser Kette. SafeShare minimiert das."}},
+          {"@type":"Question","name":"Schadet das meinem Newsletter-Tracking?","acceptedAnswer":{"@type":"Answer","text":"Wenn du UTM bewusst für Analyse nutzt, ist das okay – dann solltest du sie bewusst setzen. SafeShare ist für sauberes Weiterleiten/Teilen gedacht. Für Teams/Publisher: Policy/Whitelist nutzen."}},
+          {"@type":"Question","name":"Warum nicht einfach Weiterleiten wie es ist?","acceptedAnswer":{"@type":"Answer","text":"Weil du damit oft unabsichtlich Infos mitverteilst (woher kommt der Klick, Klick-ID). Saubere Links sind ein kleiner Aufwand mit großem Effekt."}},
+          {"@type":"Question","name":"Was ist mit Redirects, die wieder IDs anhängen?","acceptedAnswer":{"@type":"Answer","text":"Das passiert. Nächster sinnvoller Schritt ist Redirect-Resolver + Clean-on-Navigation (Extension-Ebene)."}}
+        ]
+      }
+      </script>
 
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {"@type":"Question","name":"Warum ist E-Mail besonders relevant?","acceptedAnswer":{"@type":"Answer","text":"Weil E-Mails archiviert werden: Postfach → Weiterleitung → Ticket/CRM → Backup. Tracking-IDs im Link werden Teil dieser Kette. SafeShare minimiert das."}},
-      {"@type":"Question","name":"Schadet das meinem Newsletter-Tracking?","acceptedAnswer":{"@type":"Answer","text":"Wenn du UTM bewusst für Analyse nutzt, ist das okay – dann solltest du sie bewusst setzen. SafeShare ist für sauberes Weiterleiten/Teilen gedacht. Für Teams/Publisher: Policy/Whitelist nutzen."}},
-      {"@type":"Question","name":"Warum nicht einfach Weiterleiten wie es ist?","acceptedAnswer":{"@type":"Answer","text":"Weil du damit oft unabsichtlich Infos mitverteilst (woher kommt der Klick, Klick-ID). Saubere Links sind ein kleiner Aufwand mit großem Effekt."}},
-      {"@type":"Question","name":"Was ist mit Redirects, die wieder IDs anhängen?","acceptedAnswer":{"@type":"Answer","text":"Das passiert. Nächster sinnvoller Schritt ist Redirect-Resolver + Clean-on-Navigation (Extension-Ebene)."}}
-    ]
-  }
-  </script>
+    </div>
+  </main>
+
+  <div id="ss-footer"></div>
+
+  <!-- Shell JS -->
+  <script src="/js/ss-shell.js?v=2026-02-04-07" defer></script>
 </body>
 </html>
