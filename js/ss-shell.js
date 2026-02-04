@@ -1,5 +1,5 @@
 /* /js/ss-shell.js */
-/* SafeShare Shell v2026-02-04-03 */
+/* SafeShare Shell v2026-02-04-04 */
 
 (function () {
   function ready(fn){
@@ -8,10 +8,21 @@
     } else fn();
   }
 
-  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-03";
-  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-03";
+  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-04";
+  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-04";
 
-  function isEN(){ return location.pathname.startsWith("/en/"); }
+  function normalizePath(p){
+    p = (p || "/").replace(/index\.html$/i, "");
+    // trailing slash erzwingen (für Ordner-URLs)
+    const hasExt = /\.[a-z0-9]+$/i.test(p);
+    if (!hasExt && !p.endsWith("/")) p += "/";
+    return p;
+  }
+
+  function isEN(){
+    return normalizePath(location.pathname).startsWith("/en/");
+  }
+
   function text(de, en){ return isEN() ? en : de; }
 
   // ✅ Slug-Mapping: DE ≠ EN (passt zu deiner Repo-Struktur)
@@ -41,30 +52,41 @@
   }
 
   function active(key){
-    const p = location.pathname;
-    if (key === "start") return (p === "/" || p === "/en/") ? " is-active" : "";
-    const target = href(key);
+    const p = normalizePath(location.pathname);
+
+    if (key === "start"){
+      return (p === "/" || p === "/en/") ? " is-active" : "";
+    }
+
+    const target = normalizePath(href(key));
     return p.startsWith(target) ? " is-active" : "";
   }
 
-  // ✅ Peer-Language URL über Mapping (robust, auch wenn Slugs verschieden sind)
+  // ✅ Peer-Language URL (fix: "start" darf NICHT über startsWith("/") matchen)
   function langPeerHref(){
-    const p = location.pathname;
+    const p = normalizePath(location.pathname);
 
-    // prüfe alle bekannten SLUG-Paare
+    // Start nur bei exakter Start-URL
+    if (p === "/") return "/en/";
+    if (p === "/en/") return "/";
+
+    // alle anderen über Mapping-Paare
     for (const k of Object.keys(SLUG)){
-      const de = SLUG[k].de;
-      const en = SLUG[k].en;
+      if (k === "start") continue;
+
+      const de = normalizePath(SLUG[k].de);
+      const en = normalizePath(SLUG[k].en);
 
       if (p.startsWith(de)) return en; // DE -> EN
       if (p.startsWith(en)) return de; // EN -> DE
     }
 
-    // Fallback: minimal sinnvoll
+    // Fallback (nur wenn Seite nicht im Mapping ist)
     if (isEN()){
-      return p.replace(/^\/en\//, "/") || "/";
+      const deGuess = p.replace(/^\/en\//, "/");
+      return deGuess === "" ? "/" : deGuess;
     }
-    return (p === "/") ? "/en/" : ("/en" + p);
+    return "/en/";
   }
 
   function injectShell(){
@@ -139,7 +161,8 @@
           <div class="ss-more__section">
             <div class="ss-more__label ss-more__labelRow">
               <span>${text("Sprache","Language")}</span>
-              <a class="ss-langLink" href="${langPeerHref()}" aria-label="${text("Zur englischen Version","Switch to German")}">
+              <a class="ss-langLink" href="${langPeerHref()}"
+                 aria-label="${isEN() ? "Zur deutschen Version" : "Switch to English"}">
                 ${isEN() ? "DE" : "EN"}
               </a>
             </div>
@@ -206,14 +229,14 @@
     closeBtn.addEventListener("click", close);
 
     modal.addEventListener("click", (e) => {
-      if (e.target === modal) close(); // click outside panel
+      if (e.target === modal) close();
     });
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !modal.hidden) close();
     });
 
-    // ✅ Auto-close bei Navigation (Pills + Footerlinks im Modal)
+    // ✅ Auto-close bei Navigation im Modal
     modal.querySelectorAll("a").forEach(a => {
       a.addEventListener("click", () => {
         modal.hidden = true;
