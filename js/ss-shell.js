@@ -14,13 +14,13 @@
   function isEN(){ return location.pathname.startsWith("/en/"); }
   function text(de, en){ return isEN() ? en : de; }
 
-  // DE ≠ EN: dein echtes Mapping
+  // ✅ Slug-Mapping: DE ≠ EN (muss exakt deinen Ordnern entsprechen)
   const SLUG = {
-    start: { de: "/", en: "/en/" },
-    app:   { de: "/app/", en: "/en/app/" },
-    pro:   { de: "/pro/", en: "/en/pro/" },
-    school:{ de: "/schule/", en: "/en/school/" },
-    help:  { de: "/hilfe/", en: "/en/help/" },
+    start:  { de: "/", en: "/en/" },
+    app:    { de: "/app/", en: "/en/app/" },
+    pro:    { de: "/pro/", en: "/en/pro/" },
+    school: { de: "/schule/", en: "/en/school/" },
+    help:   { de: "/hilfe/", en: "/en/help/" },
 
     privacy:{ de: "/datenschutz/", en: "/en/privacy/" },
     imprint:{ de: "/impressum/",  en: "/en/imprint/" },
@@ -47,38 +47,41 @@
     return p.startsWith(target) ? " is-active" : "";
   }
 
-  // ✅ Language toggle über Mapping (nicht über replace("/en/",""))
-function langToggleHref(){
-  const map = {
-    "/pro/": "/en/pro/",
-    "/app/": "/en/app/",
-    "/schule/": "/en/school/",
-    "/hilfe/": "/en/help/"
-  };
+  // ✅ Language toggle über Mapping (robust bei DE≠EN Slugs)
+  function langToggleHref(){
+    const p = location.pathname;
 
-  const p = location.pathname;
+    const pairs = [
+      [SLUG.school.en, SLUG.school.de],
+      [SLUG.help.en,   SLUG.help.de],
 
-  if (isEN()){
-    return p.replace(/^\/en\//, "/");
+      [SLUG.tracking.en,  SLUG.tracking.de],
+      [SLUG.utm.en,       SLUG.utm.de],
+      [SLUG.compare.en,   SLUG.compare.de],
+      [SLUG.email.en,     SLUG.email.de],
+      [SLUG.messenger.en, SLUG.messenger.de],
+      [SLUG.social.en,    SLUG.social.de],
+
+      [SLUG.privacy.en, SLUG.privacy.de],
+      [SLUG.imprint.en, SLUG.imprint.de],
+      [SLUG.terms.en,   SLUG.terms.de],
+
+      [SLUG.app.en, SLUG.app.de],
+      [SLUG.pro.en, SLUG.pro.de],
+
+      // Start zuletzt
+      [SLUG.start.en, SLUG.start.de],
+    ];
+
+    for (const [en, de] of pairs){
+      if (p.startsWith(en)) return de;
+      if (p.startsWith(de)) return en;
+    }
+
+    // Fallback (nur wenn Seite nicht im Mapping ist)
+    return isEN() ? p.replace(/^\/en\//, "/") : (p === "/" ? "/en/" : "/en" + p);
   }
 
-  return map[p] || "/en/";
-}
-function langPeerHref(){
-  const p = location.pathname;
-
-  // Finde welches Key aktuell ist (start/app/pro/school/help/...)
-  const keys = Object.keys(SLUG);
-  for (const k of keys){
-    const de = SLUG[k].de;
-    const en = SLUG[k].en;
-    if (p === de || p.startsWith(de)) return isEN() ? de : en;
-    if (p === en || p.startsWith(en)) return isEN() ? de : en;
-  }
-
-  // Fallback: Start
-  return isEN() ? "/" : "/en/";
-}
   function injectShell(){
     // Mounts (failsafe)
     let shell = document.getElementById("ss-shell");
@@ -87,6 +90,7 @@ function langPeerHref(){
       shell.id = "ss-shell";
       (document.body || document.documentElement).insertBefore(shell, document.body.firstChild);
     }
+
     let footer = document.getElementById("ss-footer");
     if (!footer) {
       footer = document.createElement("div");
@@ -111,14 +115,16 @@ function langPeerHref(){
             <a class="ss-nav__link${active("school")}" href="${href("school")}">${text("Schule","School")}</a>
             <a class="ss-nav__link${active("help")}" href="${href("help")}">${text("Hilfe","Help")}</a>
 
-            <button class="ss-moreBtn" type="button" aria-haspopup="dialog" aria-controls="ss-more" aria-expanded="false">
+            <button class="ss-moreBtn" type="button"
+              aria-haspopup="dialog" aria-controls="ss-more" aria-expanded="false">
               ${text("Mehr","More")}
             </button>
           </nav>
         </div>
       </header>
 
-      <div class="ss-more" id="ss-more" role="dialog" aria-modal="true" aria-label="${text("Mehr-Menü","More menu")}" hidden>
+      <div class="ss-more" id="ss-more" role="dialog" aria-modal="true"
+        aria-label="${text("Mehr-Menü","More menu")}" hidden>
         <div class="ss-more__panel">
           <div class="ss-more__top">
             <div class="ss-more__title">${text("Mehr","More")}</div>
@@ -146,42 +152,12 @@ function langPeerHref(){
             </div>
           </div>
 
-         <div class="ss-more__section">
-  <div class="ss-more__label ss-more__labelRow">
-    <span>${text("Sprache","Language")}</span>
-<a class="ss-langLink" href="${langToggleHref()}">${isEN() ? "DE" : "EN"}</a>
-<span class="ss-langHint">${text("EN","DE")}</span>
-    </a>
-  </div>
-</div>
-function langToggleHref(){
-  const p = location.pathname;
-
-  const pairs = [
-    [SLUG.school.en, SLUG.school.de],
-    [SLUG.help.en,   SLUG.help.de],
-    [SLUG.tracking.en, SLUG.tracking.de],
-    [SLUG.utm.en, SLUG.utm.de],
-    [SLUG.compare.en, SLUG.compare.de],
-    [SLUG.email.en, SLUG.email.de],
-    [SLUG.messenger.en, SLUG.messenger.de],
-    [SLUG.social.en, SLUG.social.de],
-    [SLUG.privacy.en, SLUG.privacy.de],
-    [SLUG.imprint.en, SLUG.imprint.de],
-    [SLUG.terms.en, SLUG.terms.de],
-    [SLUG.app.en, SLUG.app.de],
-    [SLUG.pro.en, SLUG.pro.de],
-    [SLUG.start.en, SLUG.start.de],
-  ];
-
-  for (const [en, de] of pairs){
-    if (p.startsWith(en)) return de;
-    if (p.startsWith(de)) return en;
-  }
-
-  // Fallback: nur wenn unbekannt
-  return isEN() ? p.replace(/^\/en\//, "/") : (p === "/" ? "/en/" : "/en" + p);
-}
+          <div class="ss-more__section">
+            <div class="ss-more__label ss-more__labelRow">
+              <span>${text("Sprache","Language")}</span>
+              <a class="ss-langLink" href="${langToggleHref()}">${isEN() ? "DE" : "EN"}</a>
+            </div>
+          </div>
 
           <div class="ss-more__section">
             <div class="ss-more__label">${text("Support","Support")}</div>
@@ -222,38 +198,44 @@ function langToggleHref(){
   }
 
   function wireMore(){
-  const btn = document.querySelector(".ss-moreBtn");
-  const modal = document.getElementById("ss-more");
-  const closeBtn = modal ? modal.querySelector(".ss-more__close") : null;
-  if (!btn || !modal || !closeBtn) return;
+    const btn = document.querySelector(".ss-moreBtn");
+    const modal = document.getElementById("ss-more");
+    const closeBtn = modal ? modal.querySelector(".ss-more__close") : null;
+    if (!btn || !modal || !closeBtn) return;
 
-  const open = () => {
-    modal.hidden = false;
-    btn.setAttribute("aria-expanded","true");
-    document.documentElement.classList.add("ss-modalOpen");
-    closeBtn.focus({ preventScroll:true });
-  };
-  const close = () => {
-    modal.hidden = true;
-    btn.setAttribute("aria-expanded","false");
-    document.documentElement.classList.remove("ss-modalOpen");
-    btn.focus({ preventScroll:true });
-  };
+    const open = () => {
+      modal.hidden = false;
+      btn.setAttribute("aria-expanded","true");
+      document.documentElement.classList.add("ss-modalOpen");
+      closeBtn.focus({ preventScroll:true });
+    };
 
-  btn.addEventListener("click", () => (modal.hidden ? open() : close()));
-  closeBtn.addEventListener("click", close);
-  modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) close(); });
-
-  // ✅ HIER REIN: Auto-close bei Navigation
-  document.querySelectorAll('.ss-pill, .ss-nav__link').forEach(a => {
-    a.addEventListener('click', () => {
+    const close = () => {
       modal.hidden = true;
       btn.setAttribute("aria-expanded","false");
       document.documentElement.classList.remove("ss-modalOpen");
+      btn.focus({ preventScroll:true });
+    };
+
+    btn.addEventListener("click", () => (modal.hidden ? open() : close()));
+    closeBtn.addEventListener("click", close);
+
+    modal.addEventListener("click", (e) => {
+      // click outside panel closes
+      if (e.target === modal) close();
     });
-  });
-}
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !modal.hidden) close();
+    });
+
+    // ✅ Overlay Auto-Close bei Navigation (nur Links im Modal)
+    modal.querySelectorAll('a.ss-pill, a.ss-langLink').forEach(a => {
+      a.addEventListener("click", () => {
+        if (!modal.hidden) close();
+      });
+    });
+  }
 
   ready(injectShell);
 })();
