@@ -178,37 +178,38 @@ function langToggleHref(){
   }
 
   function wireMore(){
-    const btn = document.querySelector(".ss-moreBtn");
-    const modal = document.getElementById("ss-more");
-    const closeBtn = modal ? modal.querySelector(".ss-more__close") : null;
-    if (!btn || !modal || !closeBtn) return;
+  const btn = document.querySelector(".ss-moreBtn");
+  const modal = document.getElementById("ss-more");
+  const closeBtn = modal ? modal.querySelector(".ss-more__close") : null;
+  if (!btn || !modal || !closeBtn) return;
 
-    // Safety: wirklich zu beim Start
+  const open = () => {
+    modal.hidden = false;
+    btn.setAttribute("aria-expanded","true");
+    document.documentElement.classList.add("ss-modalOpen");
+    closeBtn.focus({ preventScroll:true });
+  };
+  const close = () => {
     modal.hidden = true;
     btn.setAttribute("aria-expanded","false");
     document.documentElement.classList.remove("ss-modalOpen");
+    btn.focus({ preventScroll:true });
+  };
 
-    const open = () => {
-      modal.hidden = false;
-      btn.setAttribute("aria-expanded","true");
-      document.documentElement.classList.add("ss-modalOpen");
-      closeBtn.focus({ preventScroll:true });
-    };
-    const close = () => {
+  btn.addEventListener("click", () => (modal.hidden ? open() : close()));
+  closeBtn.addEventListener("click", close);
+  modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) close(); });
+
+  // ✅ HIER REIN: Auto-close bei Navigation
+  document.querySelectorAll('.ss-pill, .ss-nav__link').forEach(a => {
+    a.addEventListener('click', () => {
       modal.hidden = true;
       btn.setAttribute("aria-expanded","false");
       document.documentElement.classList.remove("ss-modalOpen");
-      btn.focus({ preventScroll:true });
-    };
-
-    btn.addEventListener("click", () => (modal.hidden ? open() : close()));
-    closeBtn.addEventListener("click", close);
-    modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) close(); });
-
-    // Wenn jemand im Modal klickt: schließen (damit kein “hängenbleiben”)
-    modal.querySelectorAll("a").forEach(a => a.addEventListener("click", close));
-  }
+    });
+  });
+}
 
   ready(injectShell);
 })();
