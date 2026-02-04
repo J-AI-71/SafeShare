@@ -308,3 +308,50 @@ details p{ margin: 10px 0 2px; color: var(--muted); }
 
 /* ---------- Small utilities ---------- */
 .ss-center{ text-align: center; }
+/* ---------- Home helpers (used on /index.html) ---------- */
+
+.ss-hero h1{ margin-bottom: 8px; }
+
+.ss-heroMedia img{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,.12);
+}
+
+/* note/warn blocks */
+.ss-note,
+.ss-warn{
+  border-radius: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+}
+
+.ss-note{
+  background: rgba(47,227,183,.10);
+  border-color: rgba(47,227,183,.22);
+}
+
+.ss-warn{
+  background: rgba(255,197,84,.12);
+  border-color: rgba(255,197,84,.22);
+}
+
+/* mono paragraph helper (for examples) */
+.ss-mono{
+  font-family: var(--mono);
+  font-size: 0.95em;
+  line-height: 1.5;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,.18);
+  overflow-wrap: anywhere;
+}
+
+@media (prefers-color-scheme: light){
+  .ss-mono{ background: rgba(17,24,39,.05); }
+  .ss-heroMedia img{ background: rgba(17,24,39,.03); }
+}
