@@ -1,5 +1,5 @@
 /* /js/ss-shell.js */
-/* SafeShare Shell v2026-02-04-02 */
+/* SafeShare Shell v2026-02-04-03 */
 
 (function () {
   function ready(fn){
@@ -48,16 +48,22 @@
     return p.startsWith(target) ? " is-active" : "";
   }
 
-  function langToggleHref(){
-    const p = location.pathname;
-    if (isEN()){
-      // /en/<...> -> /<...>
-      return p.replace(/^\/en\//, "/");
-    }
-    // /<...> -> /en/<...>
-    return (p === "/") ? "/en/" : ("/en" + p);
+function langToggleHref(){
+  const p = location.pathname;
+
+  // exakte Gegenstücke über SLUG-Tabelle finden
+  for (const key in SLUG){
+    const de = SLUG[key].de;
+    const en = SLUG[key].en;
+    if (p.startsWith(en)) return de; // EN -> DE
+    if (p.startsWith(de)) return en; // DE -> EN
   }
 
+  // Fallback (nur wenn unbekannte Seite)
+  if (isEN()) return p.replace(/^\/en\//, "/");
+  return (p === "/") ? "/en/" : ("/en" + p);
+}
+  
   function injectShell(){
     // Mounts (hard-failsafe)
     let shell = document.getElementById("ss-shell");
@@ -171,30 +177,49 @@
     wireMore();
   }
 
-  function wireMore(){
-    const btn = document.querySelector(".ss-moreBtn");
-    const modal = document.getElementById("ss-more");
-    const closeBtn = modal ? modal.querySelector(".ss-more__close") : null;
-    if (!btn || !modal || !closeBtn) return;
+function wireMore(){
+  const btn = document.querySelector(".ss-moreBtn");
+  const modal = document.getElementById("ss-more");
+  const closeBtn = modal ? modal.querySelector(".ss-more__close") : null;
+  const panel = modal ? modal.querySelector(".ss-more__panel") : null;
 
-    const open = () => {
-      modal.hidden = false;
-      btn.setAttribute("aria-expanded","true");
-      document.documentElement.classList.add("ss-modalOpen");
-      closeBtn.focus({ preventScroll:true });
-    };
-    const close = () => {
-      modal.hidden = true;
-      btn.setAttribute("aria-expanded","false");
-      document.documentElement.classList.remove("ss-modalOpen");
-      btn.focus({ preventScroll:true });
-    };
+  if (!btn || !modal || !closeBtn || !panel) return;
 
-    btn.addEventListener("click", () => (modal.hidden ? open() : close()));
-    closeBtn.addEventListener("click", close);
-    modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) close(); });
-  }
+  // Guard: nicht doppelt binden
+  if (modal.__wired) return;
+  modal.__wired = true;
 
+  const open = () => {
+    modal.hidden = false;
+    btn.setAttribute("aria-expanded","true");
+    document.documentElement.classList.add("ss-modalOpen");
+    closeBtn.focus({ preventScroll:true });
+  };
+
+  const close = () => {
+    modal.hidden = true;
+    btn.setAttribute("aria-expanded","false");
+    document.documentElement.classList.remove("ss-modalOpen");
+    btn.focus({ preventScroll:true });
+  };
+
+  btn.addEventListener("click", () => (modal.hidden ? open() : close()));
+  closeBtn.addEventListener("click", close);
+
+  // Klick auf Backdrop (außerhalb Panel) schließt
+  modal.addEventListener("click", (e) => {
+    if (!panel.contains(e.target)) close();
+  });
+
+  // Klick auf einen Link im Menü schließt ebenfalls (fühlt sich „fertig“ an)
+  modal.addEventListener("click", (e) => {
+    const a = e.target && e.target.closest ? e.target.closest("a") : null;
+    if (a) close();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hidden) close();
+  });
+}
   ready(injectShell);
 })();
