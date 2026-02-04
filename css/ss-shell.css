@@ -1,6 +1,7 @@
 /* /css/ss-shell.css */
 /* SafeShare Shell v2026-02-04-02 */
-
+/* Hard-fix: hidden muss immer gewinnen (sonst "More" überdeckt ganze Seite) */
+.ss-more[hidden]{ display:none !important; }
 :root{
   --ss-max: 1120px;
 
