@@ -1,3 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SafeShare">
-  <!-- TODO: hier echte Pfade rein -->
+  <g fill="none" stroke="currentColor" stroke-width="28" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Shield -->
+    <path d="M256 88
+             L352 136
+             V232
+             C352 310 311 368 256 404
+             C201 368 160 310 160 232
+             V136
+             Z" />
+
+    <!-- Hand (supporting curve) -->
+    <path d="M96 318
+             C140 290 184 278 228 282
+             C265 286 292 302 320 316
+             C341 327 365 336 392 336
+             C423 336 444 324 464 308" />
+
+    <!-- Palm / base -->
+    <path d="M112 356
+             C154 390 206 408 268 408
+             C337 408 392 394 444 368" />
+  </g>
 </svg>
