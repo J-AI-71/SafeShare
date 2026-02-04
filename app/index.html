@@ -1,30 +1,35 @@
-<!-- /app/index.html (DE) -->
+<!-- /app/index.html (DE) — SafeShare App (bereinigt: Page-CSS + Master-Shell, kein Inline-Design, HTML valid) -->
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
+
   <title>SafeShare App – Links bereinigen & sauber teilen (local-first)</title>
-  <meta name="description" content="URL reinigen: SafeShare entfernt Tracking-Parameter (utm_*, gclid, fbclid …) und entpackt Redirects – 100% lokal im Browser. Clean → Copy → Share.">
+  <meta name="description" content="URL reinigen: SafeShare entfernt Tracking-Parameter (utm_*, gclid, fbclid …) und entpackt Redirects – 100% lokal im Browser. Clean → Copy → Share." />
   <meta name="robots" content="index,follow" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#111111" />
 
   <link rel="canonical" href="https://safesharepro.com/app/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/app/" />
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/app/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/app/" />
 
-  <meta name="color-scheme" content="dark light" />
-  <meta name="theme-color" content="#111111" />
-
+  <!-- Google Search Console -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
+  <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
+  <!-- Social -->
   <meta property="og:title" content="SafeShare App – Links bereinigen & sauber teilen (local-first)" />
   <meta property="og:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → Bereinigen → Kopieren/Teilen." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
+  <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://safesharepro.com/app/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-01-21-01" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-02-04-03" />
   <meta property="og:image:alt" content="SafeShare App – Vorschau" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -32,176 +37,63 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SafeShare App – Links bereinigen & sauber teilen" />
   <meta name="twitter:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → Bereinigen → Kopieren/Teilen." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-01-21-01" />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-02-04-03" />
   <meta name="twitter:image:alt" content="SafeShare App – Vorschau" />
 
   <!-- Icons / Favicons -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-01">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-01">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-01">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-01">
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-03">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-03">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-03">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-03">
 
   <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-01">
-  <meta name="theme-color" content="#111111">
-  <meta name="color-scheme" content="dark light">
-  
-  <!-- Shell -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03">
-</head>
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-03">
 
+  <!-- Page + Shell -->
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03">
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03">
+
+  <!-- App-only (Layout für Input/Impact) -->
   <style>
-    :root{
-      --bg0:#070a12; --bg1:#070b14; --bg2:#0b1020;
-      --card: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.60);
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
-      --radius: 18px;
-      --mint: #2fe3b7;
-      --mint2: rgba(47,227,183,.18);
-      --mint3: rgba(47,227,183,.28);
-      --warn: rgba(255,197,84,.16);
-      --ok: rgba(47,227,183,.16);
-      --bad: rgba(255,84,84,.14);
-      --max: 1120px;
-      --focus: 0 0 0 3px rgba(47,227,183,.22);
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#f6f7fb; --bg1:#ffffff; --bg2:#f2f6ff;
-        --card:#ffffff;
-        --border: rgba(17,24,39,.12);
-        --text: rgba(17,24,39,.95);
-        --muted: rgba(17,24,39,.72);
-        --muted2: rgba(17,24,39,.62);
-        --shadow: 0 18px 45px rgba(17,24,39,.10);
-        --warn: rgba(255,197,84,.22);
-        --ok: rgba(47,227,183,.18);
-        --bad: rgba(255,84,84,.12);
-        --focus: 0 0 0 3px rgba(17,130,98,.22);
-      }
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(47,227,183,.18), transparent 55%),
-        radial-gradient(900px 520px at 85% 10%, rgba(255,197,84,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-    }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
-    .muted{ color: var(--muted); }
-    .muted2{ color: var(--muted2); }
-    .card{
-      margin-top: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 42px); line-height: 1.10; letter-spacing:-.2px; }
-    h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
-    p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-    .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor:pointer;
-      user-select:none;
-      display:inline-flex; align-items:center; gap: 8px;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); }
-    .btn.primary{ background: var(--mint2); border-color: rgba(47,227,183,.35); }
-    .btn.primary:hover{ background: var(--mint3); }
-    .btn.ghost{ background: transparent; color: var(--muted); }
-    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.04); }
-    .note,.warn{
-      margin-top: 12px;
-      border-left: 3px solid rgba(47,227,183,.55);
-      background: var(--ok);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text);
-    }
-    .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
-    .field{
+    /* nutzt Tokens aus ss-page.css; nur App-spezifisches Layout */
+    .ss-field{
       width:100%;
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid var(--border);
       background: rgba(255,255,255,.03);
       color: var(--text);
       border-radius: 16px;
       padding: 12px 12px;
-      font-size: 14px;
+      font: inherit;
       line-height: 1.5;
       outline: none;
     }
-    textarea.field{ min-height: 110px; resize: vertical; }
-    .field:focus{ box-shadow: var(--focus); border-color: rgba(47,227,183,.35); }
-    .resultBox{
+    textarea.ss-field{ min-height: 110px; resize: vertical; font-family: var(--mono); }
+    .ss-field:focus{ box-shadow: var(--focus); border-color: var(--accBorder); }
+
+    .ss-resultBox{
       margin-top: 10px;
       padding: 12px 12px;
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid var(--border);
       background: rgba(255,255,255,.03);
-      color: var(--muted);
+      color: var(--text);
       font-size: 13px;
       line-height: 1.5;
       word-break: break-word;
+      font-family: var(--mono);
     }
-    .kv{
+
+    .ss-kv{
       display:flex; gap:10px; flex-wrap:wrap;
       font-size: 12px; color: var(--muted2);
       margin-top: 10px;
     }
-    .kv span{
+    .ss-kv span{
       padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid var(--border);
       background: rgba(255,255,255,.03);
     }
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 14px;
-    }
-    @media(min-width: 920px){
-      .footGrid{ grid-template-columns: 1.2fr .8fr; }
-    }
-    .footLinks{
-      display:flex; gap: 10px; flex-wrap: wrap; justify-content:flex-start;
-    }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
 
     /* Impact */
     .ssImpactGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin:.75rem 0}
@@ -210,12 +102,28 @@
     .ssImpactNum{font-size:1.6rem;font-weight:780;letter-spacing:-.02em}
     .ssImpactLabel{font-size:.9rem;color:var(--muted2)}
     .ssImpactHeaderRow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:-2px}
-    .ssImpactSessionLabel{font-size:12px;color:var(--muted2);padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03)}
+    .ssImpactSessionLabel{font-size:12px;color:var(--muted2);padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.03)}
     .ssImpactLast{margin-top:10px;padding:10px 12px;border-radius:12px;border:1px dashed rgba(255,255,255,.14);background:rgba(255,255,255,.03);color:var(--muted);font-size:12px;line-height:1.4}
     .ssImpactLastTitle{color:var(--muted2);margin-right:6px}
     @media (prefers-color-scheme: light){
       .ssImpactSessionLabel{background:rgba(17,24,39,.03);border-color:rgba(17,24,39,.12)}
       .ssImpactLast{background:rgba(17,24,39,.03);border-color:rgba(17,24,39,.14)}
+    }
+
+    /* Messages */
+    .ss-msg{
+      margin-top: 12px;
+      border-left: 3px solid rgba(255,197,84,.55);
+      background: rgba(255,197,84,.16);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text);
+    }
+    .ss-msg--note{
+      border-left-color: rgba(47,227,183,.55);
+      background: rgba(47,227,183,.12);
     }
   </style>
 </head>
@@ -223,14 +131,13 @@
 <body>
   <div id="ss-shell"></div>
 
-  <main class="ss-main" id="top">
+  <main class="ss-main">
     <!-- HERO / Intro -->
-    <section class="ss-section">
+    <section class="ss-section" aria-labelledby="app-title">
       <div class="ss-card">
-        <h1>Link bereinigen</h1>
-        <p class="ss-muted">
-          Tracking-Parameter sind Zusatzinfos am Link – wie Etiketten. SafeShare entfernt typische Tracking-Keys lokal im Browser.
-          Nichts wird hochgeladen.
+        <h1 id="app-title">Link bereinigen</h1>
+        <p class="ss-hero-kicker">
+          Tracking-Parameter sind Zusatzinfos am Link – wie Etiketten. SafeShare entfernt typische Tracking-Keys lokal im Browser. Nichts wird hochgeladen.
         </p>
         <div class="ss-card ss-card--inner">
           Hinweis: Das ist kein „Unsichtbar“-Versprechen. Es ist Link-Hygiene beim Teilen.
@@ -239,12 +146,12 @@
     </section>
 
     <!-- Cleaner -->
-    <section class="ss-section" id="cleaner">
+    <section class="ss-section" id="cleaner" aria-labelledby="cleaner-title">
       <div class="ss-card">
-        <h2>URL einfügen</h2>
+        <h2 id="cleaner-title">URL einfügen</h2>
         <p class="ss-muted">Einfügen → (Auto) Bereinigen → Ergebnis kopieren/teilen.</p>
 
-        <textarea class="field mono" id="urlInput" placeholder="https://example.com/page?utm_source=...&fbclid=..."></textarea>
+        <textarea class="ss-field" id="urlInput" placeholder="https://example.com/page?utm_source=...&fbclid=..."></textarea>
 
         <div class="ss-actions">
           <button class="ss-btn ss-btn--primary" id="btnClean" type="button">Bereinigen</button>
@@ -252,15 +159,15 @@
           <button class="ss-btn" id="btnClear" type="button">Leeren</button>
         </div>
 
-        <div class="warn" id="msg" hidden></div>
+        <div class="ss-msg" id="msg" hidden></div>
       </div>
     </section>
 
     <!-- Result -->
-    <section class="ss-section" id="resultCard" hidden>
+    <section class="ss-section" id="resultCard" hidden aria-labelledby="result-title">
       <div class="ss-card">
-        <h2>Ergebnis</h2>
-        <div class="resultBox mono" id="outUrl"></div>
+        <h2 id="result-title">Ergebnis</h2>
+        <div class="ss-resultBox" id="outUrl"></div>
 
         <div class="ss-actions">
           <button class="ss-btn ss-btn--primary" id="btnCopy" type="button">Kopieren</button>
@@ -268,7 +175,7 @@
           <button class="ss-btn" id="btnShare" type="button">Teilen</button>
         </div>
 
-        <div class="kv" id="auditRow" hidden></div>
+        <div class="ss-kv" id="auditRow" hidden></div>
 
         <div class="ss-card ss-card--inner" style="margin-top:12px">
           Wenn der bereinigte Link nicht funktioniert: Original öffnen → vergleichen. Wenn nur der bereinigte Link scheitert,
@@ -278,10 +185,10 @@
     </section>
 
     <!-- Impact -->
-    <section class="ss-section" id="ssImpactCard" hidden>
+    <section class="ss-section" id="ssImpactCard" hidden aria-labelledby="impact-title">
       <div class="ss-card">
         <div class="ssImpactHeaderRow">
-          <h2 style="margin:0">Impact</h2>
+          <h2 id="impact-title" style="margin:0">Impact</h2>
           <span class="ssImpactSessionLabel">Session (dieser Tab)</span>
         </div>
 
@@ -357,7 +264,7 @@
       function showMsg(type, text){
         if (!msg) return;
         msg.hidden = !text;
-        msg.className = (type === 'note') ? 'note' : 'warn';
+        msg.className = "ss-msg" + (type === "note" ? " ss-msg--note" : "");
         msg.textContent = text || '';
       }
 
@@ -469,7 +376,7 @@
         const span = document.createElement('span');
         span.appendChild(document.createTextNode(label + ': '));
         const mono = document.createElement('span');
-        mono.className = 'mono';
+        mono.style.fontFamily = "var(--mono)";
         mono.textContent = keys.join(', ');
         span.appendChild(mono);
         return span;
@@ -495,7 +402,7 @@
         }
       }
 
-      // ===== Impact (RAM-only, wirklich "Nach Reload weg") =====
+      // ===== Impact (RAM-only) =====
       const impactCard = byId("ssImpactCard");
 
       const AD_ID_KEYS = new Set([
@@ -608,7 +515,7 @@
           renderResult(res);
 
           impactAddIfNew(res.cleaned, res.removed);
-          impactUpdateUI();   // wichtig: zeigt ggf. vorhandene Summen wieder an
+          impactUpdateUI();
           impactShowIfAny();
 
           if (!res.removed || res.removed.length === 0){
@@ -664,7 +571,6 @@
 
       // ===== Bindings =====
       on(input, "input", scheduleAutoClean);
-
       on(btnClean, "click", doClean);
 
       on(btnClear, "click", ()=>{
@@ -714,7 +620,7 @@
         showMsg('note', 'Teilen ist nicht verfügbar (oder abgebrochen) — Link wurde kopiert.');
       });
 
-      // Prefill via ?url=... (auto-run) or ?u=...&run=1
+      // Prefill via ?url=... or ?u=...&run=1
       (function(){
         const sp = new URLSearchParams(location.search);
         const incoming = sp.get('url') || sp.get('u');
@@ -738,8 +644,7 @@
     })();
   </script>
 
-  <!-- SHELL JS: genau 1× hier -->
-  <div id="ss-footer"></div>
-  <script src="/js/ss-shell.js?v=2026-02-04-03" defer></script>  
+  <!-- Shell JS: genau 1×, und ohne doppelte Footer-Mounts -->
+  <script src="/js/ss-shell.js?v=2026-02-04-06" defer></script>
 </body>
 </html>
