@@ -51,18 +51,22 @@
 function langToggleHref(){
   const p = location.pathname;
 
-  // exakte Gegenstücke über SLUG-Tabelle finden
-  for (const key in SLUG){
-    const de = SLUG[key].de;
-    const en = SLUG[key].en;
-    if (p.startsWith(en)) return de; // EN -> DE
-    if (p.startsWith(de)) return en; // DE -> EN
+  // Exakte Zuordnung über SLUG-Mapping (DE<->EN)
+  for (const k in SLUG){
+    const de = SLUG[k]?.de;
+    const en = SLUG[k]?.en;
+    if (!de || !en) continue;
+
+    // Wenn ich auf EN bin -> DE zurück
+    if (p === en || p.startsWith(en)) return de;
+
+    // Wenn ich auf DE bin -> EN zurück
+    if (p === de || p.startsWith(de)) return en;
   }
 
-  // Fallback (nur wenn unbekannte Seite)
-  if (isEN()) return p.replace(/^\/en\//, "/");
-  return (p === "/") ? "/en/" : ("/en" + p);
-}
+  // Fallback
+  return isEN() ? "/" : "/en/";
+}  
   
   function injectShell(){
     // Mounts (hard-failsafe)
