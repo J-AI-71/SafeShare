@@ -146,13 +146,12 @@ function langPeerHref(){
             </div>
           </div>
 
-          <div class="ss-more__section">
-            <div class="ss-more__label">${text("Sprache","Language")}</div>
-            <div class="ss-more__grid">
-              <a class="ss-pill" href="${langPeerHref()}">${text("English","Deutsch")}</a>
-              <a class="ss-pill" href="#top">${text("Nach oben","Top")}</a>
-            </div>
-          </div>
+         <div class="ss-more__section">
+  <div class="ss-more__label">${text("Sprache","Language")}</div>
+  <div class="ss-more__grid">
+    <a class="ss-pill" href="${langToggleHref()}">${text("English","Deutsch")}</a>
+  </div>
+</div>
 
           <div class="ss-more__section">
             <div class="ss-more__label">${text("Support","Support")}</div>
