@@ -8,13 +8,13 @@
     } else fn();
   }
 
-  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-02";
-  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-02";
+  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-03";
+  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-03";
 
   function isEN(){ return location.pathname.startsWith("/en/"); }
   function text(de, en){ return isEN() ? en : de; }
 
-  // ✅ Slug-Mapping: DE ≠ EN
+  // DE ≠ EN: dein echtes Mapping
   const SLUG = {
     start: { de: "/", en: "/en/" },
     app:   { de: "/app/", en: "/en/app/" },
@@ -26,7 +26,6 @@
     imprint:{ de: "/impressum/",  en: "/en/imprint/" },
     terms:  { de: "/nutzungsbedingungen/", en: "/en/terms/" },
 
-    // Learn pages (anpassen falls deine Ordner anders heißen)
     tracking: { de: "/tracking-parameter/", en: "/en/tracking-parameters/" },
     utm:      { de: "/utm-parameter-entfernen/", en: "/en/remove-utm-parameter/" },
     compare:  { de: "/url-cleaner-tool-vergleich/", en: "/en/url-cleaner-comparison/" },
@@ -48,28 +47,29 @@
     return p.startsWith(target) ? " is-active" : "";
   }
 
-function langToggleHref(){
-  const p = location.pathname;
+  // ✅ Language toggle über Mapping (nicht über replace("/en/",""))
+  function langToggleHref(){
+    const p = location.pathname;
 
-  // Exakte Zuordnung über SLUG-Mapping (DE<->EN)
-  for (const k in SLUG){
-    const de = SLUG[k]?.de;
-    const en = SLUG[k]?.en;
-    if (!de || !en) continue;
+    // 1) Exakte Treffer in Mapping finden
+    for (const k in SLUG){
+      const de = SLUG[k].de;
+      const en = SLUG[k].en;
+      if (p === de || p.startsWith(de)) return en;
+      if (p === en || p.startsWith(en)) return de;
+    }
 
-    // Wenn ich auf EN bin -> DE zurück
-    if (p === en || p.startsWith(en)) return de;
-
-    // Wenn ich auf DE bin -> EN zurück
-    if (p === de || p.startsWith(de)) return en;
+    // 2) Fallback (wenn Seite nicht in Mapping ist)
+    if (isEN()){
+      // /en/... -> /...
+      return p.replace(/^\/en\//, "/");
+    }
+    // /... -> /en/...
+    return (p === "/") ? "/en/" : ("/en" + p);
   }
 
-  // Fallback
-  return isEN() ? "/" : "/en/";
-}  
-  
   function injectShell(){
-    // Mounts (hard-failsafe)
+    // Mounts (failsafe)
     let shell = document.getElementById("ss-shell");
     if (!shell) {
       shell = document.createElement("div");
@@ -181,49 +181,38 @@ function langToggleHref(){
     wireMore();
   }
 
-function wireMore(){
-  const btn = document.querySelector(".ss-moreBtn");
-  const modal = document.getElementById("ss-more");
-  const closeBtn = modal ? modal.querySelector(".ss-more__close") : null;
-  const panel = modal ? modal.querySelector(".ss-more__panel") : null;
+  function wireMore(){
+    const btn = document.querySelector(".ss-moreBtn");
+    const modal = document.getElementById("ss-more");
+    const closeBtn = modal ? modal.querySelector(".ss-more__close") : null;
+    if (!btn || !modal || !closeBtn) return;
 
-  if (!btn || !modal || !closeBtn || !panel) return;
-
-  // Guard: nicht doppelt binden
-  if (modal.__wired) return;
-  modal.__wired = true;
-
-  const open = () => {
-    modal.hidden = false;
-    btn.setAttribute("aria-expanded","true");
-    document.documentElement.classList.add("ss-modalOpen");
-    closeBtn.focus({ preventScroll:true });
-  };
-
-  const close = () => {
+    // Safety: wirklich zu beim Start
     modal.hidden = true;
     btn.setAttribute("aria-expanded","false");
     document.documentElement.classList.remove("ss-modalOpen");
-    btn.focus({ preventScroll:true });
-  };
 
-  btn.addEventListener("click", () => (modal.hidden ? open() : close()));
-  closeBtn.addEventListener("click", close);
+    const open = () => {
+      modal.hidden = false;
+      btn.setAttribute("aria-expanded","true");
+      document.documentElement.classList.add("ss-modalOpen");
+      closeBtn.focus({ preventScroll:true });
+    };
+    const close = () => {
+      modal.hidden = true;
+      btn.setAttribute("aria-expanded","false");
+      document.documentElement.classList.remove("ss-modalOpen");
+      btn.focus({ preventScroll:true });
+    };
 
-  // Klick auf Backdrop (außerhalb Panel) schließt
-  modal.addEventListener("click", (e) => {
-    if (!panel.contains(e.target)) close();
-  });
+    btn.addEventListener("click", () => (modal.hidden ? open() : close()));
+    closeBtn.addEventListener("click", close);
+    modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) close(); });
 
-  // Klick auf einen Link im Menü schließt ebenfalls (fühlt sich „fertig“ an)
-  modal.addEventListener("click", (e) => {
-    const a = e.target && e.target.closest ? e.target.closest("a") : null;
-    if (a) close();
-  });
+    // Wenn jemand im Modal klickt: schließen (damit kein “hängenbleiben”)
+    modal.querySelectorAll("a").forEach(a => a.addEventListener("click", close));
+  }
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !modal.hidden) close();
-  });
-}
   ready(injectShell);
 })();
