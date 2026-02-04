@@ -1,5 +1,5 @@
 /* /js/ss-shell.js */
-/* SafeShare Shell v2026-02-04-05 */
+/* SafeShare Shell v2026-02-04-06 */
 
 (function () {
   function ready(fn){
@@ -8,49 +8,54 @@
     } else fn();
   }
 
-  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-05";
-  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-05";
+  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-06";
+  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-06";
 
+  // ---------- helpers ----------
   function stripQueryHash(s){
     return (s || "").split("#")[0].split("?")[0];
   }
 
   function normalizePath(p){
     p = stripQueryHash(p || "/");
-    // remove trailing index.html
-    p = p.replace(/index\.html$/i, "");
-    // ensure leading slash
-    if (!p.startsWith("/")) p = "/" + p;
-    // enforce trailing slash for folder-like paths (no file extension)
-    const hasExt = /\.[a-z0-9]+$/i.test(p);
-    if (!hasExt && !p.endsWith("/")) p += "/";
+    p = p.replace(/index\.html$/i, "");      // /x/index.html -> /x/
+    if (!p.startsWith("/")) p = "/" + p;     // leading slash
+    const hasExt = /\.[a-z0-9]+$/i.test(p);  // file.ext?
+    if (!hasExt && !p.endsWith("/")) p += "/"; // folder paths always trailing slash
     return p;
   }
 
-  function isEN(){
-    return normalizePath(location.pathname).startsWith("/en/");
+  function currentPath(){
+    return normalizePath(location.pathname);
   }
 
-  function text(de, en){ return isEN() ? en : de; }
+  function isEN(){
+    return currentPath().startsWith("/en/");
+  }
 
-  // ✅ Slug-Mapping: DE ≠ EN (passt zu deiner Repo-Struktur)
+  function text(de, en){
+    return isEN() ? en : de;
+  }
+
+  // ---------- slug mapping (DE ≠ EN) ----------
   const SLUG = {
-    start:   { de: "/", en: "/en/" },
-    app:     { de: "/app/", en: "/en/app/" },
-    pro:     { de: "/pro/", en: "/en/pro/" },
-    school:  { de: "/schule/", en: "/en/school/" },
-    help:    { de: "/hilfe/", en: "/en/help/" },
+    start:    { de: "/", en: "/en/" },
 
-    privacy: { de: "/datenschutz/", en: "/en/privacy/" },
-    imprint: { de: "/impressum/",  en: "/en/imprint/" },
-    terms:   { de: "/nutzungsbedingungen/", en: "/en/terms/" },
+    app:      { de: "/app/", en: "/en/app/" },
+    pro:      { de: "/pro/", en: "/en/pro/" },
+    school:   { de: "/schule/", en: "/en/school/" },
+    help:     { de: "/hilfe/", en: "/en/help/" },
 
-    tracking:{ de: "/tracking-parameter/", en: "/en/tracking-parameters/" },
-    utm:     { de: "/utm-parameter-entfernen/", en: "/en/remove-utm-parameter/" },
-    compare: { de: "/url-cleaner-tool-vergleich/", en: "/en/url-cleaner-comparison/" },
-    email:   { de: "/email-links-bereinigen/", en: "/en/email-link-cleaning/" },
+    privacy:  { de: "/datenschutz/", en: "/en/privacy/" },
+    imprint:  { de: "/impressum/",  en: "/en/imprint/" },
+    terms:    { de: "/nutzungsbedingungen/", en: "/en/terms/" },
+
+    tracking: { de: "/tracking-parameter/", en: "/en/tracking-parameters/" },
+    utm:      { de: "/utm-parameter-entfernen/", en: "/en/remove-utm-parameter/" },
+    compare:  { de: "/url-cleaner-tool-vergleich/", en: "/en/url-cleaner-comparison/" },
+    email:    { de: "/email-links-bereinigen/", en: "/en/email-link-cleaning/" },
     messenger:{ de: "/messenger-links-bereinigen/", en: "/en/messenger-link-cleaning/" },
-    social:  { de: "/social-links-bereinigen/", en: "/en/social-link-cleaning/" }
+    social:   { de: "/social-links-bereinigen/", en: "/en/social-link-cleaning/" }
   };
 
   function href(key){
@@ -60,72 +65,65 @@
   }
 
   function active(key){
-    const p = normalizePath(location.pathname);
+    const p = currentPath();
 
     if (key === "start"){
       return (p === "/" || p === "/en/") ? " is-active" : "";
     }
-
     const target = normalizePath(href(key));
     return p.startsWith(target) ? " is-active" : "";
   }
 
-  // ✅ robust: longest-prefix match über Mapping
+  // ---------- Language peer (robust) ----------
+  // IMPORTANT: "start" must NOT be matched by startsWith("/") – that would hijack every page.
   function langPeerHref(){
-    const p = normalizePath(location.pathname);
+    const p = currentPath();
 
-    // explicit start handling (avoid "/" prefix trap)
+    // explicit start
     if (p === "/") return "/en/";
     if (p === "/en/") return "/";
 
-    // build pairs excluding start
+    // build pairs excluding start, then longest match wins
     const pairs = [];
     for (const k of Object.keys(SLUG)){
       if (k === "start") continue;
       pairs.push([ normalizePath(SLUG[k].de), normalizePath(SLUG[k].en) ]);
     }
 
-    // sort by longest first (prevents accidental shorter matches)
-    pairs.sort((a,b) => b[0].length - a[0].length);
+    // sort by longest of BOTH sides
+    pairs.sort((a,b) => Math.max(b[0].length, b[1].length) - Math.max(a[0].length, a[1].length));
 
     for (const [de, en] of pairs){
-      if (p.startsWith(de)) return en; // DE -> EN
       if (p.startsWith(en)) return de; // EN -> DE
+      if (p.startsWith(de)) return en; // DE -> EN
     }
 
-    // fallback: reasonable guess
-    if (isEN()){
+    // fallback:
+    // if EN unknown page: drop /en/ prefix
+    if (p.startsWith("/en/")){
       const deGuess = normalizePath(p.replace(/^\/en\//, "/"));
-      return deGuess === "" ? "/" : deGuess;
+      return deGuess || "/";
     }
-    return "/en/";
+    // if DE unknown page: prefix /en
+    return (p === "/") ? "/en/" : normalizePath("/en" + p);
   }
 
-  function debugLog(msg, obj){
-    try{
-      const u = new URL(location.href);
-      if (u.searchParams.get("ssdebug") === "1"){
-        console.log("[ss-shell]", msg, obj || "");
-      }
-    }catch(_){}
-  }
-
+  // ---------- render ----------
   function injectShell(){
-    // Mounts (failsafe)
+    // mounts (failsafe)
     let shell = document.getElementById("ss-shell");
     if (!shell) {
       shell = document.createElement("div");
       shell.id = "ss-shell";
       (document.body || document.documentElement).insertBefore(shell, document.body.firstChild);
     }
+
     let footer = document.getElementById("ss-footer");
     if (!footer) {
       footer = document.createElement("div");
       footer.id = "ss-footer";
       document.body.appendChild(footer);
     }
-
-    debugLog("path", { raw: location.pathname, norm: normalizePath(location.pathname), isEN: isEN(), peer: langPeerHref() });
 
     shell.innerHTML = `
       <header class="ss-header" role="banner">
@@ -184,8 +182,7 @@
           <div class="ss-more__section">
             <div class="ss-more__label ss-more__labelRow">
               <span>${text("Sprache","Language")}</span>
-              <a class="ss-langLink" href="${langPeerHref()}"
-                 aria-label="${isEN() ? "Zur deutschen Version" : "Switch to English"}">
+              <a class="ss-langLink" href="${langPeerHref()}" aria-label="${isEN() ? "Zur deutschen Version" : "Switch to English"}">
                 ${isEN() ? "DE" : "EN"}
               </a>
             </div>
@@ -241,6 +238,7 @@
       document.documentElement.classList.add("ss-modalOpen");
       closeBtn.focus({ preventScroll:true });
     };
+
     const close = () => {
       modal.hidden = true;
       btn.setAttribute("aria-expanded","false");
@@ -251,22 +249,11 @@
     btn.addEventListener("click", () => (modal.hidden ? open() : close()));
     closeBtn.addEventListener("click", close);
 
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) close();
-    });
+    modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) close(); });
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !modal.hidden) close();
-    });
-
-    // ✅ Auto-close bei Navigation im Modal
-    modal.querySelectorAll("a").forEach(a => {
-      a.addEventListener("click", () => {
-        modal.hidden = true;
-        btn.setAttribute("aria-expanded","false");
-        document.documentElement.classList.remove("ss-modalOpen");
-      });
-    });
+    // Auto-close on any navigation click inside modal
+    modal.querySelectorAll("a").forEach(a => a.addEventListener("click", close));
   }
 
   ready(injectShell);
