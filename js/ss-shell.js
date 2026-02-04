@@ -64,6 +64,21 @@ function langToggleHref(){
 
   return map[p] || "/en/";
 }
+function langPeerHref(){
+  const p = location.pathname;
+
+  // Finde welches Key aktuell ist (start/app/pro/school/help/...)
+  const keys = Object.keys(SLUG);
+  for (const k of keys){
+    const de = SLUG[k].de;
+    const en = SLUG[k].en;
+    if (p === de || p.startsWith(de)) return isEN() ? de : en;
+    if (p === en || p.startsWith(en)) return isEN() ? de : en;
+  }
+
+  // Fallback: Start
+  return isEN() ? "/" : "/en/";
+}
   function injectShell(){
     // Mounts (failsafe)
     let shell = document.getElementById("ss-shell");
@@ -134,7 +149,7 @@ function langToggleHref(){
           <div class="ss-more__section">
             <div class="ss-more__label">${text("Sprache","Language")}</div>
             <div class="ss-more__grid">
-              <a class="ss-pill" href="${langToggleHref()}">${text("English","Deutsch")}</a>
+              <a class="ss-pill" href="${langPeerHref()}">${text("English","Deutsch")}</a>
               <a class="ss-pill" href="#top">${text("Nach oben","Top")}</a>
             </div>
           </div>
