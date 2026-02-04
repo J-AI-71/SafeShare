@@ -1,5 +1,7 @@
 /* /js/ss-shell.js */
-/* SafeShare Shell v2026-02-04-06 */
+/* SafeShare Shell v2026-02-04-07 */
+
+console.log("SS-SHELL LOADED v2026-02-04-07");
 
 (function () {
   function ready(fn){
@@ -8,8 +10,8 @@
     } else fn();
   }
 
-  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-06";
-  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-06";
+  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-07";
+  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-07";
 
   // ---------- helpers ----------
   function stripQueryHash(s){
@@ -40,9 +42,11 @@
     return currentPath().startsWith("/en/");
   }
 
-  function text(de, en){ return isEN() ? en : de; }
+  function text(de, en){
+    return isEN() ? en : de;
+  }
 
-  // ✅ DE ≠ EN mapping (Folder-URLs, always with trailing slash)
+  // ✅ DE ≠ EN Slug-Mapping (Repo-Struktur)
   const SLUG = {
     start:    { de: "/", en: "/en/" },
     app:      { de: "/app/", en: "/en/app/" },
@@ -51,7 +55,7 @@
     help:     { de: "/hilfe/", en: "/en/help/" },
 
     privacy:  { de: "/datenschutz/", en: "/en/privacy/" },
-    imprint:  { de: "/impressum/",  en: "/en/imprint/" },
+    imprint:  { de: "/impressum/", en: "/en/imprint/" },
     terms:    { de: "/nutzungsbedingungen/", en: "/en/terms/" },
 
     tracking: { de: "/tracking-parameter/", en: "/en/tracking-parameters/" },
@@ -70,26 +74,30 @@
 
   function active(key){
     const p = currentPath();
-    if (key === "start") return (p === "/" || p === "/en/") ? " is-active" : "";
+
+    if (key === "start"){
+      return (p === "/" || p === "/en/") ? " is-active" : "";
+    }
+
     const target = normalizePath(href(key));
     return p.startsWith(target) ? " is-active" : "";
   }
 
-  // ✅ robust peer language: longest-prefix match across known pairs
+  // ✅ Language peer via mapping (Longest-Prefix, no "/" trap, no recursion)
   function langPeerHref(){
     const p = currentPath();
 
+    // explicit start
     if (p === "/") return "/en/";
     if (p === "/en/") return "/";
 
-    const pairs = [];
-    for (const k of Object.keys(SLUG)){
-      if (k === "start") continue;
-      pairs.push([ normalizePath(SLUG[k].de), normalizePath(SLUG[k].en) ]);
-    }
+    // build pairs excluding start
+    const pairs = Object.keys(SLUG)
+      .filter(k => k !== "start")
+      .map(k => [ normalizePath(SLUG[k].de), normalizePath(SLUG[k].en) ]);
 
-    // sort by longest DE path first (prevents accidental short matches)
-    pairs.sort((a,b) => b[0].length - a[0].length);
+    // longest path first (robust)
+    pairs.sort((a,b) => Math.max(b[0].length, b[1].length) - Math.max(a[0].length, a[1].length));
 
     for (const [de, en] of pairs){
       if (p.startsWith(en)) return de; // EN -> DE
@@ -105,19 +113,22 @@
   }
 
   function injectShell(){
-    // mounts (failsafe)
+    // Mounts (failsafe)
     let shell = document.getElementById("ss-shell");
     if (!shell) {
       shell = document.createElement("div");
       shell.id = "ss-shell";
       (document.body || document.documentElement).insertBefore(shell, document.body.firstChild);
     }
+
     let footer = document.getElementById("ss-footer");
     if (!footer) {
       footer = document.createElement("div");
       footer.id = "ss-footer";
       document.body.appendChild(footer);
     }
+
+    const peer = langPeerHref(); // ✅ compute once
 
     shell.innerHTML = `
       <header class="ss-header" role="banner">
@@ -176,7 +187,7 @@
           <div class="ss-more__section">
             <div class="ss-more__label ss-more__labelRow">
               <span>${text("Sprache","Language")}</span>
-              <a class="ss-langLink" href="${langPeerHref()}"
+              <a class="ss-langLink" href="${peer}"
                  aria-label="${isEN() ? "Zur deutschen Version" : "Switch to English"}">
                 ${isEN() ? "DE" : "EN"}
               </a>
@@ -244,11 +255,16 @@
     btn.addEventListener("click", () => (modal.hidden ? open() : close()));
     closeBtn.addEventListener("click", close);
 
-    modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) close(); });
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) close();
+    });
 
-    // auto-close when navigating via modal links
-    modal.querySelectorAll("a").forEach((a) => {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !modal.hidden) close();
+    });
+
+    // ✅ Auto-close bei Navigation im Modal
+    modal.querySelectorAll("a").forEach(a => {
       a.addEventListener("click", () => {
         modal.hidden = true;
         btn.setAttribute("aria-expanded","false");
