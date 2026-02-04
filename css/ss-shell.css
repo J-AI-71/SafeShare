@@ -441,3 +441,32 @@
   outline: none;
   box-shadow: var(--ss-focus);
 }
+/* Neutraler Language Toggle */
+.ss-more__labelRow{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.ss-langLink{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  color: var(--ss-text);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.ss-langLink:hover{ background: rgba(255,255,255,.06); }
+
+@media (prefers-color-scheme: light){
+  .ss-langLink{
+    border-color: rgba(17,24,39,.12);
+    background: rgba(17,24,39,.03);
+  }
+  .ss-langLink:hover{ background: rgba(17,24,39,.06); }
+}
