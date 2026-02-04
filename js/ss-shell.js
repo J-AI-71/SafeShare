@@ -14,24 +14,24 @@
   function isEN(){ return location.pathname.startsWith("/en/"); }
   function text(de, en){ return isEN() ? en : de; }
 
-  // ✅ Slug-Mapping: DE ≠ EN (muss exakt deinen Ordnern entsprechen)
+  // ✅ Slug-Mapping: DE ≠ EN (passt zu deiner Repo-Struktur)
   const SLUG = {
-    start:  { de: "/", en: "/en/" },
-    app:    { de: "/app/", en: "/en/app/" },
-    pro:    { de: "/pro/", en: "/en/pro/" },
-    school: { de: "/schule/", en: "/en/school/" },
-    help:   { de: "/hilfe/", en: "/en/help/" },
+    start:   { de: "/", en: "/en/" },
+    app:     { de: "/app/", en: "/en/app/" },
+    pro:     { de: "/pro/", en: "/en/pro/" },
+    school:  { de: "/schule/", en: "/en/school/" },
+    help:    { de: "/hilfe/", en: "/en/help/" },
 
-    privacy:{ de: "/datenschutz/", en: "/en/privacy/" },
-    imprint:{ de: "/impressum/",  en: "/en/imprint/" },
-    terms:  { de: "/nutzungsbedingungen/", en: "/en/terms/" },
+    privacy: { de: "/datenschutz/", en: "/en/privacy/" },
+    imprint: { de: "/impressum/",  en: "/en/imprint/" },
+    terms:   { de: "/nutzungsbedingungen/", en: "/en/terms/" },
 
-    tracking: { de: "/tracking-parameter/", en: "/en/tracking-parameters/" },
-    utm:      { de: "/utm-parameter-entfernen/", en: "/en/remove-utm-parameter/" },
-    compare:  { de: "/url-cleaner-tool-vergleich/", en: "/en/url-cleaner-comparison/" },
-    email:    { de: "/email-links-bereinigen/", en: "/en/email-link-cleaning/" },
+    tracking:{ de: "/tracking-parameter/", en: "/en/tracking-parameters/" },
+    utm:     { de: "/utm-parameter-entfernen/", en: "/en/remove-utm-parameter/" },
+    compare: { de: "/url-cleaner-tool-vergleich/", en: "/en/url-cleaner-comparison/" },
+    email:   { de: "/email-links-bereinigen/", en: "/en/email-link-cleaning/" },
     messenger:{ de: "/messenger-links-bereinigen/", en: "/en/messenger-link-cleaning/" },
-    social:   { de: "/social-links-bereinigen/", en: "/en/social-link-cleaning/" }
+    social:  { de: "/social-links-bereinigen/", en: "/en/social-link-cleaning/" }
   };
 
   function href(key){
@@ -47,39 +47,24 @@
     return p.startsWith(target) ? " is-active" : "";
   }
 
-  // ✅ Language toggle über Mapping (robust bei DE≠EN Slugs)
-  function langToggleHref(){
+  // ✅ Peer-Language URL über Mapping (robust, auch wenn Slugs verschieden sind)
+  function langPeerHref(){
     const p = location.pathname;
 
-    const pairs = [
-      [SLUG.school.en, SLUG.school.de],
-      [SLUG.help.en,   SLUG.help.de],
+    // prüfe alle bekannten SLUG-Paare
+    for (const k of Object.keys(SLUG)){
+      const de = SLUG[k].de;
+      const en = SLUG[k].en;
 
-      [SLUG.tracking.en,  SLUG.tracking.de],
-      [SLUG.utm.en,       SLUG.utm.de],
-      [SLUG.compare.en,   SLUG.compare.de],
-      [SLUG.email.en,     SLUG.email.de],
-      [SLUG.messenger.en, SLUG.messenger.de],
-      [SLUG.social.en,    SLUG.social.de],
-
-      [SLUG.privacy.en, SLUG.privacy.de],
-      [SLUG.imprint.en, SLUG.imprint.de],
-      [SLUG.terms.en,   SLUG.terms.de],
-
-      [SLUG.app.en, SLUG.app.de],
-      [SLUG.pro.en, SLUG.pro.de],
-
-      // Start zuletzt
-      [SLUG.start.en, SLUG.start.de],
-    ];
-
-    for (const [en, de] of pairs){
-      if (p.startsWith(en)) return de;
-      if (p.startsWith(de)) return en;
+      if (p.startsWith(de)) return en; // DE -> EN
+      if (p.startsWith(en)) return de; // EN -> DE
     }
 
-    // Fallback (nur wenn Seite nicht im Mapping ist)
-    return isEN() ? p.replace(/^\/en\//, "/") : (p === "/" ? "/en/" : "/en" + p);
+    // Fallback: minimal sinnvoll
+    if (isEN()){
+      return p.replace(/^\/en\//, "/") || "/";
+    }
+    return (p === "/") ? "/en/" : ("/en" + p);
   }
 
   function injectShell(){
@@ -90,7 +75,6 @@
       shell.id = "ss-shell";
       (document.body || document.documentElement).insertBefore(shell, document.body.firstChild);
     }
-
     let footer = document.getElementById("ss-footer");
     if (!footer) {
       footer = document.createElement("div");
@@ -155,7 +139,9 @@
           <div class="ss-more__section">
             <div class="ss-more__label ss-more__labelRow">
               <span>${text("Sprache","Language")}</span>
-              <a class="ss-langLink" href="${langToggleHref()}">${isEN() ? "DE" : "EN"}</a>
+              <a class="ss-langLink" href="${langPeerHref()}" aria-label="${text("Zur englischen Version","Switch to German")}">
+                ${isEN() ? "DE" : "EN"}
+              </a>
             </div>
           </div>
 
@@ -209,7 +195,6 @@
       document.documentElement.classList.add("ss-modalOpen");
       closeBtn.focus({ preventScroll:true });
     };
-
     const close = () => {
       modal.hidden = true;
       btn.setAttribute("aria-expanded","false");
@@ -221,18 +206,19 @@
     closeBtn.addEventListener("click", close);
 
     modal.addEventListener("click", (e) => {
-      // click outside panel closes
-      if (e.target === modal) close();
+      if (e.target === modal) close(); // click outside panel
     });
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !modal.hidden) close();
     });
 
-    // ✅ Overlay Auto-Close bei Navigation (nur Links im Modal)
-    modal.querySelectorAll('a.ss-pill, a.ss-langLink').forEach(a => {
+    // ✅ Auto-close bei Navigation (Pills + Footerlinks im Modal)
+    modal.querySelectorAll("a").forEach(a => {
       a.addEventListener("click", () => {
-        if (!modal.hidden) close();
+        modal.hidden = true;
+        btn.setAttribute("aria-expanded","false");
+        document.documentElement.classList.remove("ss-modalOpen");
       });
     });
   }
