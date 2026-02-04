@@ -1,5 +1,5 @@
 /* /js/ss-shell.js */
-/* SafeShare Shell v2026-02-04-04 */
+/* SafeShare Shell v2026-02-04-05 */
 
 (function () {
   function ready(fn){
@@ -8,12 +8,20 @@
     } else fn();
   }
 
-  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-04";
-  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-04";
+  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-05";
+  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-05";
+
+  function stripQueryHash(s){
+    return (s || "").split("#")[0].split("?")[0];
+  }
 
   function normalizePath(p){
-    p = (p || "/").replace(/index\.html$/i, "");
-    // trailing slash erzwingen (für Ordner-URLs)
+    p = stripQueryHash(p || "/");
+    // remove trailing index.html
+    p = p.replace(/index\.html$/i, "");
+    // ensure leading slash
+    if (!p.startsWith("/")) p = "/" + p;
+    // enforce trailing slash for folder-like paths (no file extension)
     const hasExt = /\.[a-z0-9]+$/i.test(p);
     if (!hasExt && !p.endsWith("/")) p += "/";
     return p;
@@ -62,31 +70,44 @@
     return p.startsWith(target) ? " is-active" : "";
   }
 
-  // ✅ Peer-Language URL (fix: "start" darf NICHT über startsWith("/") matchen)
+  // ✅ robust: longest-prefix match über Mapping
   function langPeerHref(){
     const p = normalizePath(location.pathname);
 
-    // Start nur bei exakter Start-URL
+    // explicit start handling (avoid "/" prefix trap)
     if (p === "/") return "/en/";
     if (p === "/en/") return "/";
 
-    // alle anderen über Mapping-Paare
+    // build pairs excluding start
+    const pairs = [];
     for (const k of Object.keys(SLUG)){
       if (k === "start") continue;
+      pairs.push([ normalizePath(SLUG[k].de), normalizePath(SLUG[k].en) ]);
+    }
 
-      const de = normalizePath(SLUG[k].de);
-      const en = normalizePath(SLUG[k].en);
+    // sort by longest first (prevents accidental shorter matches)
+    pairs.sort((a,b) => b[0].length - a[0].length);
 
+    for (const [de, en] of pairs){
       if (p.startsWith(de)) return en; // DE -> EN
       if (p.startsWith(en)) return de; // EN -> DE
     }
 
-    // Fallback (nur wenn Seite nicht im Mapping ist)
+    // fallback: reasonable guess
     if (isEN()){
-      const deGuess = p.replace(/^\/en\//, "/");
+      const deGuess = normalizePath(p.replace(/^\/en\//, "/"));
       return deGuess === "" ? "/" : deGuess;
     }
     return "/en/";
+  }
+
+  function debugLog(msg, obj){
+    try{
+      const u = new URL(location.href);
+      if (u.searchParams.get("ssdebug") === "1"){
+        console.log("[ss-shell]", msg, obj || "");
+      }
+    }catch(_){}
   }
 
   function injectShell(){
@@ -103,6 +124,8 @@
       footer.id = "ss-footer";
       document.body.appendChild(footer);
     }
+
+    debugLog("path", { raw: location.pathname, norm: normalizePath(location.pathname), isEN: isEN(), peer: langPeerHref() });
 
     shell.innerHTML = `
       <header class="ss-header" role="banner">
