@@ -1,26 +1,35 @@
+<!-- /index.html (DE) — SafeShare Start (bereinigt, Master-Shell + Page-CSS) -->
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
+
   <title>SafeShare – Links sauber teilen (local-first)</title>
-  <meta name="description" content="SafeShare entfernt Tracking-Parameter aus Links (utm_*, gclid, fbclid …) – 100% lokal im Browser. Sauber teilen: Copy → Clean → Share.">
+  <meta name="description" content="SafeShare entfernt Tracking-Parameter aus Links (utm_*, gclid, fbclid …) – 100% lokal im Browser. Sauber teilen: Copy → Clean → Share." />
   <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://safesharepro.com/" />
   <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#111111" />
+
+  <link rel="canonical" href="https://safesharepro.com/" />
+  <link rel="alternate" hreflang="de" href="https://safesharepro.com/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/" />
 
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
+  <!-- Social -->
   <meta property="og:title" content="SafeShare – Links sauber teilen" />
   <meta property="og:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – local-first im Browser. Copy → Clean → Share." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://safesharepro.com/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-01-05-02" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
   <meta property="og:image:alt" content="SafeShare – Links sauber teilen (Vorschau)" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -28,604 +37,232 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SafeShare – Links sauber teilen" />
   <meta name="twitter:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – local-first im Browser. Copy → Clean → Share." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-01-05-02" />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
   <meta name="twitter:image:alt" content="SafeShare – Links sauber teilen (Vorschau)" />
 
-  <!-- Favicons + PWA -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-26-01">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-26-01">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-26-01">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-01">
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-26-01">
-  <meta name="theme-color" content="#111111">
+  <!-- Icons / Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-03">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-03">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-03">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-03">
 
-  <!-- STEP 3 (Master-Shell) -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-02-05">
-<script src="/js/ss-shell.js?v=2026-02-02-05" defer></script>
-  
-  <style>
-    :root{
-      --bg0:#070a12; --bg1:#070b14; --bg2:#0b1020;
-      --card: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.60);
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
-      --radius: 18px;
-      --mint: #2fe3b7;
-      --mint2: rgba(47,227,183,.18);
-      --mint3: rgba(47,227,183,.28);
-      --warn: rgba(255,197,84,.16);
-      --ok: rgba(47,227,183,.16);
-      --bad: rgba(255,84,84,.14);
-      --max: 1120px;
-      --focus: 0 0 0 3px rgba(47,227,183,.22);
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#f6f7fb; --bg1:#ffffff; --bg2:#f2f6ff;
-        --card:#ffffff;
-        --border: rgba(17,24,39,.12);
-        --text: rgba(17,24,39,.95);
-        --muted: rgba(17,24,39,.72);
-        --muted2: rgba(17,24,39,.62);
-        --shadow: 0 18px 45px rgba(17,24,39,.10);
-        --warn: rgba(255,197,84,.22);
-        --ok: rgba(47,227,183,.18);
-        --bad: rgba(255,84,84,.12);
-        --focus: 0 0 0 3px rgba(17,130,98,.22);
-      }
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(47,227,183,.18), transparent 55%),
-        radial-gradient(900px 520px at 85% 10%, rgba(255,197,84,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-    }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-03">
 
-    /* NOTE:
-       Der alte Header + TabsBar + Bottom-Sheet-"Mehr" bleibt in dieser Datei drin,
-       ist aber jetzt NICHT MEHR NÖTIG und sollte später gelöscht werden.
-       Für "Schritt 3 einbauen" habe ich ihn hier drin gelassen, aber auskommentiert
-       (sonst hättest du doppelte Navigation).
-    */
-
-    header{ display:flex; align-items:center; justify-content:space-between; gap: 14px; padding: 10px 2px 12px; }
-    .brand{ display:flex; align-items:center; gap:10px; min-width:0; }
-    .logoWrap{
-      width: 38px; height: 38px; border-radius: 999px;
-      border:1px solid var(--border);
-      background: linear-gradient(135deg, rgba(47,227,183,.22), rgba(255,197,84,.10));
-      box-shadow: var(--shadow);
-      display:grid; place-items:center; overflow:hidden; flex:0 0 auto;
-    }
-    .logoWrap img{ width:28px; height:28px; display:block; }
-    .logoFallback{ font-weight:800; color: var(--mint); font-size: 14px; line-height:1; display:none; }
-    .brandText{ min-width:0; }
-    .brandText .title{ font-size: 16px; font-weight: 780; line-height:1.1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .brandText .sub{ font-size: 12px; color: var(--muted2); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .small{ font-size: 12px; color: var(--muted2); white-space:nowrap; }
-
-    .tabsBar{
-      position: sticky; top:0; z-index: 50;
-      padding: 8px 0 14px;
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,0));
-    }
-    .tabs{
-      display:flex; align-items:center; gap:10px;
-      padding: 10px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      box-shadow: var(--shadow);
-      overflow-x:auto; scrollbar-width:none;
-    }
-    .tabs::-webkit-scrollbar{ display:none; }
-    .tab{
-      font-size: 13px; color: var(--muted);
-      padding: 8px 12px; border-radius: 999px;
-      border: 1px solid transparent;
-      white-space: nowrap; flex: 0 0 auto;
-      background: transparent;
-      cursor:pointer;
-    }
-    .tab:hover{ border-color: var(--border); background: rgba(255,255,255,.04); color: var(--text); }
-    .tab.active{ color: var(--text); border-color: rgba(47,227,183,.35); background: rgba(47,227,183,.12); }
-
-    .card{
-      margin-top: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 44px); line-height: 1.08; letter-spacing:-.2px; }
-    h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
-    h3{ margin: 14px 0 8px; font-size: 15px; letter-spacing: -0.1px; }
-    p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-    ul, ol{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.6; }
-
-    .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor:pointer;
-      user-select:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); }
-    .btn.primary{ background: var(--mint2); border-color: rgba(47,227,183,.35); }
-    .btn.primary:hover{ background: var(--mint3); }
-    .btn.ghost{ background: transparent; color: var(--muted); }
-    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.04); }
-
-    .note,.warn,.bad{
-      margin-top: 12px;
-      border-left: 3px solid rgba(47,227,183,.55);
-      background: var(--ok);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text);
-    }
-    .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
-    .bad{ border-left-color: rgba(255,84,84,.55); background: var(--bad); }
-
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    @media(min-width: 980px){
-      .grid2{ grid-template-columns: 1fr 1fr; }
-    }
-    .box{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding: 12px;
-    }
-
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
-    .example{
-      margin-top: 10px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-      word-break: break-word;
-    }
-
-    /* Hero Bild (Vorher/Nachher) */
-    .heroImg img{
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.02);
-      margin-top: 12px;
-    }
-    @media (prefers-color-scheme: light){
-      .heroImg img{ border-color: rgba(17,24,39,.12); background: rgba(17,24,39,.02); }
-    }
-
-    /* Preiszeile */
-    .price{
-      font-size: 34px;
-      font-weight: 900;
-      letter-spacing: -.2px;
-      margin: 6px 0 10px;
-      color: var(--text);
-    }
-    .price small{
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--muted2);
-      margin-left: 8px;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-
-    /* Footer wie help/app (Grid + Links) */
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 14px;
-    }
-    @media(min-width: 920px){
-      .footGrid{ grid-template-columns: 1.2fr .8fr; }
-    }
-    .footLinks{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-start;
-    }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-
-    /* ===== Mehr: Bottom-Sheet (ALT, nicht mehr gebraucht) ===== */
-    .moreOverlay{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.25);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      z-index: 9998;
-    }
-    .moreBtn{ appearance:none; cursor:pointer; }
-    .moreMenu{
-      position: fixed;
-      left: 12px; right: 12px;
-      bottom: calc(12px + env(safe-area-inset-bottom));
-      max-height: min(70vh, 520px);
-      overflow: auto;
-      padding: 10px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(10,14,25,.96);
-      box-shadow: var(--shadow);
-      z-index: 9999;
-      transform: translateY(16px);
-      opacity: 0;
-      transition: transform .16s ease, opacity .16s ease;
-    }
-    .moreMenu.open{ transform: translateY(0); opacity: 1; }
-    @media (prefers-color-scheme: light){
-      .moreOverlay{ background: rgba(17,24,39,.06); }
-      .moreMenu{
-        background: rgba(255,255,255,.98);
-        border: 1px solid rgba(17,24,39,.12);
-        box-shadow: 0 18px 45px rgba(17,24,39,.12);
-      }
-      .box{ border-color: rgba(17,24,39,.12); }
-    }
-    .menuHint{ font-size: 11px; color: var(--muted2); padding: 8px 10px 2px; }
-    .divider{ height: 1px; background: rgba(255,255,255,.10); margin: 8px 6px; border-radius: 999px; }
-    .moreMenu a{
-      display:block;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      margin-bottom: 8px;
-      font-size: 13px;
-    }
-    .moreMenu a:last-child{ margin-bottom: 0; }
-    .moreMenu a:hover{ color: var(--text); background: rgba(255,255,255,.08); }
-    /* HERO CTA Boost */
-    .heroRow{ display:grid; gap: 10px; margin-top: 12px; }
-    .heroSecondary{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-
-    .btn.cta{
-      font-size: 15px;
-      padding: 14px 16px;
-      min-height: 48px;
-      border-radius: 16px;
-      box-shadow: 0 12px 34px rgba(0,0,0,.28);
-      letter-spacing: .1px;
-    }
-
-   /* CTA: stärker sichtbar + klar als Button */
-.btn.primary.cta{
-  justify-content: center;
-  text-align: center;
-
-  font-weight: 850;
-  letter-spacing: .2px;
-
-  color: rgba(255,255,255,.92) !important; /* hell, weil dein Button eher dunkel wirkt */
-  background: linear-gradient(180deg, var(--mint2), var(--mint3));
-
-  border-color: rgba(47,227,183,.65);
-  box-shadow: 0 16px 48px rgba(0,0,0,.34);
-}
-
-.btn.primary.cta:active{
-  transform: translateY(1px);
-  box-shadow: 0 10px 26px rgba(0,0,0,.28);
-}
-
-    .heroMeta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      font-size: 12px;
-      color: var(--muted2);
-    }
-    .heroMeta a{ color: var(--muted2); text-decoration: underline; text-underline-offset: 3px; }
-    .heroMeta a:hover{ color: var(--text); }
-    .heroDot{ opacity:.35; }
-  </style>
+  <!-- Page + Shell -->
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03">
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03">
 </head>
-<body>
-  <!-- STEP 3 (Master-Shell) -->
- <div id="ss-shell"></div>
 
-  <div class="wrap">
+<body>
+  <!-- Shell mounts (NAV + Footer werden von ss-shell.js gerendert) -->
+  <div id="ss-shell"></div>
+
+  <main class="ss-main" id="top">
 
     <!-- HERO -->
-    <section class="card">
-      <h1>Tracking-Parameter raus.<br>Link sauber teilen.</h1>
-      <p>
-        Viele Links enthalten Zusatzinfos – wie Etiketten/Aufkleber am Paket (<span class="mono">utm_*</span>, <span class="mono">fbclid</span>, <span class="mono">gclid</span> …).
-        Für Auswertung nützlich, beim Weiterleiten oft nur Ballast.
-      </p>
+    <section class="ss-section" aria-labelledby="home-hero-title">
+      <div class="ss-card ss-hero">
+        <h1 id="home-hero-title">Tracking-Parameter raus. Link sauber teilen.</h1>
 
-      <div class="heroRow">
-  <a class="btn primary cta" href="/app/">Link reinigen</a>
-  <div class="heroMeta">
-    <span>100% lokal im Browser</span><span class="heroDot">•</span>
-    <span>keine Anmeldung</span><span class="heroDot">•</span>
-    <a href="/hilfe/">Wie funktioniert das?</a>
-  </div>
+        <p class="ss-hero-kicker">
+          Links enthalten oft Zusatzinfos – wie Etiketten/Aufkleber am Paket (<code>utm_*</code>, <code>fbclid</code>, <code>gclid</code> …).
+        </p>
 
-  <div class="heroSecondary">
-    <a class="btn" href="/schule/">SafeShare Schule</a>
-    <a class="btn ghost" href="/pro/">Pro für Profis</a>
-  </div>
-</div>
-<div class="heroImg" aria-label="Vorher/nachher Beispiel">
-        <img
-          src="/assets/hero-vorher-nachher.png?v=2025-12-25-01"
-          alt="Vor SafeShare: Link mit Tracking-Ballast. Nach SafeShare: sauberer Link."
-          loading="lazy"
-          decoding="async"
-          width="1200"
-          height="675"
-        />
-      </div>
-      <div class="note">
-        SafeShare arbeitet <b>local-first</b>: Bereinigung im Browser. Links werden nicht hochgeladen.
-      </div>
-      <div class="warn">
-        Das ist kein „Unsichtbar“-Versprechen. Es ist ein konkreter Hygiene-Schritt beim Teilen.
+        <p>
+          Für Auswertung manchmal nützlich, beim Weiterleiten oft nur Ballast.
+          SafeShare entfernt typische Tracking-Keys <strong>lokal in deinem Browser</strong>.
+        </p>
+
+        <div class="ss-actions">
+          <a class="ss-btn ss-btn--primary" href="/app/">Link reinigen</a>
+          <a class="ss-btn" href="/hilfe/">Wie funktioniert das?</a>
+          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro ansehen</a>
+        </div>
+
+        <p class="ss-muted" style="margin-top:12px">
+          100% local-first. Keine Anmeldung. Kein Tracking.
+        </p>
+
+        <div class="ss-note" style="margin-top:12px">
+          SafeShare arbeitet <strong>local-first</strong>: Bereinigung im Browser. Links werden nicht hochgeladen.
+        </div>
+        <div class="ss-warn" style="margin-top:10px">
+          Das ist kein „Unsichtbar“-Versprechen. Es ist ein konkreter Hygiene-Schritt beim Teilen.
+        </div>
+
+        <div class="ss-heroMedia" style="margin-top:12px">
+          <img
+            src="/assets/hero-vorher-nachher.png?v=2026-02-04-03"
+            alt="Vor SafeShare: Link mit Tracking-Ballast. Nach SafeShare: sauberer Link."
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="675"
+          />
+        </div>
       </div>
     </section>
 
-
-    
     <!-- HOW -->
-    <section class="card">
-      <h2>In 10 Sekunden</h2>
-      <ol>
-        <li>Link kopieren</li>
-        <li>In SafeShare App einfügen</li>
-        <li>Bereinigen → kopieren → teilen</li>
-      </ol>
+    <section class="ss-section" aria-labelledby="how-title">
+      <div class="ss-card">
+        <h2 id="how-title">In 10 Sekunden</h2>
 
-      <div class="grid2">
-        <div class="box">
-          <h3>Vorher</h3>
-          <div class="example mono">https://example.com/artikel?utm_source=twitter&utm_medium=social&utm_campaign=launch&fbclid=XYZ</div>
-        </div>
-        <div class="box">
-          <h3>Nachher</h3>
-          <div class="example mono">https://example.com/artikel</div>
-        </div>
-      </div>
+        <ol>
+          <li>Link kopieren</li>
+          <li>In SafeShare App einfügen</li>
+          <li>Bereinigen → kopieren → teilen</li>
+        </ol>
 
-      <div class="row">
-        <a class="btn primary" href="/app/">App öffnen</a>
-        <a class="btn" href="/lesezeichen/" data-page="lesezeichen">Lesezeichen (Desktop)</a>
-        <a class="btn ghost" href="/hilfe/">Hilfe / Troubleshooting</a>
+        <div class="ss-grid ss-grid--2" style="margin-top:12px">
+          <div class="ss-card ss-card--inner">
+            <h3>Vorher</h3>
+            <p class="ss-mono">https://example.com/artikel?utm_source=twitter&utm_medium=social&utm_campaign=launch&fbclid=XYZ</p>
+          </div>
+          <div class="ss-card ss-card--inner">
+            <h3>Nachher</h3>
+            <p class="ss-mono">https://example.com/artikel</p>
+          </div>
+        </div>
+
+        <div class="ss-actions" style="margin-top:12px">
+          <a class="ss-btn ss-btn--primary" href="/app/">App öffnen</a>
+          <a class="ss-btn" href="/lesezeichen/">Lesezeichen (Desktop)</a>
+          <a class="ss-btn ss-btn--ghost" href="/hilfe/">Hilfe / Troubleshooting</a>
+        </div>
       </div>
     </section>
 
     <!-- WHY -->
-    <section class="card">
-      <h2>Warum das sinnvoll ist (ohne Drama)</h2>
-      <div class="grid2">
-        <div class="box">
-          <h3>Respekt</h3>
-          <p>Du verteilst weniger Zusatzinfos, die andere nicht gewählt haben.</p>
-          <h3>Seriöser</h3>
-          <p>Links wirken sauberer und weniger „werblich“.</p>
-        </div>
-        <div class="box">
-          <h3>Weniger Bruch</h3>
-          <p>Manche Apps kürzen/umbauen lange URLs ungünstig.</p>
-          <h3>Local-first</h3>
-          <p>Kein Copy-Paste in irgendeinen Online-Cleaner nötig.</p>
+    <section class="ss-section" aria-labelledby="why-title">
+      <div class="ss-card">
+        <h2 id="why-title">Warum das sinnvoll ist (ohne Drama)</h2>
+
+        <div class="ss-grid ss-grid--2" style="margin-top:12px">
+          <div class="ss-card ss-card--inner">
+            <h3>Respekt</h3>
+            <p class="ss-muted">Du verteilst weniger Zusatzinfos, die andere nicht gewählt haben.</p>
+
+            <h3>Seriöser</h3>
+            <p class="ss-muted">Links wirken sauberer und weniger „werblich“.</p>
+          </div>
+
+          <div class="ss-card ss-card--inner">
+            <h3>Weniger Bruch</h3>
+            <p class="ss-muted">Manche Apps kürzen/umbauen lange URLs ungünstig.</p>
+
+            <h3>Local-first</h3>
+            <p class="ss-muted">Kein Copy-Paste in irgendeinen Online-Cleaner nötig.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- DO NOT BLINDLY REMOVE -->
-    <section class="card">
-      <h2>Nicht blind alles entfernen</h2>
-      <div class="grid2">
-        <div class="box">
-          <h3>Affiliate/Partner</h3>
-          <p>
-            Manche Parameter sind Zuordnung (z. B. <span class="mono">ref</span>, <span class="mono">tag</span>).
-            Entfernst du sie, kann Vergütung/Attribution kaputtgehen.
-          </p>
-          <p><b>Pro:</b> Allowlist/Policies pro Domain.</p>
+    <section class="ss-section" aria-labelledby="careful-title">
+      <div class="ss-card">
+        <h2 id="careful-title">Nicht blind alles entfernen</h2>
+
+        <div class="ss-grid ss-grid--2" style="margin-top:12px">
+          <div class="ss-card ss-card--inner">
+            <h3>Affiliate / Partner</h3>
+            <p class="ss-muted">
+              Manche Parameter sind Zuordnung (z. B. <code>ref</code>, <code>tag</code>).
+              Entfernst du sie, kann Vergütung/Attribution kaputtgehen.
+            </p>
+            <p class="ss-muted"><strong>Pro:</strong> Allowlist/Policies pro Domain.</p>
+          </div>
+
+          <div class="ss-card ss-card--inner">
+            <h3>Funktionale Parameter</h3>
+            <p class="ss-muted">
+              Manche Keys steuern Inhalt (Sprache, Filter, Produkt-ID, Suche).
+              Gute Tools sind konservativ und entfernen nicht wahllos.
+            </p>
+            <p class="ss-muted"><strong>App:</strong> Standard-Tracking. <strong>Pro:</strong> Audit + Regeln.</p>
+          </div>
         </div>
-        <div class="box">
-          <h3>Funktionale Parameter</h3>
-          <p>
-            Manche Keys steuern Inhalt (Sprache, Filter, Produkt-ID, Suche).
-            Gute Tools sind konservativ und entfernen nicht wahllos.
-          </p>
-          <p><b>App:</b> Standard-Tracking. <b>Pro:</b> Audit + Regeln.</p>
+
+        <div class="ss-actions" style="margin-top:12px">
+          <a class="ss-btn" href="/tracking-parameter/">Tracking-Parameter erklärt</a>
+          <a class="ss-btn" href="/utm-parameter-entfernen/">UTM erklärt</a>
+          <a class="ss-btn ss-btn--ghost" href="/url-cleaner-tool-vergleich/">Tool-Vergleich</a>
         </div>
-      </div>
 
-      <div class="row">
-        <a class="btn" href="/tracking-parameter/">Tracking-Parameter erklärt</a>
-        <a class="btn" href="/utm-parameter-entfernen/">UTM erklärt</a>
-        <a class="btn ghost" href="/url-cleaner-tool-vergleich/">Tool-Vergleich</a>
-      </div>
-
-      <div class="warn" style="margin-top:12px">
-  Nicht blind „alles“ entfernen: Affiliate-/Ref-Parameter (<span style="opacity:.9">ref</span>, <span style="opacity:.9">tag</span> …) können absichtlich gesetzt sein.
-  Nutze Pro, wenn du Feinkontrolle brauchst.
-</div>
-    </section><section class="card">
-  <h2>Preise</h2>
-  <p>Einmalzahlung. Offline nutzbar. Kein Abo.</p>
-
-<section class="ss-section" id="warum-pro-kostet" aria-labelledby="why-pro-title">
-  <div class="ss-card">
-    <h2 id="why-pro-title">Warum Pro Geld kostet</h2>
-
-    <p><strong>Du kannst das Tool kostenlos nutzen.</strong> Link-Reinigung ist hier kein Lockmittel und keine „E-Mail-gegen-Freebie“-Nummer – sondern der Kern: local-first im Browser, ohne Konto, ohne Datensammelei.</p>
-
-    <h3>Was kostenlos ist – und bleibt</h3>
-    <ul>
-      <li>Links bereinigen (Tracking-Parameter entfernen, saubere URLs erzeugen)</li>
-      <li>Local-first: läuft im Browser, ohne Server-Zwischenstation</li>
-      <li>Kein Account, kein Login, kein Abo-Zwang</li>
-      <li>Keine Angst-UI, keine künstlichen Limits, keine Dark Patterns</li>
-    </ul>
-
-    <h3>Datenschutz ist hier keine Ware</h3>
-    <p>Viele Tools verkaufen „Privatsphäre“ als Premium-Feature. Hier ist Privatsphäre das Fundament – nicht der Aufpreis. Pro bedeutet nicht „mehr Privatsphäre gegen Geld“, sondern <strong>mehr Klarheit und besserer Workflow</strong> für Menschen, die das Thema regelmäßig nutzen.</p>
-
-    <h3>Wofür du bei Pro tatsächlich zahlst</h3>
-    <p>Du zahlst für Arbeit, Pflege und Verlässlichkeit – nicht für Druck oder Psychotricks. Pro finanziert:</p>
-    <ul>
-      <li><strong>Weiterentwicklung</strong> (neue Parameter, neue Redirect-Patterns, neue Plattform-Sonderfälle)</li>
-      <li><strong>Wartung</strong> (Browser-Updates, iOS/Safari-Eigenheiten, Regression-Fixes)</li>
-      <li><strong>Qualität & Stabilität</strong> (saubere Releases, Tests, nachvollziehbare Änderungen)</li>
-      <li><strong>Dokumentation</strong> (Handbuch, Erklärungen, Beispiele)</li>
-      <li><strong>Offline-/Pro-Workflow</strong> (Komfortfunktionen, die man nicht „mal eben“ baut)</li>
-    </ul>
-
-    <h3>Für wen Pro sinnvoll ist</h3>
-    <ul>
-      <li>du teilst häufig Links (Arbeit, Projekte, Community, Kundenkontakt)</li>
-      <li>du willst <strong>Transparenz</strong>: was entfernt wurde – und warum</li>
-      <li>du willst <strong>Zeit sparen</strong> und eine saubere Routine (Copy → Clean → Share)</li>
-      <li>du willst das Projekt unterstützen, damit es unabhängig bleiben kann</li>
-    </ul>
-
-    <h3>Für wen Pro nicht gedacht ist</h3>
-    <ul>
-      <li>du reinigst nur selten Links</li>
-      <li>dir ist egal, welche Parameter in Links hängen</li>
-      <li>du suchst „Unsichtbarkeit“ (das wird hier nicht versprochen)</li>
-    </ul>
-
-    <hr>
-
-    <p><strong>Klare Entscheidung ohne Druck:</strong> Du musst Pro nicht kaufen, um das Tool zu nutzen. Wenn du Pro kaufst, ist das eine bewusste Entscheidung für weniger Reibung, mehr Klarheit – und die Zukunft eines Tools ohne Tracking.</p>
-  </div>
-</section>
-      
-  <div class="pricingGrid">
-    <div class="card priceCard">
-      <div class="priceTop">
-        <div class="priceName">Supporter (ohne Pro-App)</div>
-      </div>
-      <div class="priceValue">9 € <span class="priceOnce">einmalig</span></div>
-      <ul class="priceList">
-        <li>Handbuch (PDF) + Diagnose-Check (Selftest)</li>
-        <li>Offline nutzbar</li>
-        <li>Ideal zum Einstieg / Support</li>
-      </ul>
-      <a class="btn primary" href="https://payhip.com/b/cFHy7" target="_blank" rel="noopener nofollow">Supporter öffnen</a>
-    </div>
-
-    <div class="card priceCard">
-      <div class="priceTop">
-        <div class="priceName">Pro Person</div>
-      </div>
-      <div class="priceValue">49 € <span class="priceOnce">einmalig</span></div>
-      <ul class="priceList">
-        <li>Offline Pro App</li>
-        <li>Policies / Allowlist</li>
-        <li>Audit („Was wurde geändert?“)</li>
-      </ul>
-      <a class="btn primary" href="https://payhip.com/b/djqDz" target="_blank" rel="noopener nofollow">Pro Person öffnen</a>
-    </div>
-
-    <div class="card priceCard">
-      <div class="priceTop">
-        <div class="priceName">Pro Team (bis 5 Seats)</div>
-      </div>
-      <div class="priceValue">249 € <span class="priceOnce">einmalig</span></div>
-      <ul class="priceList">
-        <li>Offline Pro App</li>
-        <li>Team-Workflow / konsistente Policies</li>
-        <li>Audit + Regeln fürs Publishing</li>
-      </ul>
-      <a class="btn primary" href="https://payhip.com/b/oXFsk" target="_blank" rel="noopener nofollow">Pro Team öffnen</a>
-    </div>
-  </div>
-</section>
-    
-      <div class="note">
-        Pro ist ein <b>Offline-Download</b> (nicht als öffentliche Webseite). Start immer über <b>01-START.html</b> im Paket.
-      </div>
-
-      <div class="row">
-        <a class="btn" href="/pro/">Pro-Seite</a>
-        <a class="btn ghost" href="/hilfe/#prostart">Pro-Hilfe</a>
+        <div class="ss-warn" style="margin-top:12px">
+          Nicht blind „alles“ entfernen: Affiliate-/Ref-Parameter (<code>ref</code>, <code>tag</code> …) können absichtlich gesetzt sein.
+          Nutze Pro, wenn du Feinkontrolle brauchst.
+        </div>
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-      <div class="footGrid">
-        <div>
-          <div><strong>SafeShare</strong> – Links teilen. Ohne Ballast.</div>
-          <div>App: schnell &amp; einfach · Pro: Policies, Allowlist, Audit.</div>
-        </div>
-        <div class="footLinks">
-          <a href="/">Start</a>
-          <a href="/app/">App</a>
-          <a href="/schule/">Schule</a>
-          <a href="/pro/">Pro</a>
-          <a href="/hilfe/">Hilfe</a>
-          <a href="/datenschutz/">Datenschutz</a>
-          <a href="/impressum/">Impressum</a>
-          <a href="/nutzungsbedingungen/">Nutzungsbedingungen</a>
-        </div>
-        footerNote: "Local-first. Kein Konto. Kein Tracking. Gemacht für sauberes Teilen.",
-footerTop: "Nach oben",
-      </div>
-    </footer>
+    <!-- PRICING (kurz) -->
+    <section class="ss-section" id="preise" aria-labelledby="pricing-title">
+      <div class="ss-card">
+        <h2 id="pricing-title">Preise</h2>
+        <p class="ss-muted">Einmalzahlung. Offline nutzbar. Kein Abo.</p>
 
-  </div>
+        <div class="ss-grid ss-grid--3" style="margin-top:12px">
+          <article class="ss-card ss-card--inner" aria-label="Supporter">
+            <h3>Supporter</h3>
+            <p class="ss-muted">Wenn du SafeShare gut findest und willst, dass es unabhängig bleibt.</p>
+            <ul>
+              <li>Handbuch (PDF) + Diagnose-Check (Selftest)</li>
+              <li>Offline nutzbar</li>
+              <li>Ideal zum Einstieg / Support</li>
+            </ul>
+            <div class="ss-actions">
+              <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/cFHy7" target="_blank" rel="noopener nofollow">Supporter öffnen</a>
+              <a class="ss-btn" href="/pro/">Was ist Pro?</a>
+            </div>
+          </article>
+
+          <article class="ss-card ss-card--inner" aria-label="Pro Person">
+            <h3>Pro Person</h3>
+            <p class="ss-muted">Für deinen Alltag: Klarheit + Workflow, ohne jedes Mal neu nachdenken zu müssen.</p>
+            <ul>
+              <li>Offline Pro App</li>
+              <li>Policies / Allowlist</li>
+              <li>Audit („Was wurde geändert?“)</li>
+            </ul>
+            <div class="ss-actions">
+              <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/djqDz" target="_blank" rel="noopener nofollow">Pro Person öffnen</a>
+              <a class="ss-btn" href="/pro/">Details</a>
+            </div>
+          </article>
+
+          <article class="ss-card ss-card--inner" aria-label="Pro Team">
+            <h3>Pro Team</h3>
+            <p class="ss-muted">Für kleine Teams (bis 5 Seats): ein Standard für Link-Hygiene.</p>
+            <ul>
+              <li>Offline Pro App</li>
+              <li>Team-Workflow / konsistente Policies</li>
+              <li>Audit + Regeln fürs Publishing</li>
+            </ul>
+            <div class="ss-actions">
+              <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/oXFsk" target="_blank" rel="noopener nofollow">Pro Team öffnen</a>
+              <a class="ss-btn" href="/pro/">Details</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="ss-note" style="margin-top:12px">
+          Pro ist ein <strong>Offline-Download</strong> (nicht als öffentliche Webseite). Start im Paket über <strong>01-START.html</strong>.
+        </div>
+
+        <div class="ss-actions" style="margin-top:12px">
+          <a class="ss-btn" href="/pro/">Pro-Seite</a>
+          <a class="ss-btn ss-btn--ghost" href="/hilfe/#prostart">Pro-Hilfe</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="ss-footer"></div>
+
+  <!-- Shell JS (Nav + Footer + More-Menü) -->
+  <script src="/js/ss-shell.js?v=2026-02-04-03" defer></script>
 </body>
 </html>
