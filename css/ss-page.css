@@ -224,22 +224,39 @@ pre{
   max-width:100%;
 }
 
-/* Hero media */
+/* ---------- Hero media (final) ---------- */
 .ss-heroMedia{
-  border-radius:16px;
-  overflow:hidden;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border, rgba(255,255,255,.16));
+  background: rgba(0,0,0,.12);
 }
 
 .ss-heroMedia img{
-  display:block;
-  width:100%;
-  height:auto;
-  border:1px solid var(--border, rgba(255,255,255,.16));
-  background:rgba(0,0,0,.12);
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;      /* desktop/tablet */
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 980px){
+  .ss-heroMedia img{
+    max-height: 420px;
+  }
+}
+
+@media (max-width: 760px){
+  .ss-heroMedia img{
+    max-height: 320px;    /* mobile */
+  }
 }
 
 @media (prefers-color-scheme: light){
-  .ss-heroMedia img{ background:rgba(17,24,39,.03); }
+  .ss-heroMedia{
+    background: rgba(17,24,39,.03);
+  }
 }
 
 /* Utilities */
