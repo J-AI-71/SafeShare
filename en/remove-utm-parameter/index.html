@@ -1,337 +1,123 @@
-<!-- Datei: /en/remove-utm-parameters/index.html -->
+<!-- File: /en/remove-utm-parameter/index.html (EN) -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <title>Remove UTM parameters – SafeShare</title>
-  <meta name="description" content="Remove UTM parameters: what utm_* does, why it’s annoying when sharing — and how SafeShare cleans links locally in your browser.">
+  <title>Remove UTM Parameters – SafeShare</title>
+  <meta name="description" content="Remove UTM parameters: what utm_* means, when it helps, and how to share cleaner links locally in your browser." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
-  <!-- Canonical: Folder-URL -->
-  <link rel="canonical" href="https://safesharepro.com/en/remove-utm-parameters/" />
-
-  <!-- hreflang -->
-  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/remove-utm-parameters/" />
+  <link rel="canonical" href="https://safesharepro.com/en/remove-utm-parameter/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/remove-utm-parameter/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/utm-parameter-entfernen/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/utm-parameter-entfernen/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/remove-utm-parameter/" />
 
-  <!-- Google Search Console -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
-  <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Open Graph / Social Preview -->
-  <meta property="og:title" content="Remove UTM parameters – SafeShare" />
-  <meta property="og:description" content="Remove UTM parameters (utm_source, utm_medium, utm_campaign …) from links — local-first in your browser. Share clean: Copy → Clean → Share." />
+  <meta property="og:title" content="Remove UTM Parameters – SafeShare" />
+  <meta property="og:description" content="Understand UTM links and clean them intentionally — local-first in your browser." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
-  <meta property="og:url" content="https://safesharepro.com/en/remove-utm-parameters/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.jpg" />
-  <meta property="og:image:alt" content="SafeShare – remove UTM parameters (preview)" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://safesharepro.com/en/remove-utm-parameter/" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-utm-en.png?v=2026-02-05-03" />
+  <meta property="og:image:alt" content="SafeShare – Remove UTM parameters" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Remove UTM parameters – SafeShare" />
-  <meta name="twitter:description" content="Remove UTM parameters from links — local-first in your browser. Copy → Clean → Share." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.jpg" />
-  <meta name="twitter:image:alt" content="SafeShare – remove UTM parameters (preview)" />
+  <meta name="twitter:title" content="Remove UTM Parameters – SafeShare" />
+  <meta name="twitter:description" content="Understand UTM links and clean them intentionally — local-first in your browser." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-utm-en.png?v=2026-02-05-03" />
+  <meta name="twitter:image:alt" content="SafeShare – Remove UTM parameters" />
 
-  <!-- Favicons + PWA (absolute) -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-26-09">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-26-09">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-26-09">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-09">
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-26-09">
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
 
-  <!-- MASTER SHELL -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-01-02" />
-  <script src="/js/ss-shell.js?v=2026-02-01-02" defer></script>
-
-  <style>
-    :root{
-      --bg0:#070a12; --bg1:#070b14; --bg2:#0b1020;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.045);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.60);
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
-      --radius: 18px;
-      --mint: #2fe3b7;
-      --mint2: rgba(47,227,183,.18);
-      --mint3: rgba(47,227,183,.28);
-      --warn: rgba(255,197,84,.16);
-      --ok: rgba(47,227,183,.16);
-      --bad: rgba(255,84,84,.14);
-      --focus: 0 0 0 3px rgba(47,227,183,.22);
-      --max: 1120px;
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#f6f7fb; --bg1:#ffffff; --bg2:#f2f6ff;
-        --card:#ffffff; --card2:#f5f7ff;
-        --border: rgba(17,24,39,.12);
-        --text: rgba(17,24,39,.95);
-        --muted: rgba(17,24,39,.72);
-        --muted2: rgba(17,24,39,.62);
-        --shadow: 0 18px 45px rgba(17,24,39,.10);
-        --warn: rgba(255,197,84,.22);
-        --ok: rgba(47,227,183,.18);
-        --bad: rgba(255,84,84,.12);
-        --focus: 0 0 0 3px rgba(17,130,98,.22);
-      }
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(47,227,183,.18), transparent 55%),
-        radial-gradient(900px 520px at 85% 10%, rgba(255,197,84,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-    }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
-    .small{ font-size: 12px; color: var(--muted2); white-space:nowrap; }
-
-    /* Skip link (a11y) */
-    .skip{
-      position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
-    }
-    .skip:focus{
-      left:12px; top:12px; width:auto; height:auto;
-      padding:10px 12px; border-radius:12px;
-      border:1px solid var(--border); background:var(--card);
-      box-shadow: var(--shadow);
-      z-index: 99999;
-    }
-
-    .card{
-      margin-top: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 42px); line-height: 1.10; letter-spacing:-.2px; }
-    h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
-    h3{ margin: 14px 0 8px; font-size: 15px; letter-spacing: -0.1px; }
-    p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-    ul, ol{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.6; }
-
-    .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor:pointer;
-      user-select:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); }
-    .btn.primary{ background: var(--mint2); border-color: rgba(47,227,183,.35); }
-    .btn.primary:hover{ background: var(--mint3); }
-    .btn.ghost{ background: transparent; color: var(--muted); }
-    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.04); }
-
-    .note,.warn{
-      margin-top: 12px;
-      border-left: 3px solid rgba(47,227,183,.55);
-      background: var(--ok);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text);
-    }
-    .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
-
-    .example{
-      margin-top: 10px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-      word-break: break-word;
-    }
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    @media(min-width: 980px){
-      .grid2{ grid-template-columns: 1fr 1fr; }
-    }
-    .box{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding: 12px;
-    }
-    @media (prefers-color-scheme: light){
-      .box{ border-color: rgba(17,24,39,.12); background: rgba(17,24,39,.03); }
-    }
-
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 14px;
-    }
-    @media(min-width: 920px){
-      .footGrid{ grid-template-columns: 1.2fr .8fr; }
-    }
-    .footLinks{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-start;
-    }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-  </style>
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
 </head>
-
 <body>
-  <a class="skip" href="#content">Skip to content</a>
-
-  <!-- MASTER SHELL MOUNT -->
   <div id="ss-shell"></div>
 
-  <div class="wrap">
-    <main id="content">
-
-      <section class="card">
-        <h1>Remove UTM parameters</h1>
+  <main class="ss-main" id="top">
+    <section class="ss-section" aria-labelledby="utm-title">
+      <div class="ss-card ss-hero">
+        <h1 id="utm-title">Remove UTM Parameters</h1>
+        <p class="ss-hero-kicker">Understand campaign markers. Share intentionally.</p>
         <p>
-          UTM parameters (<span class="mono">utm_source</span>, <span class="mono">utm_medium</span>, <span class="mono">utm_campaign</span> …)
-          are extra bits of information on a link — like labels. Useful for analytics, but often just ballast when sharing.
+          UTM parameters (<code>utm_source</code>, <code>utm_medium</code>, <code>utm_campaign</code> …)
+          are useful for marketing analytics. When forwarding links, they are often unnecessary.
         </p>
+      </div>
+    </section>
 
-        <div class="row">
-          <a class="btn primary" href="/en/app/">Clean now</a>
-          <a class="btn" href="/en/school/">School</a>
-          <a class="btn ghost" href="/en/pro/">Pro (rules/audit)</a>
+    <section class="ss-section" aria-labelledby="keys-title">
+      <div class="ss-card">
+        <h2 id="keys-title">What do UTM fields mean?</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3><code>utm_source</code></h3>
+            <p class="ss-muted">Traffic source, e.g. newsletter, linkedin, mastodon.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3><code>utm_medium</code></h3>
+            <p class="ss-muted">Channel type, e.g. email, social, cpc.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3><code>utm_campaign</code></h3>
+            <p class="ss-muted">Campaign name, e.g. spring_launch.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3><code>utm_term</code> / <code>utm_content</code></h3>
+            <p class="ss-muted">Optional: keywords and creative variants.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ss-section" aria-labelledby="example-title">
+      <div class="ss-card">
+        <h2 id="example-title">Example</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>With UTM</h3>
+            <p class="ss-mono">https://example.com/guide?utm_source=newsletter&utm_medium=email&utm_campaign=q1</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Cleaned</h3>
+            <p class="ss-mono">https://example.com/guide</p>
+          </article>
         </div>
 
-        <div class="note">
-          SafeShare works local-first: links are cleaned in your browser, not uploaded.
+        <div class="ss-actions ss-mt-12">
+          <a class="ss-btn ss-btn--primary" href="/en/app/">Remove UTM now</a>
+          <a class="ss-btn" href="/en/tracking-parameters/">Tracking parameters explained</a>
+          <a class="ss-btn ss-btn--ghost" href="/en/pro/">Pro with rules</a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="card">
-        <h2>Example</h2>
-        <div class="example mono">
-          Before: https://example.com/article?utm_source=twitter&amp;utm_medium=social&amp;utm_campaign=launch
+    <section class="ss-section" aria-labelledby="note-title">
+      <div class="ss-card">
+        <h2 id="note-title">Important context</h2>
+        <div class="ss-warn ss-mt-12">
+          Removing UTM is often useful for forwarding. In your own campaign measurement setup, those values may be intentionally needed.
         </div>
-        <div class="example mono">
-          After: https://example.com/article
-        </div>
+      </div>
+    </section>
+  </main>
 
-        <h3>The most important UTM keys</h3>
-        <div class="grid2">
-          <div class="box">
-            <p><b class="mono">utm_source</b> – source (e.g., twitter, newsletter)</p>
-            <p><b class="mono">utm_medium</b> – channel (e.g., social, email)</p>
-            <p><b class="mono">utm_campaign</b> – campaign</p>
-          </div>
-          <div class="box">
-            <p><b class="mono">utm_term</b> – search term/keyword (optional)</p>
-            <p><b class="mono">utm_content</b> – variants/A/B (optional)</p>
-            <p><b class="mono">utm_id</b> – campaign ID (optional)</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2>When is removing UTM useful?</h2>
-        <ul>
-          <li>You share links privately or publicly and want to pass along fewer “labels”.</li>
-          <li>You want links to look clean (publishing, editorial, school).</li>
-          <li>You don’t want UTM mixed with other click IDs (e.g., <span class="mono">gclid</span>/<span class="mono">fbclid</span>).</li>
-        </ul>
-
-        <h2>When not to remove blindly</h2>
-        <div class="warn">
-          Affiliate/partner parameters (e.g., <span class="mono">ref</span>, <span class="mono">tag</span>) can control attribution/revenue.
-          If you’re responsible for that: use Pro (allowlist + audit).
-        </div>
-      </section>
-
-      <section class="card">
-        <h2>How to do it with SafeShare</h2>
-        <ol>
-          <li>Copy the link</li>
-          <li>Paste it into the <a href="/en/app/">SafeShare App</a></li>
-          <li>Clean → copy → share</li>
-        </ol>
-
-        <div class="row">
-          <a class="btn primary" href="/en/app/">Open the app</a>
-          <a class="btn" href="/en/bookmarks/">1-click bookmarks</a>
-          <a class="btn ghost" href="/en/help/">Help / Troubleshooting</a>
-        </div>
-
-        <div class="note">
-          If you want to keep UTM on purpose (e.g., campaign links in a team): Pro is the right place for policies/allowlisting.
-        </div>
-      </section>
-
-      <footer>
-        <div class="footGrid">
-          <div>
-            <div><strong>SafeShare</strong> – share links without ballast.</div>
-            <div>App: fast &amp; simple · Pro: policies, whitelist, audit.</div>
-          </div>
-          <div class="footLinks">
-            <a href="/" data-page="start">Start</a>
-            <a href="/en/app/" data-page="app">App</a>
-            <a href="/en/school/" data-page="school">School</a>
-            <a href="/en/pro/" data-page="pro">Pro</a>
-            <a href="/en/help/" data-page="help">Help</a>
-            <a href="/en/bookmarks/" data-page="bookmarks">Bookmarks</a>
-            <a href="/en/privacy/" data-page="privacy">Privacy</a>
-            <a href="/en/imprint/" data-page="imprint">Imprint</a>
-            <a href="/en/terms/" data-page="terms">Terms</a>
-          </div>
-        </div>
-      </footer>
-
-    </main>
-  </div>
+  <div id="ss-footer"></div>
+  <script src="/js/ss-shell.js?v=2026-02-05-03" defer></script>
 </body>
 </html>
