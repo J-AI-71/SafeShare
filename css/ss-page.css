@@ -328,6 +328,26 @@ li::marker{ color: var(--muted2); }
     background: rgba(255,197,84,.20);
     border-color: rgba(17,24,39,.12);
   }
+.ss-hero{
+  background:
+    radial-gradient(1200px 500px at 0% 0%, rgba(47,227,183,.14), transparent 60%),
+    radial-gradient(900px 380px at 100% 100%, rgba(70,110,255,.10), transparent 60%),
+    var(--ss-bg, rgba(255,255,255,.04));
+  border: 1px solid var(--ss-border, rgba(255,255,255,.12));
+}
+
+.ss-note{
+  border:1px solid rgba(47,227,183,.35);
+  background:rgba(47,227,183,.10);
+}
+
+.ss-warn{
+  border:1px solid rgba(255,190,70,.35);
+  background:rgba(255,190,70,.10);
+}
+
+.ss-mt-10{margin-top:10px}
+.ss-mt-12{margin-top:12px}
 }
 
 /* Utility spacing */
