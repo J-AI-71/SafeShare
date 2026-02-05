@@ -1,4 +1,4 @@
-<!-- /schule/index.html (DE) — SafeShare Schule (bereinigt: Page-CSS + Master-Shell, HTML valid) -->
+<!-- File: /schule/index.html (DE) -->
 <!doctype html>
 <html lang="de">
 <head>
@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <title>SafeShare Schule – Links sauber teilen (ohne Panik)</title>
-  <meta name="description" content="SafeShare Schule: Tracking-Parameter verständlich erklärt – ohne Panik. Beispiele, Übungen und Material für digitale Selbstbestimmung." />
+  <title>Schule – SafeShare</title>
+  <meta name="description" content="Datenschutz ehrlich erklärt: Tracking-Parameter verstehen, saubere Links teilen, praktische Guides." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
@@ -17,215 +17,54 @@
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/school/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/school/" />
 
-  <!-- Google Search Console -->
-  <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
-  <!-- Bing Webmaster Tools -->
-  <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
-
-  <!-- Social -->
-  <meta property="og:title" content="SafeShare Schule – Tracking-Links verstehen" />
-  <meta property="og:description" content="Kurz erklärt: Warum Tracking-Parameter (utm_*, fbclid, gclid …) unnötige Infos mitverteilen – und wie du Links sauber teilst." />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="SafeShare" />
-  <meta property="og:locale" content="de_DE" />
-  <meta property="og:url" content="https://safesharepro.com/schule/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
-  <meta property="og:image:alt" content="SafeShare Schule – Vorschau" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SafeShare Schule – Tracking-Links verstehen" />
-  <meta name="twitter:description" content="Warum Tracking-Parameter unnötige Infos mitverteilen – und wie du Links sauber teilst." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
-  <meta name="twitter:image:alt" content="SafeShare Schule – Vorschau" />
-
-  <!-- Icons / Favicons -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-03">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-03">
-
-  <!-- PWA -->
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-03">
-
-  <!-- Page + Shell -->
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03">
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03">
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-02" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-02" />
 </head>
-
 <body>
-  <!-- Shell mount -->
   <div id="ss-shell"></div>
 
   <main class="ss-main" id="top">
-
     <section class="ss-section" aria-labelledby="school-title">
-      <div class="ss-card">
-        <h1 id="school-title">Links sauber teilen</h1>
-        <p class="ss-hero-kicker">
-          Viele Links enthalten zusätzliche Infos – wie Etiketten/Aufkleber am Paket.
-          Sie helfen Plattformen bei der Zuordnung, sind beim Weiterleiten aber häufig nur Ballast.
-        </p>
-
-        <div class="ss-actions">
-          <a class="ss-btn ss-btn--primary" href="/app/">Jetzt Link bereinigen</a>
-          <a class="ss-btn" href="/email-links-bereinigen/">E-Mail</a>
-          <a class="ss-btn" href="/messenger-links-bereinigen/">Messenger</a>
-          <a class="ss-btn" href="/social-links-bereinigen/">Social</a>
-          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro für Profis</a>
-        </div>
-
-        <div class="ss-note" style="margin-top:12px">
-          SafeShare entfernt diese Etiketten beim Teilen – local-first im Browser. Links werden nicht hochgeladen.
-        </div>
+      <div class="ss-card ss-hero">
+        <h1 id="school-title">Schule: Datenschutz ehrlich erklärt</h1>
+        <p class="ss-hero-kicker">Ohne Panik, ohne Buzzwords: konkrete Link-Hygiene im Alltag.</p>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="labels-title">
+    <section class="ss-section">
       <div class="ss-card">
-        <h2 id="labels-title">Wie sehen solche „Etiketten“ aus?</h2>
-
-        <p class="ss-muted" style="margin-top:6px">Beispiele (typisch beim Teilen aus Social/Ads/Newslettern):</p>
-
-        <div class="ss-grid ss-grid--2" style="margin-top:12px">
-          <div class="ss-card ss-card--inner">
-            <h3>Beispiel 1</h3>
-            <p class="ss-muted"><code>utm_*</code> für Kampagnen/Quelle/Medium</p>
-            <p class="ss-muted" style="word-break:break-word">
-              https://example.com/artikel?utm_source=twitter&utm_medium=social&utm_campaign=launch
-            </p>
-          </div>
-
-          <div class="ss-card ss-card--inner">
-            <h3>Beispiel 2</h3>
-            <p class="ss-muted"><code>gclid</code>/<code>fbclid</code> als Klick-IDs</p>
-            <p class="ss-muted" style="word-break:break-word">
-              https://shop.example.com/product?gclid=ABC123&fbclid=XYZ987
-            </p>
-          </div>
-        </div>
-
-        <div class="ss-grid ss-grid--2" style="margin-top:12px">
-          <div class="ss-card ss-card--inner">
-            <h3>utm_*</h3>
-            <p class="ss-muted">
-              Zeigt: Quelle/Medium/Kampagne. Für Auswertung nützlich – beim Teilen oft unnötig.
-            </p>
-          </div>
-          <div class="ss-card ss-card--inner">
-            <h3>gclid / fbclid</h3>
-            <p class="ss-muted">
-              Plattform-spezifische IDs zur Messung. Beim Teilen meist Ballast.
-            </p>
-          </div>
+        <h2>Guides</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <a class="ss-card ss-card--inner" href="/tracking-parameter/">
+            <h3>Tracking-Parameter erklärt</h3>
+            <p class="ss-muted">Was ist Ballast, was ist funktional?</p>
+          </a>
+          <a class="ss-card ss-card--inner" href="/utm-parameter-entfernen/">
+            <h3>UTM-Parameter entfernen</h3>
+            <p class="ss-muted">Wann sinnvoll, wann vorsichtig sein.</p>
+          </a>
+          <a class="ss-card ss-card--inner" href="/email-links-bereinigen/">
+            <h3>E-Mail-Links bereinigen</h3>
+            <p class="ss-muted">Sauber senden ohne unnötige IDs.</p>
+          </a>
+          <a class="ss-card ss-card--inner" href="/messenger-links-bereinigen/">
+            <h3>Messenger-Links bereinigen</h3>
+            <p class="ss-muted">Bessere Hygiene in Gruppen und Channels.</p>
+          </a>
+          <a class="ss-card ss-card--inner" href="/social-links-bereinigen/">
+            <h3>Social-Links bereinigen</h3>
+            <p class="ss-muted">Klarere Links für Posts und Kommentare.</p>
+          </a>
+          <a class="ss-card ss-card--inner" href="/url-cleaner-tool-vergleich/">
+            <h3>Tool-Vergleich</h3>
+            <p class="ss-muted">Worauf es bei seriösen Cleanern ankommt.</p>
+          </a>
         </div>
       </div>
     </section>
-
-    <section class="ss-section" aria-labelledby="honest-title">
-      <div class="ss-card">
-        <h2 id="honest-title">Datenschutz – ehrlich erklärt (ohne Panik)</h2>
-        <p class="ss-muted">
-          Was im Hintergrund passiert, was realistisch möglich ist, wie du dich maximal schützt – und womit du leben musst.
-          Verständlich, ohne Angst, ohne Fake-Versprechen.
-        </p>
-        <div class="ss-actions">
-          <a class="ss-btn" href="/datenschutz-ehrlich-erklaert/">Datenschutz ehrlich erklärt</a>
-          <a class="ss-btn ss-btn--ghost" href="/hilfe/">Hilfe / Troubleshooting</a>
-        </div>
-        <div class="ss-note" style="margin-top:12px">
-          Datenschutz bedeutet nicht „unsichtbar sein“, sondern: weniger Daten erzeugen, weniger weitergeben, mehr Kontrolle.
-        </div>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="why-title">
-      <div class="ss-card">
-        <h2 id="why-title">Warum sollte ein Nicht-Profi das überhaupt machen?</h2>
-        <ul>
-          <li><strong>Respekt:</strong> Du verteilst weniger Zusatzinfos, die andere nicht gewählt haben.</li>
-          <li><strong>Seriöser:</strong> Links wirken sauberer und weniger „werblich“.</li>
-          <li><strong>Weniger Bruch:</strong> Manche Apps kürzen/umbauen lange URLs ungünstig.</li>
-        </ul>
-        <div class="ss-warn" style="margin-top:12px">
-          Wichtig: Das ist kein „Unsichtbar“-Versprechen. Es ist ein konkreter Hygiene-Schritt beim Teilen.
-        </div>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="notblind-title">
-      <div class="ss-card">
-        <h2 id="notblind-title">Wann sollte man NICHT blind alles entfernen?</h2>
-
-        <div class="ss-grid ss-grid--2" style="margin-top:12px">
-          <div class="ss-card ss-card--inner">
-            <h3>Affiliate / Partner</h3>
-            <p class="ss-muted">
-              Manche Parameter sind Zuordnung (z. B. <code>ref</code>, <code>tag</code>).
-              Entfernst du sie, kann Vergütung/Zuordnung kaputtgehen.
-            </p>
-            <p class="ss-muted"><strong>Pro-Lösung:</strong> Allowlist pro Domain/Policy.</p>
-          </div>
-
-          <div class="ss-card ss-card--inner">
-            <h3>Funktionale Parameter</h3>
-            <p class="ss-muted">
-              Manche Keys sind nötig (Sprache, Produkt-ID, Session, Filter).
-              Gute Tools sind konservativ und entfernen nicht wahllos.
-            </p>
-            <p class="ss-muted"><strong>App:</strong> Standard-Tracking. <strong>Pro:</strong> Audit + Regeln.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="tensec-title">
-      <div class="ss-card">
-        <h2 id="tensec-title">So machst du es in 10 Sekunden</h2>
-        <ol>
-          <li>Link kopieren</li>
-          <li>In SafeShare App einfügen</li>
-          <li>Bereinigen → kopieren → teilen</li>
-        </ol>
-
-        <div class="ss-actions" style="margin-top:12px">
-          <a class="ss-btn ss-btn--primary" href="/app/">App öffnen</a>
-          <a class="ss-btn" href="/lesezeichen/">Lesezeichen (1-Klick)</a>
-          <a class="ss-btn ss-btn--ghost" href="/hilfe/">Troubleshooting</a>
-        </div>
-
-        <div class="ss-note" style="margin-top:12px">
-          Tipp: Der größte Effekt entsteht beim Weitergeben: erst bereinigen, dann teilen.
-        </div>
-      </div>
-    </section>
-
-    <section class="ss-section" id="praxis-shortcuts" aria-labelledby="praxis-title">
-      <div class="ss-card">
-        <h2 id="praxis-title">Praxis: Clean before share (E-Mail · Messenger · Social)</h2>
-        <p class="ss-muted">
-          Bereinige Links <strong>bevor</strong> du sie teilst. Für iOS/iPad gibt es dafür 1-Tap Share-Sheet Shortcuts.
-        </p>
-
-        <div class="ss-actions">
-          <a class="ss-btn ss-btn--primary" href="/shortcuts/">iOS Shortcuts</a>
-          <a class="ss-btn" href="/email-links-bereinigen/">E-Mail</a>
-          <a class="ss-btn" href="/messenger-links-bereinigen/">Messenger</a>
-          <a class="ss-btn" href="/social-links-bereinigen/">Social</a>
-        </div>
-
-        <div class="ss-note" style="margin-top:12px">
-          Shortcuts entfernen URL-Tracking-Parameter. Sie ersetzen kein Blocken von Cookies/Fingerprinting.
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <div id="ss-footer"></div>
-
-  <!-- Shell JS -->
-  <script src="/js/ss-shell.js?v=2026-02-04-07" defer></script>
+  <script src="/js/ss-shell.js?v=2026-02-05-02" defer></script>
 </body>
 </html>
