@@ -1,288 +1,103 @@
-<!-- /en/help/index.html -->
+<!-- File: /en/help/index.html (EN) -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
+
   <title>Help – SafeShare</title>
-  <meta name="description" content="Help & FAQ for SafeShare: removing tracking parameters, common issues, examples and tips for WhatsApp, YouTube, newsletters and more.">
+  <meta name="description" content="Help and troubleshooting for SafeShare: app, bookmarklets, Pro startup, and common questions." />
   <meta name="robots" content="index,follow" />
-
-  <link rel="canonical" href="https://safesharepro.com/en/help/" />
-  <link rel="alternate" hreflang="de" href="https://safesharepro.com/hilfe/" />
-  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/help/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/help/" />
-
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
-  <!-- Open Graph -->
+  <link rel="canonical" href="https://safesharepro.com/en/help/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/help/" />
+  <link rel="alternate" hreflang="de" href="https://safesharepro.com/hilfe/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/help/" />
+
+  <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
+  <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
+
   <meta property="og:title" content="Help – SafeShare" />
-  <meta property="og:description" content="Help & FAQ for SafeShare: what gets removed, when not to remove everything, and tips for Safari/iOS sharing." />
+  <meta property="og:description" content="FAQ and troubleshooting for SafeShare." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
+  <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://safesharepro.com/en/help/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-help.png?v=2026-01-25-02" />
-  <meta property="og:image:alt" content="SafeShare – Help preview" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-help-en.png?v=2026-02-05-02" />
+  <meta property="og:image:alt" content="SafeShare Help – FAQ and troubleshooting" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Help – SafeShare" />
-  <meta name="twitter:description" content="Help & FAQ for SafeShare." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-help.png?v=2026-01-25-02" />
-  <meta name="twitter:image:alt" content="SafeShare – Help preview" />
+  <meta name="twitter:description" content="FAQ and troubleshooting for SafeShare." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-help-en.png?v=2026-02-05-02" />
+  <meta name="twitter:image:alt" content="SafeShare Help – FAQ and troubleshooting" />
 
-  <!-- Favicons + PWA -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-26-01">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-26-01">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-26-01">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-01">
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-26-01">
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-02" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-02" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-02" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-02" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-02" />
 
-  <!-- MASTER SHELL -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-02">
-  <script src="/js/ss-shell.js?v=2026-01-25-02" defer></script>
-
-  <style>
-    :root{
-      --bg0:#070a12; --bg1:#070b14; --bg2:#0b1020;
-      --card: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.60);
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
-      --radius: 18px;
-      --mint2: rgba(47,227,183,.18);
-      --mint3: rgba(47,227,183,.28);
-      --warn: rgba(255,197,84,.16);
-      --ok: rgba(47,227,183,.16);
-      --bad: rgba(255,84,84,.14);
-      --max: 1120px;
-      --focus: 0 0 0 3px rgba(47,227,183,.22);
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#f6f7fb; --bg1:#ffffff; --bg2:#f2f6ff;
-        --card:#ffffff;
-        --border: rgba(17,24,39,.12);
-        --text: rgba(17,24,39,.95);
-        --muted: rgba(17,24,39,.72);
-        --muted2: rgba(17,24,39,.62);
-        --shadow: 0 18px 45px rgba(17,24,39,.10);
-        --warn: rgba(255,197,84,.22);
-        --ok: rgba(47,227,183,.18);
-        --bad: rgba(255,84,84,.12);
-        --focus: 0 0 0 3px rgba(17,130,98,.22);
-      }
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(47,227,183,.18), transparent 55%),
-        radial-gradient(900px 520px at 85% 10%, rgba(255,197,84,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-    }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
-
-    .card{
-      margin-top: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 42px); line-height: 1.10; letter-spacing:-.2px; }
-    h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
-    h3{ margin: 14px 0 6px; font-size: 15px; letter-spacing: -0.1px; }
-    p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-    ul{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.6; }
-    code, .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
-
-    .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor:pointer;
-      user-select:none;
-      display:inline-flex; align-items:center; gap: 8px;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); }
-    .btn.primary{ background: var(--mint2); border-color: rgba(47,227,183,.35); }
-    .btn.primary:hover{ background: var(--mint3); }
-    .btn.ghost{ background: transparent; color: var(--muted); }
-    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.04); }
-
-    .note,.warn{
-      margin-top: 12px;
-      border-left: 3px solid rgba(47,227,183,.55);
-      background: var(--ok);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text);
-    }
-    .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
-
-    .qa{
-      border-top: 1px solid rgba(255,255,255,.10);
-      padding-top: 12px;
-      margin-top: 12px;
-    }
-    @media (prefers-color-scheme: light){
-      .qa{ border-top-color: rgba(17,24,39,.10); }
-    }
-
-    .mini{
-      font-size: 12px;
-      color: var(--muted2);
-      line-height: 1.55;
-    }
-
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footLinks{
-      display:flex; gap: 10px; flex-wrap: wrap; justify-content:flex-start;
-    }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-  </style>
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-02" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-02" />
 </head>
-
 <body>
-  <!-- Master-Shell -->
   <div id="ss-shell"></div>
 
-  <div class="wrap">
+  <main class="ss-main" id="top">
+    <section class="ss-section" aria-labelledby="help-title">
+      <div class="ss-card ss-hero">
+        <h1 id="help-title">Help</h1>
+        <p class="ss-hero-kicker">Quick answers for app, bookmarklets, and Pro.</p>
 
-    <section class="card">
-      <h1>Help</h1>
-      <p>
-        SafeShare removes common tracking parameters from links locally in your browser.
-        This page explains what it does, what it doesn’t do, and what to try if a cleaned link fails.
-      </p>
-
-      <div class="row">
-        <a class="btn primary" href="/en/app/">Open App</a>
-        <a class="btn" href="/en/privacy/">Privacy</a>
-        <a class="btn ghost" href="/hilfe/">Deutsch</a>
-      </div>
-
-      <div class="note">
-        SafeShare is link hygiene before sharing. It does not make you “invisible”.
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Quick answers</h2>
-
-      <div class="qa">
-        <h3>What gets removed?</h3>
-        <p>Typical tracking keys such as <span class="mono">utm_*</span>, <span class="mono">gclid</span>, <span class="mono">fbclid</span>, <span class="mono">msclkid</span>, <span class="mono">igshid</span>, and a few common analytics/newsletter keys.</p>
-        <p class="mini">SafeShare focuses on “safe to remove in most cases”. Some parameters are functional or intentional.</p>
-      </div>
-
-      <div class="qa">
-        <h3>When should I NOT remove everything?</h3>
-        <p>
-          Some parameters are functional (filters, product variants, language, session handoff),
-          or intentional (affiliate/ref tags). If removing breaks the destination, keep it.
-        </p>
-        <div class="warn">
-          If a cleaned link fails, open the original and compare. A removed parameter was likely functional.
+        <div class="ss-actions ss-mt-12">
+          <a class="ss-btn ss-btn--primary" href="/en/app/">Open app</a>
+          <a class="ss-btn" href="/en/bookmarks/">Bookmarklets</a>
+          <a class="ss-btn ss-btn--ghost" href="/en/pro/">View Pro</a>
         </div>
       </div>
-
-      <div class="qa">
-        <h3>Does SafeShare stop tracking completely?</h3>
-        <p>
-          No. Sites can still log IP/time/user-agent, use cookies, fingerprinting, or account-based tracking after you open the page.
-          SafeShare mainly removes “extra labels” on links before you share them.
-        </p>
-      </div>
     </section>
 
-    <section class="card">
-      <h2>Safari / iOS tips</h2>
+    <section class="ss-section" aria-labelledby="faq-title">
+      <div class="ss-card">
+        <h2 id="faq-title">FAQ</h2>
 
-      <div class="qa">
-        <h3>Paste doesn’t work sometimes</h3>
-        <p>
-          iOS/Safari can restrict clipboard access. Tap inside the input field and use the system “Paste”.
-          If the app cannot read clipboard automatically, the Paste button will show a hint.
-        </p>
-      </div>
+        <div class="ss-stack ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>Do you upload links?</h3>
+            <p class="ss-muted">No. Cleaning runs local-first in your browser.</p>
+          </article>
 
-      <div class="qa">
-        <h3>Share button missing</h3>
-        <p>
-          The Share button appears only if your browser supports <span class="mono">navigator.share</span>.
-          If it’s not available, copy the cleaned link and paste it into WhatsApp/Signal/Mail/Slack.
-        </p>
-      </div>
+          <article class="ss-card ss-card--inner">
+            <h3>Why does a parameter sometimes stay?</h3>
+            <p class="ss-muted">Some parameters are functional (e.g., language, product ID). SafeShare does not remove everything blindly.</p>
+          </article>
 
-      <div class="qa">
-        <h3>Best practice</h3>
-        <p>
-          Copy link → open SafeShare → paste → clean → copy → paste into the app you want to share in.
-          For “one tap” access, add SafeShare to your home screen or bookmark it.
-        </p>
-      </div>
+          <article class="ss-card ss-card--inner">
+            <h3>Can I keep affiliate/ref parameters?</h3>
+            <p class="ss-muted">Yes. Use Pro rules/allowlists per domain for fine control.</p>
+          </article>
 
-      <div class="row">
-        <a class="btn" href="/en/school/">Learn more</a>
-        <a class="btn ghost" href="/en/pro/">Pro</a>
+          <article class="ss-card ss-card--inner" id="prostart">
+            <h3>Pro does not start?</h3>
+            <p class="ss-muted">Unzip the package fully and start with <code>01-START.html</code>.</p>
+          </article>
+
+          <article class="ss-card ss-card--inner">
+            <h3>Contact support</h3>
+            <p class="ss-muted">For listings/support: <a href="mailto:listings@safesharepro.com">listings@safesharepro.com</a></p>
+          </article>
+        </div>
       </div>
     </section>
+  </main>
 
-    <section class="card">
-      <h2>Contact</h2>
-      <p>
-        Support/contact:
-        <a class="mono" href="mailto:listings@safesharepro.com">listings@safesharepro.com</a>
-      </p>
-      <p class="mini">
-        If you report a broken link: send the original URL and the cleaned URL (no screenshots needed).
-      </p>
-    </section>
-
-    <footer>
-      <div class="footLinks">
-        <a href="/en/">Home</a>
-        <a href="/en/app/">App</a>
-        <a href="/en/school/">School</a>
-        <a href="/en/pro/">Pro</a>
-        <a href="/en/help/">Help</a>
-        <a href="/en/privacy/">Privacy</a>
-        <a href="/en/imprint/">Imprint</a>
-        <a href="/en/terms/">Terms</a>
-      </div>
-    </footer>
-    
-  </div>
+  <div id="ss-footer"></div>
+  <script src="/js/ss-shell.js?v=2026-02-05-02" defer></script>
 </body>
 </html>
