@@ -85,6 +85,12 @@ body{ background:var(--ss-bg); color:var(--ss-text); }
   border-color:var(--ss-accent-border);
   background:var(--ss-accent-soft);
 }
+.ss-moreMenu{
+  top: 74px;
+}
+@media (max-width:720px){
+  .ss-moreMenu{ top: 66px; }
+}
 
 /* Main width */
 .ss-main{
@@ -183,4 +189,12 @@ body{ background:var(--ss-bg); color:var(--ss-text); }
   .ss-header__inner{ padding:10px; gap:8px; }
   .ss-nav__link,.ss-moreBtn{ padding:8px 11px; }
   .ss-moreMenu{ top:62px; right:10px; width:min(95vw,420px); }
+}
+.ss-moreMenu__foot .ss-langSwitch{
+  border:1px solid var(--ss-border);
+  background:var(--ss-surface);
+  border-radius:10px;
+  padding:8px 12px;
+  text-decoration:none;
+  color:var(--ss-text);
 }
