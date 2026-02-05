@@ -350,12 +350,51 @@ li::marker{ color: var(--muted2); }
 .ss-mt-12{margin-top:12px}
 }
 
-/* Utility spacing */
-.ss-mt12{ margin-top: 12px; }
-.ss-mt10{ margin-top: 10px; }
-.ss-mt14{ margin-top: 14px; }
-.ss-mt-10 { margin-top: 10px; }
-.ss-mt-12 { margin-top: 12px; }
+/* spacing */
+.ss-mt-0{margin-top:0}
+.ss-mt-4{margin-top:4px}
+.ss-mt-6{margin-top:6px}
+.ss-mt-8{margin-top:8px}
+.ss-mt-10{margin-top:10px}
+.ss-mt-12{margin-top:12px}
+.ss-mt-14{margin-top:14px}
+.ss-mt-16{margin-top:16px}
+.ss-mt-20{margin-top:20px}
+.ss-mt-24{margin-top:24px}
+.ss-mb-8{margin-bottom:8px}
+.ss-mb-12{margin-bottom:12px}
+.ss-mb-16{margin-bottom:16px}
+
+/* layout helpers */
+.ss-stack{display:grid;gap:12px}
+.ss-flex{display:flex}
+.ss-flex-wrap{flex-wrap:wrap}
+.ss-gap-8{gap:8px}
+.ss-gap-10{gap:10px}
+.ss-gap-12{gap:12px}
+.ss-gap-16{gap:16px}
+.ss-center{align-items:center}
+.ss-between{justify-content:space-between}
+.ss-w-full{width:100%}
+
+/* chips */
+.ss-chipRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.ss-chip{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid var(--ss-border, rgba(255,255,255,.18));
+  background:rgba(255,255,255,.04);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  font-weight:700;
+}
+
+/* media */
+.ss-media{display:block;max-width:100%;height:auto;border-radius:14px}
+
+
+
 /* ---------- Details / FAQ ---------- */
 details{
   border: 1px solid rgba(255,255,255,.10);
