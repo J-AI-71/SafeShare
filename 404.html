@@ -1,289 +1,89 @@
+<!-- File: /404.html -->
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <!-- Flag: damit der Redirect wirklich nur auf der 404-Seite läuft -->
-  <meta name="ss-404" content="1">
-
-  <script>
-  (function () {
-    // Nur alte GitHub-URLs umleiten – nicht safesharepro.com
-    if (location.hostname !== "j-ai-71.github.io") return;
-
-    // Nur umleiten, wenn diese Seite wirklich die 404-Seite ist
-    var is404 = document.querySelector('meta[name="ss-404"][content="1"]');
-    if (!is404) return;
-
-    // /Supersystem/... -> /...
-    var p = (location.pathname || "/").replace(/^\/Supersystem/, "") || "/";
-    var qs = location.search || "";
-    var h  = location.hash || "";
-
-    // Optional: technische Dateien auf GitHub NICHT umleiten (falls du sie dort noch nutzt)
-    // Wenn du ALLES umleiten willst, diese Zeilen löschen.
-    if (p === "/sitemap.xml" || p === "/robots.txt") return;
-
-    // Normalisieren
-    if (p === "/index.html") p = "/";
-
-    // .html -> neue Slugs (inkl. Umbenennungen)
-    var map = {
-      "/": "/",
-      "/app.html": "/app/",
-      "/pro.html": "/pro/",
-      "/education.html": "/schule/",
-      "/help.html": "/hilfe/",
-      "/hilfe.html": "/hilfe/",
-      "/bookmarklets.html": "/lesezeichen/",
-      "/terms.html": "/nutzungsbedingungen/",
-      "/datenschutz.html": "/datenschutz/",
-      "/impressum.html": "/impressum/",
-      "/quickstart.html": "/quickstart/",
-      "/tracking-parameter.html": "/tracking-parameter/",
-      "/utm-parameter-entfernen.html": "/utm-parameter-entfernen/",
-      "/url-cleaner-tool-vergleich.html": "/url-cleaner-tool-vergleich/",
-
-      // alte/seltene Namen aus GSC -> sinnvolle Ziele
-      "/tracking-parameter-entfernen.html": "/tracking-parameter/",
-      "/redirect-entpacken.html": "/tracking-parameter/",
-      "/redirect-entschachteln.html": "/tracking-parameter/",
-      "/publisher.html": "/pro/",
-      "/bulk-clean.html": "/pro/",
-      "/press.html": "/hilfe/"
-    };
-
-    // Generisch: /foo.html -> /foo/ (falls du es doch so strukturiert hast)
-    if (!map[p] && p.endsWith(".html")) {
-      var name = p.slice(1, -5); // "foo"
-      map[p] = "/" + name + "/";
-    }
-
-    var targetPath = map[p] || "/"; // Fallback
-    location.replace("https://safesharepro.com" + targetPath + qs + h);
-  })();
-  </script>
-
-  <title>404 – Seite nicht gefunden – SafeShare</title>
-  <meta name="description" content="404: Seite nicht gefunden. Zurück zu Start, App oder Pro." />
+  <title>404 – Seite nicht gefunden | SafeShare</title>
+  <meta name="description" content="Die angeforderte Seite wurde nicht gefunden. Zurück zur SafeShare Startseite, App oder Hilfe." />
   <meta name="robots" content="noindex,follow" />
   <meta name="color-scheme" content="dark light" />
-  <meta name="theme-color" content="#111111">
+  <meta name="theme-color" content="#111111" />
 
-  <!-- Google Search Console -->
-  <meta name="google-site-verification" content="3-mi6zLHRdFC14-RdTIF6GY90jKWfyLNLsFBhGLqQB0" />
-  <!-- Bing Webmaster Tools -->
+  <link rel="canonical" href="https://safesharepro.com/404.html" />
+  <link rel="alternate" hreflang="de" href="https://safesharepro.com/404.html" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/404/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/404/" />
+
+  <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Favicons (absolute, damit 404 überall richtig lädt) -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-26-09">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-26-09">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-26-09">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-09">
+  <meta property="og:title" content="404 – Seite nicht gefunden | SafeShare" />
+  <meta property="og:description" content="Diese Seite existiert nicht (mehr). Gehe zurück zu Start, App oder Hilfe." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SafeShare" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:url" content="https://safesharepro.com/404.html" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-404.png?v=2026-02-05-03" />
+  <meta property="og:image:alt" content="SafeShare 404 Seite nicht gefunden" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-  <style>
-    :root{
-      --bg0:#070a12; --bg1:#070b14; --bg2:#0b1020;
-      --card: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.60);
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
-      --mint: #2fe3b7;
-      --mint2: rgba(47,227,183,.18);
-      --mint3: rgba(47,227,183,.28);
-      --ok: rgba(47,227,183,.16);
-      --max: 1120px;
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#f6f7fb; --bg1:#ffffff; --bg2:#f2f6ff;
-        --card:#ffffff;
-        --border: rgba(17,24,39,.12);
-        --text: rgba(17,24,39,.95);
-        --muted: rgba(17,24,39,.72);
-        --muted2: rgba(17,24,39,.62);
-        --shadow: 0 18px 45px rgba(17,24,39,.10);
-        --ok: rgba(47,227,183,.18);
-      }
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(47,227,183,.18), transparent 55%),
-        radial-gradient(900px 520px at 85% 10%, rgba(255,197,84,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-      min-height: 100vh;
-    }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="404 – Seite nicht gefunden | SafeShare" />
+  <meta name="twitter:description" content="Diese Seite existiert nicht (mehr). Gehe zurück zu Start, App oder Hilfe." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-404.png?v=2026-02-05-03" />
+  <meta name="twitter:image:alt" content="SafeShare 404 Seite nicht gefunden" />
 
-    header{ display:flex; align-items:center; justify-content:space-between; gap: 14px; padding: 10px 2px 12px; }
-    .brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
 
-    .logoWrap{
-      width:38px;
-      height:38px;
-      border-radius:999px;
-      border:1px solid rgba(47,227,183,.22);
-      background:rgba(47,227,183,.08);
-      box-shadow:0 10px 26px rgba(0,0,0,.28);
-      display:grid;
-      place-items:center;
-      overflow:hidden;
-      flex:0 0 auto;
-    }
-    .logoWrap .logoImg{
-      width:28px;
-      height:28px;
-      display:block;
-      object-fit:contain;
-    }
-    .logoFallback{
-      font-weight:800;
-      color: var(--mint);
-      font-size:14px;
-      line-height:1;
-      display:none;
-    }
-
-    .brandText{ min-width:0; }
-    .brandText .title{ font-size: 16px; font-weight: 780; line-height:1.1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .brandText .sub{ font-size: 12px; color: var(--muted2); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .small{ font-size: 12px; color: var(--muted2); white-space:nowrap; }
-
-    .card{
-      margin-top: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      box-shadow: 0 18px 45px rgba(0,0,0,.30);
-      padding: 18px;
-    }
-    h1{ margin: 8px 0 8px; font-size: clamp(24px, 4vw, 44px); line-height: 1.08; letter-spacing:-.2px; }
-    p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-
-    .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor:pointer;
-      user-select:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); }
-    .btn.primary{ background: var(--mint2); border-color: rgba(47,227,183,.35); }
-    .btn.primary:hover{ background: var(--mint3); }
-    .btn.ghost{ background: transparent; color: var(--muted); }
-    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.04); }
-
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
-    .note{
-      margin-top: 12px;
-      border-left: 3px solid rgba(47,227,183,.55);
-      background: var(--ok);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text);
-    }
-
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footLinks{
-      display:flex; gap: 10px; flex-wrap: wrap; justify-content:flex-start;
-      border-top: 1px solid rgba(255,255,255,.08); padding-top: 14px;
-    }
-    .footLinks a{
-      padding: 6px 10px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-  </style>
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
 </head>
-
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logoWrap" aria-label="SafeShare Logo">
-          <img
-            class="logoImg"
-            src="/assets/brand/logo-glyph-mint-deep-256.png?v=2025-12-26-09"
-            alt="SafeShare"
-            width="28"
-            height="28"
-            decoding="async"
-            onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='inline-flex';"
-          >
-          <span id="logoFallback" class="logoFallback">SS</span>
+  <div id="ss-shell"></div>
+
+  <main class="ss-main" id="top">
+    <section class="ss-section" aria-labelledby="notfound-title">
+      <div class="ss-card ss-hero">
+        <h1 id="notfound-title">404 – Seite nicht gefunden</h1>
+        <p class="ss-hero-kicker">Der Link ist leer gelaufen oder wurde verschoben.</p>
+        <p>Nutze einen der direkten Wege zurück:</p>
+
+        <div class="ss-actions ss-mt-12">
+          <a class="ss-btn ss-btn--primary" href="/">Zur Startseite</a>
+          <a class="ss-btn" href="/app/">Zur App</a>
+          <a class="ss-btn ss-btn--ghost" href="/hilfe/">Zur Hilfe</a>
         </div>
-
-        <div class="brandText">
-          <div class="title">SafeShare</div>
-          <div class="sub">404</div>
-        </div>
-      </div>
-
-      <div class="small">Seite fehlt</div>
-    </header>
-
-    <section class="card">
-      <h1>404 – Seite nicht gefunden</h1>
-      <p>Der Link zeigt auf eine Seite, die es hier nicht gibt (oder nicht mehr).</p>
-
-      <!-- Wichtig: absolute Folder-Routes -->
-      <div class="row">
-        <a class="btn primary" href="/">Zur Startseite</a>
-        <a class="btn" href="/app/">App öffnen</a>
-        <a class="btn ghost" href="/pro/">Pro</a>
-        <a class="btn ghost" href="/hilfe/">Hilfe</a>
-      </div>
-
-      <p class="mono" style="margin-top:12px; color: var(--muted2); font-size:12px;">
-        Pfad: <span id="path">–</span>
-      </p>
-
-      <div class="note">
-        Tipp: Wenn du gerade viele 404 siehst, ist es fast immer ein <b>relativer Link</b> (z. B. <span class="mono">app.html</span>)
-        statt <span class="mono">/app/</span>.
       </div>
     </section>
 
-    <footer>
-      <div class="footLinks">
-        <a href="/">Start</a>
-        <a href="/app/">App</a>
-        <a href="/pro/">Pro</a>
-        <a href="/datenschutz/">Datenschutz</a>
-        <a href="/impressum/">Impressum</a>
+    <section class="ss-section" aria-labelledby="quick-title">
+      <div class="ss-card">
+        <h2 id="quick-title">Häufig gesucht</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>Schule</h3>
+            <p class="ss-muted">Tracking-Parameter ruhig und verständlich erklärt.</p>
+            <p><a class="ss-btn" href="/schule/">Schule öffnen</a></p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Pro</h3>
+            <p class="ss-muted">Feinkontrolle mit Regeln, Allowlist und Audit.</p>
+            <p><a class="ss-btn" href="/pro/">Pro öffnen</a></p>
+          </article>
+        </div>
       </div>
-    </footer>
-  </div>
+    </section>
+  </main>
 
-  <script>
-    document.getElementById('path').textContent =
-      location.pathname + location.search + location.hash;
-  </script>
+  <div id="ss-footer"></div>
+  <script src="/js/ss-shell.js?v=2026-02-05-03" defer></script>
 </body>
 </html>
