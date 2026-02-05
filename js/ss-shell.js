@@ -1,7 +1,7 @@
 /* /js/ss-shell.js */
-/* SafeShare Shell v2026-02-04-07 */
+/* SafeShare Shell v2026-02-04-08 */
 
-console.log("SS-SHELL LOADED v2026-02-04-07");
+console.log("SS-SHELL LOADED v2026-02-04-08");
 
 (function () {
   function ready(fn){
@@ -10,27 +10,19 @@ console.log("SS-SHELL LOADED v2026-02-04-07");
     } else fn();
   }
 
-  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-07";
-  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-07";
+  const LOGO_SRC = "/assets/brand/mark-192.png?v=2026-02-04-08";
+  const LOGO_FALLBACK = "/assets/fav/favicon-32.png?v=2026-02-04-08";
 
-  // ---------- helpers ----------
   function stripQueryHash(s){
     return (s || "").split("#")[0].split("?")[0];
   }
 
   function normalizePath(p){
     p = stripQueryHash(p || "/");
-
-    // remove trailing index.html
     p = p.replace(/index\.html$/i, "");
-
-    // ensure leading slash
     if (!p.startsWith("/")) p = "/" + p;
-
-    // add trailing slash for folder-like paths (no file extension)
     const hasExt = /\.[a-z0-9]+$/i.test(p);
     if (!hasExt && !p.endsWith("/")) p += "/";
-
     return p;
   }
 
@@ -46,24 +38,23 @@ console.log("SS-SHELL LOADED v2026-02-04-07");
     return isEN() ? en : de;
   }
 
-  // ✅ DE ≠ EN Slug-Mapping (Repo-Struktur)
   const SLUG = {
-    start:    { de: "/", en: "/en/" },
-    app:      { de: "/app/", en: "/en/app/" },
-    pro:      { de: "/pro/", en: "/en/pro/" },
-    school:   { de: "/schule/", en: "/en/school/" },
-    help:     { de: "/hilfe/", en: "/en/help/" },
+    start:     { de: "/", en: "/en/" },
+    app:       { de: "/app/", en: "/en/app/" },
+    pro:       { de: "/pro/", en: "/en/pro/" },
+    school:    { de: "/schule/", en: "/en/school/" },
+    help:      { de: "/hilfe/", en: "/en/help/" },
 
-    privacy:  { de: "/datenschutz/", en: "/en/privacy/" },
-    imprint:  { de: "/impressum/", en: "/en/imprint/" },
-    terms:    { de: "/nutzungsbedingungen/", en: "/en/terms/" },
+    privacy:   { de: "/datenschutz/", en: "/en/privacy/" },
+    imprint:   { de: "/impressum/", en: "/en/imprint/" },
+    terms:     { de: "/nutzungsbedingungen/", en: "/en/terms/" },
 
-    tracking: { de: "/tracking-parameter/", en: "/en/tracking-parameters/" },
-    utm:      { de: "/utm-parameter-entfernen/", en: "/en/remove-utm-parameter/" },
-    compare:  { de: "/url-cleaner-tool-vergleich/", en: "/en/url-cleaner-comparison/" },
-    email:    { de: "/email-links-bereinigen/", en: "/en/email-link-cleaning/" },
-    messenger:{ de: "/messenger-links-bereinigen/", en: "/en/messenger-link-cleaning/" },
-    social:   { de: "/social-links-bereinigen/", en: "/en/social-link-cleaning/" }
+    tracking:  { de: "/tracking-parameter/", en: "/en/tracking-parameters/" },
+    utm:       { de: "/utm-parameter-entfernen/", en: "/en/remove-utm-parameter/" },
+    compare:   { de: "/url-cleaner-tool-vergleich/", en: "/en/url-cleaner-comparison/" },
+    email:     { de: "/email-links-bereinigen/", en: "/en/email-link-cleaning/" },
+    messenger: { de: "/messenger-links-bereinigen/", en: "/en/messenger-link-cleaning/" },
+    social:    { de: "/social-links-bereinigen/", en: "/en/social-link-cleaning/" }
   };
 
   function href(key){
@@ -74,37 +65,32 @@ console.log("SS-SHELL LOADED v2026-02-04-07");
 
   function active(key){
     const p = currentPath();
-
     if (key === "start"){
       return (p === "/" || p === "/en/") ? " is-active" : "";
     }
-
     const target = normalizePath(href(key));
     return p.startsWith(target) ? " is-active" : "";
   }
 
-  // ✅ Language peer via mapping (Longest-Prefix, no "/" trap, no recursion)
   function langPeerHref(){
     const p = currentPath();
 
-    // explicit start
     if (p === "/") return "/en/";
     if (p === "/en/") return "/";
 
-    // build pairs excluding start
     const pairs = Object.keys(SLUG)
       .filter(k => k !== "start")
       .map(k => [ normalizePath(SLUG[k].de), normalizePath(SLUG[k].en) ]);
 
-    // longest path first (robust)
-    pairs.sort((a,b) => Math.max(b[0].length, b[1].length) - Math.max(a[0].length, a[1].length));
+    pairs.sort((a,b) =>
+      Math.max(b[0].length, b[1].length) - Math.max(a[0].length, a[1].length)
+    );
 
     for (const [de, en] of pairs){
-      if (p.startsWith(en)) return de; // EN -> DE
-      if (p.startsWith(de)) return en; // DE -> EN
+      if (p.startsWith(en)) return de;
+      if (p.startsWith(de)) return en;
     }
 
-    // fallback guess
     if (isEN()){
       const deGuess = normalizePath(p.replace(/^\/en\//, "/"));
       return deGuess || "/";
@@ -113,7 +99,6 @@ console.log("SS-SHELL LOADED v2026-02-04-07");
   }
 
   function injectShell(){
-    // Mounts (failsafe)
     let shell = document.getElementById("ss-shell");
     if (!shell) {
       shell = document.createElement("div");
@@ -128,10 +113,10 @@ console.log("SS-SHELL LOADED v2026-02-04-07");
       document.body.appendChild(footer);
     }
 
-    const peer = langPeerHref(); // ✅ compute once
+    const peer = langPeerHref();
 
-    // Language label (klarer als "EN/DE")
     const langLabel = isEN() ? "Deutsch" : "English";
+    const langAbbr  = isEN() ? "DE" : "EN";
     const langAria  = isEN() ? "Zur deutschen Version" : "Switch to English";
 
     shell.innerHTML = `
@@ -173,13 +158,11 @@ console.log("SS-SHELL LOADED v2026-02-04-07");
               <a class="ss-pill" href="${href("tracking")}">${text("Tracking-Parameter","Tracking parameters")}</a>
               <a class="ss-pill" href="${href("utm")}">${text("UTM entfernen","Remove UTM")}</a>
 
-              <!-- vorher: "Vergleich" -->
-              <a class="ss-pill" href="${href("compare")}">${text("Cleaner-Vergleich","Cleaner comparison")}</a>
-
-              <!-- E-Mail bewusst in die zweite Reihe schieben -->
               <a class="ss-pill" href="${href("messenger")}">${text("Messenger-Links","Messenger links")}</a>
               <a class="ss-pill" href="${href("social")}">${text("Social-Links","Social links")}</a>
+
               <a class="ss-pill" href="${href("email")}">${text("E-Mail-Links","Email links")}</a>
+              <a class="ss-pill" href="${href("compare")}">${text("Cleaner-Vergleich","Cleaner comparison")}</a>
             </div>
           </div>
 
@@ -195,8 +178,8 @@ console.log("SS-SHELL LOADED v2026-02-04-07");
           <div class="ss-more__section">
             <div class="ss-more__label ss-more__labelRow">
               <span>${text("Sprache","Language")}</span>
-              <a class="ss-langLink" href="${peer}" aria-label="${langAria}">
-                ${langLabel}
+              <a class="ss-langLink" href="${peer}" aria-label="${langAria}" title="${langLabel}">
+                ${langAbbr}
               </a>
             </div>
           </div>
@@ -270,7 +253,6 @@ console.log("SS-SHELL LOADED v2026-02-04-07");
       if (e.key === "Escape" && !modal.hidden) close();
     });
 
-    // ✅ Auto-close bei Navigation im Modal
     modal.querySelectorAll("a").forEach(a => {
       a.addEventListener("click", () => {
         modal.hidden = true;
