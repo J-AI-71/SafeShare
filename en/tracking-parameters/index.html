@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <title>Tracking Parameters Explained – SafeShare</title>
-  <meta name="description" content="Tracking parameters explained clearly: what they are, when they help, and when removing them before sharing makes sense." />
+  <title>Tracking parameters explained – SafeShare</title>
+  <meta name="description" content="Tracking parameters explained: what utm_*, fbclid, and gclid mean, when they help, and why removing them before sharing is often useful." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
@@ -20,31 +20,31 @@
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <meta property="og:title" content="Tracking Parameters Explained – SafeShare" />
-  <meta property="og:description" content="A clear guide to tracking parameters and practical link hygiene." />
-  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Tracking parameters explained – SafeShare" />
+  <meta property="og:description" content="What tracking parameters do, where they help, and why they are often unnecessary when forwarding links." />
+  <meta property="og:type" content="article" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://safesharepro.com/en/tracking-parameters/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-tracking-en.png?v=2026-02-05-03" />
-  <meta property="og:image:alt" content="SafeShare – Tracking parameters explained" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-tracking-parameters-en.png?v=2026-02-05-09" />
+  <meta property="og:image:alt" content="Tracking parameters explained with examples" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Tracking Parameters Explained – SafeShare" />
-  <meta name="twitter:description" content="A clear guide to tracking parameters and practical link hygiene." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-tracking-en.png?v=2026-02-05-03" />
-  <meta name="twitter:image:alt" content="SafeShare – Tracking parameters explained" />
+  <meta name="twitter:title" content="Tracking parameters explained – SafeShare" />
+  <meta name="twitter:description" content="What tracking parameters do, where they help, and why they are often unnecessary when forwarding links." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-tracking-parameters-en.png?v=2026-02-05-09" />
+  <meta name="twitter:image:alt" content="Tracking parameters explained with examples" />
 
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-09" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-09" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-09" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-09" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-09" />
 
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-09" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-09" />
 </head>
 <body>
   <div id="ss-shell"></div>
@@ -52,19 +52,19 @@
   <main class="ss-main" id="top">
     <section class="ss-section" aria-labelledby="tp-title">
       <div class="ss-card ss-hero">
-        <h1 id="tp-title">Tracking Parameters Explained</h1>
-        <p class="ss-hero-kicker">No panic. No jargon fog. Just the essentials.</p>
+        <h1 id="tp-title">Tracking parameters explained</h1>
+        <p class="ss-hero-kicker">No panic. No fog. Just the essentials.</p>
         <p>
-          Tracking parameters are URL additions, usually after <code>?</code>.
-          Common examples: <code>utm_source</code>, <code>fbclid</code>, <code>gclid</code>.
-          They can help campaign analytics, but are often unnecessary when forwarding links.
+          Tracking parameters are additions in URLs, usually after <code>?</code>.
+          Examples: <code>utm_source</code>, <code>fbclid</code>, <code>gclid</code>.
+          They can help with campaign analytics, but are often unnecessary when sharing.
         </p>
       </div>
     </section>
 
     <section class="ss-section" aria-labelledby="what-title">
       <div class="ss-card">
-        <h2 id="what-title">What are they exactly?</h2>
+        <h2 id="what-title">What is it exactly?</h2>
         <div class="ss-grid ss-grid--2 ss-mt-12">
           <article class="ss-card ss-card--inner">
             <h3>Base URL</h3>
@@ -75,56 +75,125 @@
             <p class="ss-mono">https://example.com/article?utm_source=newsletter&utm_campaign=launch&fbclid=XYZ</p>
           </article>
         </div>
-        <p class="ss-muted ss-mt-12">The page can be the same — only the URL attachment differs.</p>
+        <p class="ss-muted ss-mt-12">The page can be identical — only the appended metadata differs.</p>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="when-title">
+    <section class="ss-section" aria-labelledby="utm-fields-title">
       <div class="ss-card">
-        <h2 id="when-title">When to remove, when to keep</h2>
+        <h2 id="utm-fields-title">What do UTM fields mean?</h2>
         <div class="ss-grid ss-grid--2 ss-mt-12">
           <article class="ss-card ss-card--inner">
-            <h3>Often good to remove</h3>
-            <ul>
-              <li>Forwarding to friends/teams</li>
-              <li>Documentation, wikis, notes</li>
-              <li>Posts, comments, chats</li>
-            </ul>
+            <h3><code>utm_source</code></h3>
+            <p class="ss-muted">Source, e.g. newsletter, linkedin, mastodon.</p>
           </article>
           <article class="ss-card ss-card--inner">
-            <h3>Sometimes better to keep</h3>
-            <ul>
-              <li>Affiliate/partner links (<code>ref</code>, <code>tag</code>)</li>
-              <li>Functional keys (language, filters, state)</li>
-              <li>Intentional campaign measurement in your own context</li>
-            </ul>
+            <h3><code>utm_medium</code></h3>
+            <p class="ss-muted">Channel type, e.g. email, social, cpc.</p>
           </article>
-        </div>
-
-        <div class="ss-warn ss-mt-12">
-          Important: link cleaning is a hygiene step, not an invisibility promise.
+          <article class="ss-card ss-card--inner">
+            <h3><code>utm_campaign</code></h3>
+            <p class="ss-muted">Campaign name, e.g. spring_launch.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3><code>utm_term</code> / <code>utm_content</code></h3>
+            <p class="ss-muted">Optional: keywords/variants (A/B, ad variation).</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="do-title">
+    <section class="ss-section" aria-labelledby="ids-title">
       <div class="ss-card">
-        <h2 id="do-title">Practical flow</h2>
-        <ol>
-          <li>Copy link</li>
-          <li>Paste into SafeShare</li>
-          <li>Clean and share intentionally</li>
-        </ol>
+        <h2 id="ids-title">Other common tracking IDs</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3><code>fbclid</code></h3>
+            <p class="ss-muted">Click ID from Facebook/Meta context.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3><code>gclid</code></h3>
+            <p class="ss-muted">Google Ads click ID.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3><code>msclkid</code></h3>
+            <p class="ss-muted">Microsoft Ads click ID.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3><code>mc_eid</code> / <code>mc_cid</code></h3>
+            <p class="ss-muted">Newsletter/mailing IDs (e.g., Mailchimp).</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ss-section" aria-labelledby="why-remove-title">
+      <div class="ss-card">
+        <h2 id="why-remove-title">Why remove them before sharing?</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>Fewer data traces</h3>
+            <p class="ss-muted">You pass along less extra metadata in chats, emails, and docs.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Cleaner links</h3>
+            <p class="ss-muted">Shorter, clearer, more professional-looking URLs.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Less breakage risk</h3>
+            <p class="ss-muted">Very long links are less likely to break in tools/editors.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Intentional sharing</h3>
+            <p class="ss-muted">You decide what metadata is included.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ss-section" aria-labelledby="careful-title">
+      <div class="ss-card">
+        <h2 id="careful-title">When not to remove blindly</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>Affiliate / referral</h3>
+            <p class="ss-muted">Keys like <code>ref</code> or <code>tag</code> may be intentional attribution.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Functional parameters</h3>
+            <p class="ss-muted">Some keys control language, filters, IDs, or search state.</p>
+          </article>
+        </div>
+        <div class="ss-warn ss-mt-12">
+          Good practice: remove standard tracking keys, but review functional/attribution keys deliberately.
+        </div>
+      </div>
+    </section>
+
+    <section class="ss-section" aria-labelledby="example-title">
+      <div class="ss-card">
+        <h2 id="example-title">Example</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>With UTM</h3>
+            <p class="ss-mono">https://example.com/guide?utm_source=newsletter&utm_medium=email&utm_campaign=q1</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Cleaned</h3>
+            <p class="ss-mono">https://example.com/guide</p>
+          </article>
+        </div>
+
         <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/en/app/">Open app</a>
-          <a class="ss-btn" href="/en/remove-utm-parameter/">UTM details</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/pro/">Pro with rules/allowlists</a>
+          <a class="ss-btn ss-btn--primary" href="/en/app/">Clean a link now</a>
+          <a class="ss-btn" href="/en/remove-utm-parameter/">UTM in detail</a>
+          <a class="ss-btn ss-btn--ghost" href="/en/url-cleaner-comparison/">Tool comparison</a>
         </div>
       </div>
     </section>
   </main>
 
   <div id="ss-footer"></div>
-  <script src="/js/ss-shell.js?v=2026-02-05-03" defer></script>
+  <script src="/js/ss-shell.js?v=2026-02-05-09" defer></script>
 </body>
 </html>
