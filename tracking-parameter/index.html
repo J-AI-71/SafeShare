@@ -1,4 +1,4 @@
-<!-- /tracking-parameter/index.html (DE) — SafeShare Tracking-Parameter (bereinigt: Page-CSS + Master-Shell, kein Inline-Design) -->
+<!-- File: /tracking-parameter/index.html (DE) -->
 <!doctype html>
 <html lang="de">
 <head>
@@ -6,206 +6,125 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <title>Tracking-Parameter – was ist das? – SafeShare</title>
-  <meta name="description" content="Tracking-Parameter erklärt: gclid, fbclid, utm_* & Co. Wo sie vorkommen, was sie verraten können – und wie du sie vor dem Teilen entfernst." />
+  <title>Tracking-Parameter erklärt – SafeShare</title>
+  <meta name="description" content="Tracking-Parameter einfach erklärt: was sie sind, wann sie sinnvoll sind und wann du sie vor dem Teilen entfernen solltest." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
-  <!-- Canonical + hreflang -->
   <link rel="canonical" href="https://safesharepro.com/tracking-parameter/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/tracking-parameter/" />
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/tracking-parameters/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/tracking-parameters/" />
 
-  <!-- Verification -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Social -->
-  <meta property="og:title" content="Tracking-Parameter – SafeShare" />
-  <meta property="og:description" content="Was sind Tracking-Parameter (fbclid, gclid, utm_…)? Warum sie unnötige Infos mitverteilen – und wie du Links local-first bereinigst." />
+  <meta property="og:title" content="Tracking-Parameter erklärt – SafeShare" />
+  <meta property="og:description" content="Kurz und klar: Tracking-Parameter verstehen und bewusst mit Links umgehen." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://safesharepro.com/tracking-parameter/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
-  <meta property="og:image:alt" content="SafeShare – Tracking-Parameter (Vorschau)" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-tracking.png?v=2026-02-05-03" />
+  <meta property="og:image:alt" content="SafeShare – Tracking-Parameter erklärt" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Tracking-Parameter – SafeShare" />
-  <meta name="twitter:description" content="Erklärung + Lösung: Tracking-Parameter erkennen und local-first aus Links entfernen." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
-  <meta name="twitter:image:alt" content="SafeShare – Tracking-Parameter (Vorschau)" />
+  <meta name="twitter:title" content="Tracking-Parameter erklärt – SafeShare" />
+  <meta name="twitter:description" content="Kurz und klar: Tracking-Parameter verstehen und bewusst mit Links umgehen." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-tracking.png?v=2026-02-05-03" />
+  <meta name="twitter:image:alt" content="SafeShare – Tracking-Parameter erklärt" />
 
-  <!-- Icons / Favicons -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-03">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-03">
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
 
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-03" />
-
-  <!-- Page + Shell -->
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03" />
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03" />
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
 </head>
-
 <body>
   <div id="ss-shell"></div>
 
-  <main class="ss-main">
-    <!-- HERO -->
+  <main class="ss-main" id="top">
     <section class="ss-section" aria-labelledby="tp-title">
-      <div class="ss-card">
-        <h1 id="tp-title">Was sind Tracking-Parameter?</h1>
-
-        <p class="ss-hero-kicker">
-          Tracking-Parameter sind Zusatzinfos am Link – wie Etiketten/Aufkleber am Paket (<code>utm_*</code>, <code>fbclid</code>, <code>gclid</code> …).
-        </p>
-
+      <div class="ss-card ss-hero">
+        <h1 id="tp-title">Tracking-Parameter erklärt</h1>
+        <p class="ss-hero-kicker">Ohne Panik. Ohne Nebel. Nur das Wesentliche.</p>
         <p>
-          Für Auswertung manchmal nützlich, beim Weiterleiten häufig nur Ballast.
-          SafeShare entfernt typische Tracking-Keys <strong>local-first im Browser</strong>.
-        </p>
-
-        <div class="ss-actions">
-          <a class="ss-btn ss-btn--primary" href="/app/">Link bereinigen</a>
-          <a class="ss-btn" href="/utm-parameter-entfernen/">UTM erklärt</a>
-          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro (Audit/Policies)</a>
-        </div>
-
-        <p class="ss-muted" style="margin-top:12px">
-          Links werden nicht hochgeladen. Kein Konto. Kein Tracking.
+          Tracking-Parameter sind Zusätze in URLs, meistens nach dem <code>?</code>.
+          Beispiel: <code>utm_source</code>, <code>fbclid</code>, <code>gclid</code>.
+          Sie helfen häufig bei Kampagnenauswertung, sind beim Weiterleiten aber oft nicht nötig.
         </p>
       </div>
     </section>
 
-    <!-- TYPISCHE KEYS -->
-    <section class="ss-section" aria-labelledby="keys-title">
+    <section class="ss-section" aria-labelledby="what-title">
       <div class="ss-card">
-        <h2 id="keys-title">Typische Tracking-Keys</h2>
+        <h2 id="what-title">Was ist das genau?</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>Basis-Link</h3>
+            <p class="ss-mono">https://example.com/artikel</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Mit Parametern</h3>
+            <p class="ss-mono">https://example.com/artikel?utm_source=newsletter&utm_campaign=launch&fbclid=XYZ</p>
+          </article>
+        </div>
+        <p class="ss-muted ss-mt-12">Die Seite selbst kann identisch sein, nur der Anhang unterscheidet sich.</p>
+      </div>
+    </section>
 
-        <div class="ss-grid ss-grid--2" style="margin-top:12px">
-          <div class="ss-card ss-card--inner">
-            <h3>Marketing-Kampagnen</h3>
+    <section class="ss-section" aria-labelledby="when-title">
+      <div class="ss-card">
+        <h2 id="when-title">Wann entfernen, wann behalten?</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>Oft entfernen sinnvoll</h3>
             <ul>
-              <li><code>utm_source</code> / <code>utm_medium</code> / <code>utm_campaign</code></li>
-              <li><code>utm_content</code> / <code>utm_term</code></li>
+              <li>Weiterleitung an Freund:innen/Team</li>
+              <li>Dokumentation, Wiki, Notizen</li>
+              <li>Posts, Kommentare, Chats</li>
             </ul>
-            <p class="ss-muted">
-              Dienen der Auswertung: „Woher kam der Klick? Welche Kampagne?“
-            </p>
-          </div>
-
-          <div class="ss-card ss-card--inner">
-            <h3>Klick-IDs (plattform-spezifisch)</h3>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Behalten kann sinnvoll sein</h3>
             <ul>
-              <li><code>gclid</code>, <code>fbclid</code>, <code>msclkid</code></li>
-              <li><code>igshid</code>, <code>twclid</code>, <code>ttclid</code> …</li>
+              <li>Affiliate-/Partner-Links (<code>ref</code>, <code>tag</code>)</li>
+              <li>Funktionale Keys (Sprache, Filter, Zustand)</li>
+              <li>Gewollte Kampagnenmessung in eigenem Kontext</li>
             </ul>
-            <p class="ss-muted">
-              IDs zur Messung/Zuordnung. Beim Teilen meist Ballast.
-            </p>
-          </div>
+          </article>
         </div>
 
-        <div class="ss-card ss-card--inner" style="margin-top:12px">
-          <p class="ss-muted" style="margin:0">
-            Beispiel: <code>https://example.com/page?utm_source=twitter&amp;utm_medium=social&amp;fbclid=XYZ</code>
-          </p>
+        <div class="ss-warn ss-mt-12">
+          Wichtig: Link-Bereinigung ist ein Hygiene-Schritt, kein Unsichtbarkeitsversprechen.
         </div>
       </div>
     </section>
 
-    <!-- NICHT ALLES ENTFERNEN -->
-    <section class="ss-section" aria-labelledby="notall-title">
+    <section class="ss-section" aria-labelledby="do-title">
       <div class="ss-card">
-        <h2 id="notall-title">Nicht alles mit „?“ ist Tracking</h2>
-        <p>
-          Manche Parameter sind <strong>funktional</strong> (Sprache, Produktvariante, Filter, Suche, Pagination).
-          Entfernst du sie, kann sich die Seite ändern oder der Link bricht.
-        </p>
-
-        <div class="ss-grid ss-grid--2" style="margin-top:12px">
-          <div class="ss-card ss-card--inner">
-            <h3>Funktional (häufig)</h3>
-            <ul>
-              <li><code>lang=de</code>, <code>q=…</code>, <code>page=2</code></li>
-              <li><code>sort=…</code>, <code>id=123</code>, <code>category=…</code></li>
-            </ul>
-            <p class="ss-muted">Diese Keys steuern Inhalt/Ansicht.</p>
-          </div>
-
-          <div class="ss-card ss-card--inner">
-            <h3>Kritisch (oft „nicht anfassen“)</h3>
-            <ul>
-              <li><code>token</code>, <code>sig</code>, <code>signature</code></li>
-              <li><code>expires</code>, <code>state</code>, <code>nonce</code></li>
-            </ul>
-            <p class="ss-muted">Hängt oft an Sicherheit/Signaturen/Session-Flow.</p>
-          </div>
-        </div>
-
-        <div class="ss-warn" style="margin-top:12px">
-          Wenn ein Link nach der Bereinigung nicht funktioniert: Original öffnen → bereinigten Link öffnen.
-          Wenn nur „bereinigt“ scheitert, war vermutlich ein Parameter funktional. Pro hilft mit <strong>Audit</strong> + <strong>Allowlist</strong>.
-        </div>
-      </div>
-    </section>
-
-    <!-- AFFILIATE -->
-    <section class="ss-section" aria-labelledby="aff-title">
-      <div class="ss-card">
-        <h2 id="aff-title">Affiliate/Partner: nicht automatisch „böse“</h2>
-        <p>
-          Manche Parameter sind Zuordnung (Attribution) – und sollen bewusst bleiben, wenn du dafür verantwortlich bist.
-        </p>
-
-        <div class="ss-grid ss-grid--2" style="margin-top:12px">
-          <div class="ss-card ss-card--inner">
-            <h3>Typische Partner-Keys</h3>
-            <ul>
-              <li><code>ref</code>, <code>tag</code>, <code>affid</code>, <code>partner</code></li>
-              <li>teils auch <code>utm_*</code> (wenn bewusst gesetzt)</li>
-            </ul>
-            <p class="ss-muted">Pro: Allowlist pro Domain/Policy.</p>
-          </div>
-
-          <div class="ss-card ss-card--inner">
-            <h3>Publishing-Workflow</h3>
-            <ul>
-              <li>Default: Tracking-Etiketten entfernen</li>
-              <li>Attribution nur dort behalten, wo gewollt</li>
-              <li>Bei Unsicherheit: konservativ + testen</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="ss-section" aria-labelledby="cta-title">
-      <div class="ss-card">
-        <h2 id="cta-title">So nutzt du SafeShare sinnvoll</h2>
-        <ul>
-          <li><strong>App:</strong> Entfernt typische Tracking-Parameter für Alltag/Sharing.</li>
-          <li><strong>Pro:</strong> Für Profis: Policies/Allowlist + Audit („Was wurde geändert?“).</li>
-        </ul>
-
-        <div class="ss-actions" style="margin-top:12px">
+        <h2 id="do-title">Praktischer Ablauf</h2>
+        <ol>
+          <li>Link kopieren</li>
+          <li>In SafeShare einfügen</li>
+          <li>Bereinigen und gezielt teilen</li>
+        </ol>
+        <div class="ss-actions ss-mt-12">
           <a class="ss-btn ss-btn--primary" href="/app/">App öffnen</a>
-          <a class="ss-btn" href="/pro/">Pro ansehen</a>
-          <a class="ss-btn ss-btn--ghost" href="/hilfe/#problems">Hilfe / Troubleshooting</a>
+          <a class="ss-btn" href="/utm-parameter-entfernen/">UTM-Details</a>
+          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro mit Regeln/Allowlist</a>
         </div>
       </div>
     </section>
   </main>
 
   <div id="ss-footer"></div>
-  <script src="/js/ss-shell.js?v=2026-02-04-07" defer></script>
+  <script src="/js/ss-shell.js?v=2026-02-05-03" defer></script>
 </body>
 </html>
