@@ -130,6 +130,10 @@ console.log("SS-SHELL LOADED v2026-02-04-07");
 
     const peer = langPeerHref(); // ✅ compute once
 
+    // Language label (klarer als "EN/DE")
+    const langLabel = isEN() ? "Deutsch" : "English";
+    const langAria  = isEN() ? "Zur deutschen Version" : "Switch to English";
+
     shell.innerHTML = `
       <header class="ss-header" role="banner">
         <div class="ss-header__inner">
@@ -168,10 +172,14 @@ console.log("SS-SHELL LOADED v2026-02-04-07");
             <div class="ss-more__grid">
               <a class="ss-pill" href="${href("tracking")}">${text("Tracking-Parameter","Tracking parameters")}</a>
               <a class="ss-pill" href="${href("utm")}">${text("UTM entfernen","Remove UTM")}</a>
-              <a class="ss-pill" href="${href("compare")}">${text("Vergleich","Compare")}</a>
-              <a class="ss-pill" href="${href("email")}">${text("E-Mail-Links","Email links")}</a>
+
+              <!-- vorher: "Vergleich" -->
+              <a class="ss-pill" href="${href("compare")}">${text("Cleaner-Vergleich","Cleaner comparison")}</a>
+
+              <!-- E-Mail bewusst in die zweite Reihe schieben -->
               <a class="ss-pill" href="${href("messenger")}">${text("Messenger-Links","Messenger links")}</a>
               <a class="ss-pill" href="${href("social")}">${text("Social-Links","Social links")}</a>
+              <a class="ss-pill" href="${href("email")}">${text("E-Mail-Links","Email links")}</a>
             </div>
           </div>
 
@@ -187,9 +195,8 @@ console.log("SS-SHELL LOADED v2026-02-04-07");
           <div class="ss-more__section">
             <div class="ss-more__label ss-more__labelRow">
               <span>${text("Sprache","Language")}</span>
-              <a class="ss-langLink" href="${peer}"
-                 aria-label="${isEN() ? "Zur deutschen Version" : "Switch to English"}">
-                ${isEN() ? "DE" : "EN"}
+              <a class="ss-langLink" href="${peer}" aria-label="${langAria}">
+                ${langLabel}
               </a>
             </div>
           </div>
