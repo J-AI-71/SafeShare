@@ -452,19 +452,22 @@ details p{ margin: 10px 0 2px; color: var(--muted); }
   .ss-monoBlock{ background: rgba(17,24,39,.05); }
 }
 
-.ss-stack { display: grid; gap: 12px; }
-.ss-chipRow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-.ss-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--ss-border, rgba(255,255,255,.18));
-  background: rgba(255,255,255,.04);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-weight: 700;
+/* File: /css/ss-page.css (append these if missing) */
+.ss-w-full{width:100%}
+.ss-stack{display:grid;gap:12px}
+.ss-mt-12{margin-top:12px}
+.ss-hero{padding:20px}
+.ss-input{
+  width:100%;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.04);
+  color:inherit;
+  border-radius:12px;
+  padding:10px 12px;
 }
-.ss-mt-12 { margin-top: 12px; }
+.ss-label{display:block;font-weight:600;margin-bottom:6px}
+
+
 
 /* ---------- Small utilities ---------- */
 .ss-center{ text-align:center; }
