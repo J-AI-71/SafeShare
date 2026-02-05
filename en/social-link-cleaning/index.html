@@ -1,4 +1,4 @@
-<!-- /en/social-link-cleaning/index.html (EN) — SafeShare -->
+<!-- File: /en/social-link-cleaning/index.html (EN) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <title>Social Link Cleaning – SafeShare (Mastodon, X, LinkedIn)</title>
-  <meta name="description" content="Social link cleaning: remove tracking parameters like utm_*, gclid, fbclid locally in your browser. Post clean URLs instead of extra IDs." />
+  <title>Social Link Cleaning – SafeShare</title>
+  <meta name="description" content="Clean social links for Mastodon, X, LinkedIn and more: remove tracking parameters locally and share cleaner URLs." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
@@ -21,140 +21,97 @@
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
   <meta property="og:title" content="Social Link Cleaning – SafeShare" />
-  <meta property="og:description" content="Mastodon, X, LinkedIn: remove tracking parameters locally in your browser. Copy → Clean → Post." />
-  <meta property="og:type" content="article" />
+  <meta property="og:description" content="Cleaner URLs for social posts and profiles: remove tracking parameters locally." />
+  <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://safesharepro.com/en/social-link-cleaning/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-social-links-en.png?v=2026-02-05-01" />
-  <meta property="og:image:alt" content="SafeShare: Social link cleaning" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-social-en.png?v=2026-02-05-03" />
+  <meta property="og:image:alt" content="SafeShare – Social link cleaning" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Social Link Cleaning – SafeShare" />
-  <meta name="twitter:description" content="Remove tracking parameters from social links (local-first in your browser)." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-social-links-en.png?v=2026-02-05-01" />
-  <meta name="twitter:image:alt" content="SafeShare: Social link cleaning" />
+  <meta name="twitter:description" content="Cleaner URLs for social posts and profiles: remove tracking parameters locally." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-social-en.png?v=2026-02-05-03" />
+  <meta name="twitter:image:alt" content="SafeShare – Social link cleaning" />
 
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-01" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-01" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-01" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-01" />
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
 
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-01" />
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-01" />
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-01" />
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
 </head>
-
 <body>
   <div id="ss-shell"></div>
 
   <main class="ss-main" id="top">
-
-    <section class="ss-section" aria-labelledby="hero-title">
+    <section class="ss-section" aria-labelledby="social-title">
       <div class="ss-card ss-hero">
-        <h1 id="hero-title">Social Link Cleaning (Mastodon, X, LinkedIn)</h1>
-
-        <p class="ss-hero-kicker">
-          Social links often come from campaigns, ads, or analytics tools.
-          That means tracking IDs (<code>utm_*</code>, click IDs) can spread via reposts, quotes, and screenshots.
+        <h1 id="social-title">Social Link Cleaning</h1>
+        <p class="ss-hero-kicker">Share cleaner links instead of passing tracking noise.</p>
+        <p>
+          Social URLs often include campaign parameters and click IDs.
+          In posts, profiles, and comments, these are frequently unnecessary.
+          SafeShare removes common tracking parameters local-first.
         </p>
 
-        <div class="ss-chipRow" aria-label="Common tracking keys">
-          <span class="ss-chip">utm_*</span>
-          <span class="ss-chip">fbclid</span>
-          <span class="ss-chip">gclid</span>
-          <span class="ss-chip">msclkid</span>
-          <span class="ss-chip">mc_eid</span>
-        </div>
-
         <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/en/app/">Clean a link</a>
-          <a class="ss-btn" href="/en/pro/">Pro: Policies &amp; Audit</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/help/">Help</a>
+          <a class="ss-btn ss-btn--primary" href="/en/app/">Clean link now</a>
+          <a class="ss-btn" href="/en/remove-utm-parameter/">UTM explained</a>
+          <a class="ss-btn ss-btn--ghost" href="/en/pro/">Pro with rules</a>
         </div>
 
         <div class="ss-note ss-mt-12">
-          Local-first in your browser. No upload. Post clean URLs instead of extra IDs.
+          Human-readable and workflow-friendly: Copy → Clean → Share.
         </div>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="workflow-title">
+    <section class="ss-section" aria-labelledby="benefits-title">
       <div class="ss-card">
-        <h2 id="workflow-title">Quick Workflows</h2>
-
-        <div class="ss-stack ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Copy → Clean → Post (single link)</h3>
-            <ol>
-              <li>Copy the link from browser/tool.</li>
-              <li>Paste into SafeShare and clean.</li>
-              <li>Post the cleaned URL in your feed/comment.</li>
-            </ol>
-          </article>
-
-          <article class="ss-card ss-card--inner">
-            <h3>Weekly content plan with many links (Pro)</h3>
-            <ol>
-              <li>Collect multiple URLs for the week.</li>
-              <li>Apply a consistent Pro policy/audit.</li>
-              <li>Post via scheduler or directly on platform.</li>
-            </ol>
-          </article>
-
-          <article class="ss-card ss-card--inner">
-            <h3>Important limit (honest)</h3>
-            <p class="ss-muted">
-              Don’t remove everything blindly: parameters like <code>ref</code> or <code>tag</code> may be intentionally needed for attribution.
-            </p>
-            <p class="ss-muted">
-              Use Pro domain rules when you need fine control.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="why-title">
-      <div class="ss-card">
-        <h2 id="why-title">Why this matters for social posting</h2>
-
+        <h2 id="benefits-title">Benefits in social workflows</h2>
         <div class="ss-grid ss-grid--2 ss-mt-12">
-          <div class="ss-card ss-card--inner">
-            <h3>Less unnecessary metadata</h3>
-            <p class="ss-muted">
-              Clean URLs reduce campaign-ID spread across shares, reposts, and quoted posts.
-            </p>
-          </div>
-
-          <div class="ss-card ss-card--inner">
-            <h3>Higher link quality</h3>
-            <p class="ss-muted">
-              Shorter URLs are easier to read, look more professional, and support transparent communication.
-            </p>
-          </div>
+          <article class="ss-card ss-card--inner">
+            <h3>Readability</h3>
+            <p class="ss-muted">Shorter URLs look cleaner and less ad-heavy.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Less breakage</h3>
+            <p class="ss-muted">Long query strings are less likely to wrap awkwardly.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Team consistency</h3>
+            <p class="ss-muted">One clear standard across channels and posts.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Data minimization</h3>
+            <p class="ss-muted">Share fewer unnecessary metadata markers.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="cta-title">
+    <section class="ss-section" aria-labelledby="limits-title">
       <div class="ss-card">
-        <h2 id="cta-title">Try it now</h2>
-        <p class="ss-muted">Copy → Clean → Post. No signup. Local-first in your browser.</p>
-
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/en/app/">Open app</a>
-          <a class="ss-btn" href="/en/tracking-parameters/">Tracking parameters explained</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/url-cleaner-tool-comparison/">Tool comparison</a>
+        <h2 id="limits-title">Limits to keep in mind</h2>
+        <div class="ss-warn ss-mt-12">
+          Link cleaning is a hygiene step, not an invisibility promise.
         </div>
+        <ul class="ss-mt-12">
+          <li><strong>Attribution:</strong> some campaign parameters are intentionally set.</li>
+          <li><strong>Functionality:</strong> certain parameters may control content state.</li>
+          <li><strong>Pro:</strong> use domain-level rules to keep only what you need.</li>
+        </ul>
       </div>
     </section>
-
   </main>
 
   <div id="ss-footer"></div>
-  <script src="/js/ss-shell.js?v=2026-02-05-01" defer></script>
+  <script src="/js/ss-shell.js?v=2026-02-05-03" defer></script>
 </body>
 </html>
