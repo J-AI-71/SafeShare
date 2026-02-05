@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <title>Remove UTM Parameters – SafeShare</title>
-  <meta name="description" content="Remove UTM parameters: what utm_* means, when it helps, and how to share cleaner links locally in your browser." />
+  <title>Remove UTM parameters – SafeShare</title>
+  <meta name="description" content="Remove UTM parameters from links: what utm_source, utm_medium, and utm_campaign do, and when cleaning links before sharing makes sense." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
@@ -20,31 +20,31 @@
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <meta property="og:title" content="Remove UTM Parameters – SafeShare" />
-  <meta property="og:description" content="Understand UTM links and clean them intentionally — local-first in your browser." />
-  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Remove UTM parameters – SafeShare" />
+  <meta property="og:description" content="Understand UTM and clean links intentionally before sharing." />
+  <meta property="og:type" content="article" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://safesharepro.com/en/remove-utm-parameter/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-utm-en.png?v=2026-02-05-03" />
-  <meta property="og:image:alt" content="SafeShare – Remove UTM parameters" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-utm-en.png?v=2026-02-05-10" />
+  <meta property="og:image:alt" content="Remove UTM parameters with SafeShare" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Remove UTM Parameters – SafeShare" />
-  <meta name="twitter:description" content="Understand UTM links and clean them intentionally — local-first in your browser." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-utm-en.png?v=2026-02-05-03" />
-  <meta name="twitter:image:alt" content="SafeShare – Remove UTM parameters" />
+  <meta name="twitter:title" content="Remove UTM parameters – SafeShare" />
+  <meta name="twitter:description" content="Understand UTM and clean links intentionally before sharing." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-utm-en.png?v=2026-02-05-10" />
+  <meta name="twitter:image:alt" content="Remove UTM parameters with SafeShare" />
 
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-10" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-10" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-10" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-10" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-10" />
 
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-10" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-10" />
 </head>
 <body>
   <div id="ss-shell"></div>
@@ -52,34 +52,55 @@
   <main class="ss-main" id="top">
     <section class="ss-section" aria-labelledby="utm-title">
       <div class="ss-card ss-hero">
-        <h1 id="utm-title">Remove UTM Parameters</h1>
-        <p class="ss-hero-kicker">Understand campaign markers. Share intentionally.</p>
+        <h1 id="utm-title">Remove UTM parameters</h1>
+        <p class="ss-hero-kicker">Share cleaner links with less noise.</p>
         <p>
-          UTM parameters (<code>utm_source</code>, <code>utm_medium</code>, <code>utm_campaign</code> …)
-          are useful for marketing analytics. When forwarding links, they are often unnecessary.
+          UTM parameters are added to URLs for campaign measurement.
+          Useful for analytics, often unnecessary when forwarding links to people.
         </p>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="keys-title">
+    <section class="ss-section" aria-labelledby="utm-what-title">
       <div class="ss-card">
-        <h2 id="keys-title">What do UTM fields mean?</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
+        <h2 id="utm-what-title">What are UTM parameters?</h2>
+        <p class="ss-mono">?utm_source=...&utm_medium=...&utm_campaign=...</p>
+        <div class="ss-grid ss-grid--3 ss-mt-12">
           <article class="ss-card ss-card--inner">
             <h3><code>utm_source</code></h3>
-            <p class="ss-muted">Traffic source, e.g. newsletter, linkedin, mastodon.</p>
+            <p class="ss-muted">Traffic source (e.g. newsletter, linkedin, mastodon)</p>
           </article>
           <article class="ss-card ss-card--inner">
             <h3><code>utm_medium</code></h3>
-            <p class="ss-muted">Channel type, e.g. email, social, cpc.</p>
+            <p class="ss-muted">Channel type (e.g. email, social, cpc)</p>
           </article>
           <article class="ss-card ss-card--inner">
             <h3><code>utm_campaign</code></h3>
-            <p class="ss-muted">Campaign name, e.g. spring_launch.</p>
+            <p class="ss-muted">Campaign label (e.g. launch_q1)</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ss-section" aria-labelledby="remove-title">
+      <div class="ss-card">
+        <h2 id="remove-title">Why remove them?</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>Cleaner URLs</h3>
+            <p class="ss-muted">Shorter, clearer links in chats, emails, docs.</p>
           </article>
           <article class="ss-card ss-card--inner">
-            <h3><code>utm_term</code> / <code>utm_content</code></h3>
-            <p class="ss-muted">Optional: keywords and creative variants.</p>
+            <h3>Data minimization</h3>
+            <p class="ss-muted">Less extra metadata attached when you share.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Fewer formatting issues</h3>
+            <p class="ss-muted">Very long query strings break less often.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Consistent workflow</h3>
+            <p class="ss-muted">Copy → Clean → Share as a simple habit.</p>
           </article>
         </div>
       </div>
@@ -87,37 +108,39 @@
 
     <section class="ss-section" aria-labelledby="example-title">
       <div class="ss-card">
-        <h2 id="example-title">Example</h2>
+        <h2 id="example-title">Before / After</h2>
         <div class="ss-grid ss-grid--2 ss-mt-12">
           <article class="ss-card ss-card--inner">
-            <h3>With UTM</h3>
-            <p class="ss-mono">https://example.com/guide?utm_source=newsletter&utm_medium=email&utm_campaign=q1</p>
+            <h3>Before</h3>
+            <p class="ss-mono">https://example.com/guide?utm_source=newsletter&utm_medium=email&utm_campaign=launch</p>
           </article>
           <article class="ss-card ss-card--inner">
-            <h3>Cleaned</h3>
+            <h3>After</h3>
             <p class="ss-mono">https://example.com/guide</p>
           </article>
         </div>
-
         <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/en/app/">Remove UTM now</a>
+          <a class="ss-btn ss-btn--primary" href="/en/app/">Clean link now</a>
           <a class="ss-btn" href="/en/tracking-parameters/">Tracking parameters explained</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/pro/">Pro with rules</a>
+          <a class="ss-btn ss-btn--ghost" href="/en/url-cleaner-comparison/">Tool comparison</a>
         </div>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="note-title">
+    <section class="ss-section" aria-labelledby="careful-title">
       <div class="ss-card">
-        <h2 id="note-title">Important context</h2>
-        <div class="ss-warn ss-mt-12">
-          Removing UTM is often useful for forwarding. In your own campaign measurement setup, those values may be intentionally needed.
+        <h2 id="careful-title">Do not remove blindly</h2>
+        <p>
+          Not every parameter is pure tracking. Some keys are functional, others intentionally used for referral attribution.
+        </p>
+        <div class="ss-note ss-mt-12">
+          SafeShare app removes standard tracking conservatively. For fine control, use SafeShare Pro (rules/allowlist/audit).
         </div>
       </div>
     </section>
   </main>
 
   <div id="ss-footer"></div>
-  <script src="/js/ss-shell.js?v=2026-02-05-03" defer></script>
+  <script src="/js/ss-shell.js?v=2026-02-05-10" defer></script>
 </body>
 </html>
