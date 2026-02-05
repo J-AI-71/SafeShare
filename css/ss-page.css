@@ -334,7 +334,8 @@ li::marker{ color: var(--muted2); }
 .ss-mt12{ margin-top: 12px; }
 .ss-mt10{ margin-top: 10px; }
 .ss-mt14{ margin-top: 14px; }
-
+.ss-mt-10 { margin-top: 10px; }
+.ss-mt-12 { margin-top: 12px; }
 /* ---------- Details / FAQ ---------- */
 details{
   border: 1px solid rgba(255,255,255,.10);
