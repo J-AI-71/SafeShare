@@ -1,4 +1,4 @@
-<!-- /app/index.html (DE) — SafeShare App (bereinigt: Page-CSS + Master-Shell, kein Inline-Design, HTML valid) -->
+<!-- File: /app/index.html (DE) -->
 <!doctype html>
 <html lang="de">
 <head>
@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <title>SafeShare App – Links bereinigen & sauber teilen (local-first)</title>
-  <meta name="description" content="URL reinigen: SafeShare entfernt Tracking-Parameter (utm_*, gclid, fbclid …) und entpackt Redirects – 100% lokal im Browser. Clean → Copy → Share." />
+  <title>SafeShare App – Links bereinigen (local-first)</title>
+  <meta name="description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → bereinigen → kopieren/teilen." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
@@ -17,213 +17,47 @@
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/app/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/app/" />
 
-  <!-- Google Search Console -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
-  <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Social -->
-  <meta property="og:title" content="SafeShare App – Links bereinigen & sauber teilen (local-first)" />
-  <meta property="og:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → Bereinigen → Kopieren/Teilen." />
+  <meta property="og:title" content="SafeShare App – Links bereinigen" />
+  <meta property="og:description" content="Local-first: Tracking-Parameter entfernen, saubere Links teilen." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://safesharepro.com/app/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-02-04-03" />
-  <meta property="og:image:alt" content="SafeShare App – Vorschau" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-02-05-01" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SafeShare App – Links bereinigen & sauber teilen" />
-  <meta name="twitter:description" content="Tracking-Parameter entfernen (utm_*, fbclid, gclid …) – lokal im Browser. Einfügen → Bereinigen → Kopieren/Teilen." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-02-04-03" />
-  <meta name="twitter:image:alt" content="SafeShare App – Vorschau" />
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-01" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-01" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-01" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-01" />
 
-  <!-- Icons / Favicons -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-03">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-03">
-
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-03">
-
-  <!-- Page + Shell -->
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03">
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03">
-
-  <!-- App-only (Layout für Input/Impact) -->
-  <style>
-    /* nutzt Tokens aus ss-page.css; nur App-spezifisches Layout */
-    .ss-field{
-      width:100%;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      border-radius: 16px;
-      padding: 12px 12px;
-      font: inherit;
-      line-height: 1.5;
-      outline: none;
-    }
-    textarea.ss-field{ min-height: 110px; resize: vertical; font-family: var(--mono); }
-    .ss-field:focus{ box-shadow: var(--focus); border-color: var(--accBorder); }
-
-    .ss-resultBox{
-      margin-top: 10px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.5;
-      word-break: break-word;
-      font-family: var(--mono);
-    }
-
-    .ss-kv{
-      display:flex; gap:10px; flex-wrap:wrap;
-      font-size: 12px; color: var(--muted2);
-      margin-top: 10px;
-    }
-    .ss-kv span{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.03);
-    }
-
-    /* Impact */
-    .ssImpactGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin:.75rem 0}
-    .ssImpactItem{padding:.75rem;border:1px solid var(--border);border-radius:.9rem;background:rgba(255,255,255,.03)}
-    @media (prefers-color-scheme: light){.ssImpactItem{background:rgba(17,24,39,.03)}}
-    .ssImpactNum{font-size:1.6rem;font-weight:780;letter-spacing:-.02em}
-    .ssImpactLabel{font-size:.9rem;color:var(--muted2)}
-    .ssImpactHeaderRow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:-2px}
-    .ssImpactSessionLabel{font-size:12px;color:var(--muted2);padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.03)}
-    .ssImpactLast{margin-top:10px;padding:10px 12px;border-radius:12px;border:1px dashed rgba(255,255,255,.14);background:rgba(255,255,255,.03);color:var(--muted);font-size:12px;line-height:1.4}
-    .ssImpactLastTitle{color:var(--muted2);margin-right:6px}
-    @media (prefers-color-scheme: light){
-      .ssImpactSessionLabel{background:rgba(17,24,39,.03);border-color:rgba(17,24,39,.12)}
-      .ssImpactLast{background:rgba(17,24,39,.03);border-color:rgba(17,24,39,.14)}
-    }
-
-    /* Messages */
-    .ss-msg{
-      margin-top: 12px;
-      border-left: 3px solid rgba(255,197,84,.55);
-      background: rgba(255,197,84,.16);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text);
-    }
-    .ss-msg--note{
-      border-left-color: rgba(47,227,183,.55);
-      background: rgba(47,227,183,.12);
-    }
-  </style>
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-02" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-02" />
 </head>
-
 <body>
   <div id="ss-shell"></div>
 
-  <main class="ss-main">
-    <!-- HERO / Intro -->
+  <main class="ss-main" id="top">
     <section class="ss-section" aria-labelledby="app-title">
-      <div class="ss-card">
-        <h1 id="app-title">Link bereinigen</h1>
-        <p class="ss-hero-kicker">
-          Tracking-Parameter sind Zusatzinfos am Link – wie Etiketten. SafeShare entfernt typische Tracking-Keys lokal im Browser. Nichts wird hochgeladen.
-        </p>
-        <div class="ss-card ss-card--inner">
-          Hinweis: Das ist kein „Unsichtbar“-Versprechen. Es ist Link-Hygiene beim Teilen.
-        </div>
-      </div>
-    </section>
+      <div class="ss-card ss-hero">
+        <h1 id="app-title">Link einfügen, bereinigen, teilen.</h1>
+        <p class="ss-hero-kicker">SafeShare entfernt typische Tracking-Parameter lokal im Browser.</p>
 
-    <!-- Cleaner -->
-    <section class="ss-section" id="cleaner" aria-labelledby="cleaner-title">
-      <div class="ss-card">
-        <h2 id="cleaner-title">URL einfügen</h2>
-        <p class="ss-muted">Einfügen → (Auto) Bereinigen → Ergebnis kopieren/teilen.</p>
+        <label class="ss-label ss-mt-12" for="rawUrl">URL</label>
+        <textarea id="rawUrl" class="ss-input ss-w-full" rows="5" placeholder="https://example.com/?utm_source=..."></textarea>
 
-        <textarea class="ss-field" id="urlInput" placeholder="https://example.com/page?utm_source=...&fbclid=..."></textarea>
-
-        <div class="ss-actions">
-          <button class="ss-btn ss-btn--primary" id="btnClean" type="button">Bereinigen</button>
-          <button class="ss-btn" id="btnPaste" type="button">Einfügen</button>
-          <button class="ss-btn" id="btnClear" type="button">Leeren</button>
+        <div class="ss-actions ss-mt-12">
+          <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Bereinigen</button>
+          <button id="copyBtn" class="ss-btn" type="button">Kopieren</button>
+          <button id="shareBtn" class="ss-btn ss-btn--ghost" type="button">Teilen</button>
         </div>
 
-        <div class="ss-msg" id="msg" hidden></div>
-      </div>
-    </section>
+        <label class="ss-label ss-mt-12" for="cleanUrl">Bereinigte URL</label>
+        <textarea id="cleanUrl" class="ss-input ss-w-full" rows="4" readonly></textarea>
 
-    <!-- Result -->
-    <section class="ss-section" id="resultCard" hidden aria-labelledby="result-title">
-      <div class="ss-card">
-        <h2 id="result-title">Ergebnis</h2>
-        <div class="ss-resultBox" id="outUrl"></div>
-
-        <div class="ss-actions">
-          <button class="ss-btn ss-btn--primary" id="btnCopy" type="button">Kopieren</button>
-          <a class="ss-btn" id="btnOpen" href="#" target="_blank" rel="noopener">Öffnen</a>
-          <button class="ss-btn" id="btnShare" type="button">Teilen</button>
-        </div>
-
-        <div class="ss-kv" id="auditRow" hidden></div>
-
-        <div class="ss-card ss-card--inner" style="margin-top:12px">
-          Wenn der bereinigte Link nicht funktioniert: Original öffnen → vergleichen. Wenn nur der bereinigte Link scheitert,
-          war ein entfernter Parameter vermutlich funktional. Dann konservativer reinigen (oder Pro: Audit/Allowlist/Policies).
-        </div>
-      </div>
-    </section>
-
-    <!-- Impact -->
-    <section class="ss-section" id="ssImpactCard" hidden aria-labelledby="impact-title">
-      <div class="ss-card">
-        <div class="ssImpactHeaderRow">
-          <h2 id="impact-title" style="margin:0">Impact</h2>
-          <span class="ssImpactSessionLabel">Session (dieser Tab)</span>
-        </div>
-
-        <div class="ssImpactGrid">
-          <div class="ssImpactItem">
-            <div class="ssImpactNum" id="ssImpactLinks">0</div>
-            <div class="ssImpactLabel">Links bereinigt</div>
-          </div>
-          <div class="ssImpactItem">
-            <div class="ssImpactNum" id="ssImpactParams">0</div>
-            <div class="ssImpactLabel">Parameter entfernt</div>
-          </div>
-          <div class="ssImpactItem">
-            <div class="ssImpactNum" id="ssImpactAdIds">0</div>
-            <div class="ssImpactLabel">Ad-IDs entfernt</div>
-          </div>
-          <div class="ssImpactItem">
-            <div class="ssImpactNum" id="ssImpactUTM">0</div>
-            <div class="ssImpactLabel">UTM entfernt</div>
-          </div>
-        </div>
-
-        <p class="ss-muted">
-          Gespeichert werden nur Summen lokal in diesem Tab (keine URLs, keine Domains). (Nach Reload weg.)
-        </p>
-
-        <div class="ss-actions">
-          <button class="ss-btn" type="button" id="ssImpactReset">Statistik zurücksetzen</button>
-          <span class="ss-muted">Zuletzt: <span id="ssImpactUpdated">—</span></span>
-        </div>
-
-        <div class="ssImpactLast" id="ssImpactLastLineWrap" hidden>
-          <span class="ssImpactLastTitle">Letzter Link:</span>
-          <span id="ssImpactLastLine"></span>
-        </div>
+        <div class="ss-note ss-mt-12">Local-first: Keine Uploads. Keine Anmeldung.</div>
       </div>
     </section>
   </main>
@@ -231,420 +65,34 @@
   <div id="ss-footer"></div>
 
   <script>
-    (function(){
-      const byId = (id) => document.getElementById(id);
-      const on = (el, ev, fn) => el && el.addEventListener(ev, fn);
+    (() => {
+      "use strict";
+      const TRACK = new Set(["utm_source","utm_medium","utm_campaign","utm_term","utm_content","utm_id","gclid","fbclid","msclkid","mc_eid","mc_cid","ttclid","twclid","li_fat_id","dclid","gbraid","wbraid"]);
+      const raw = document.getElementById("rawUrl");
+      const out = document.getElementById("cleanUrl");
+      const cleanBtn = document.getElementById("cleanBtn");
+      const copyBtn = document.getElementById("copyBtn");
+      const shareBtn = document.getElementById("shareBtn");
 
-      const input = byId('urlInput');
-      const msg = byId('msg');
-      const resultCard = byId('resultCard');
-      const outUrl = byId('outUrl');
-      const auditRow = byId('auditRow');
-      const btnOpen = byId('btnOpen');
-
-      const btnClean = byId('btnClean');
-      const btnClear = byId('btnClear');
-      const btnPaste = byId('btnPaste');
-      const btnCopy = byId('btnCopy');
-      const btnShare = byId('btnShare');
-
-      const TRACKING_KEYS = new Set([
-        'gclid','dclid','gbraid','wbraid',
-        'fbclid','msclkid','igshid',
-        'twclid','ttclid','li_fat_id',
-        'yclid',
-        'mc_cid','mc_eid','mkt_tok',
-        '_hsenc','_hsmi',
-        'srsltid',
-        '_ga','_gid','_gac',
-        '_fbp','_fbc',
-        'obclid','tblci'
-      ]);
-
-      function showMsg(type, text){
-        if (!msg) return;
-        msg.hidden = !text;
-        msg.className = "ss-msg" + (type === "note" ? " ss-msg--note" : "");
-        msg.textContent = text || '';
+      function cleanOne(input) {
+        try {
+          const u = new URL(input.trim());
+          const del = [];
+          u.searchParams.forEach((_, k) => { if (TRACK.has(k.toLowerCase())) del.push(k); });
+          del.forEach(k => u.searchParams.delete(k));
+          u.hash = "";
+          return u.toString();
+        } catch { return ""; }
       }
 
-      function normalizeUrl(s){
-        s = (s || '').trim();
-        if (!s) return '';
-        if (!/^[a-zA-Z][a-zA-Z0-9+\-.]*:/.test(s)) {
-          if (s.startsWith('//')) s = 'https:' + s;
-          else s = 'https://' + s;
-        }
-        return s;
-      }
-
-      function extractFirstUrl(text){
-        const s = String(text || "").trim();
-        if (!s) return "";
-        try { return new URL(normalizeUrl(s)).toString(); } catch(e) {}
-        const m = s.match(/https?:\/\/[^\s<>"']+/i) || s.match(/www\.[^\s<>"']+/i);
-        if (!m) return "";
-        let candidate = m[0].replace(/[)\]\}.,;:!?]+$/g, "");
-        try { return new URL(normalizeUrl(candidate)).toString(); } catch(e) { return ""; }
-      }
-
-      const WRAP_KEYS = ["url","u","target","redirect","dest","destination"];
-      function looksLikeUrl(v){
-        const s = String(v || "").trim();
-        return /^https?:\/\//i.test(s) || s.startsWith("//") || /^www\./i.test(s);
-      }
-      function tryDecode(v){
-        let s = String(v || "").trim();
-        for (let i=0;i<2;i++){
-          try{
-            const dec = decodeURIComponent(s);
-            if (dec !== s) s = dec;
-          }catch(e){}
-        }
-        return s;
-      }
-      function unwrapRedirectOnce(url){
-        for (const k of WRAP_KEYS){
-          const v0 = url.searchParams.get(k);
-          if (!v0) continue;
-          const v = tryDecode(v0);
-          if (!looksLikeUrl(v)) continue;
-          try{ return new URL(normalizeUrl(v)); }catch(e){}
-        }
-        return url;
-      }
-
-      function cleanUrl(raw){
-        const original = (raw || '').trim();
-        if (!original) throw new Error('Bitte einen Link einfügen.');
-
-        const extracted = extractFirstUrl(original);
-        if (!extracted) throw new Error('Kein gültiger Link gefunden (nur Text erkannt).');
-
-        let url;
-        try{ url = new URL(extracted); }
-        catch(e){ throw new Error('Das sieht nicht wie eine gültige URL aus.'); }
-
-        for (let i=0;i<3;i++){
-          const next = unwrapRedirectOnce(url);
-          if (next.toString() === url.toString()) break;
-          url = next;
-        }
-
-        const removed = [];
-        const kept = [];
-
-        const keys = [];
-        url.searchParams.forEach((_, k)=>keys.push(k));
-
-        keys.forEach((k)=>{
-          const low = (k || '').toLowerCase();
-          const isUtm = low.startsWith('utm_');
-          const isTracking = TRACKING_KEYS.has(low);
-          if (isUtm || isTracking){
-            url.searchParams.delete(k);
-            removed.push(k);
-          } else {
-            kept.push(k);
-          }
-        });
-
-        return { cleaned: url.toString(), removed, kept };
-      }
-
-      async function copyText(text){
-        try{
-          await navigator.clipboard.writeText(text);
-          return true;
-        }catch(e){
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          ta.setAttribute('readonly','');
-          ta.style.position='fixed';
-          ta.style.left='-9999px';
-          ta.style.top='0';
-          document.body.appendChild(ta);
-          ta.focus();
-          ta.select();
-          try{ document.execCommand('copy'); }catch(_){}
-          document.body.removeChild(ta);
-          return true;
-        }
-      }
-
-      function auditChip(label, keys){
-        const span = document.createElement('span');
-        span.appendChild(document.createTextNode(label + ': '));
-        const mono = document.createElement('span');
-        mono.style.fontFamily = "var(--mono)";
-        mono.textContent = keys.join(', ');
-        span.appendChild(mono);
-        return span;
-      }
-
-      function renderResult(res){
-        if (resultCard) resultCard.hidden = false;
-        if (outUrl) outUrl.textContent = res.cleaned;
-        if (btnOpen) btnOpen.href = res.cleaned;
-
-        if (auditRow){
-          auditRow.innerHTML = '';
-          const r = Array.from(new Set(res.removed));
-          const k = Array.from(new Set(res.kept));
-
-          if (r.length || k.length){
-            auditRow.hidden = false;
-            if (r.length) auditRow.appendChild(auditChip('Entfernt', r));
-            if (k.length) auditRow.appendChild(auditChip('Behalten', k));
-          } else {
-            auditRow.hidden = true;
-          }
-        }
-      }
-
-      // ===== Impact (RAM-only) =====
-      const impactCard = byId("ssImpactCard");
-
-      const AD_ID_KEYS = new Set([
-        "gclid","dclid","gbraid","wbraid",
-        "fbclid","msclkid","ttclid","twclid","li_fat_id",
-        "igshid","yclid",
-        "mc_cid","mc_eid","mkt_tok",
-        "srsltid"
-      ]);
-
-      const __SS_IMPACT = window.__SS_IMPACT || (window.__SS_IMPACT = {
-        linksCleaned: 0,
-        paramsRemoved: 0,
-        utmRemoved: 0,
-        adIdsRemoved: 0,
-        lastUpdatedISO: ""
+      cleanBtn.addEventListener("click", () => { out.value = cleanOne(raw.value) || ""; });
+      copyBtn.addEventListener("click", async () => { if (out.value) await navigator.clipboard.writeText(out.value); });
+      shareBtn.addEventListener("click", async () => {
+        if (!out.value) return;
+        if (navigator.share) await navigator.share({ url: out.value, text: out.value });
       });
-      const __SS_SEEN = window.__SS_SEEN || (window.__SS_SEEN = Object.create(null));
-
-      function impactFormat(n){ try{ return new Intl.NumberFormat("de-DE").format(n); }catch(e){ return String(n); } }
-      function impactSetText(id, text){ const el = byId(id); if (el) el.textContent = text; }
-
-      function impactClearLastLine(){
-        const wrap = byId("ssImpactLastLineWrap");
-        const line = byId("ssImpactLastLine");
-        if (line) line.textContent = "";
-        if (wrap) wrap.hidden = true;
-      }
-
-      function impactWriteLastLine(removedKeys){
-        const wrap = byId("ssImpactLastLineWrap");
-        const lineEl = byId("ssImpactLastLine");
-        if (!wrap || !lineEl) return;
-
-        const keys = Array.isArray(removedKeys) ? removedKeys.map(k => String(k || "").trim()).filter(Boolean) : [];
-        if (!keys.length){ impactClearLastLine(); return; }
-
-        const removedCount = keys.length;
-        const utm = keys.filter(k => k.toLowerCase().startsWith("utm_")).length;
-        const ad  = keys.filter(k => AD_ID_KEYS.has(k.toLowerCase())).length;
-
-        lineEl.textContent = `Entfernt: ${removedCount} Parameter${ad ? ` (${ad} Ad-IDs)` : ""}${utm ? `, davon ${utm} UTM` : ""}`;
-        wrap.hidden = false;
-      }
-
-      function impactShowIfAny(){
-        if (!impactCard) return;
-        const hasAny = (__SS_IMPACT.linksCleaned || __SS_IMPACT.paramsRemoved || __SS_IMPACT.adIdsRemoved || __SS_IMPACT.utmRemoved);
-        impactCard.hidden = !hasAny;
-      }
-
-      function impactUpdateUI(){
-        impactSetText("ssImpactLinks", impactFormat(__SS_IMPACT.linksCleaned));
-        impactSetText("ssImpactParams", impactFormat(__SS_IMPACT.paramsRemoved));
-        impactSetText("ssImpactUTM", impactFormat(__SS_IMPACT.utmRemoved));
-        impactSetText("ssImpactAdIds", impactFormat(__SS_IMPACT.adIdsRemoved));
-        impactSetText("ssImpactUpdated", __SS_IMPACT.lastUpdatedISO ? new Date(__SS_IMPACT.lastUpdatedISO).toLocaleString("de-DE") : "—");
-        impactShowIfAny();
-      }
-
-      function signature(cleanedUrl, removedKeys){
-        const r = Array.isArray(removedKeys) ? removedKeys.map(k=>String(k||"").trim().toLowerCase()).filter(Boolean) : [];
-        r.sort();
-        return String(cleanedUrl || "") + "||" + r.join(",");
-      }
-
-      function impactAddIfNew(cleanedUrl, removedKeys){
-        const keys = Array.isArray(removedKeys) ? removedKeys.map(k => String(k || "").trim()).filter(Boolean) : [];
-        if (keys.length === 0) return false;
-
-        const sig = signature(cleanedUrl, keys);
-        if (__SS_SEEN[sig]) return false;
-        __SS_SEEN[sig] = 1;
-
-        __SS_IMPACT.linksCleaned += 1;
-        __SS_IMPACT.paramsRemoved += keys.length;
-        __SS_IMPACT.utmRemoved += keys.filter(k => k.toLowerCase().startsWith("utm_")).length;
-        __SS_IMPACT.adIdsRemoved += keys.filter(k => AD_ID_KEYS.has(k.toLowerCase())).length;
-        __SS_IMPACT.lastUpdatedISO = new Date().toISOString();
-
-        impactUpdateUI();
-        impactWriteLastLine(keys);
-        return true;
-      }
-
-      function impactReset(){
-        for (const k in __SS_SEEN) delete __SS_SEEN[k];
-        __SS_IMPACT.linksCleaned = 0;
-        __SS_IMPACT.paramsRemoved = 0;
-        __SS_IMPACT.utmRemoved = 0;
-        __SS_IMPACT.adIdsRemoved = 0;
-        __SS_IMPACT.lastUpdatedISO = "";
-        impactUpdateUI();
-        impactClearLastLine();
-      }
-
-      function impactInit(){
-        impactUpdateUI();
-        impactClearLastLine();
-        on(byId("ssImpactReset"), "click", impactReset);
-      }
-
-      // ===== Main clean =====
-      function doClean(){
-        showMsg('', '');
-        if (resultCard) resultCard.hidden = true;
-
-        try{
-          const res = cleanUrl(input ? input.value : "");
-          renderResult(res);
-
-          impactAddIfNew(res.cleaned, res.removed);
-          impactUpdateUI();
-          impactShowIfAny();
-
-          if (!res.removed || res.removed.length === 0){
-            showMsg('note', 'Dieser Link sieht schon sauber aus (keine typischen Tracking-Parameter gefunden).');
-          }
-
-          setTimeout(()=>{
-            const rc = byId('resultCard');
-            if (rc && !rc.hidden) rc.scrollIntoView({behavior:'smooth', block:'start'});
-          }, 30);
-        }catch(e){
-          showMsg('warn', e.message || 'Fehler beim Bereinigen.');
-        }
-      }
-
-      // ===== AUTO-CLEAN (debounced) =====
-      let autoTimer = null;
-      let lastAutoValue = "";
-
-      function hideResultAndImpact(){
-        if (resultCard) resultCard.hidden = true;
-        showMsg('', '');
-        impactClearLastLine();
-        if (impactCard) impactCard.hidden = true;
-      }
-
-      function scheduleAutoClean(){
-        const v = (input ? input.value : "").trim();
-
-        if (!v){
-          lastAutoValue = "";
-          hideResultAndImpact();
-          return;
-        }
-
-        if (v === lastAutoValue) return;
-
-        const u = extractFirstUrl(v);
-        if (!u){
-          lastAutoValue = "";
-          hideResultAndImpact();
-          return;
-        }
-
-        clearTimeout(autoTimer);
-        autoTimer = setTimeout(() => {
-          const now = (input ? input.value : "").trim();
-          if (now !== v) return;
-          lastAutoValue = v;
-          doClean();
-        }, 220);
-      }
-
-      // ===== Bindings =====
-      on(input, "input", scheduleAutoClean);
-      on(btnClean, "click", doClean);
-
-      on(btnClear, "click", ()=>{
-        if (input) input.value = "";
-        lastAutoValue = "";
-        hideResultAndImpact();
-        if (input) input.focus();
-      });
-
-      on(btnPaste, "click", async ()=>{
-        showMsg('', '');
-        try{
-          if (navigator.clipboard && navigator.clipboard.readText){
-            const tclip = await navigator.clipboard.readText();
-            if (tclip && tclip.trim()){
-              if (input) input.value = tclip.trim();
-              if (input) input.focus();
-              scheduleAutoClean();
-              return;
-            }
-          }
-          showMsg('note', 'iPad/Safari: Feld antippen und „Einsetzen“ nutzen. Zwischenablage-Zugriff kann manchmal blockiert sein.');
-          if (input) input.focus();
-        }catch(e){
-          showMsg('note', 'iPad/Safari: Feld antippen und „Einsetzen“ nutzen. Zwischenablage-Zugriff kann manchmal blockiert sein.');
-          if (input) input.focus();
-        }
-      });
-
-      on(btnCopy, "click", async ()=>{
-        const text = (outUrl && outUrl.textContent || '').trim();
-        if(!text) return;
-        await copyText(text);
-        const old = btnCopy.textContent;
-        btnCopy.textContent = 'Kopiert ✓';
-        setTimeout(()=>btnCopy.textContent=old, 900);
-      });
-
-      on(btnShare, "click", async ()=>{
-        const text = (outUrl && outUrl.textContent || '').trim();
-        if(!text) return;
-
-        if (navigator.share){
-          try{ await navigator.share({ url: text }); return; }catch(e){}
-        }
-        await copyText(text);
-        showMsg('note', 'Teilen ist nicht verfügbar (oder abgebrochen) — Link wurde kopiert.');
-      });
-
-      // Prefill via ?url=... or ?u=...&run=1
-      (function(){
-        const sp = new URLSearchParams(location.search);
-        const incoming = sp.get('url') || sp.get('u');
-        const run = sp.get('run');
-
-        if (!incoming || !input) return;
-
-        let value = incoming;
-        try { value = decodeURIComponent(incoming); } catch(e) {}
-        input.value = value;
-
-        const shouldRun = sp.has('url') || run === '1';
-        if (shouldRun){
-          setTimeout(()=>{ lastAutoValue=""; scheduleAutoClean(); }, 50);
-        }
-
-        history.replaceState({}, '', location.pathname);
-      })();
-
-      impactInit();
     })();
   </script>
-
-  <!-- Shell JS: genau 1×, und ohne doppelte Footer-Mounts -->
-  <script src="/js/ss-shell.js?v=2026-02-04-07" defer></script>
+  <script src="/js/ss-shell.js?v=2026-02-05-02" defer></script>
 </body>
 </html>
