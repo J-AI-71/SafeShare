@@ -1,197 +1,160 @@
-<!-- Datei: /email-links-bereinigen/index.html (DE) — ZERO inline, ss-page + ss-shell, mounts -->
+<!-- /messenger-links-bereinigen/index.html (DE) — SafeShare -->
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <title>E-Mail-Links bereinigen – SafeShare (Outlook, Gmail, Newsletter)</title>
-  <meta name="description" content="E-Mail-Links bereinigen: Tracking-Parameter aus Newsletter- und Marketing-Links entfernen – lokal im Browser, bevor du weiterleitest oder speicherst." />
+  <title>Links in Messengern bereinigen – SafeShare (WhatsApp, Signal, Telegram)</title>
+  <meta name="description" content="Messenger-Links bereinigen: Tracking-Parameter wie utm_*, gclid, fbclid lokal im Browser entfernen. Sauber teilen statt unnötige IDs mitzuschicken." />
   <meta name="robots" content="index,follow" />
-
-  <link rel="canonical" href="https://safesharepro.com/email-links-bereinigen/" />
-  <link rel="alternate" hreflang="de" href="https://safesharepro.com/email-links-bereinigen/" />
-  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/email-link-cleaning/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/email-link-cleaning/" />
-
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
-  <!-- Google Search Console -->
+  <link rel="canonical" href="https://safesharepro.com/messenger-links-bereinigen/" />
+  <link rel="alternate" hreflang="de" href="https://safesharepro.com/messenger-links-bereinigen/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/messenger-links-clean/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/messenger-links-clean/" />
+
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
-  <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="E-Mail-Links bereinigen – SafeShare" />
-  <meta property="og:description" content="Tracking-IDs entfernen, bevor Links in Postfächern, Archiven und Tickets landen. Local-first, kein Upload." />
-  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Links in Messengern bereinigen – SafeShare" />
+  <meta property="og:description" content="WhatsApp, Signal, Telegram: Tracking-Parameter lokal im Browser entfernen. Copy → Clean → Share." />
+  <meta property="og:type" content="article" />
   <meta property="og:site_name" content="SafeShare" />
-  <meta property="og:url" content="https://safesharepro.com/email-links-bereinigen/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.jpg" />
-  <meta property="og:image:alt" content="SafeShare – E-Mail Links bereinigen" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:url" content="https://safesharepro.com/messenger-links-bereinigen/" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-messenger-links.png?v=2026-02-05-01" />
+  <meta property="og:image:alt" content="SafeShare: Links in Messengern bereinigen" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="E-Mail-Links bereinigen – SafeShare" />
-  <meta name="twitter:description" content="Saubere Links per E-Mail: Tracking-Parameter entfernen, bevor du sendest." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.jpg" />
-  <meta name="twitter:image:alt" content="SafeShare – E-Mail Links bereinigen" />
+  <meta name="twitter:title" content="Links in Messengern bereinigen – SafeShare" />
+  <meta name="twitter:description" content="Tracking-Parameter aus Messenger-Links entfernen (lokal im Browser)." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-messenger-links.png?v=2026-02-05-01" />
+  <meta name="twitter:image:alt" content="SafeShare: Links in Messengern bereinigen" />
 
-  <!-- Favicons + PWA (absolut) -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-01" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-01" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-01" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-01" />
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-01" />
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-01" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-01" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-01" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-01" />
 
-  <!-- Page + Shell -->
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-08" />
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-01" />
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-01" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-01" />
 </head>
 
 <body>
-  <!-- Shell mounts -->
   <div id="ss-shell"></div>
 
   <main class="ss-main" id="top">
-    <a class="skip" href="#content">Zum Inhalt springen</a>
 
-    <div class="ss-wrap" id="content">
+    <section class="ss-section" aria-labelledby="hero-title">
+      <div class="ss-card ss-hero">
+        <h1 id="hero-title">Links in Messengern bereinigen (WhatsApp, Signal, Telegram)</h1>
 
-      <!-- HERO -->
-      <section class="ss-section ss-grid ss-grid--2" aria-label="E-Mail Links bereinigen">
-        <section class="ss-card">
-          <h1>Links in E-Mails bereinigen (Outlook, Gmail, Newsletter)</h1>
-          <p class="ss-hero-kicker">
-            E-Mail ist Archiv: Links landen in Postfächern, Weiterleitungen, CRM, Tickets und Backups.
-            Wenn Tracking-IDs mitlaufen (<code>utm_*</code>, Klick-IDs), werden sie Teil dieser Spur – oft ohne Absicht.
-          </p>
-
-          <div class="ss-pills">
-            <span class="ss-pill"><b><code>utm_*</code></b></span>
-            <span class="ss-pill"><b><code>gclid</code></b></span>
-            <span class="ss-pill"><b><code>fbclid</code></b></span>
-            <span class="ss-pill"><b><code>msclkid</code></b></span>
-            <span class="ss-pill"><b><code>mc_eid</code></b></span>
-          </div>
-
-          <div class="ss-actions">
-            <a class="ss-btn ss-btn--primary" href="/app/">Link bereinigen</a>
-            <a class="ss-btn" href="/pro/">Pro: Bulk &amp; Audit</a>
-          </div>
-
-          <div class="ss-note ss-mt12">
-            Local-first im Browser. Kein Upload. Sauber senden statt unnötige IDs mitzugeben.
-          </div>
-        </section>
-
-        <aside class="ss-card" aria-label="E-Mail Workflows">
-          <h2>Schnell-Workflows</h2>
-
-          <details open>
-            <summary>Copy → Clean → Paste (ein Link)</summary>
-            <ol class="ss-muted ss-mt10">
-              <li>Link aus Website/Tool kopieren.</li>
-              <li>SafeShare öffnen → einfügen → bereinigen.</li>
-              <li>Sauberen Link in die E-Mail einfügen.</li>
-            </ol>
-          </details>
-
-          <details>
-            <summary>Mehrere Links in einer Mail (Pro)</summary>
-            <p class="ss-muted ss-mt10">
-              Mehrere Links (FAQ + Docs + Shop) in einer Mail?
-              Pro kann Bulk-Clean + Audit pro Link. Ideal für Support/Team-Kommunikation.
-            </p>
-          </details>
-
-          <details>
-            <summary>Wichtige Grenze (ehrlich)</summary>
-            <p class="ss-muted ss-mt10">
-              SafeShare entfernt IDs im Link, nicht Tracking-Techniken der Zielseite (Cookies/Fingerprinting) oder Server-Logs.
-              Für „öffnen ohne Spuren“ brauchst du andere Schichten (Browser-Schutz, ggf. Isolated Open – Roadmap).
-            </p>
-          </details>
-        </aside>
-      </section>
-
-      <!-- WHY -->
-      <section class="ss-section ss-card" aria-label="Warum das Datensammlung reduziert">
-        <h2>Warum das Datensammlung reduziert</h2>
-        <p>
-          E-Mail ist ein Dauer-Medium: Inhalte werden weitergeleitet, durchsucht, exportiert und oft automatisch verarbeitet.
-          Wenn Kennungen im Link stehen, wandern sie mit – und können später wieder auftauchen.
+        <p class="ss-hero-kicker">
+          Messenger sind schnell – und dadurch werden Links oft ungeprüft weitergereicht.
+          Tracking-IDs (<code>utm_*</code>, Klick-IDs) wandern dann direkt in Gruppen, Chats und Weiterleitungen.
         </p>
-        <ul class="ss-muted">
-          <li>Weniger Kennungen in Postfächern, Tickets, CRMs.</li>
-          <li>Weniger „Join-Keys“ für spätere Verknüpfung über Systeme.</li>
-          <li>Mehr Klarheit: Link wirkt sauber und nachvollziehbar.</li>
-        </ul>
 
-        <div class="ss-warn ss-mt12">
-          Wenn du Attribution bewusst brauchst (Publisher/Affiliate): nutze eine Policy/Whitelist (Pro), statt pauschal zu löschen.
+        <div class="ss-chipRow" aria-label="Typische Tracking-Keys">
+          <span class="ss-chip">utm_*</span>
+          <span class="ss-chip">fbclid</span>
+          <span class="ss-chip">gclid</span>
+          <span class="ss-chip">msclkid</span>
+          <span class="ss-chip">mc_eid</span>
         </div>
-      </section>
 
-      <!-- FAQ -->
-      <section class="ss-section ss-card" id="faq" aria-label="FAQ">
-        <h2>FAQ</h2>
+        <div class="ss-actions ss-mt-12">
+          <a class="ss-btn ss-btn--primary" href="/app/">Link bereinigen</a>
+          <a class="ss-btn" href="/lesezeichen/">Lesezeichen (Desktop)</a>
+          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro: Bulk &amp; Audit</a>
+        </div>
 
-        <details>
-          <summary>Warum ist E-Mail besonders relevant?</summary>
-          <p class="ss-mt10">
-            Weil E-Mails archiviert werden: Postfach → Weiterleitung → Ticket/CRM → Backup.
-            Tracking-IDs im Link werden Teil dieser Kette. SafeShare minimiert das.
-          </p>
-        </details>
+        <div class="ss-note ss-mt-12">
+          Local-first im Browser. Kein Upload. Sauber teilen statt unnötige IDs mitzuschicken.
+        </div>
+      </div>
+    </section>
 
-        <details>
-          <summary>Schadet das meinem Newsletter-Tracking?</summary>
-          <p class="ss-mt10">
-            Wenn du UTM bewusst für Analyse nutzt, ist das okay – dann solltest du sie bewusst setzen.
-            SafeShare ist für „sauber weiterleiten/teilen“ gedacht. Für Teams/Publisher: Policy/Whitelist nutzen.
-          </p>
-        </details>
+    <section class="ss-section" aria-labelledby="workflow-title">
+      <div class="ss-card">
+        <h2 id="workflow-title">Schnell-Workflows</h2>
 
-        <details>
-          <summary>Warum nicht einfach „Weiterleiten wie es ist“?</summary>
-          <p class="ss-mt10">
-            Weil du damit oft unabsichtlich Infos mitverteilst („woher kommt der Klick“, Klick-ID).
-            Saubere Links sind ein kleiner Aufwand mit großem Effekt.
-          </p>
-        </details>
+        <div class="ss-stack ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>Copy → Clean → Share (ein Link)</h3>
+            <ol>
+              <li>Link in App/Browser kopieren.</li>
+              <li>SafeShare öffnen → einfügen → bereinigen.</li>
+              <li>Sauberen Link im Messenger senden.</li>
+            </ol>
+          </article>
 
-        <details>
-          <summary>Was ist mit Redirects, die wieder IDs anhängen?</summary>
-          <p class="ss-mt10">
-            Das passiert. Nächster sinnvoller Schritt ist Redirect-Resolver + Clean-on-Navigation (Extension-Ebene).
-          </p>
-        </details>
+          <article class="ss-card ss-card--inner">
+            <h3>Mehrere Links für Team/Community (Pro)</h3>
+            <ol>
+              <li>Mehrere URLs sammeln (Post, Notiz, Sheet).</li>
+              <li>In Pro per Policy/Audit prüfen.</li>
+              <li>Konsistent bereinigt in Chat/Channel posten.</li>
+            </ol>
+          </article>
 
-        <!-- FAQ Schema -->
-        <script type="application/ld+json">
-        {
-          "@context":"https://schema.org",
-          "@type":"FAQPage",
-          "mainEntity":[
-            {"@type":"Question","name":"Warum ist E-Mail besonders relevant?","acceptedAnswer":{"@type":"Answer","text":"Weil E-Mails archiviert werden: Postfach → Weiterleitung → Ticket/CRM → Backup. Tracking-IDs im Link werden Teil dieser Kette. SafeShare minimiert das."}},
-            {"@type":"Question","name":"Schadet das meinem Newsletter-Tracking?","acceptedAnswer":{"@type":"Answer","text":"Wenn du UTM bewusst für Analyse nutzt, ist das okay – dann solltest du sie bewusst setzen. SafeShare ist für sauberes Weiterleiten/Teilen gedacht. Für Teams/Publisher: Policy/Whitelist nutzen."}},
-            {"@type":"Question","name":"Warum nicht einfach Weiterleiten wie es ist?","acceptedAnswer":{"@type":"Answer","text":"Weil du damit oft unabsichtlich Infos mitverteilst (woher kommt der Klick, Klick-ID). Saubere Links sind ein kleiner Aufwand mit großem Effekt."}},
-            {"@type":"Question","name":"Was ist mit Redirects, die wieder IDs anhängen?","acceptedAnswer":{"@type":"Answer","text":"Das passiert. Nächster sinnvoller Schritt ist Redirect-Resolver + Clean-on-Navigation (Extension-Ebene)."}}
-          ]
-        }
-        </script>
-      </section>
+          <article class="ss-card ss-card--inner">
+            <h3>Wichtige Grenze (ehrlich)</h3>
+            <p class="ss-muted">
+              Nicht blind alles entfernen: Manche Parameter (z. B. <code>ref</code>, <code>tag</code>) sind bewusst für Attribution gesetzt.
+            </p>
+            <p class="ss-muted">
+              Nutze Pro-Regeln, wenn du pro Domain unterscheiden willst.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-    </div>
+    <section class="ss-section" aria-labelledby="why-title">
+      <div class="ss-card">
+        <h2 id="why-title">Warum das im Messenger-Alltag hilft</h2>
+
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <div class="ss-card ss-card--inner">
+            <h3>Weniger Daten-Spuren</h3>
+            <p class="ss-muted">
+              Beim Weiterleiten in Gruppen verteilt sich ein Link schnell. Saubere URLs reduzieren unnötige Zusatzinfos in dieser Kette.
+            </p>
+          </div>
+
+          <div class="ss-card ss-card--inner">
+            <h3>Klarere Kommunikation</h3>
+            <p class="ss-muted">
+              Kürzere, bereinigte Links wirken seriöser und sind leichter zu lesen, zu prüfen und zu dokumentieren.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ss-section" aria-labelledby="cta-title">
+      <div class="ss-card">
+        <h2 id="cta-title">Jetzt testen</h2>
+        <p class="ss-muted">Copy → Clean → Share. Ohne Anmeldung. Local-first im Browser.</p>
+
+        <div class="ss-actions ss-mt-12">
+          <a class="ss-btn ss-btn--primary" href="/app/">App öffnen</a>
+          <a class="ss-btn" href="/tracking-parameter/">Tracking-Parameter erklärt</a>
+          <a class="ss-btn ss-btn--ghost" href="/hilfe/">Hilfe</a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <div id="ss-footer"></div>
-
-  <!-- Shell JS -->
-  <script src="/js/ss-shell.js?v=2026-02-04-07" defer></script>
+  <script src="/js/ss-shell.js?v=2026-02-05-01" defer></script>
 </body>
 </html>
