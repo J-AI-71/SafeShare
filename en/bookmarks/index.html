@@ -1,441 +1,131 @@
-<!-- File: /en/bookmarks/index.html -->
+<!-- File: /lesezeichen/index.html (DE) -->
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Bookmarks – SafeShare</title>
-  <meta name="description" content="SafeShare bookmarks/bookmarklets: clean links in one click — fast and local. Setup guide for desktop and mobile browsers." />
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
+
+  <title>Lesezeichen (Bookmarklets) – SafeShare</title>
+  <meta name="description" content="SafeShare Bookmarklets für Desktop-Browser: Link auf aktueller Seite bereinigen und direkt kopieren/öffnen." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
-  <link rel="canonical" href="https://safesharepro.com/en/bookmarks/" />
+  <link rel="canonical" href="https://safesharepro.com/lesezeichen/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/lesezeichen/" />
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/bookmarks/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/bookmarks/" />
 
-  <!-- Google Search Console -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
-  <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="SafeShare Bookmarks/Bookmarklets – Clean links in 1 click" />
-  <meta property="og:description" content="Bookmarklets for SafeShare: clean a link with one click — local-first in your browser." />
+  <meta property="og:title" content="Lesezeichen (Bookmarklets) – SafeShare" />
+  <meta property="og:description" content="Desktop-Bookmarklets für schnelle Link-Bereinigung." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
-  <meta property="og:url" content="https://safesharepro.com/en/bookmarks/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.jpg" />
-  <meta property="og:image:alt" content="SafeShare – Bookmarks/Bookmarklets (preview)" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:url" content="https://safesharepro.com/lesezeichen/" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-bookmarklets.png?v=2026-02-05-03" />
+  <meta property="og:image:alt" content="SafeShare Bookmarklets" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SafeShare Bookmarks/Bookmarklets – 1 click" />
-  <meta name="twitter:description" content="Bookmarklets: clean links locally — fast, no upload." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.jpg" />
-  <meta name="twitter:image:alt" content="SafeShare – Bookmarks/Bookmarklets (preview)" />
+  <meta name="twitter:title" content="Lesezeichen (Bookmarklets) – SafeShare" />
+  <meta name="twitter:description" content="Desktop-Bookmarklets für schnelle Link-Bereinigung." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-bookmarklets.png?v=2026-02-05-03" />
+  <meta name="twitter:image:alt" content="SafeShare Bookmarklets" />
 
-  <!-- Favicons + PWA (absolute for slugs) -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-25-01" />
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01" />
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
 
-  <!-- MASTER SHELL (NAV) -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-03" />
-  <script src="/js/ss-shell.js?v=2026-01-25-03" defer></script>
-
-  <style>
-    :root{
-      --bg0:#070a12; --bg1:#070b14; --bg2:#0b1020;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.045);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.60);
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
-      --radius: 18px;
-      --mint: #2fe3b7;
-      --mint2: rgba(47,227,183,.18);
-      --mint3: rgba(47,227,183,.28);
-      --warn: rgba(255,197,84,.16);
-      --bad: rgba(255,84,84,.14);
-      --ok: rgba(47,227,183,.16);
-      --focus: 0 0 0 3px rgba(47,227,183,.22);
-      --max: 1120px;
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#f6f7fb; --bg1:#ffffff; --bg2:#f2f6ff;
-        --card:#ffffff; --card2:#f5f7ff;
-        --border: rgba(17,24,39,.12);
-        --text: rgba(17,24,39,.95);
-        --muted: rgba(17,24,39,.72);
-        --muted2: rgba(17,24,39,.62);
-        --shadow: 0 18px 45px rgba(17,24,39,.10);
-        --warn: rgba(255,197,84,.22);
-        --bad: rgba(255,84,84,.12);
-        --ok: rgba(47,227,183,.18);
-        --focus: 0 0 0 3px rgba(17,130,98,.22);
-      }
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(47,227,183,.18), transparent 55%),
-        radial-gradient(900px 520px at 85% 10%, rgba(255,197,84,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-    }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
-    .muted{ color: var(--muted); }
-
-    .card{
-      margin-top: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 42px); line-height: 1.10; letter-spacing:-.2px; }
-    h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
-    h3{ margin: 14px 0 8px; font-size: 15px; letter-spacing: -0.1px; }
-    p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-    ol, ul{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.6; }
-
-    .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor:pointer;
-      user-select:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      text-decoration:none;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); }
-    .btn.primary{ background: var(--mint2); border-color: rgba(47,227,183,.35); }
-    .btn.primary:hover{ background: var(--mint3); }
-    .btn.ghost{ background: transparent; color: var(--muted); }
-    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.04); }
-
-    .note,.warn,.bad{
-      margin-top: 12px;
-      border-left: 3px solid rgba(47,227,183,.55);
-      background: var(--ok);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text);
-    }
-    .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
-    .bad{ border-left-color: rgba(255,84,84,.55); background: var(--bad); }
-
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    @media(min-width: 980px){
-      .grid2{ grid-template-columns: 1fr 1fr; }
-    }
-    .box{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding: 12px;
-    }
-
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
-    .code{
-      margin-top: 10px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-      word-break: break-word;
-      user-select: text;
-      white-space: pre-wrap;
-    }
-    .copyRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 10px; }
-    .copyBtn{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      cursor:pointer;
-    }
-    .copyBtn:hover{ background: rgba(255,255,255,.10); }
-
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 14px;
-    }
-    @media(min-width: 920px){
-      .footGrid{ grid-template-columns: 1.2fr .8fr; }
-    }
-    .footLinks{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-start;
-    }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      text-decoration:none;
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-  </style>
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
 </head>
-
 <body>
-  <!-- MASTER NAV MOUNT -->
   <div id="ss-shell"></div>
 
-  <div class="wrap">
-
-    <section class="card">
-      <h1>Bookmarks / Bookmarklets</h1>
-      <p>
-        Bookmarklets are bookmarks that run a small script.
-        On desktop, they let you use SafeShare very fast:
-        <b>take the current URL</b> → open SafeShare → optionally clean immediately.
-      </p>
-
-      <div class="row">
-        <a class="btn primary" href="/en/app/">Open the app</a>
-        <a class="btn" href="/en/help/">Help</a>
-        <a class="btn ghost" href="/en/pro/">View Pro</a>
+  <main class="ss-main" id="top">
+    <section class="ss-section" aria-labelledby="bm-title">
+      <div class="ss-card ss-hero">
+        <h1 id="bm-title">Lesezeichen (Bookmarklets)</h1>
+        <p class="ss-hero-kicker">Desktop: ein Klick, Link sauber.</p>
+        <p>
+          Ziehe einen Button in deine Lesezeichenleiste. Danach kannst du auf jeder Seite
+          den aktuellen Link bereinigen und direkt kopieren oder in SafeShare öffnen.
+        </p>
       </div>
+    </section>
 
-      <div class="note">
-        <b>Desktop:</b> Bookmarklets are a shortcut for Chrome/Firefox/Edge.<br />
-        <b>iOS/iPad:</b> The most reliable option is a <b>Share Sheet shortcut</b>.
-        <div class="row" style="margin-top:10px">
-          <a class="btn" href="/en/help/#shortcut">See the iOS shortcut</a>
+    <section class="ss-section" aria-labelledby="install-title">
+      <div class="ss-card">
+        <h2 id="install-title">Installation (Desktop)</h2>
+        <ol>
+          <li>Lesezeichenleiste im Browser einblenden.</li>
+          <li>Den gewünschten Button per Drag & Drop in die Leiste ziehen.</li>
+          <li>Auf beliebiger Seite auf das Lesezeichen klicken.</li>
+        </ol>
+        <div class="ss-warn ss-mt-12">
+          iOS/iPadOS: Bookmarklets sind oft unzuverlässig. Nutze dort besser den Shortcut-Flow.
         </div>
       </div>
     </section>
 
-    <section class="card">
-      <h2>1) Open the app &amp; only prefill the URL</h2>
-      <p>Takes the current page into SafeShare (parameter <span class="mono">u</span>). You then click “Clean” manually.</p>
+    <section class="ss-section" aria-labelledby="buttons-title">
+      <div class="ss-card">
+        <h2 id="buttons-title">Bookmarklets</h2>
 
-      <div class="box">
-        <h3>Drag to bookmarks (desktop)</h3>
-        <p class="muted">Drag the button into your bookmarks bar (Chrome/Firefox/Edge). This is the most reliable method.</p>
-        <div class="row">
-          <a class="btn primary" id="dragFillOnly" href="#">SafeShare (prefill only)</a>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>Clean + Copy</h3>
+            <p class="ss-muted">Bereinigt die aktuelle URL und kopiert sie in die Zwischenablage.</p>
+            <p>
+              <a class="ss-btn ss-btn--primary"
+                 href="javascript:(()=>{const u=new URL(location.href);const DROP=new Set(['gclid','dclid','gbraid','wbraid','fbclid','msclkid','igshid','twclid','ttclid','li_fat_id','yclid','mc_cid','mc_eid','mkt_tok','_hsenc','_hsmi','srsltid','obclid','tblci','_ga','_gid','_gac','_fbp','_fbc']);const p=u.searchParams;[...p.keys()].forEach(k=>{const kl=k.toLowerCase();if(kl.startsWith('utm_')||DROP.has(kl))p.delete(k)});u.search=p.toString()?('?'+p.toString()):'';const out=u.toString();const done=()=>alert('SafeShare: Link bereinigt und kopiert');if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out).then(done,()=>prompt('Kopieren:',out));}else{prompt('Kopieren:',out);}})();">
+                SafeShare: Clean + Copy
+              </a>
+            </p>
+          </article>
+
+          <article class="ss-card ss-card--inner">
+            <h3>Open in SafeShare App</h3>
+            <p class="ss-muted">Öffnet die SafeShare App mit aktueller URL als Übergabe.</p>
+            <p>
+              <a class="ss-btn"
+                 href="javascript:(()=>{const target='https://safesharepro.com/app/?url='+encodeURIComponent(location.href);location.href=target;})();">
+                SafeShare: Open App
+              </a>
+            </p>
+          </article>
         </div>
 
-        <h3 style="margin-top:14px">Bookmarklet code</h3>
-        <div class="code mono" id="codeFillOnly"></div>
-        <div class="copyRow">
-          <button class="copyBtn" type="button" data-copy="#codeFillOnly">Copy code</button>
-        </div>
-      </div>
+        <details class="ss-mt-12">
+          <summary>Code anzeigen (falls Drag & Drop blockiert ist)</summary>
+          <div class="ss-stack ss-mt-12">
+            <div class="ss-card ss-card--inner">
+              <h3>Clean + Copy (Code)</h3>
+              <p class="ss-mono">javascript:(()=>{const u=new URL(location.href);const DROP=new Set(['gclid','dclid','gbraid','wbraid','fbclid','msclkid','igshid','twclid','ttclid','li_fat_id','yclid','mc_cid','mc_eid','mkt_tok','_hsenc','_hsmi','srsltid','obclid','tblci','_ga','_gid','_gac','_fbp','_fbc']);const p=u.searchParams;[...p.keys()].forEach(k=>{const kl=k.toLowerCase();if(kl.startsWith('utm_')||DROP.has(kl))p.delete(k)});u.search=p.toString()?('?'+p.toString()):'';const out=u.toString();const done=()=>alert('SafeShare: Link bereinigt und kopiert');if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out).then(done,()=>prompt('Kopieren:',out));}else{prompt('Kopieren:',out);}})();</p>
+            </div>
+            <div class="ss-card ss-card--inner">
+              <h3>Open App (Code)</h3>
+              <p class="ss-mono">javascript:(()=>{const target='https://safesharepro.com/app/?url='+encodeURIComponent(location.href);location.href=target;})();</p>
+            </div>
+          </div>
+        </details>
 
-      <div class="note">
-        Opens SafeShare via <span class="mono">/en/app/</span> (domain) → works on any website.
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>2) Open the app &amp; clean immediately (1 click)</h2>
-      <p>Same as above, but with <span class="mono">run=1</span>. SafeShare pre-fills the URL and starts cleaning immediately.</p>
-
-      <div class="box">
-        <h3>Drag to bookmarks (desktop)</h3>
-        <div class="row">
-          <a class="btn primary" id="dragAutoRun" href="#">SafeShare (1 click)</a>
-        </div>
-
-        <h3 style="margin-top:14px">Bookmarklet code</h3>
-        <div class="code mono" id="codeAutoRun"></div>
-        <div class="copyRow">
-          <button class="copyBtn" type="button" data-copy="#codeAutoRun">Copy code</button>
-        </div>
-      </div>
-
-      <div class="note">
-        Requirement: the app reads <span class="mono">?u=</span> and auto-starts when <span class="mono">run=1</span> is present.
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>3) “Paste URL” bookmarklet</h2>
-      <p>Prompts you for a URL (paste) and opens SafeShare with auto-cleaning.</p>
-
-      <div class="box">
-        <h3>Drag to bookmarks (desktop)</h3>
-        <div class="row">
-          <a class="btn primary" id="dragPasteRun" href="#">SafeShare (paste + 1 click)</a>
-        </div>
-
-        <h3 style="margin-top:14px">Bookmarklet code</h3>
-        <div class="code mono" id="codePasteRun"></div>
-        <div class="copyRow">
-          <button class="copyBtn" type="button" data-copy="#codePasteRun">Copy code</button>
-        </div>
-      </div>
-
-      <div class="warn">
-        No clipboard access: you paste manually (browser security).
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Setup (desktop)</h2>
-      <ol>
-        <li>Create a bookmark.</li>
-        <li>Name: e.g. <b>SafeShare</b> / <b>SafeShare 1 click</b>.</li>
-        <li>URL field: paste the bookmarklet code (must start with <span class="mono">javascript:</span>).</li>
-        <li>Click it on any website → SafeShare opens.</li>
-      </ol>
-      <div class="note">Tip: paste it as <b>one single line</b> (no line breaks). Drag buttons are even more reliable.</div>
-    </section>
-
-    <section class="card">
-      <h2>Troubleshooting</h2>
-      <div class="grid2">
-        <div class="box">
-          <h3>Nothing happens</h3>
-          <ul>
-            <li>Check: does the bookmark URL really start with <span class="mono">javascript:</span>?</li>
-            <li>Was the code truncated/rewritten? (some browsers do that)</li>
-            <li>Test on a “normal” website (not a PDF viewer / not internal browser pages).</li>
-          </ul>
-        </div>
-        <div class="box">
-          <h3>SafeShare opens, but the field is empty / run=1 doesn’t start</h3>
-          <ul>
-            <li>Then it’s almost always <b>cache</b> (an older app/script version).</li>
-            <li>Test the app directly: <span class="mono">/en/app/?u=https%3A%2F%2Fexample.com%2F%3Futm_source%3Dx&amp;run=1</span></li>
-          </ul>
+        <div class="ss-actions ss-mt-12">
+          <a class="ss-btn" href="/hilfe/">Hilfe</a>
+          <a class="ss-btn ss-btn--ghost" href="/app/">App direkt öffnen</a>
         </div>
       </div>
     </section>
+  </main>
 
-    <!-- FOOTER -->
-    <footer>
-      <div class="footGrid">
-        <div>
-          <div><strong>SafeShare</strong> – share links without ballast.</div>
-          <div>App: fast &amp; simple · Pro: policies, allowlist, audit.</div>
-        </div>
-        <div class="footLinks">
-          <a href="/en/">Home</a>
-          <a href="/en/app/">App</a>
-          <a href="/en/school/">School</a>
-          <a href="/en/pro/">Pro</a>
-          <a href="/en/help/">Help</a>
-          <a href="/en/privacy/">Privacy</a>
-          <a href="/en/imprint/">Imprint</a>
-          <a href="/en/terms/">Terms</a>
-        </div>
-      </div>
-    </footer>
-
-  </div>
-
-  <script>
-  (function(){
-    // Bookmarklets should ALWAYS open the domain app (never relative paths)
-    const APP = 'https://safesharepro.com/en/app/';
-
-    const CODE_FILL =
-      "javascript:(function(){try{var APP='" + APP + "';var u=location.href;location.assign(APP+'?u='+encodeURIComponent(u));}catch(e){alert('SafeShare: could not read URL.');}})();";
-
-    const CODE_RUN =
-      "javascript:(function(){try{var APP='" + APP + "';var u=location.href;location.assign(APP+'?u='+encodeURIComponent(u)+'&run=1');}catch(e){alert('SafeShare: could not read URL.');}})();";
-
-    const CODE_PASTE =
-      "javascript:(function(){try{var APP='" + APP + "';var u=prompt('SafeShare: paste URL');if(!u)return;u=String(u).trim();if(!/^https?:\\/\\//i.test(u))u='https://'+u;location.assign(APP+'?u='+encodeURIComponent(u)+'&run=1');}catch(e){alert('SafeShare: could not use URL.');}})();";
-
-    // code blocks
-    const fillEl = document.getElementById('codeFillOnly');
-    const runEl  = document.getElementById('codeAutoRun');
-    const pasteEl= document.getElementById('codePasteRun');
-
-    if (fillEl) fillEl.textContent = CODE_FILL;
-    if (runEl) runEl.textContent = CODE_RUN;
-    if (pasteEl) pasteEl.textContent = CODE_PASTE;
-
-    // drag links
-    const dragFill = document.getElementById('dragFillOnly');
-    const dragRun  = document.getElementById('dragAutoRun');
-    const dragPaste= document.getElementById('dragPasteRun');
-
-    if (dragFill) dragFill.setAttribute('href', CODE_FILL);
-    if (dragRun)  dragRun.setAttribute('href', CODE_RUN);
-    if (dragPaste) dragPaste.setAttribute('href', CODE_PASTE);
-
-    // copy buttons
-    async function copyText(text){
-      try{
-        await navigator.clipboard.writeText(text);
-        return true;
-      }catch(e){
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position='fixed'; ta.style.left='-9999px';
-        document.body.appendChild(ta);
-        ta.focus(); ta.select();
-        try{ document.execCommand('copy'); }catch(_){}
-        document.body.removeChild(ta);
-        return true;
-      }
-    }
-
-    document.querySelectorAll('[data-copy]').forEach(b=>{
-      b.addEventListener('click', async ()=>{
-        const sel = b.getAttribute('data-copy');
-        const el = document.querySelector(sel);
-        const txt = (el ? el.textContent : '').trim();
-        if (!txt) return;
-        await copyText(txt);
-        const old = b.textContent;
-        b.textContent = 'Copied ✓';
-        setTimeout(()=>b.textContent=old, 1200);
-      });
-    });
-  })();
-  </script>
+  <div id="ss-footer"></div>
+  <script src="/js/ss-shell.js?v=2026-02-05-03" defer></script>
 </body>
 </html>
