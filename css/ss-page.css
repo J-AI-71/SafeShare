@@ -424,19 +424,25 @@ details[open]{
 }
 details p{ margin: 10px 0 2px; color: var(--muted); }
 
-/* ---------- Hero media ---------- */
+//* ---------- Hero media ---------- */
+.ss-heroMedia{
+  border-radius: 16px;
+  overflow: hidden; /* verhindert dass Bild-Ecken/Border überstehen */
+}
+
 .ss-heroMedia img{
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 16px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border, rgba(255,255,255,.16)); /* Fallback */
   background: rgba(0,0,0,.12);
 }
-@media (prefers-color-scheme: light){
-  .ss-heroMedia img{ background: rgba(17,24,39,.03); }
-}
 
+@media (prefers-color-scheme: light){
+  .ss-heroMedia img{
+    background: rgba(17,24,39,.03);
+  }
+}
 /* ---------- Mono block ---------- */
 .ss-monoBlock{
   font-family: var(--mono);
