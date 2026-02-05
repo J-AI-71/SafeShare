@@ -13,6 +13,11 @@
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="de" href="https://safesharepro.com/social-links-bereinigen/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/social-links/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/social-links/" />
+
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <!-- Bing Webmaster Tools -->
@@ -49,122 +54,142 @@
 </head>
 
 <body>
-  <a class="ss-skip" href="#top">Zum Inhalt springen</a>
+  <a class="ss-skip" href="#content">Zum Inhalt springen</a>
 
   <!-- Shell mounts -->
   <div id="ss-shell"></div>
 
   <main class="ss-main" id="top">
-    <header class="ss-card">
-      <h1>Saubere Links für Social Media (Mastodon, X, LinkedIn)</h1>
-      <p>
-        Tracking-Links wirken unklar – und verteilen unnötige Kennungen an alle, die den Post sehen oder weiterteilen.
-        SafeShare entfernt typische Tracking-Parameter vor dem Posten. Local-first im Browser.
-      </p>
+    <div class="ss-wrap" id="content">
 
-      <div class="ss-row ss-wrap">
-        <span class="ss-pill"><code>utm_*</code></span>
-        <span class="ss-pill"><code>gclid</code></span>
-        <span class="ss-pill"><code>fbclid</code></span>
-        <span class="ss-pill"><code>msclkid</code></span>
-      </div>
+      <section class="ss-card">
+        <h1>Saubere Links für Social Media (Mastodon, X, LinkedIn)</h1>
+        <p>
+          Tracking-Links wirken unklar – und verteilen unnötige Kennungen an alle, die den Post sehen oder weiterteilen.
+          SafeShare entfernt typische Tracking-Parameter vor dem Posten. Local-first im Browser.
+        </p>
 
-      <div class="ss-row ss-wrap">
-        <a class="ss-btn ss-btn--primary" href="/app/">Link bereinigen</a>
-        <a class="ss-btn" href="/pro/">Pro: Bulk &amp; Audit</a>
-      </div>
+        <div class="ss-row">
+          <span class="ss-pill"><code>utm_*</code></span>
+          <span class="ss-pill"><code>gclid</code></span>
+          <span class="ss-pill"><code>fbclid</code></span>
+          <span class="ss-pill"><code>msclkid</code></span>
+        </div>
 
-      <p class="ss-note">
-        Local-first im Browser. Kein Upload. Sauber posten statt „Unsichtbarkeit“ zu versprechen.
-      </p>
-    </header>
+        <div class="ss-row">
+          <a class="ss-btn ss-btn--primary" href="/app/">Link bereinigen</a>
+          <a class="ss-btn" href="/pro/">Pro: Bulk &amp; Audit</a>
+        </div>
 
-    <section class="ss-grid ss-grid--2">
-      <section class="ss-card" aria-label="Workflow">
-        <h2>Workflow: Clean before post</h2>
-        <ol>
-          <li>Quelle öffnen → Link kopieren.</li>
-          <li>SafeShare: einfügen → bereinigen → kopieren.</li>
-          <li>Im Post einfügen.</li>
-        </ol>
+        <div class="ss-grid2" style="margin-top:12px">
+          <div class="ss-card ss-card--flat">
+            <h2 class="ss-h2">Für Creator/Teams</h2>
+            <p class="ss-muted">
+              Bulk-Clean für Post-Serien + Audit (was entfernt wurde) – plus Policies, wenn du Attribution bewusst behalten willst.
+            </p>
+          </div>
 
-        <details>
-          <summary>Affiliate/Publisher: Attribution behalten</summary>
-          <p class="ss-muted">
-            Wenn du bewusst <code>ref</code>/<code>tag</code> behalten willst, nutze eine passende Policy (Pro).
-            SafeShare ist nicht „alles weg“, sondern „bewusst entscheiden“.
-          </p>
-        </details>
+          <div class="ss-card ss-card--flat">
+            <h2 class="ss-h2">Für Vertrauen</h2>
+            <p class="ss-muted">
+              Saubere Links sind lesbarer, wirken weniger „marketing-lastig“ und reduzieren unnötige Datenweitergabe.
+            </p>
+          </div>
+        </div>
 
-        <details>
-          <summary>Wichtige Grenze (ehrlich)</summary>
-          <p class="ss-muted">
-            SafeShare entfernt IDs im Link, nicht Tracking-Techniken der Zielseite (Cookies/Fingerprinting) oder Server-Logs.
-            Das ist die nächste Ebene (Roadmap: „Isolated Open“/Extension).
-          </p>
-        </details>
+        <div class="ss-note" style="margin-top:12px">
+          Local-first im Browser. Kein Upload. Sauber posten statt „Unsichtbarkeit“ zu versprechen.
+        </div>
       </section>
 
-      <aside class="ss-card" aria-label="Warum das hilft">
-        <h2>Warum das Datensammlung reduziert</h2>
-        <p>
-          Social Posts werden zitiert, gescreenshottet, archiviert und weitergeteilt.
-          Wenn Tracking-IDs im Link stehen, verbreiten sie sich mit. SafeShare entfernt diese Marker vor dem Posten.
-        </p>
-        <ul>
-          <li>Weniger Kennungen im öffentlichen Raum.</li>
-          <li>Weniger Join-Keys für spätere Verknüpfung über Systeme.</li>
-          <li>Mehr Klarheit: URL wirkt „clean“ und nachvollziehbar.</li>
-        </ul>
+      <section class="ss-grid2">
+        <aside class="ss-card">
+          <h2>Workflow: Clean before post</h2>
+          <ol class="ss-muted">
+            <li>Quelle öffnen → Link kopieren.</li>
+            <li>SafeShare: einfügen → bereinigen → kopieren.</li>
+            <li>Im Post einfügen.</li>
+          </ol>
 
-        <div class="ss-warn">
-          Ehrliche Grenze: URL-Hygiene ist ein starker Schritt – aber nicht „100% unsichtbar“.
-        </div>
-      </aside>
-    </section>
+          <details class="ss-details">
+            <summary>Affiliate/Publisher: Attribution behalten</summary>
+            <p class="ss-muted">
+              Wenn du bewusst <code>ref</code>/<code>tag</code> behalten willst, nutze die passende Policy.
+              SafeShare ist nicht „alles weg“, sondern „bewusst entscheiden“.
+            </p>
+          </details>
 
-    <section class="ss-card" id="faq" aria-label="FAQ">
-      <h2>FAQ</h2>
+          <details class="ss-details">
+            <summary>Wichtige Grenze (ehrlich)</summary>
+            <p class="ss-muted">
+              SafeShare entfernt IDs im Link, nicht Tracking-Techniken der Zielseite (Cookies/Fingerprinting) oder Server-Logs.
+              Das ist die nächste Ebene (Roadmap: „Isolated Open“/Extension).
+            </p>
+          </details>
+        </aside>
 
-      <details>
-        <summary>Schadet das meinen Kampagnen?</summary>
-        <p>
-          Wenn du UTM brauchst, solltest du sie bewusst verwenden. SafeShare ist für „sauber teilen“ gedacht.
-          Für Publisher/Affiliate kannst du Parameter gezielt behalten (Policy/Pro).
-        </p>
-      </details>
+        <section class="ss-card">
+          <h2>Warum das Datensammlung reduziert</h2>
+          <p>
+            Social Posts werden zitiert, gescreenshottet, archiviert und weitergeteilt.
+            Wenn Tracking-IDs im Link stehen, verbreiten sie sich mit. SafeShare entfernt diese Marker vor dem Posten.
+          </p>
+          <ul class="ss-muted">
+            <li>Weniger Kennungen im öffentlichen Raum.</li>
+            <li>Weniger Join-Keys für spätere Verknüpfung über Systeme.</li>
+            <li>Mehr Klarheit: URL wirkt „clean“ und nachvollziehbar.</li>
+          </ul>
 
-      <details>
-        <summary>Warum nicht einfach URL-Shortener?</summary>
-        <p>
-          Shortener verstecken die URL, entfernen aber nicht automatisch Tracking-Parameter der Ziel-URL.
-          SafeShare macht den Link selbst sauber.
-        </p>
-      </details>
+          <div class="ss-warn">
+            Ehrliche Grenze: URL-Hygiene ist ein starker Schritt – aber nicht „100% unsichtbar“.
+          </div>
 
-      <details>
-        <summary>Was ist mit Redirects, die wieder IDs anhängen?</summary>
-        <p>
-          Das passiert. Nächster sinnvoller Schritt ist ein Redirect-Resolver + „Clean-on-Navigation“ (Extension-Ebene).
-        </p>
-      </details>
-    </section>
+          <section class="ss-card ss-card--flat" id="faq" aria-label="FAQ" style="margin-top:12px">
+            <h2>FAQ</h2>
 
-    <!-- FAQ Schema -->
-    <script type="application/ld+json">
-    {
-      "@context":"https://schema.org",
-      "@type":"FAQPage",
-      "mainEntity":[
-        {"@type":"Question","name":"Schadet das meinen Kampagnen?","acceptedAnswer":{"@type":"Answer","text":"Wenn du UTM brauchst, solltest du sie bewusst verwenden. SafeShare ist für sauberes Teilen gedacht. Für Publisher/Affiliate kannst du Parameter gezielt behalten (Policy/Pro)."}},
-        {"@type":"Question","name":"Warum nicht einfach URL-Shortener?","acceptedAnswer":{"@type":"Answer","text":"Shortener verstecken die URL, entfernen aber nicht automatisch Tracking-Parameter der Ziel-URL. SafeShare macht den Link selbst sauber."}},
-        {"@type":"Question","name":"Was ist mit Redirects, die wieder IDs anhängen?","acceptedAnswer":{"@type":"Answer","text":"Das passiert. Nächster sinnvoller Schritt ist ein Redirect-Resolver + Clean-on-Navigation (Extension-Ebene)."}}
-      ]
-    }
-    </script>
+            <details class="ss-details">
+              <summary>Schadet das meinen Kampagnen?</summary>
+              <p class="ss-muted">
+                Wenn du UTM brauchst, solltest du sie bewusst verwenden. SafeShare ist für „sauber teilen“ gedacht.
+                Für Publisher/Affiliate kannst du Parameter gezielt behalten (Policy).
+              </p>
+            </details>
+
+            <details class="ss-details">
+              <summary>Warum nicht einfach URL-Shortener?</summary>
+              <p class="ss-muted">
+                Shortener verstecken die URL, entfernen aber nicht automatisch Tracking-Parameter der Ziel-URL.
+                SafeShare macht den Link selbst sauber.
+              </p>
+            </details>
+
+            <details class="ss-details">
+              <summary>Was ist mit Redirects, die wieder IDs anhängen?</summary>
+              <p class="ss-muted">
+                Das passiert. Nächster sinnvoller Schritt ist ein Redirect-Resolver + „Clean-on-Navigation“ (Extension-Ebene).
+              </p>
+            </details>
+          </section>
+        </section>
+      </section>
+
+    </div>
   </main>
 
   <div id="ss-footer"></div>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Schadet das meinen Kampagnen?","acceptedAnswer":{"@type":"Answer","text":"Wenn du UTM brauchst, solltest du sie bewusst verwenden. SafeShare ist für „sauber teilen“ gedacht. Für Publisher/Affiliate kannst du Parameter gezielt behalten (Policy)."}},
+      {"@type":"Question","name":"Warum nicht einfach URL-Shortener?","acceptedAnswer":{"@type":"Answer","text":"Shortener verstecken die URL, entfernen aber nicht automatisch Tracking-Parameter der Ziel-URL. SafeShare macht den Link selbst sauber."}},
+      {"@type":"Question","name":"Was ist mit Redirects, die wieder IDs anhängen?","acceptedAnswer":{"@type":"Answer","text":"Das passiert. Nächster sinnvoller Schritt ist ein Redirect-Resolver + Clean-on-Navigation (Extension-Ebene)."}}
+    ]
+  }
+  </script>
 
   <!-- Shell JS -->
   <script src="/js/ss-shell.js?v=2026-02-04-07" defer></script>
