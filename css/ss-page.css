@@ -1,111 +1,132 @@
-/* /css/ss-page.css */
-/* SafeShare Page Base v2026-02-04-03 */
+/* Datei: /css/ss-page.css */
+/* SafeShare Page Styles v2026-02-04-08 */
+/* Ziel: ZERO inline CSS in Seiten, harmonische Hintergründe (weniger Banding),
+   saubere Buttons (kein „Überlappen“), Layout-Utilities (ss-wrap, ss-main, ss-card, ss-grid, etc.) */
 
-/* ---------- Base tokens (fallbacks) ---------- */
+/* ---------- Base tokens ---------- */
 :root{
-  color-scheme: dark light;
-
   /* Layout */
   --max: 1120px;
-  --pad: 16px;
-  --radius: 22px;
+  --radius: 18px;
+  --shadow: 0 18px 45px rgba(0,0,0,.28);
+  --focus: 0 0 0 3px rgba(47,227,183,.22);
 
   /* Typography */
-  --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
 
-  /* Dark (default) */
-  --bg0: #070a12;
-  --bg1: #0b1020;
+  /* Colors (dark) – bewusst softer (weniger harte Verläufe => weniger Banding) */
+  --bg0:#070a12;
+  --bg1:#090d18;
+  --bg2:#0b1324;
 
-  --text: rgba(255,255,255,.92);
-  --muted: rgba(255,255,255,.72);
-  --muted2: rgba(255,255,255,.60);
-
-  --card: rgba(255,255,255,.06);
-  --card2: rgba(255,255,255,.045);
+  --card:  rgba(255,255,255,.055);
+  --card2: rgba(255,255,255,.035);
   --border: rgba(255,255,255,.10);
 
-  /* Accent (mint) */
-  --acc: rgb(47,227,183);
-  --accSoft: rgba(47,227,183,.12);
-  --accSoft2: rgba(47,227,183,.18);
-  --accBorder: rgba(47,227,183,.35);
+  --text:  rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.72);
+  --muted2:rgba(255,255,255,.58);
 
-  /* Effects */
-  --shadow: 0 18px 45px rgba(0,0,0,.35);
-  --focus: 0 0 0 3px rgba(47,227,183,.22);
+  /* Accent */
+  --acc: #2fe3b7;
+  --accSoft:  rgba(47,227,183,.10);
+  --accSoft2: rgba(47,227,183,.16);
+  --accBorder:rgba(47,227,183,.30);
+
+  /* Warn */
+  --warnSoft: rgba(255,197,84,.14);
+  --warnBorder: rgba(255,197,84,.22);
+
+  /* Subtle separators */
+  --hairline: rgba(255,255,255,.10);
+
+  color-scheme: dark light;
 }
 
 @media (prefers-color-scheme: light){
   :root{
-    --bg0: #f7f8fb;
-    --bg1: #ffffff;
-
-    --text: rgba(17,24,39,.95);
-    --muted: rgba(17,24,39,.72);
-    --muted2: rgba(17,24,39,.62);
+    --bg0:#f6f7fb;
+    --bg1:#ffffff;
+    --bg2:#f1f5ff;
 
     --card: #ffffff;
     --card2: rgba(17,24,39,.03);
     --border: rgba(17,24,39,.12);
 
+    --text:  rgba(17,24,39,.95);
+    --muted: rgba(17,24,39,.72);
+    --muted2:rgba(17,24,39,.62);
+
     --shadow: 0 18px 45px rgba(17,24,39,.10);
-    --focus: 0 0 0 3px rgba(17,130,98,.22);
+    --focus: 0 0 0 3px rgba(17,130,98,.20);
+
+    --accSoft:  rgba(17,130,98,.07);
+    --accSoft2: rgba(17,130,98,.11);
+    --accBorder:rgba(17,130,98,.22);
+
+    --warnSoft: rgba(255,197,84,.18);
+    --warnBorder: rgba(17,24,39,.12);
+
+    --hairline: rgba(17,24,39,.12);
   }
 }
 
-/* ---------- Page background ---------- */
-html, body{ height: 100%; }
-*{ box-sizing: border-box; }
-img{ max-width: 100%; height: auto; }
-a{ color: inherit; }
-
+/* ---------- Reset-ish ---------- */
+*{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust: 100%; }
 body{
   margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   color: var(--text);
-  background:
-    radial-gradient(900px 520px at 12% -10%, rgba(47,227,183,.10), transparent 60%),
-    radial-gradient(760px 460px at 88% 0%, rgba(255,197,84,.06), transparent 62%),
-    linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-}
 
-/* Banding-Killer: sehr feines Noise */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.06;
-  mix-blend-mode: overlay;
+  /* Soft background: weniger harte Stops -> weniger „Balken“ */
+  background-color: var(--bg0);
   background-image:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,.02) 0px,
-      rgba(255,255,255,.02) 1px,
-      rgba(0,0,0,.02) 2px,
-      rgba(0,0,0,.02) 3px
-    );
+    radial-gradient(900px 520px at 12% 0%, rgba(47,227,183,.12), transparent 60%),
+    radial-gradient(900px 520px at 88% 8%, rgba(255,197,84,.08), transparent 62%),
+    linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
+  background-repeat: no-repeat;
 }
-@media (prefers-color-scheme: light){
-  body::before{ opacity:.04; }
+a{ color: inherit; text-decoration: none; }
+
+/* Optional: iOS/Safari kann Banding reduzieren, wenn ein sehr leichtes „Dither“ existiert.
+   Wir vermeiden extra Assets. Wenn du später willst: 1px noise-png als overlay. */
+
+/* ---------- A11y: Skip link ---------- */
+.skip{
+  position:absolute;
+  left:-9999px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
 }
-/* iOS/Safari: fixed backgrounds können “komisch” wirken */
-@supports (-webkit-touch-callout: none){
-  body{ background-attachment: scroll; }
+.skip:focus{
+  left:12px;
+  top:12px;
+  width:auto;
+  height:auto;
+  padding:10px 12px;
+  border-radius: 12px;
+  border:1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  z-index: 99999;
 }
 
-/* ---------- Main wrapper (works with your shell) ---------- */
-/* Shell setzt .ss-main bereits; hier als Fallback + konsistente Typo */
+/* ---------- Page layout helpers ---------- */
 .ss-main{
+  /* ss-shell header ist separat; wir lassen bewusst “neutral” */
+  display:block;
+}
+.ss-wrap{
   max-width: var(--max);
   margin: 0 auto;
-  padding: 12px var(--pad) 46px;
+  padding: 12px 16px 44px;
 }
-
-/* ---------- Sections / Cards ---------- */
 .ss-section{ margin: 14px 0; }
 
+/* ---------- Cards ---------- */
 .ss-card{
   background: var(--card);
   border: 1px solid var(--border);
@@ -113,11 +134,9 @@ body::before{
   box-shadow: var(--shadow);
   padding: 18px;
 }
-
 @media (min-width: 720px){
   .ss-card{ padding: 22px; }
 }
-
 .ss-card--inner{
   background: var(--card2);
   box-shadow: none;
@@ -129,7 +148,6 @@ h1,h2,h3{
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
-
 h1{ font-size: clamp(30px, 4.5vw, 46px); }
 h2{ font-size: clamp(22px, 3.3vw, 30px); }
 h3{ font-size: 18px; }
@@ -137,9 +155,8 @@ h3{ font-size: 18px; }
 p{
   margin: 0 0 12px;
   line-height: 1.55;
-  color: var(--muted); /* wichtig: sonst wirkt alles “zu laut” */
+  color: var(--muted);
 }
-
 strong{ color: var(--text); }
 
 .ss-muted{ color: var(--muted2); }
@@ -148,9 +165,9 @@ strong{ color: var(--text); }
   color: var(--muted);
   font-weight: 650;
 }
-
 .ss-mono{ font-family: var(--mono); }
 
+/* inline code */
 code{
   font-family: var(--mono);
   font-size: 0.95em;
@@ -160,18 +177,15 @@ code{
   background: rgba(0,0,0,.20);
   color: var(--text);
 }
-
 @media (prefers-color-scheme: light){
   code{ background: rgba(17,24,39,.05); }
 }
 
+/* separators */
 hr{
   border: 0;
-  border-top: 1px solid rgba(255,255,255,.10);
+  border-top: 1px solid var(--hairline);
   margin: 16px 0;
-}
-@media (prefers-color-scheme: light){
-  hr{ border-top-color: rgba(17,24,39,.12); }
 }
 
 /* ---------- Lists ---------- */
@@ -194,11 +208,15 @@ li::marker{ color: var(--muted2); }
 }
 
 /* ---------- Actions / Buttons ---------- */
+/* Fix: „leicht übereinander“ entsteht meist durch line-height + baseline + wrap.
+   => inline-flex + min-height + row-gap + saubere alignment. */
 .ss-actions{
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
+  row-gap: 10px;
   margin-top: 10px;
+  align-items: center;
 }
 
 .ss-btn{
@@ -210,15 +228,17 @@ li::marker{ color: var(--muted2); }
   font: inherit;
   cursor: pointer;
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   padding: 10px 14px;
   border-radius: 999px;
-  line-height: 1;
+  line-height: 1.1;
+  min-height: 40px;
+
   white-space: nowrap;
-  
-  display:inline-flex;  /* stabiler als inline-block in Safari */
-  align-items:center;
-  justify-content:center;
-  line-height: 1;       /* verhindert „optische“ Überlappung */
+  vertical-align: middle;
 }
 
 @media (prefers-color-scheme: light){
@@ -257,22 +277,52 @@ li::marker{ color: var(--muted2); }
   .ss-btn--ghost:hover{ background: rgba(17,24,39,.05); }
 }
 
-/* ---------- Notes / Warnings (fehlten dir bisher) ---------- */
+/* ---------- Pills / inline “keys” ---------- */
+.ss-pills{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  row-gap: 8px;
+  margin-top: 10px;
+  align-items: center;
+}
+.ss-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.035);
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+@media (prefers-color-scheme: light){
+  .ss-pill{
+    border-color: rgba(17,24,39,.12);
+    background: rgba(17,24,39,.03);
+  }
+}
+
+/* ---------- Notes / Warnings ---------- */
 .ss-note, .ss-warn{
   border-radius: 16px;
   padding: 12px 14px;
   border: 1px solid rgba(255,255,255,.12);
-  background: rgba(47,227,183,.10);
   color: var(--text);
 }
-.ss-warn{
-  background: rgba(255,197,84,.14);
-  border-color: rgba(255,197,84,.22);
+.ss-note{
+  background: var(--accSoft);
+  border-color: var(--accBorder);
 }
-
+.ss-warn{
+  background: var(--warnSoft);
+  border-color: var(--warnBorder);
+}
 @media (prefers-color-scheme: light){
   .ss-note{
-    background: rgba(17,130,98,.08);
+    background: rgba(17,130,98,.07);
     border-color: rgba(17,24,39,.12);
   }
   .ss-warn{
@@ -281,17 +331,10 @@ li::marker{ color: var(--muted2); }
   }
 }
 
-/* ---------- Hero media (fehlte dir bisher) ---------- */
-.ss-heroMedia img{
-  display: block;
-  width: 100%;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.02);
-}
-@media (prefers-color-scheme: light){
-  .ss-heroMedia img{ background: rgba(17,24,39,.02); }
-}
+/* Utility: Abstand ohne inline style */
+.ss-mt12{ margin-top: 12px; }
+.ss-mt10{ margin-top: 10px; }
+.ss-mt14{ margin-top: 14px; }
 
 /* ---------- Details / FAQ ---------- */
 details{
@@ -317,18 +360,12 @@ summary{
 summary::-webkit-details-marker{ display:none; }
 
 details[open]{
-  background: rgba(47,227,183,.06);
-  border-color: rgba(47,227,183,.25);
+  background: rgba(47,227,183,.05);
+  border-color: rgba(47,227,183,.20);
 }
-
 details p{ margin: 10px 0 2px; color: var(--muted); }
 
-/* ---------- Small utilities ---------- */
-.ss-center{ text-align: center; }
-/* ---------- Home helpers (used on /index.html) ---------- */
-
-.ss-hero h1{ margin-bottom: 8px; }
-
+/* ---------- Hero media (falls genutzt) ---------- */
 .ss-heroMedia img{
   display: block;
   width: 100%;
@@ -337,27 +374,12 @@ details p{ margin: 10px 0 2px; color: var(--muted); }
   border: 1px solid var(--border);
   background: rgba(0,0,0,.12);
 }
-
-/* note/warn blocks */
-.ss-note,
-.ss-warn{
-  border-radius: 16px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
+@media (prefers-color-scheme: light){
+  .ss-heroMedia img{ background: rgba(17,24,39,.03); }
 }
 
-.ss-note{
-  background: rgba(47,227,183,.10);
-  border-color: rgba(47,227,183,.22);
-}
-
-.ss-warn{
-  background: rgba(255,197,84,.12);
-  border-color: rgba(255,197,84,.22);
-}
-
-/* mono paragraph helper (for examples) */
-.ss-mono{
+/* ---------- Mono block (Examples) ---------- */
+.ss-monoBlock{
   font-family: var(--mono);
   font-size: 0.95em;
   line-height: 1.5;
@@ -367,8 +389,9 @@ details p{ margin: 10px 0 2px; color: var(--muted); }
   background: rgba(0,0,0,.18);
   overflow-wrap: anywhere;
 }
-
 @media (prefers-color-scheme: light){
-  .ss-mono{ background: rgba(17,24,39,.05); }
-  .ss-heroMedia img{ background: rgba(17,24,39,.03); }
+  .ss-monoBlock{ background: rgba(17,24,39,.05); }
 }
+
+/* ---------- Small utilities ---------- */
+.ss-center{ text-align:center; }
