@@ -498,3 +498,5 @@
   }
   .ss-langLink:hover{ background: rgba(17,24,39,.06); }
 }
+.ss-noScroll { overflow: hidden;
+}
