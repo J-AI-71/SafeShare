@@ -62,22 +62,34 @@ img{ max-width: 100%; height: auto; }
 a{ color: inherit; }
 
 body{
-  margin: 0;
-  font-family: var(--font);
+  margin:0;
   color: var(--text);
-
   background:
-    radial-gradient(900px 520px at 20% 10%, rgba(47,227,183,.18), transparent 60%),
-    radial-gradient(820px 520px at 80% 20%, rgba(255,200,140,.10), transparent 62%),
-    radial-gradient(900px 700px at 55% 85%, rgba(120,130,255,.10), transparent 60%),
-    linear-gradient(180deg, var(--bg0), var(--bg1));
-  background-attachment: fixed;
+    radial-gradient(900px 520px at 12% -10%, rgba(47,227,183,.10), transparent 60%),
+    radial-gradient(760px 460px at 88% 0%, rgba(255,197,84,.06), transparent 62%),
+    linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
 }
 
-@media (prefers-reduced-motion: reduce){
-  body{ background-attachment: scroll; }
+/* Banding-Killer: sehr feines Noise */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.06;
+  mix-blend-mode: overlay;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.02) 0px,
+      rgba(255,255,255,.02) 1px,
+      rgba(0,0,0,.02) 2px,
+      rgba(0,0,0,.02) 3px
+    );
 }
-
+@media (prefers-color-scheme: light){
+  body::before{ opacity:.04; }
+}
 /* iOS/Safari: fixed backgrounds können “komisch” wirken */
 @supports (-webkit-touch-callout: none){
   body{ background-attachment: scroll; }
@@ -185,7 +197,7 @@ li::marker{ color: var(--muted2); }
 .ss-actions{
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   margin-top: 10px;
 }
 
@@ -202,6 +214,11 @@ li::marker{ color: var(--muted2); }
   border-radius: 999px;
   line-height: 1;
   white-space: nowrap;
+  
+  display:inline-flex;  /* stabiler als inline-block in Safari */
+  align-items:center;
+  justify-content:center;
+  line-height: 1;       /* verhindert „optische“ Überlappung */
 }
 
 @media (prefers-color-scheme: light){
