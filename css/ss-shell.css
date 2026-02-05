@@ -500,3 +500,133 @@
 }
 .ss-noScroll { overflow: hidden;
 }
+/* ===== More Menu (Master-Flow strict) ===== */
+
+.ss-header{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+}
+
+.ss-header__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 14px;
+}
+
+.ss-nav{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.ss-nav__link,
+.ss-moreBtn{
+  border:1px solid var(--ss-border, rgba(255,255,255,.16));
+  background:rgba(255,255,255,.03);
+  color:var(--ss-text, #eaf2ff);
+  border-radius:999px;
+  padding:10px 14px;
+  text-decoration:none;
+  font-weight:600;
+  line-height:1;
+  cursor:pointer;
+}
+
+.ss-nav__link:hover,
+.ss-moreBtn:hover{
+  background:rgba(255,255,255,.08);
+}
+
+.ss-nav__link.is-active{
+  border-color:rgba(47,227,183,.45);
+  background:rgba(47,227,183,.18);
+}
+
+/* Backdrop */
+.ss-moreBackdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:70;
+}
+
+/* Panel */
+.ss-moreMenu{
+  position:fixed;
+  top:68px;
+  right:14px;
+  width:min(92vw, 420px);
+  max-height:calc(100vh - 92px);
+  overflow:auto;
+  z-index:80;
+
+  border:1px solid var(--ss-border, rgba(255,255,255,.16));
+  border-radius:16px;
+  background:rgba(11,16,28,.96);
+  box-shadow:0 16px 40px rgba(0,0,0,.45);
+  padding:12px;
+}
+
+.ss-moreMenu__head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.ss-moreMenu__close{
+  border:1px solid var(--ss-border, rgba(255,255,255,.16));
+  background:rgba(255,255,255,.04);
+  color:var(--ss-text, #eaf2ff);
+  border-radius:10px;
+  padding:6px 10px;
+  cursor:pointer;
+}
+
+.ss-moreMenu__list{
+  display:grid;
+  gap:8px;
+}
+
+.ss-moreMenu__link{
+  display:block;
+  border:1px solid var(--ss-border, rgba(255,255,255,.14));
+  background:rgba(255,255,255,.03);
+  color:var(--ss-text, #eaf2ff);
+  border-radius:12px;
+  padding:10px 12px;
+  text-decoration:none;
+}
+
+.ss-moreMenu__link:hover{
+  background:rgba(255,255,255,.08);
+}
+
+.ss-moreMenu__link.is-active{
+  border-color:rgba(47,227,183,.45);
+  background:rgba(47,227,183,.16);
+}
+
+.ss-moreMenu__foot{
+  margin-top:12px;
+  display:flex;
+  justify-content:flex-end;
+}
+
+.ss-langSwitch{
+  min-width:64px;
+  text-align:center;
+}
+
+.ss-noScroll{
+  overflow:hidden;
+}
+
+/* hidden attribute hard rule */
+[hidden]{
+  display:none !important;
+}
