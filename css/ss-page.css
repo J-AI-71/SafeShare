@@ -280,3 +280,21 @@ pre{
   .ss-btn{ width:100%; }
   .ss-actions{ align-items:stretch; }
 }
+.ss-grid > *{ min-width:0; }
+
+.ss-mono,
+.ss-monoBlock,
+.ss-mono code,
+.ss-monoBlock code,
+code,
+pre{
+  min-width:0;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.ss-mono,
+.ss-monoBlock,
+pre{
+  white-space:pre-wrap;
+}
