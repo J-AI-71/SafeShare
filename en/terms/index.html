@@ -1,252 +1,54 @@
-<!-- /en/terms/index.html (EN) -->
+<!-- File: /en/terms/index.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
   <title>Terms – SafeShare</title>
-  <meta name="description" content="Terms for SafeShare: usage rules, liability, rights and notes for safe use.">
+  <meta name="description" content="Terms for using SafeShare and SafeShare Pro." />
   <meta name="robots" content="index,follow" />
-
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
-
   <link rel="canonical" href="https://safesharepro.com/en/terms/" />
-  <link rel="alternate" hreflang="de" href="https://safesharepro.com/nutzungsbedingungen/" />
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/terms/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/" />
-
-  <!-- Open Graph -->
+  <link rel="alternate" hreflang="de" href="https://safesharepro.com/nutzungsbedingungen/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/terms/" />
+  <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
+  <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
   <meta property="og:title" content="Terms – SafeShare" />
-  <meta property="og:description" content="Terms of use for SafeShare (local-first link cleaner)." />
+  <meta property="og:description" content="Terms for using SafeShare." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
+  <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://safesharepro.com/en/terms/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-01-05-02" />
-  <meta property="og:image:alt" content="SafeShare – Preview" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <!-- Twitter -->
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-terms-en.png?v=2026-02-05-03" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Terms – SafeShare" />
-  <meta name="twitter:description" content="Terms of use for SafeShare (local-first link cleaner)." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-01-05-02" />
-  <meta name="twitter:image:alt" content="SafeShare – Preview" />
-
-  <!-- Favicons + PWA -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-26-01">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-26-01">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-26-01">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-01">
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-26-01">
-
-  <!-- MASTER SHELL -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-02">
-  <script src="/js/ss-shell.js?v=2026-01-25-02" defer></script>
-
-  <style>
-    :root{
-      --bg0:#070a12; --bg1:#070b14; --bg2:#0b1020;
-      --card: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.60);
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
-      --radius: 18px;
-      --ok: rgba(47,227,183,.16);
-      --warn: rgba(255,197,84,.16);
-      --bad: rgba(255,84,84,.14);
-      --max: 980px;
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#f6f7fb; --bg1:#ffffff; --bg2:#f2f6ff;
-        --card:#ffffff;
-        --border: rgba(17,24,39,.12);
-        --text: rgba(17,24,39,.95);
-        --muted: rgba(17,24,39,.72);
-        --muted2: rgba(17,24,39,.62);
-        --shadow: 0 18px 45px rgba(17,24,39,.10);
-        --warn: rgba(255,197,84,.22);
-        --ok: rgba(47,227,183,.18);
-        --bad: rgba(255,84,84,.12);
-      }
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(47,227,183,.18), transparent 55%),
-        radial-gradient(900px 520px at 85% 10%, rgba(255,197,84,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-    }
-    a{ color:inherit; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
-
-    .card{
-      margin-top: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.4vw, 40px); line-height: 1.10; letter-spacing:-.2px; }
-    h2{ margin: 14px 0 8px; font-size: 18px; letter-spacing: -0.1px; }
-    p{ margin: 0 0 12px; color: var(--muted); line-height: 1.65; }
-    ul{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.65; }
-    .note,.warn,.bad{
-      margin-top: 12px;
-      border-left: 3px solid rgba(47,227,183,.55);
-      background: var(--ok);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--text);
-    }
-    .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
-    .bad{ border-left-color: rgba(255,84,84,.55); background: var(--bad); }
-
-    .meta{
-      display:flex; flex-wrap:wrap; gap:8px;
-      margin-top: 10px;
-      color: var(--muted2);
-      font-size: 12px;
-    }
-    .meta span{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-    }
-
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footLinks{ display:flex; gap: 10px; flex-wrap: wrap; }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      text-decoration:none;
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-  </style>
-
-  <!-- Schema.org (Organization) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"SafeShare",
-    "url":"https://safesharepro.com/",
-    "contactPoint":[{
-      "@type":"ContactPoint",
-      "contactType":"support",
-      "email":"listings@safesharepro.com"
-    }]
-  }
-  </script>
+  <meta name="twitter:description" content="Terms for using SafeShare." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-terms-en.png?v=2026-02-05-03" />
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
 </head>
-
 <body>
-  <div id="ss-shell"></div>
-
-  <div class="wrap">
-    <section class="card">
-      <h1>Terms of Use</h1>
-
-      <div class="meta">
-        <span>Applies to: SafeShare website &amp; web app</span>
-        <span>Local-first: runs in your browser</span>
-        <span>Last updated: 2026-01-25</span>
-      </div>
-
-      <div class="note">
-        Plain English summary: SafeShare helps you clean tracking parameters from URLs. You use it at your own risk.
-        We do not guarantee that a cleaned link will always work, because some parameters can be functional.
-      </div>
-
-      <h2>1) Scope</h2>
-      <p>
-        These terms apply to the SafeShare website and the SafeShare web app provided under the domain
-        safesharepro.com (collectively “Service”).
-      </p>
-
-      <h2>2) What SafeShare does</h2>
-      <p>
-        SafeShare removes common tracking parameters (e.g. utm_*, gclid, fbclid) from links and may simplify
-        URL structures. The cleaning happens locally in your browser.
-      </p>
-      <div class="warn">
-        No “invisibility” promise: cleaning a URL does not prevent websites from collecting data via IP logs, cookies,
-        fingerprinting, account tracking, or server-side redirects.
-      </div>
-
-      <h2>3) No warranty</h2>
-      <p>
-        The Service is provided “as is”. We do not guarantee availability, correctness, or that cleaned URLs will always
-        lead to the same destination as the original. Some parameters are functional (language, product IDs, sessions)
-        or intentional (affiliate attribution).
-      </p>
-
-      <h2>4) Your responsibility</h2>
-      <ul>
-        <li>You are responsible for checking whether a cleaned link works and whether you want to remove parameters.</li>
-        <li>If you share affiliate/partner links, cleaning may remove attribution parameters.</li>
-        <li>Do not use the Service for unlawful purposes.</li>
-      </ul>
-
-      <h2>5) Third-party websites</h2>
-      <p>
-        SafeShare only modifies the link you provide. When you open a link, you interact with third-party websites
-        that have their own terms and privacy practices.
-      </p>
-
-      <h2>6) Intellectual property</h2>
-      <p>
-        The SafeShare brand, design and content are protected by applicable laws. You may not copy or redistribute
-        the Service’s content beyond what is permitted by law without permission.
-      </p>
-
-      <h2>7) Changes</h2>
-      <p>
-        We may update these terms to improve clarity or reflect changes. The “Last updated” date will be changed accordingly.
-      </p>
-
-      <h2>8) Contact</h2>
-      <p>
-        Support / contact: <a href="mailto:listings@safesharepro.com">listings@safesharepro.com</a>
-      </p>
-
-      <div class="bad">
-        If you are looking for the German legal text: <a href="/nutzungsbedingungen/">Nutzungsbedingungen (DE)</a>.
-      </div>
-    </section>
-
-    <footer>
-      <div class="footLinks">
-        <a href="/en/">Home</a>
-        <a href="/en/app/">App</a>
-        <a href="/en/school/">School</a>
-        <a href="/en/pro/">Pro</a>
-        <a href="/en/help/">Help</a>
-        <a href="/en/privacy/">Privacy</a>
-        <a href="/en/imprint/">Imprint</a>
-        <a href="/en/terms/">Terms</a>
-      </div>
-    </footer>
-  </div>
+<div id="ss-shell"></div>
+<main class="ss-main" id="top">
+  <section class="ss-section"><div class="ss-card ss-hero"><h1>Terms</h1></div></section>
+  <section class="ss-section"><div class="ss-card">
+    <h2>1. Scope</h2><p>These terms apply to use of SafeShare websites and related downloads.</p>
+    <h2>2. Use</h2><p>You use the service at your own responsibility. Verify cleaned links before publishing in critical contexts.</p>
+    <h2>3. Availability</h2><p>No guarantee of uninterrupted availability.</p>
+    <h2>4. Liability</h2><p>Liability is limited to the extent permitted by applicable law.</p>
+    <h2>5. Purchases</h2><p>Additional provider terms may apply for checkout/downloads.</p>
+    <p>Contact: <a href="mailto:listings@safesharepro.com">listings@safesharepro.com</a></p>
+  </div></section>
+</main>
+<div id="ss-footer"></div>
+<script src="/js/ss-shell.js?v=2026-02-05-03" defer></script>
 </body>
 </html>
