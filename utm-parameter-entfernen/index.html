@@ -1,4 +1,4 @@
-<!-- /utm-parameter-entfernen/index.html (DE) — SafeShare UTM (bereinigt: Page-CSS + Master-Shell, kein Inline-Design) -->
+<!-- File: /utm-parameter-entfernen/index.html (DE) -->
 <!doctype html>
 <html lang="de">
 <head>
@@ -7,179 +7,117 @@
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
   <title>UTM-Parameter entfernen – SafeShare</title>
-  <meta name="description" content="UTM-Parameter entfernen: Was utm_* macht, warum es beim Teilen nervt – und wie SafeShare Links lokal im Browser sauber macht." />
+  <meta name="description" content="UTM-Parameter entfernen: Was utm_* bedeutet, wann es sinnvoll ist und wie du Links lokal im Browser sauber teilst." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
-  <!-- Canonical + hreflang -->
   <link rel="canonical" href="https://safesharepro.com/utm-parameter-entfernen/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/utm-parameter-entfernen/" />
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/remove-utm-parameter/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/remove-utm-parameter/" />
 
-  <!-- Verification -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Social -->
   <meta property="og:title" content="UTM-Parameter entfernen – SafeShare" />
-  <meta property="og:description" content="UTM-Parameter (utm_source, utm_medium, utm_campaign …) aus Links entfernen – local-first im Browser. Sauber teilen: Copy → Clean → Share." />
+  <meta property="og:description" content="UTM-Links verstehen und bewusst bereinigen – local-first im Browser." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://safesharepro.com/utm-parameter-entfernen/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
-  <meta property="og:image:alt" content="SafeShare – UTM-Parameter entfernen (Vorschau)" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-utm.png?v=2026-02-05-03" />
+  <meta property="og:image:alt" content="SafeShare – UTM-Parameter entfernen" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="UTM-Parameter entfernen – SafeShare" />
-  <meta name="twitter:description" content="UTM-Parameter aus Links entfernen – local-first im Browser. Copy → Clean → Share." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.png?v=2026-02-04-03" />
-  <meta name="twitter:image:alt" content="SafeShare – UTM-Parameter entfernen (Vorschau)" />
+  <meta name="twitter:description" content="UTM-Links verstehen und bewusst bereinigen – local-first im Browser." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-utm.png?v=2026-02-05-03" />
+  <meta name="twitter:image:alt" content="SafeShare – UTM-Parameter entfernen" />
 
-  <!-- Icons / Favicons -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-03">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-03">
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
 
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-03" />
-
-  <!-- Page + Shell -->
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03" />
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03" />
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
 </head>
-
 <body>
   <div id="ss-shell"></div>
 
-  <main class="ss-main">
-    <!-- HERO -->
+  <main class="ss-main" id="top">
     <section class="ss-section" aria-labelledby="utm-title">
-      <div class="ss-card">
+      <div class="ss-card ss-hero">
         <h1 id="utm-title">UTM-Parameter entfernen</h1>
-
-        <p class="ss-hero-kicker">
-          UTM-Parameter (<code>utm_source</code>, <code>utm_medium</code>, <code>utm_campaign</code> …) sind Zusatzinfos am Link –
-          wie Etiketten/Aufkleber.
-        </p>
-
+        <p class="ss-hero-kicker">Kampagnen-Marker verstehen. Bewusst teilen.</p>
         <p>
-          Für Auswertung manchmal nützlich, beim Teilen oft nur Ballast.
-          SafeShare entfernt <code>utm_*</code> lokal im Browser.
+          UTM-Parameter (<code>utm_source</code>, <code>utm_medium</code>, <code>utm_campaign</code> …)
+          helfen Marketing-Auswertungen. Beim Weiterleiten sind sie oft nicht nötig.
         </p>
+      </div>
+    </section>
 
-        <div class="ss-actions">
-          <a class="ss-btn ss-btn--primary" href="/app/">Jetzt bereinigen</a>
-          <a class="ss-btn" href="/tracking-parameter/">Tracking-Parameter</a>
-          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro (Audit/Policies)</a>
-        </div>
-
-        <p class="ss-muted" style="margin-top:12px">
-          100% local-first. Keine Anmeldung. Kein Tracking.
-        </p>
-
-        <div class="ss-warn" style="margin-top:12px">
-          Das ist kein „Unsichtbar“-Versprechen. Es ist Link-Hygiene beim Teilen.
+    <section class="ss-section" aria-labelledby="keys-title">
+      <div class="ss-card">
+        <h2 id="keys-title">Was bedeuten die UTM-Felder?</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3><code>utm_source</code></h3>
+            <p class="ss-muted">Quelle, z. B. newsletter, linkedin, mastodon.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3><code>utm_medium</code></h3>
+            <p class="ss-muted">Kanaltyp, z. B. email, social, cpc.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3><code>utm_campaign</code></h3>
+            <p class="ss-muted">Kampagnenname, z. B. spring_launch.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3><code>utm_term</code> / <code>utm_content</code></h3>
+            <p class="ss-muted">Optional: Keywords/Varianten (A/B, Anzeigen-Variante).</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- BEISPIEL -->
-    <section class="ss-section" aria-labelledby="utm-example-title">
+    <section class="ss-section" aria-labelledby="example-title">
       <div class="ss-card">
-        <h2 id="utm-example-title">Beispiel</h2>
-
-        <div class="ss-grid ss-grid--2" style="margin-top:12px">
-          <div class="ss-card ss-card--inner">
-            <h3>Vorher</h3>
-            <p class="ss-mono">https://example.com/artikel?utm_source=twitter&utm_medium=social&utm_campaign=launch</p>
-          </div>
-          <div class="ss-card ss-card--inner">
-            <h3>Nachher</h3>
-            <p class="ss-mono">https://example.com/artikel</p>
-          </div>
+        <h2 id="example-title">Beispiel</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <article class="ss-card ss-card--inner">
+            <h3>Mit UTM</h3>
+            <p class="ss-mono">https://example.com/guide?utm_source=newsletter&utm_medium=email&utm_campaign=q1</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Bereinigt</h3>
+            <p class="ss-mono">https://example.com/guide</p>
+          </article>
         </div>
 
-        <div class="ss-note" style="margin-top:12px">
-          SafeShare entfernt <code>utm_*</code> standardmäßig. Wenn du UTM bewusst behalten willst: Pro (Whitelist/Policies).
+        <div class="ss-actions ss-mt-12">
+          <a class="ss-btn ss-btn--primary" href="/app/">UTM jetzt entfernen</a>
+          <a class="ss-btn" href="/tracking-parameter/">Tracking-Parameter erklärt</a>
+          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro mit Regeln</a>
         </div>
       </div>
     </section>
 
-    <!-- KEYS -->
-    <section class="ss-section" aria-labelledby="utm-keys-title">
+    <section class="ss-section" aria-labelledby="note-title">
       <div class="ss-card">
-        <h2 id="utm-keys-title">Die wichtigsten UTM-Keys</h2>
-
-        <div class="ss-grid ss-grid--2" style="margin-top:12px">
-          <div class="ss-card ss-card--inner">
-            <ul>
-              <li><code>utm_source</code> – Quelle (z. B. twitter, newsletter)</li>
-              <li><code>utm_medium</code> – Kanal (z. B. social, email)</li>
-              <li><code>utm_campaign</code> – Kampagne</li>
-            </ul>
-          </div>
-          <div class="ss-card ss-card--inner">
-            <ul>
-              <li><code>utm_term</code> – Keyword (optional)</li>
-              <li><code>utm_content</code> – Variante/A-B (optional)</li>
-              <li><code>utm_id</code> – Kampagnen-ID (optional)</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="ss-actions" style="margin-top:12px">
-          <a class="ss-btn" href="/app/?u=https%3A%2F%2Fde.wikipedia.org%2Fwiki%2FUniform_Resource_Locator%3Futm_source%3Dsafeshare-demo%26utm_medium%3Dsocial%26utm_campaign%3Dutm-page&run=1">
-            Demo starten
-          </a>
-          <a class="ss-btn ss-btn--ghost" href="/hilfe/">Hilfe / Troubleshooting</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- WANN ENTFERNEN / WANN NICHT -->
-    <section class="ss-section" aria-labelledby="utm-when-title">
-      <div class="ss-card">
-        <h2 id="utm-when-title">Wann ist Entfernen sinnvoll?</h2>
-        <ul>
-          <li>Du teilst Links privat oder öffentlich und willst weniger „Etiketten“ weitergeben.</li>
-          <li>Du willst, dass Links sauber aussehen (z. B. Publishing, Redaktion, Schule).</li>
-          <li>Du willst vermeiden, dass weitere Klick-IDs (z. B. <code>gclid</code>/<code>fbclid</code>) mitwandern.</li>
-        </ul>
-
-        <h2 style="margin-top:18px">Wann nicht blind entfernen?</h2>
-        <div class="ss-warn">
-          Affiliate-/Partner-Parameter (z. B. <code>ref</code>, <code>tag</code>) können Zuordnung/Einnahmen steuern.
-          Wenn du dafür verantwortlich bist: nutze Pro (Whitelist/Allowlist + Audit).
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW -->
-    <section class="ss-section" aria-labelledby="utm-how-title">
-      <div class="ss-card">
-        <h2 id="utm-how-title">So geht’s mit SafeShare</h2>
-        <ol>
-          <li>Link kopieren</li>
-          <li>In SafeShare App einfügen</li>
-          <li>Bereinigen → kopieren → teilen</li>
-        </ol>
-
-        <div class="ss-actions" style="margin-top:12px">
-          <a class="ss-btn ss-btn--primary" href="/app/">App öffnen</a>
-          <a class="ss-btn" href="/lesezeichen/">1-Klick Lesezeichen</a>
-          <a class="ss-btn ss-btn--ghost" href="/hilfe/">Hilfe</a>
+        <h2 id="note-title">Wichtiger Kontext</h2>
+        <div class="ss-warn ss-mt-12">
+          UTM entfernen ist oft sinnvoll beim Weiterleiten. In eigenen Kampagnen-Setups können UTM-Werte bewusst benötigt werden.
         </div>
       </div>
     </section>
   </main>
 
   <div id="ss-footer"></div>
-  <script src="/js/ss-shell.js?v=2026-02-04-07" defer></script>
+  <script src="/js/ss-shell.js?v=2026-02-05-03" defer></script>
 </body>
 </html>
