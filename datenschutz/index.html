@@ -1,4 +1,4 @@
-<!-- /datenschutz/index.html (DE) — SafeShare Datenschutz (bereinigt: Page-CSS + Master-Shell, kein Inline-Design) -->
+<!-- File: /datenschutz/index.html (DE) -->
 <!doctype html>
 <html lang="de">
 <head>
@@ -7,91 +7,69 @@
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
   <title>Datenschutz – SafeShare</title>
-  <meta name="description" content="Datenschutzerklärung für SafeShare: local-first Verarbeitung, keine Link-Uploads, keine Nutzerprofile. Transparent, was (nicht) gespeichert wird." />
+  <meta name="description" content="Datenschutzhinweise für SafeShare: local-first Verarbeitung, keine Link-Uploads, Kontakt und Verantwortlichkeit." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
-  <!-- Canonical + hreflang -->
   <link rel="canonical" href="https://safesharepro.com/datenschutz/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/datenschutz/" />
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/privacy/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/privacy/" />
 
-  <!-- Verification -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <!-- Icons / Favicons -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-04-03">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-04-03">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-04-03">
+  <meta property="og:title" content="Datenschutz – SafeShare" />
+  <meta property="og:description" content="Datenschutz bei SafeShare: local-first, transparent, datensparsam." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SafeShare" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:url" content="https://safesharepro.com/datenschutz/" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-privacy.png?v=2026-02-05-03" />
+  <meta property="og:image:alt" content="SafeShare Datenschutz" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-04-03">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Datenschutz – SafeShare" />
+  <meta name="twitter:description" content="Datenschutz bei SafeShare: local-first, transparent, datensparsam." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-privacy.png?v=2026-02-05-03" />
+  <meta name="twitter:image:alt" content="SafeShare Datenschutz" />
 
-  <!-- Page + Shell -->
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-04-03">
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-04-03">
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
+
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
 </head>
-
 <body>
-  <div id="ss-shell"></div>
+<div id="ss-shell"></div>
+<main class="ss-main" id="top">
+  <section class="ss-section"><div class="ss-card ss-hero">
+    <h1>Datenschutz</h1>
+    <p class="ss-hero-kicker">Kurz, klar, nachvollziehbar.</p>
+  </div></section>
 
-  <main class="ss-main">
-    <section class="ss-section" aria-labelledby="privacy-title">
-      <div class="ss-card">
-        <h1 id="privacy-title">Datenschutz</h1>
-
-        <p class="ss-hero-kicker">
-          SafeShare ist <strong>local-first</strong>: Die Link-Bereinigung passiert in deinem Browser.
-        </p>
-
-        <div class="ss-card ss-card--inner">
-          <p class="ss-muted" style="margin:0">
-            SafeShare lädt deine Links nicht zu einem SafeShare-Server hoch.
-            Wenn du einen Link öffnest, kann die Zielseite weiterhin (wie jede Website) technische Zugriffsdaten verarbeiten
-            (z.&nbsp;B. IP-Adresse, Zeit, User-Agent) – das ist unabhängig von SafeShare.
-          </p>
-        </div>
-
-        <hr />
-
-        <h2>Was SafeShare macht</h2>
-        <ul>
-          <li>Entfernt typische Tracking-Parameter aus Links (z.&nbsp;B. <code>utm_*</code>, <code>gclid</code>, <code>fbclid</code> …)</li>
-          <li>Entpackt typische Weiterleitungs-Wrapper (wenn eine URL eine andere URL „einbettet“)</li>
-          <li>Verarbeitet Links lokal im Browser (keine Link-Uploads an SafeShare)</li>
-        </ul>
-
-        <h2>Was SafeShare nicht macht</h2>
-        <ul>
-          <li>Kein Cookie-Blocking / kein Fingerprinting-Blocking</li>
-          <li>Kein VPN / kein Proxy – also kein „Anonymitäts-“ oder „Unsichtbar“-Versprechen</li>
-          <li>Keine Nutzerprofile, kein Konto-System, keine serverseitige Tracking-Analyse durch SafeShare</li>
-        </ul>
-
-        <div class="ss-card ss-card--inner" style="margin-top:12px">
-          <p class="ss-muted" style="margin:0">
-            Kurz gesagt: SafeShare reduziert <strong>Link-Ballast</strong>. Das ist ein konkreter Hygiene-Schritt beim Teilen –
-            nicht „unsichtbar werden“ im Netz.
-          </p>
-        </div>
-
-        <hr />
-
-        <h2>Kontakt</h2>
-        <p class="ss-muted">
-          Fragen zum Datenschutz oder zur Seite? Schreib an
-          <a href="mailto:listings@safesharepro.com"><strong>listings@safesharepro.com</strong></a>.
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <div id="ss-footer"></div>
-
-  <script src="/js/ss-shell.js?v=2026-02-04-07" defer></script>
+  <section class="ss-section"><div class="ss-card">
+    <h2>1. Grundprinzip</h2>
+    <p>SafeShare arbeitet <strong>local-first</strong>. Die Link-Bereinigung erfolgt im Browser deines Geräts. Links werden nicht an einen SafeShare-Server hochgeladen.</p>
+    <h2>2. Verarbeitete Daten</h2>
+    <p>Bei der Nutzung der App werden zur Bereinigung die von dir eingegebenen URL-Bestandteile lokal verarbeitet. Es besteht kein Kontozwang für die Standardnutzung.</p>
+    <h2>3. Pro-/Kaufabwicklung</h2>
+    <p>Beim Kauf von Pro/Supporter-Produkten erfolgt die Zahlungs- und Bestellabwicklung über den jeweiligen Zahlungs-/Shop-Anbieter (z. B. Payhip). Dort gelten deren Datenschutzbedingungen.</p>
+    <h2>4. Server-Logs/Hosting</h2>
+    <p>Beim Aufruf der Website können technisch notwendige Verbindungsdaten (z. B. IP, Zeit, User-Agent) beim Hosting/CDN anfallen.</p>
+    <h2>5. Kontakt</h2>
+    <p>Kontakt: <a href="mailto:listings@safesharepro.com">listings@safesharepro.com</a></p>
+    <h2>6. Änderungen</h2>
+    <p>Diese Hinweise können angepasst werden, wenn sich Funktionen, rechtliche Anforderungen oder eingesetzte Dienste ändern.</p>
+  </div></section>
+</main>
+<div id="ss-footer"></div>
+<script src="/js/ss-shell.js?v=2026-02-05-03" defer></script>
 </body>
 </html>
