@@ -7,7 +7,7 @@
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
   <title>SafeShare App – Clean Links (local-first)</title>
-  <meta name="description" content="Remove tracking parameters (utm_*, fbclid, gclid …) locally in your browser. Paste → clean → copy/share." />
+  <meta name="description" content="SafeShare App removes tracking parameters (utm_*, fbclid, gclid …) locally in your browser. Paste → Clean → Copy/Share." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
@@ -21,17 +21,27 @@
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
   <meta property="og:title" content="SafeShare App – Clean Links" />
-  <meta property="og:description" content="Local-first: remove tracking parameters and share clean URLs." />
+  <meta property="og:description" content="Remove tracking parameters locally and share clean URLs." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://safesharepro.com/en/app/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-app-en.png?v=2026-02-05-01" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-app-en.png?v=2026-02-05-02" />
+  <meta property="og:image:alt" content="SafeShare App – Clean URL" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-01" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-01" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-01" />
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-01" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SafeShare App – Clean Links" />
+  <meta name="twitter:description" content="Remove tracking parameters locally and share clean URLs." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app-en.png?v=2026-02-05-02" />
+  <meta name="twitter:image:alt" content="SafeShare App – Clean URL" />
+
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-02" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-02" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-02" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-02" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-02" />
 
   <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-02" />
   <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-02" />
@@ -42,10 +52,10 @@
   <main class="ss-main" id="top">
     <section class="ss-section" aria-labelledby="app-title">
       <div class="ss-card ss-hero">
-        <h1 id="app-title">Paste, clean, share.</h1>
-        <p class="ss-hero-kicker">SafeShare removes common tracking parameters locally in your browser.</p>
+        <h1 id="app-title">Clean a link</h1>
+        <p class="ss-hero-kicker">Paste → Clean → Copy/Share</p>
 
-        <label class="ss-label ss-mt-12" for="rawUrl">URL</label>
+        <label class="ss-label ss-mt-12" for="rawUrl">Enter URL</label>
         <textarea id="rawUrl" class="ss-input ss-w-full" rows="5" placeholder="https://example.com/?utm_source=..."></textarea>
 
         <div class="ss-actions ss-mt-12">
@@ -57,7 +67,7 @@
         <label class="ss-label ss-mt-12" for="cleanUrl">Clean URL</label>
         <textarea id="cleanUrl" class="ss-input ss-w-full" rows="4" readonly></textarea>
 
-        <div class="ss-note ss-mt-12">Local-first: no uploads. no signup.</div>
+        <div class="ss-note ss-mt-12">Local-first: no uploads, no signup.</div>
       </div>
     </section>
   </main>
@@ -67,29 +77,47 @@
   <script>
     (() => {
       "use strict";
-      const TRACK = new Set(["utm_source","utm_medium","utm_campaign","utm_term","utm_content","utm_id","gclid","fbclid","msclkid","mc_eid","mc_cid","ttclid","twclid","li_fat_id","dclid","gbraid","wbraid"]);
-      const raw = document.getElementById("rawUrl");
-      const out = document.getElementById("cleanUrl");
+
+      const TRACKING_KEYS = new Set([
+        "utm_source","utm_medium","utm_campaign","utm_term","utm_content","utm_id",
+        "gclid","dclid","gbraid","wbraid",
+        "fbclid","msclkid","ttclid","twclid","li_fat_id",
+        "mc_cid","mc_eid","mkt_tok","_hsenc","_hsmi",
+        "igshid","yclid","srsltid","obclid","tblci"
+      ]);
+
+      const rawEl = document.getElementById("rawUrl");
+      const outEl = document.getElementById("cleanUrl");
       const cleanBtn = document.getElementById("cleanBtn");
       const copyBtn = document.getElementById("copyBtn");
       const shareBtn = document.getElementById("shareBtn");
 
-      function cleanOne(input) {
+      const cleanUrl = (input) => {
         try {
           const u = new URL(input.trim());
-          const del = [];
-          u.searchParams.forEach((_, k) => { if (TRACK.has(k.toLowerCase())) del.push(k); });
-          del.forEach(k => u.searchParams.delete(k));
-          u.hash = "";
+          const toDelete = [];
+          u.searchParams.forEach((_, key) => {
+            if (TRACKING_KEYS.has(key.toLowerCase())) toDelete.push(key);
+          });
+          toDelete.forEach((key) => u.searchParams.delete(key));
           return u.toString();
-        } catch { return ""; }
-      }
+        } catch {
+          return "";
+        }
+      };
 
-      cleanBtn.addEventListener("click", () => { out.value = cleanOne(raw.value) || ""; });
-      copyBtn.addEventListener("click", async () => { if (out.value) await navigator.clipboard.writeText(out.value); });
+      cleanBtn.addEventListener("click", () => {
+        outEl.value = cleanUrl(rawEl.value);
+      });
+
+      copyBtn.addEventListener("click", async () => {
+        if (!outEl.value) return;
+        await navigator.clipboard.writeText(outEl.value);
+      });
+
       shareBtn.addEventListener("click", async () => {
-        if (!out.value) return;
-        if (navigator.share) await navigator.share({ url: out.value, text: out.value });
+        if (!outEl.value || !navigator.share) return;
+        await navigator.share({ url: outEl.value, text: outEl.value });
       });
     })();
   </script>
