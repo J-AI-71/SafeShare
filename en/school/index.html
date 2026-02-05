@@ -1,370 +1,70 @@
-<!-- Datei: /en/school/index.html (EN) – “Schule” -> “School”, Master-Shell, HTML valid -->
+<!-- File: /en/school/index.html (EN) -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>[SafeShare](chatgpt://generic-entity?number=0) School – Share clean links (no panic)</title>
-  <meta name="description" content="SafeShare School: tracking parameters explained clearly—without panic. Examples, exercises, and materials for digital self-determination.">
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
+
+  <title>School – SafeShare</title>
+  <meta name="description" content="Privacy explained clearly: understand tracking parameters, share clean links, practical guides." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
   <link rel="canonical" href="https://safesharepro.com/en/school/" />
-  <link rel="alternate" hreflang="de" href="https://safesharepro.com/schule/" />
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/school/" />
+  <link rel="alternate" hreflang="de" href="https://safesharepro.com/schule/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/school/" />
 
-  <!-- Google Search Console -->
-  <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
-  <!-- Bing Webmaster Tools -->
-  <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
-
-  <!-- Open Graph / Social Preview -->
-  <meta property="og:title" content="SafeShare School – Understand tracking links" />
-  <meta property="og:description" content="Short explanation: why tracking parameters (utm_*, fbclid, gclid …) share extra info—and how to share clean links." />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="SafeShare" />
-  <meta property="og:url" content="https://safesharepro.com/en/school/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-index.jpg" />
-  <meta property="og:image:alt" content="SafeShare School – Preview" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SafeShare School – Understand tracking links" />
-  <meta name="twitter:description" content="Why tracking parameters share extra info—and how to share clean links." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-index.jpg" />
-  <meta name="twitter:image:alt" content="SafeShare School – Preview" />
-
-  <!-- Favicons + PWA (always absolute) -->
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2025-12-25-01">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2025-12-25-01">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2025-12-25-01">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2025-12-26-01">
-  <link rel="manifest" href="/manifest.webmanifest?v=2025-12-25-01">
-
-  <!-- MASTER SHELL -->
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-01-25-01">
-  <script src="/js/ss-shell.js?v=2026-01-25-01" defer></script>
-
-  <style>
-    :root{
-      --bg0:#070a12; --bg1:#070b14; --bg2:#0b1020;
-      --card: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.60);
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
-      --radius: 18px;
-      --mint: #2fe3b7;
-      --mint2: rgba(47,227,183,.18);
-      --mint3: rgba(47,227,183,.28);
-      --warn: rgba(255,197,84,.16);
-      --ok: rgba(47,227,183,.16);
-      --bad: rgba(255,84,84,.14);
-      --max: 1120px;
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#f6f7fb; --bg1:#ffffff; --bg2:#f2f6ff;
-        --card:#ffffff;
-        --border: rgba(17,24,39,.12);
-        --text: rgba(17,24,39,.95);
-        --muted: rgba(17,24,39,.72);
-        --muted2: rgba(17,24,39,.62);
-        --shadow: 0 18px 45px rgba(17,24,39,.10);
-        --warn: rgba(255,197,84,.22);
-        --ok: rgba(47,227,183,.18);
-        --bad: rgba(255,84,84,.12);
-      }
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(47,227,183,.18), transparent 55%),
-        radial-gradient(900px 520px at 85% 10%, rgba(255,197,84,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
-    }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 12px 16px 44px; }
-
-    .card{
-      margin-top: 14px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-    }
-    h1{ margin: 10px 0 8px; font-size: clamp(22px, 3.8vw, 42px); line-height: 1.10; letter-spacing:-.2px; }
-    h2{ margin: 0 0 8px; font-size: 18px; letter-spacing: -0.1px; }
-    h3{ margin: 14px 0 8px; font-size: 15px; letter-spacing: -0.1px; }
-    p{ margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
-    ul, ol{ margin: 0 0 12px 18px; color: var(--muted); line-height: 1.6; }
-
-    .row{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor:pointer;
-      user-select:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); }
-    .btn.primary{ background: var(--mint2); border-color: rgba(47,227,183,.35); }
-    .btn.primary:hover{ background: var(--mint3); }
-    .btn.ghost{ background: transparent; color: var(--muted); }
-    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.04); }
-
-    .note,.warn,.bad{
-      margin-top: 12px;
-      border-left: 3px solid rgba(47,227,183,.55);
-      background: var(--ok);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text);
-    }
-    .warn{ border-left-color: rgba(255,197,84,.55); background: var(--warn); }
-    .bad{ border-left-color: rgba(255,84,84,.55); background: var(--bad); }
-
-    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
-    .example{
-      margin-top: 10px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-      word-break: break-word;
-    }
-
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    @media(min-width: 980px){
-      .grid2{ grid-template-columns: 1fr 1fr; }
-    }
-    .box{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding: 12px;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      font-size: 12px; color: var(--muted);
-      white-space: nowrap;
-    }
-    .pill b{ color: var(--text); font-weight: 850; }
-
-    footer{
-      margin-top: 18px;
-      padding: 18px 4px 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-    .footGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 14px;
-    }
-    @media(min-width: 920px){
-      .footGrid{ grid-template-columns: 1.2fr .8fr; }
-    }
-    .footLinks{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-start;
-    }
-    .footLinks a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-    }
-    .footLinks a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-  </style>
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-02" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-02" />
 </head>
-
 <body>
-  <!-- Header/tabs/more comes from the master shell -->
   <div id="ss-shell"></div>
 
-  <div class="wrap">
-
-    <section class="card">
-      <h1>Share clean links</h1>
-      <p>
-        Many links include extra information—like labels or stickers on a parcel.
-        Platforms use them for attribution, but when you forward a link they’re often just ballast.
-      </p>
-
-   <div class="row">
-  <a class="btn primary" href="/en/app/">Clean a link now</a>
-  <a class="btn" href="/en/email-link-cleaning/">Email</a>
-  <a class="btn" href="/en/messenger-link-cleaning/">Messenger</a>
-  <a class="btn" href="/en/social-link-cleaning/">Social</a>
-  <a class="btn ghost" href="/en/pro/">Pro for professionals</a>
-</div>
-
-      <div class="note">
-        SafeShare removes those labels when you share—local-first in your browser. Links are not uploaded.
+  <main class="ss-main" id="top">
+    <section class="ss-section" aria-labelledby="school-title">
+      <div class="ss-card ss-hero">
+        <h1 id="school-title">School: Privacy explained honestly</h1>
+        <p class="ss-hero-kicker">No panic, no buzzwords—just practical link hygiene.</p>
       </div>
     </section>
 
-    <section class="card">
-      <h2>What do these “labels” look like?</h2>
-
-      <div class="example mono">
-        https://example.com/article?utm_source=twitter&utm_medium=social&utm_campaign=launch
-      </div>
-      <div class="example mono">
-        https://shop.example.com/product?gclid=ABC123&amp;fbclid=XYZ987
-      </div>
-
-      <div class="grid2">
-        <div class="box">
-          <div class="pill"><b>utm_*</b> campaigns</div>
-          <p>Shows: source/medium/campaign. Useful for analytics—often unnecessary when sharing.</p>
-        </div>
-        <div class="box">
-          <div class="pill"><b>gclid / fbclid</b> click IDs</div>
-          <p>Platform-specific IDs for measurement. When sharing, usually just ballast.</p>
+    <section class="ss-section">
+      <div class="ss-card">
+        <h2>Guides</h2>
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <a class="ss-card ss-card--inner" href="/en/tracking-parameters/">
+            <h3>Tracking parameters explained</h3>
+            <p class="ss-muted">What is noise, what is functional?</p>
+          </a>
+          <a class="ss-card ss-card--inner" href="/en/remove-utm-parameter/">
+            <h3>Remove UTM parameters</h3>
+            <p class="ss-muted">When it helps and when to be careful.</p>
+          </a>
+          <a class="ss-card ss-card--inner" href="/en/email-link-cleaning/">
+            <h3>Email link cleaning</h3>
+            <p class="ss-muted">Send cleaner links without extra IDs.</p>
+          </a>
+          <a class="ss-card ss-card--inner" href="/en/messenger-link-cleaning/">
+            <h3>Messenger link cleaning</h3>
+            <p class="ss-muted">Better hygiene in groups and channels.</p>
+          </a>
+          <a class="ss-card ss-card--inner" href="/en/social-link-cleaning/">
+            <h3>Social link cleaning</h3>
+            <p class="ss-muted">Clearer links for posts and comments.</p>
+          </a>
+          <a class="ss-card ss-card--inner" href="/en/url-cleaner-comparison/">
+            <h3>Tool comparison</h3>
+            <p class="ss-muted">What matters in trustworthy cleaners.</p>
+          </a>
         </div>
       </div>
     </section>
+  </main>
 
-    <section class="card">
-      <h2>Privacy, explained honestly (no panic)</h2>
-      <p>
-        What happens in the background, what is realistically possible, how to protect yourself as far as it makes sense—
-        explained clearly, without fear, without fake promises.
-      </p>
-      <div class="row">
-        <a class="btn" href="/en/privacy-honest/">Privacy explained honestly</a>
-        <a class="btn ghost" href="/en/help/">Help / Troubleshooting</a>
-      </div>
-      <div class="note">
-        Privacy doesn’t mean “being invisible.” It means: create less data, share less data, keep more control.
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Why should a non-technical person do this?</h2>
-      <ul>
-        <li><b>Respect:</b> you pass on less extra info others didn’t choose.</li>
-        <li><b>Looks cleaner:</b> links feel more trustworthy and less “ad-like.”</li>
-        <li><b>Less breakage:</b> some apps shorten/rewrite long URLs in unhelpful ways.</li>
-      </ul>
-      <div class="warn">
-        Important: this is not a promise of “invisibility.” It’s a concrete hygiene step when sharing links.
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>When should you NOT remove everything blindly?</h2>
-      <div class="grid2">
-        <div class="box">
-          <h3>Affiliate/partners</h3>
-          <p>
-            Some parameters are attribution (e.g., <span class="mono">ref</span>, <span class="mono">tag</span>).
-            Removing them can break tracking/compensation.
-          </p>
-          <p><b>Pro option:</b> allowlist per domain/policy.</p>
-        </div>
-        <div class="box">
-          <h3>Functional parameters</h3>
-          <p>
-            Some keys are required (language, product ID, session, filters).
-            Good tools are conservative and don’t remove randomly.
-          </p>
-          <p><b>App:</b> standard tracking. <b>Pro:</b> audit + rules.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Do it in 10 seconds</h2>
-      <ol>
-        <li>Copy the link</li>
-        <li>Paste it into the SafeShare app</li>
-        <li>Clean → copy → share</li>
-      </ol>
-      <div class="row">
-        <a class="btn primary" href="/en/app/">Open the app</a>
-        <a class="btn" href="/en/bookmarks/">Bookmark (1-click)</a>
-        <a class="btn ghost" href="/en/help/">Troubleshooting</a>
-      </div>
-      <div class="note">
-        Tip: the biggest impact happens when forwarding—clean first, then share.
-      </div>
-    </section>
-
-    <section class="card" id="practice-shortcuts" aria-label="Practice: Clean before share">
-      <h2>Practice: Clean before share (Email · Messenger · Social)</h2>
-      <p>
-        Clean links <b>before</b> you share them. On iOS/iPad you can use 1-tap share sheet shortcuts for this.
-      </p>
-     <div class="row">
-  <a class="btn primary" href="/en/app/">Clean a link now</a>
-  <a class="btn" href="/en/email-link-cleaning/">Email</a>
-  <a class="btn" href="/en/messenger-link-cleaning/">Messenger</a>
-  <a class="btn" href="/en/social-link-cleaning/">Social</a>
-  <a class="btn ghost" href="/en/pro/">Pro for professionals</a>
-</div>
-      <div class="note">
-        Shortcuts remove URL tracking parameters. They do not replace cookie/fingerprinting protection.
-      </div>
-    </section>
-
-    <footer>
-      <div class="footGrid">
-        <div>
-          <div><strong>SafeShare</strong> – Share links. Without ballast.</div>
-          <div>App: fast &amp; simple · Pro: policies, allowlist, audit.</div>
-        </div>
-        <div class="footLinks">
-          <a data-page="start" href="/en/">Start</a>
-          <a data-page="app" href="/en/app/">App</a>
-          <a data-page="school" href="/en/school/">School</a>
-          <a data-page="pro" href="/en/pro/">Pro</a>
-          <a data-page="help" href="/en/help/">Help</a>
-          <a data-page="privacy" href="/en/privacy/">Privacy</a>
-          <a data-page="imprint" href="/impressum/">Imprint</a>
-          <a data-page="terms" href="/en/terms/">Terms</a>
-        </div>
-      </div>
-    </footer>
-
-  </div>
+  <div id="ss-footer"></div>
+  <script src="/js/ss-shell.js?v=2026-02-05-02" defer></script>
 </body>
 </html>
