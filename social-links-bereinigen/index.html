@@ -1,4 +1,4 @@
-<!-- /social-links-bereinigen/index.html (DE) — SafeShare -->
+<!-- File: /social-links-bereinigen/index.html (DE) -->
 <!doctype html>
 <html lang="de">
 <head>
@@ -6,155 +6,112 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <title>Social-Links bereinigen – SafeShare (Mastodon, X, LinkedIn)</title>
-  <meta name="description" content="Social-Links bereinigen: Tracking-Parameter wie utm_*, gclid, fbclid lokal im Browser entfernen. Sauber posten statt unnötige IDs mitzuschicken." />
+  <title>Social-Links bereinigen – SafeShare</title>
+  <meta name="description" content="Social-Links bereinigen für Mastodon, X, LinkedIn & Co.: Tracking-Parameter lokal entfernen und sauber teilen." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
   <link rel="canonical" href="https://safesharepro.com/social-links-bereinigen/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/social-links-bereinigen/" />
-  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/social-links-clean/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/social-links-clean/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/social-link-cleaning/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/social-link-cleaning/" />
 
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
   <meta property="og:title" content="Social-Links bereinigen – SafeShare" />
-  <meta property="og:description" content="Mastodon, X, LinkedIn: Tracking-Parameter lokal im Browser entfernen. Copy → Clean → Post." />
-  <meta property="og:type" content="article" />
+  <meta property="og:description" content="Saubere URLs für Social Posts und Profile: Tracking-Parameter lokal entfernen." />
+  <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://safesharepro.com/social-links-bereinigen/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-social-links.png?v=2026-02-05-01" />
-  <meta property="og:image:alt" content="SafeShare: Social-Links bereinigen" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-social.png?v=2026-02-05-03" />
+  <meta property="og:image:alt" content="SafeShare – Social-Links bereinigen" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Social-Links bereinigen – SafeShare" />
-  <meta name="twitter:description" content="Tracking-Parameter aus Social-Links entfernen (lokal im Browser)." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-social-links.png?v=2026-02-05-01" />
-  <meta name="twitter:image:alt" content="SafeShare: Social-Links bereinigen" />
+  <meta name="twitter:description" content="Saubere URLs für Social Posts und Profile: Tracking-Parameter lokal entfernen." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-social.png?v=2026-02-05-03" />
+  <meta name="twitter:image:alt" content="SafeShare – Social-Links bereinigen" />
 
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-01" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-01" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-01" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-01" />
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
 
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-01" />
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-01" />
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-01" />
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
 </head>
-
 <body>
   <div id="ss-shell"></div>
 
   <main class="ss-main" id="top">
-
-    <section class="ss-section" aria-labelledby="hero-title">
+    <section class="ss-section" aria-labelledby="social-title">
       <div class="ss-card ss-hero">
-        <h1 id="hero-title">Social-Links bereinigen (Mastodon, X, LinkedIn)</h1>
-
-        <p class="ss-hero-kicker">
-          Beim Posten werden Links oft aus Kampagnen, Ads oder Analytics übernommen.
-          So landen Tracking-IDs (<code>utm_*</code>, Klick-IDs) direkt im Feed, im Repost und in Screenshots.
+        <h1 id="social-title">Social-Links bereinigen</h1>
+        <p class="ss-hero-kicker">Sauber posten statt Tracking-Ballast mitverteilen.</p>
+        <p>
+          Social-URLs enthalten oft Kampagnen- und Click-IDs.
+          Beim Teilen in Posts, Profilen oder Kommentaren sind sie häufig unnötig.
+          SafeShare entfernt typische Tracking-Parameter local-first.
         </p>
 
-        <div class="ss-chipRow" aria-label="Typische Tracking-Keys">
-          <span class="ss-chip">utm_*</span>
-          <span class="ss-chip">fbclid</span>
-          <span class="ss-chip">gclid</span>
-          <span class="ss-chip">msclkid</span>
-          <span class="ss-chip">mc_eid</span>
-        </div>
-
         <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/app/">Link bereinigen</a>
-          <a class="ss-btn" href="/pro/">Pro: Policies &amp; Audit</a>
-          <a class="ss-btn ss-btn--ghost" href="/hilfe/">Hilfe</a>
+          <a class="ss-btn ss-btn--primary" href="/app/">Link jetzt bereinigen</a>
+          <a class="ss-btn" href="/utm-parameter-entfernen/">UTM erklärt</a>
+          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro mit Regeln</a>
         </div>
 
         <div class="ss-note ss-mt-12">
-          Local-first im Browser. Kein Upload. Sauber posten statt unnötige IDs mitzuschicken.
+          Für Menschen gut lesbar, für Workflows konsistent: Copy → Clean → Share.
         </div>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="workflow-title">
+    <section class="ss-section" aria-labelledby="benefits-title">
       <div class="ss-card">
-        <h2 id="workflow-title">Schnell-Workflows</h2>
-
-        <div class="ss-stack ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Copy → Clean → Post (ein Link)</h3>
-            <ol>
-              <li>Link aus Browser/Tool kopieren.</li>
-              <li>In SafeShare einfügen und bereinigen.</li>
-              <li>Sauberen Link in Post/Kommentar einsetzen.</li>
-            </ol>
-          </article>
-
-          <article class="ss-card ss-card--inner">
-            <h3>Content-Plan mit vielen Links (Pro)</h3>
-            <ol>
-              <li>Mehrere URLs pro Woche sammeln.</li>
-              <li>Mit Pro-Policy/Audit konsistent bereinigen.</li>
-              <li>In Buffer/Planer oder direkt auf Plattform posten.</li>
-            </ol>
-          </article>
-
-          <article class="ss-card ss-card--inner">
-            <h3>Wichtige Grenze (ehrlich)</h3>
-            <p class="ss-muted">
-              Nicht blind alles entfernen: Parameter wie <code>ref</code> oder <code>tag</code> können absichtlich für Attribution gesetzt sein.
-            </p>
-            <p class="ss-muted">
-              Für Feinkontrolle: Pro-Regeln je Domain/Kanal.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="why-title">
-      <div class="ss-card">
-        <h2 id="why-title">Warum das für Social sinnvoll ist</h2>
-
+        <h2 id="benefits-title">Vorteile in Social-Kontexten</h2>
         <div class="ss-grid ss-grid--2 ss-mt-12">
-          <div class="ss-card ss-card--inner">
-            <h3>Weniger unnötige Metadaten</h3>
-            <p class="ss-muted">
-              Saubere Links reduzieren die Verteilung von Kampagnen-IDs über Shares, Reposts und Zitate.
-            </p>
-          </div>
-
-          <div class="ss-card ss-card--inner">
-            <h3>Bessere Link-Qualität</h3>
-            <p class="ss-muted">
-              Kürzere URLs sind lesbarer, wirken professioneller und passen besser zu klarer, transparenter Kommunikation.
-            </p>
-          </div>
+          <article class="ss-card ss-card--inner">
+            <h3>Lesbarkeit</h3>
+            <p class="ss-muted">Kürzere URLs sehen seriöser aus und wirken weniger „ad-lastig“.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Weniger Bruch</h3>
+            <p class="ss-muted">Lange Query-Strings werden seltener unschön umgebrochen.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Team-Konsistenz</h3>
+            <p class="ss-muted">Einheitlicher Standard für Posts über alle Kanäle.</p>
+          </article>
+          <article class="ss-card ss-card--inner">
+            <h3>Datensparsamkeit</h3>
+            <p class="ss-muted">Weniger unnötige Metadaten beim Weitergeben von Links.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="cta-title">
+    <section class="ss-section" aria-labelledby="limits-title">
       <div class="ss-card">
-        <h2 id="cta-title">Jetzt testen</h2>
-        <p class="ss-muted">Copy → Clean → Post. Ohne Anmeldung. Local-first im Browser.</p>
-
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/app/">App öffnen</a>
-          <a class="ss-btn" href="/tracking-parameter/">Tracking-Parameter erklärt</a>
-          <a class="ss-btn ss-btn--ghost" href="/url-cleaner-tool-vergleich/">Tool-Vergleich</a>
+        <h2 id="limits-title">Grenzen (wichtig)</h2>
+        <div class="ss-warn ss-mt-12">
+          Link-Bereinigung ist ein Hygiene-Schritt, kein Unsichtbarkeitsversprechen.
         </div>
+        <ul class="ss-mt-12">
+          <li><strong>Attribution:</strong> Manche Kampagnenparameter sind bewusst gesetzt.</li>
+          <li><strong>Funktion:</strong> Einzelne Parameter können Inhalte steuern.</li>
+          <li><strong>Pro:</strong> Mit Domain-Regeln behältst du nur, was wirklich gebraucht wird.</li>
+        </ul>
       </div>
     </section>
-
   </main>
 
   <div id="ss-footer"></div>
-  <script src="/js/ss-shell.js?v=2026-02-05-01" defer></script>
+  <script src="/js/ss-shell.js?v=2026-02-05-03" defer></script>
 </body>
 </html>
