@@ -46,14 +46,14 @@
   <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-12" />
   <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-12" />
 </head>
-<body>
+<body data-page="social-links-bereinigen" data-lang="de">
   <div id="ss-shell"></div>
 
   <main class="ss-main" id="top">
     <section class="ss-section" aria-labelledby="social-title">
       <div class="ss-card ss-hero">
         <h1 id="social-title">Social-Links bereinigen</h1>
-        <p class="ss-hero-kicker">Für Mastodon, X, LinkedIn, Reddit & Co.</p>
+        <p class="ss-hero-kicker">Für Mastodon, X, LinkedIn, Reddit &amp; Co.</p>
         <p>
           Social-Posts enthalten oft Links mit Tracking-Anhängseln wie <code>utm_*</code>, <code>fbclid</code> oder <code>gclid</code>.
           Für Menschen, die den Link bekommen, ist das meist nur Ballast.
@@ -97,7 +97,7 @@
         <div class="ss-grid ss-grid--2 ss-mt-12">
           <article class="ss-card ss-card--inner">
             <h3>Vorher</h3>
-            <p class="ss-mono">https://example.com/angebot?utm_source=social&utm_medium=post&utm_campaign=launch&fbclid=XYZ</p>
+            <p class="ss-mono">https://example.com/angebot?utm_source=social&amp;utm_medium=post&amp;utm_campaign=launch&amp;fbclid=XYZ</p>
           </article>
           <article class="ss-card ss-card--inner">
             <h3>Nachher</h3>
@@ -152,7 +152,6 @@
     </section>
   </main>
 
-  <div id="ss-footer"></div>
-  <script src="/js/ss-shell.js?v=2026-02-05-12" defer></script>
+  <script src="/js/shell.js?v=2026-02-05-12" defer></script>
 </body>
 </html>
