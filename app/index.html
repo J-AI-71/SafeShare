@@ -26,7 +26,7 @@
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://safesharepro.com/app/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-02-05-02" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-02-05-03" />
   <meta property="og:image:alt" content="SafeShare App – Link bereinigen" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -34,19 +34,19 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SafeShare App – Links bereinigen" />
   <meta name="twitter:description" content="Tracking-Parameter lokal entfernen und saubere Links teilen." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-02-05-02" />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app.png?v=2026-02-05-03" />
   <meta name="twitter:image:alt" content="SafeShare App – Link bereinigen" />
 
-  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-02" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-02" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-02" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-02" />
-  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-02" />
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png?v=2026-02-05-03" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png?v=2026-02-05-03" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png?v=2026-02-05-03" />
+  <link rel="manifest" href="/manifest.webmanifest?v=2026-02-05-03" />
 
-  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-02" />
-  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-02" />
+  <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-03" />
+  <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-03" />
 </head>
-<body>
+<body data-page="app" data-lang="de">
   <div id="ss-shell"></div>
 
   <main class="ss-main" id="top">
@@ -56,7 +56,16 @@
         <p class="ss-hero-kicker">Einfügen → Bereinigen → Kopieren/Teilen</p>
 
         <label class="ss-label ss-mt-12" for="rawUrl">URL eingeben</label>
-        <textarea id="rawUrl" class="ss-input ss-w-full" rows="5" placeholder="https://example.com/?utm_source=..."></textarea>
+        <textarea
+          id="rawUrl"
+          class="ss-input ss-w-full ss-input--lg"
+          rows="5"
+          placeholder="https://example.com/?utm_source=..."
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          inputmode="url"
+        ></textarea>
 
         <div class="ss-actions ss-mt-12">
           <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Bereinigen</button>
@@ -65,62 +74,14 @@
         </div>
 
         <label class="ss-label ss-mt-12" for="cleanUrl">Bereinigte URL</label>
-        <textarea id="cleanUrl" class="ss-input ss-w-full" rows="4" readonly></textarea>
+        <textarea id="cleanUrl" class="ss-input ss-w-full ss-input--md" rows="4" readonly></textarea>
 
         <div class="ss-note ss-mt-12">Local-first: Keine Uploads, keine Anmeldung.</div>
       </div>
     </section>
   </main>
 
-  <div id="ss-footer"></div>
-
-  <script>
-    (() => {
-      "use strict";
-
-      const TRACKING_KEYS = new Set([
-        "utm_source","utm_medium","utm_campaign","utm_term","utm_content","utm_id",
-        "gclid","dclid","gbraid","wbraid",
-        "fbclid","msclkid","ttclid","twclid","li_fat_id",
-        "mc_cid","mc_eid","mkt_tok","_hsenc","_hsmi",
-        "igshid","yclid","srsltid","obclid","tblci"
-      ]);
-
-      const rawEl = document.getElementById("rawUrl");
-      const outEl = document.getElementById("cleanUrl");
-      const cleanBtn = document.getElementById("cleanBtn");
-      const copyBtn = document.getElementById("copyBtn");
-      const shareBtn = document.getElementById("shareBtn");
-
-      const cleanUrl = (input) => {
-        try {
-          const u = new URL(input.trim());
-          const toDelete = [];
-          u.searchParams.forEach((_, key) => {
-            if (TRACKING_KEYS.has(key.toLowerCase())) toDelete.push(key);
-          });
-          toDelete.forEach((key) => u.searchParams.delete(key));
-          return u.toString();
-        } catch {
-          return "";
-        }
-      };
-
-      cleanBtn.addEventListener("click", () => {
-        outEl.value = cleanUrl(rawEl.value);
-      });
-
-      copyBtn.addEventListener("click", async () => {
-        if (!outEl.value) return;
-        await navigator.clipboard.writeText(outEl.value);
-      });
-
-      shareBtn.addEventListener("click", async () => {
-        if (!outEl.value || !navigator.share) return;
-        await navigator.share({ url: outEl.value, text: outEl.value });
-      });
-    })();
-  </script>
-  <script src="/js/ss-shell.js?v=2026-02-05-02" defer></script>
+  <script src="/js/shell.js?v=2026-02-05-03" defer></script>
+  <script src="/js/app.js?v=2026-02-05-03" defer></script>
 </body>
 </html>
