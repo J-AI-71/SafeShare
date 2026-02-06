@@ -46,7 +46,7 @@
   <link rel="stylesheet" href="/css/ss-page.css?v=2026-02-05-09" />
   <link rel="stylesheet" href="/css/ss-shell.css?v=2026-02-05-09" />
 </head>
-<body>
+<body data-page="tracking-parameters" data-lang="en">
   <div id="ss-shell"></div>
 
   <main class="ss-main" id="top">
@@ -72,7 +72,7 @@
           </article>
           <article class="ss-card ss-card--inner">
             <h3>With parameters</h3>
-            <p class="ss-mono">https://example.com/article?utm_source=newsletter&utm_campaign=launch&fbclid=XYZ</p>
+            <p class="ss-mono">https://example.com/article?utm_source=newsletter&amp;utm_campaign=launch&amp;fbclid=XYZ</p>
           </article>
         </div>
         <p class="ss-muted ss-mt-12">The page can be identical — only the appended metadata differs.</p>
@@ -176,7 +176,7 @@
         <div class="ss-grid ss-grid--2 ss-mt-12">
           <article class="ss-card ss-card--inner">
             <h3>With UTM</h3>
-            <p class="ss-mono">https://example.com/guide?utm_source=newsletter&utm_medium=email&utm_campaign=q1</p>
+            <p class="ss-mono">https://example.com/guide?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=q1</p>
           </article>
           <article class="ss-card ss-card--inner">
             <h3>Cleaned</h3>
@@ -193,7 +193,6 @@
     </section>
   </main>
 
-  <div id="ss-footer"></div>
-  <script src="/js/ss-shell.js?v=2026-02-05-09" defer></script>
+  <script src="/js/shell.js?v=2026-02-05-09" defer></script>
 </body>
 </html>
