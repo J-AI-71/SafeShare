@@ -1,5 +1,6 @@
 /* File: /js/ss-shell.js */
-/* Master-Flow strict — single source of truth */
+/* SafeShare Shell — Master-Flow strict, Zero inline */
+/* Version: v2026-02-05-14 (safe-area fix) */
 
 (() => {
   "use strict";
@@ -15,7 +16,7 @@
 
   const NAV = isEn
     ? [
-        ["/en/", "Start"],
+        ["/en/", "Home"],
         ["/en/app/", "App"],
         ["/en/pro/", "Pro"],
         ["/en/school/", "School"],
