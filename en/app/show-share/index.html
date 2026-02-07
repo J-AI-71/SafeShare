@@ -1,52 +1,35 @@
-<!-- File: /en/show-share/index.html (EN endpoint -> /en/app/) -->
+<!-- File: /en/show-share/index.html (EN target -> /en/app/) -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="robots" content="noindex,nofollow,noarchive" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="referrer" content="no-referrer" />
-  <title>SafeShare – Redirecting</title>
+  <title>SafeShare – Redirect</title>
 </head>
 <body>
 <script>
-(function () {
+(() => {
   "use strict";
 
   const qs = new URLSearchParams(window.location.search);
-  const rawUrl = qs.get("url") || "";
-  const rawText = qs.get("text") || "";
-  const rawTitle = qs.get("title") || "";
+  const rawUrl   = (qs.get("url") || "").trim();
+  const rawText  = (qs.get("text") || "").trim();
+  const rawTitle = (qs.get("title") || "").trim();
 
-  // Prefer explicit url, else extract first URL from text/title
-  let candidate = rawUrl;
-  if (!candidate) {
-    const blob = [rawText, rawTitle].filter(Boolean).join(" ");
-    const m = blob.match(/https?:\/\/\S+/i);
-    candidate = m ? m[0] : "";
-  }
+  const extractUrl = (s) => {
+    if (!s) return "";
+    const m = s.match(/https?:\/\/\S+/i);
+    return m ? m[0].replace(/[)\],.]+$/, "") : "";
+  };
 
-  // Trim common trailing punctuation
-  if (candidate) candidate = candidate.replace(/[)\],.]+$/g, "");
-
+  const candidate = rawUrl || extractUrl(rawText) || "";
   const target = new URL("/en/app/", window.location.origin);
 
-  // Forward only valid http/https as url param
   if (candidate) {
-    try {
-      const u = new URL(candidate);
-      if (u.protocol === "http:" || u.protocol === "https:") {
-        target.searchParams.set("url", u.toString());
-      } else if (rawText || rawTitle) {
-        target.searchParams.set("text", (rawText || rawTitle).trim());
-      }
-    } catch (_) {
-      if (rawText || rawTitle) {
-        target.searchParams.set("text", (rawText || rawTitle).trim());
-      }
-    }
+    target.searchParams.set("url", candidate);
   } else if (rawText || rawTitle) {
-    target.searchParams.set("text", (rawText || rawTitle).trim());
+    target.searchParams.set("text", rawText || rawTitle);
   }
 
   window.location.replace(target.toString());
