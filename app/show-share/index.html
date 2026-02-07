@@ -1,52 +1,38 @@
-<!-- File: /show-share/index.html (DE endpoint -> /app/) -->
+<!-- File: /show-share/index.html (DE target -> /app/) -->
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="robots" content="noindex,nofollow,noarchive" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="referrer" content="no-referrer" />
   <title>SafeShare – Weiterleitung</title>
 </head>
 <body>
 <script>
-(function () {
+(() => {
   "use strict";
 
   const qs = new URLSearchParams(window.location.search);
-  const rawUrl = qs.get("url") || "";
-  const rawText = qs.get("text") || "";
-  const rawTitle = qs.get("title") || "";
+  const rawUrl   = (qs.get("url") || "").trim();
+  const rawText  = (qs.get("text") || "").trim();
+  const rawTitle = (qs.get("title") || "").trim();
 
-  // Erst url, sonst erste URL aus text/title extrahieren
-  let candidate = rawUrl;
-  if (!candidate) {
-    const blob = [rawText, rawTitle].filter(Boolean).join(" ");
-    const m = blob.match(/https?:\/\/\S+/i);
-    candidate = m ? m[0] : "";
-  }
+  // 1) Priorität: explizites url=
+  // 2) Falls text= vorhanden: erste URL daraus extrahieren
+  // 3) Sonst text/title als Fallback zur App durchreichen
+  const extractUrl = (s) => {
+    if (!s) return "";
+    const m = s.match(/https?:\/\/\S+/i);
+    return m ? m[0].replace(/[)\],.]+$/, "") : "";
+  };
 
-  // Typische Satzzeichen am Ende entfernen
-  if (candidate) candidate = candidate.replace(/[)\],.]+$/g, "");
-
+  const candidate = rawUrl || extractUrl(rawText) || "";
   const target = new URL("/app/", window.location.origin);
 
-  // Nur valide http/https-URL als url-Parameter weitergeben
   if (candidate) {
-    try {
-      const u = new URL(candidate);
-      if (u.protocol === "http:" || u.protocol === "https:") {
-        target.searchParams.set("url", u.toString());
-      } else if (rawText || rawTitle) {
-        target.searchParams.set("text", (rawText || rawTitle).trim());
-      }
-    } catch (_) {
-      if (rawText || rawTitle) {
-        target.searchParams.set("text", (rawText || rawTitle).trim());
-      }
-    }
+    target.searchParams.set("url", candidate);
   } else if (rawText || rawTitle) {
-    target.searchParams.set("text", (rawText || rawTitle).trim());
+    target.searchParams.set("text", rawText || rawTitle);
   }
 
   window.location.replace(target.toString());
