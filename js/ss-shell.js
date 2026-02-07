@@ -1,6 +1,6 @@
 /* File: /js/ss-shell.js */
-/* SafeShare Shell — Master-Flow strict, Zero inline */
-/* Version: v2026-02-05-14 (safe-area fix) */
+/* Master-Flow strict — single source of truth */
+/* Version: v2026-02-05-14 */
 
 (() => {
   "use strict";
@@ -16,7 +16,7 @@
 
   const NAV = isEn
     ? [
-        ["/en/", "Home"],
+        ["/en/", "Start"],
         ["/en/app/", "App"],
         ["/en/pro/", "Pro"],
         ["/en/school/", "School"],
@@ -33,6 +33,7 @@
   const MORE = isEn
     ? [
         ["/en/bookmarks/", "Bookmarks"],
+        ["/en/shortcuts/", "Shortcuts"],
         ["/en/email-link-cleaning/", "E-Mail links"],
         ["/en/messenger-link-cleaning/", "Messenger links"],
         ["/en/social-link-cleaning/", "Social links"],
@@ -45,6 +46,7 @@
       ]
     : [
         ["/lesezeichen/", "Lesezeichen"],
+        ["/shortcuts/", "Shortcuts"],
         ["/email-links-bereinigen/", "E-Mail-Links bereinigen"],
         ["/messenger-links-bereinigen/", "Messenger-Links bereinigen"],
         ["/social-links-bereinigen/", "Social-Links bereinigen"],
@@ -63,6 +65,7 @@
     "/schule/": "/en/school/",
     "/hilfe/": "/en/help/",
     "/lesezeichen/": "/en/bookmarks/",
+    "/shortcuts/": "/en/shortcuts/",
     "/email-links-bereinigen/": "/en/email-link-cleaning/",
     "/messenger-links-bereinigen/": "/en/messenger-link-cleaning/",
     "/social-links-bereinigen/": "/en/social-link-cleaning/",
@@ -81,6 +84,7 @@
     "/en/school/": "/schule/",
     "/en/help/": "/hilfe/",
     "/en/bookmarks/": "/lesezeichen/",
+    "/en/shortcuts/": "/shortcuts/",
     "/en/email-link-cleaning/": "/email-links-bereinigen/",
     "/en/messenger-link-cleaning/": "/messenger-links-bereinigen/",
     "/en/social-link-cleaning/": "/social-links-bereinigen/",
@@ -177,18 +181,18 @@
     body.classList.remove("ss-noScroll");
   };
 
-  btnMore.addEventListener("click", () => (panel.hidden ? openMenu() : closeMenu()));
-  backdrop.addEventListener("click", closeMenu);
+  btnMore?.addEventListener("click", () => (panel.hidden ? openMenu() : closeMenu()));
+  backdrop?.addEventListener("click", closeMenu);
   closers.forEach((b) => b.addEventListener("click", closeMenu));
   d.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !panel.hidden) closeMenu();
+    if (e.key === "Escape" && panel && !panel.hidden) closeMenu();
   });
-  panel.addEventListener("click", (e) => {
+  panel?.addEventListener("click", (e) => {
     const t = e.target;
     if (t instanceof Element && t.closest(".ss-moreMenu__link")) closeMenu();
   });
 
-  btnLang.addEventListener("click", () => {
+  btnLang?.addEventListener("click", () => {
     let target;
     if (isEn) target = enToDe[path] || path.replace(/^\/en\//, "/");
     else target = deToEn[path] || ("/en" + (path === "/" ? "/" : path));
