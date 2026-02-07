@@ -1,33 +1,55 @@
+<!-- File: /show-share/index.html (DE endpoint -> /app/) -->
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="robots" content="noindex,nofollow">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>SafeShare – Share</title>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="referrer" content="no-referrer" />
+  <title>SafeShare – Weiterleitung</title>
 </head>
 <body>
 <script>
-(function(){
-  const qs = new URLSearchParams(location.search);
-  const url  = qs.get('url')  || '';
-  const text = qs.get('text') || '';
-  const title = qs.get('title') || '';
+(function () {
+  "use strict";
 
-  // 1) Kandidat bestimmen (url > erste URL in text)
-  let candidate = url || (text.match(/https?:\/\/\S+/)?.[0] || '');
+  const qs = new URLSearchParams(window.location.search);
+  const rawUrl = qs.get("url") || "";
+  const rawText = qs.get("text") || "";
+  const rawTitle = qs.get("title") || "";
 
-  // 2) typische Endzeichen abschneiden
-  candidate = candidate.replace(/[)\],.]+$/, '');
+  // Erst url, sonst erste URL aus text/title extrahieren
+  let candidate = rawUrl;
+  if (!candidate) {
+    const blob = [rawText, rawTitle].filter(Boolean).join(" ");
+    const m = blob.match(/https?:\/\/\S+/i);
+    candidate = m ? m[0] : "";
+  }
 
-  // 3) Weiter in App mit ?url=
-  const target = new URL('/app/', location.origin);
-  if (candidate) target.searchParams.set('url', candidate);
+  // Typische Satzzeichen am Ende entfernen
+  if (candidate) candidate = candidate.replace(/[)\],.]+$/g, "");
 
-  // optional: wenn nur Text ohne URL geteilt wurde, kannst du ihn mitschicken
-  if (!candidate && (text || title)) target.searchParams.set('text', (text || title));
+  const target = new URL("/app/", window.location.origin);
 
-  location.replace(target.toString());
+  // Nur valide http/https-URL als url-Parameter weitergeben
+  if (candidate) {
+    try {
+      const u = new URL(candidate);
+      if (u.protocol === "http:" || u.protocol === "https:") {
+        target.searchParams.set("url", u.toString());
+      } else if (rawText || rawTitle) {
+        target.searchParams.set("text", (rawText || rawTitle).trim());
+      }
+    } catch (_) {
+      if (rawText || rawTitle) {
+        target.searchParams.set("text", (rawText || rawTitle).trim());
+      }
+    }
+  } else if (rawText || rawTitle) {
+    target.searchParams.set("text", (rawText || rawTitle).trim());
+  }
+
+  window.location.replace(target.toString());
 })();
 </script>
 </body>
