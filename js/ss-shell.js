@@ -1,6 +1,6 @@
 /* File: /js/ss-shell.js */
-/* SafeShare Master-Flow strict — Zero header/footer/menu HTML in pages */
-/* Version: mf1-final */
+/* SafeShare Shell — Master-Flow strict (single source of truth) */
+/* Version: v=mf1 */
 
 (() => {
   "use strict";
@@ -10,7 +10,7 @@
   const shellMount = d.getElementById("ss-shell");
   if (!shellMount) return;
 
-  const rawPath = window.location.pathname;
+  const rawPath = window.location.pathname || "/";
   const path = rawPath.replace(/index\.html$/i, "").replace(/\/?$/, "/");
   const isEn = path.startsWith("/en/");
 
@@ -60,6 +60,34 @@
         ["/impressum/", "Impressum"]
       ];
 
+  const FOOTER_MAIN = isEn
+    ? [
+        ["/en/", "Start"],
+        ["/en/app/", "App"],
+        ["/en/school/", "School"],
+        ["/en/pro/", "Pro"],
+        ["/en/help/", "Help"]
+      ]
+    : [
+        ["/", "Start"],
+        ["/app/", "App"],
+        ["/schule/", "Schule"],
+        ["/pro/", "Pro"],
+        ["/hilfe/", "Hilfe"]
+      ];
+
+  const FOOTER_LEGAL = isEn
+    ? [
+        ["/en/privacy/", "Privacy"],
+        ["/en/imprint/", "Imprint"],
+        ["/en/terms/", "Terms"]
+      ]
+    : [
+        ["/datenschutz/", "Datenschutz"],
+        ["/impressum/", "Impressum"],
+        ["/nutzungsbedingungen/", "Nutzungsbedingungen"]
+      ];
+
   const deToEn = {
     "/": "/en/",
     "/app/": "/en/app/",
@@ -78,7 +106,7 @@
     "/datenschutz/": "/en/privacy/",
     "/nutzungsbedingungen/": "/en/terms/",
     "/impressum/": "/en/imprint/",
-    "/404.html": "/en/404/"
+    "/404.html/": "/en/404/"
   };
 
   const enToDe = {
@@ -109,111 +137,129 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;");
 
-  const isActive = (href) => (href === "/" ? path === "/" : path === href);
+  const active = (href) => {
+    if (href === "/") return path === "/";
+    return path === href;
+  };
 
-  const navHtml = NAV.map(
-    ([href, label]) =>
-      `<a class="ss-nav__link${isActive(href) ? " is-active" : ""}" href="${esc(href)}">${esc(label)}</a>`
+  const linkHtml = (href, label, cls) =>
+    `<a class="${cls}${active(href) ? " is-active" : ""}" href="${esc(href)}" ${
+      active(href) ? 'aria-current="page"' : ""
+    }>${esc(label)}</a>`;
+
+  const navHtml = NAV.map(([href, label]) =>
+    linkHtml(href, label, "ss-nav__link")
   ).join("");
 
-  const moreHtml = MORE.map(
-    ([href, label]) =>
-      `<a class="ss-morePanel__link${isActive(href) ? " is-active" : ""}" href="${esc(href)}">${esc(label)}</a>`
+  const moreHtml = MORE.map(([href, label]) =>
+    linkHtml(href, label, "ss-moreMenu__link")
   ).join("");
 
   shellMount.innerHTML = `
 <header class="ss-header">
   <div class="ss-header__inner">
-    <a class="ss-brand" href="${isEn ? "/en/" : "/"}" aria-label="SafeShare home">SafeShare</a>
+    <div class="ss-brand"><a href="${isEn ? "/en/" : "/"}">SafeShare</a></div>
 
     <nav class="ss-nav" aria-label="${isEn ? "Main navigation" : "Hauptnavigation"}">
       ${navHtml}
     </nav>
 
     <div class="ss-headActions">
-      <button class="ss-langSwitch" type="button" aria-label="${isEn ? "Zur deutschen Seite wechseln" : "Switch to English page"}">${isEn ? "DE" : "EN"}</button>
-      <button class="ss-moreBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="ss-morePanel">${isEn ? "More" : "Mehr"}</button>
+      <button class="ss-langSwitch" type="button" aria-label="${
+        isEn ? "Zur deutschen Seite wechseln" : "Switch to English page"
+      }">${isEn ? "DE" : "EN"}</button>
+      <button class="ss-moreBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="ss-moreMenu">
+        ${isEn ? "More" : "Mehr"}
+      </button>
     </div>
   </div>
 </header>
 
-<div id="ss-moreOverlay" class="ss-moreOverlay" hidden></div>
+<div class="ss-moreBackdrop" id="ss-moreBackdrop" hidden></div>
 
-<aside id="ss-morePanel" class="ss-morePanel" role="dialog" aria-modal="true" aria-label="${isEn ? "More menu" : "Mehr-Menü"}" hidden>
-  <div class="ss-morePanel__head">
+<aside class="ss-moreMenu" id="ss-moreMenu" role="dialog" aria-modal="true" aria-label="${
+    isEn ? "More menu" : "Mehr-Menü"
+  }" hidden>
+  <div class="ss-moreMenu__head">
     <strong>${isEn ? "More" : "Mehr"}</strong>
-    <button class="ss-morePanel__close" type="button" aria-label="${isEn ? "Close" : "Schließen"}">×</button>
+    <button class="ss-moreMenu__close" type="button" aria-label="${
+      isEn ? "Close" : "Schließen"
+    }">×</button>
   </div>
-  <div class="ss-morePanel__body">
+  <div class="ss-moreMenu__list">
     ${moreHtml}
   </div>
-  <div class="ss-morePanel__foot">
-    <button class="ss-morePanel__close ss-btnClose" type="button">${isEn ? "Close" : "Schließen"}</button>
+  <div class="ss-moreMenu__foot">
+    <button class="ss-moreMenu__close" type="button">${isEn ? "Close" : "Schließen"}</button>
   </div>
 </aside>
 `;
 
-  // Optional footer mount (only if page has #ss-footer)
-  const footer = d.getElementById("ss-footer");
-  if (footer) {
-    footer.innerHTML = `
-<footer class="ss-footer">
+  const footerMount = d.getElementById("ss-footer");
+  if (footerMount) {
+    const footerMainHtml = FOOTER_MAIN.map(([href, label]) =>
+      linkHtml(href, label, "ss-footer__link")
+    ).join("");
+
+    const footerLegalHtml = FOOTER_LEGAL.map(([href, label]) =>
+      linkHtml(href, label, "ss-footer__link ss-footer__link--muted")
+    ).join("");
+
+    footerMount.innerHTML = `
+<footer class="ss-footer" role="contentinfo">
   <div class="ss-footer__inner">
     <p class="ss-small">© ${new Date().getFullYear()} SafeShare</p>
-    <div class="ss-footerLinks">
-      <a href="${isEn ? "/en/help/" : "/hilfe/"}">${isEn ? "Help" : "Hilfe"}</a>
-      <a href="${isEn ? "/en/pro/" : "/pro/"}">Pro</a>
-    </div>
+    <nav class="ss-footerLinks" aria-label="${isEn ? "Footer navigation" : "Footer-Navigation"}">
+      ${footerMainHtml}
+    </nav>
+    <nav class="ss-footerLinks ss-footerLinks--legal" aria-label="${isEn ? "Legal navigation" : "Rechtliches"}">
+      ${footerLegalHtml}
+    </nav>
   </div>
 </footer>`;
   }
 
-  const panel = d.getElementById("ss-morePanel");
-  const overlay = d.getElementById("ss-moreOverlay");
-  const btnMore = shellMount.querySelector(".ss-moreBtn");
-  const btnLang = shellMount.querySelector(".ss-langSwitch");
-  const closeBtns = shellMount.querySelectorAll(".ss-morePanel__close");
-
-  if (!panel || !overlay || !btnMore || !btnLang) return;
+  const panel = d.getElementById("ss-moreMenu");
+  const backdrop = d.getElementById("ss-moreBackdrop");
+  const btnMore = d.querySelector(".ss-moreBtn");
+  const btnLang = d.querySelector(".ss-langSwitch");
+  const closers = d.querySelectorAll(".ss-moreMenu__close");
 
   const openMenu = () => {
+    if (!panel || !backdrop || !btnMore) return;
     panel.hidden = false;
-    overlay.hidden = false;
-    requestAnimationFrame(() => panel.classList.add("is-open"));
+    backdrop.hidden = false;
     btnMore.setAttribute("aria-expanded", "true");
     body.classList.add("ss-noScroll");
   };
 
   const closeMenu = () => {
-    panel.classList.remove("is-open");
+    if (!panel || !backdrop || !btnMore) return;
+    panel.hidden = true;
+    backdrop.hidden = true;
     btnMore.setAttribute("aria-expanded", "false");
     body.classList.remove("ss-noScroll");
-    window.setTimeout(() => {
-      panel.hidden = true;
-      overlay.hidden = true;
-    }, 160);
   };
 
-  btnMore.addEventListener("click", () => {
-    const isOpen = btnMore.getAttribute("aria-expanded") === "true";
-    if (isOpen) closeMenu();
-    else openMenu();
+  btnMore?.addEventListener("click", () => {
+    if (!panel) return;
+    panel.hidden ? openMenu() : closeMenu();
   });
 
-  overlay.addEventListener("click", closeMenu);
-  closeBtns.forEach((b) => b.addEventListener("click", closeMenu));
+  backdrop?.addEventListener("click", closeMenu);
+  closers.forEach((b) => b.addEventListener("click", closeMenu));
 
   d.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !panel.hidden) closeMenu();
+    if (e.key === "Escape" && panel && !panel.hidden) closeMenu();
   });
 
-  panel.addEventListener("click", (e) => {
+  panel?.addEventListener("click", (e) => {
     const t = e.target;
-    if (t instanceof Element && t.closest(".ss-morePanel__link")) closeMenu();
+    if (t instanceof Element && t.closest(".ss-moreMenu__link")) closeMenu();
   });
 
-  btnLang.addEventListener("click", () => {
-    let target;
+  btnLang?.addEventListener("click", () => {
+    let target = "/";
     if (isEn) {
       target = enToDe[path] || path.replace(/^\/en\//, "/");
     } else {
