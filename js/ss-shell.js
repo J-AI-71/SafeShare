@@ -1,277 +1,225 @@
 /* File: /js/ss-shell.js */
-/* SafeShare Shell — Master-Flow strict (single source of truth) */
-
+/* SafeShare Master-Flow Shell (stable baseline) */
 (() => {
   "use strict";
 
   const d = document;
   const body = d.body;
-  const shellMount = d.getElementById("ss-shell");
-  const footerMount = d.getElementById("ss-footer");
+  const shellHost = d.getElementById("ss-shell");
+  if (!shellHost || !body) return;
 
-  // Shell darf auch nur Footer rendern, falls ss-shell fehlt
-  if (!shellMount && !footerMount) return;
+  /* ---------- context ---------- */
+  const lang = (body.dataset.lang || "").toLowerCase() === "en" ? "en" : "de";
+  const page = (body.dataset.page || "").toLowerCase();
 
-  const rawPath = window.location.pathname || "/";
-  const path = rawPath.replace(/\/index\.html$/i, "/").replace(/\/+$/, "/") || "/";
-  const isEN = path.startsWith("/en/");
-
-  const lang = (body?.dataset?.lang || (isEN ? "en" : "de")).toLowerCase() === "en" ? "en" : "de";
-  const currentPage = (body?.dataset?.page || pageFromPath(path)).toLowerCase();
-
+  /* ---------- routes ---------- */
   const MAIN_DE = [
-    { key: "start",  href: "/",         label: "Start" },
-    { key: "app",    href: "/app/",     label: "App" },
-    { key: "pro",    href: "/pro/",     label: "Pro" },
-    { key: "schule", href: "/schule/",  label: "Schule" },
-    { key: "hilfe",  href: "/hilfe/",   label: "Hilfe" }
+    { key: "start",  label: "Start",  href: "/" },
+    { key: "app",    label: "App",    href: "/app/" },
+    { key: "pro",    label: "Pro",    href: "/pro/" },
+    { key: "schule", label: "Schule", href: "/schule/" },
+    { key: "hilfe",  label: "Hilfe",  href: "/hilfe/" }
   ];
 
   const MAIN_EN = [
-    { key: "start",  href: "/en/",         label: "Start" },
-    { key: "app",    href: "/en/app/",     label: "App" },
-    { key: "pro",    href: "/en/pro/",     label: "Pro" },
-    { key: "schule", href: "/en/school/",  label: "School" },
-    { key: "hilfe",  href: "/en/help/",    label: "Help" }
+    { key: "start",  label: "Start",  href: "/en/" },
+    { key: "app",    label: "App",    href: "/en/app/" },
+    { key: "pro",    label: "Pro",    href: "/en/pro/" },
+    { key: "schule", label: "School", href: "/en/school/" },
+    { key: "hilfe",  label: "Help",   href: "/en/help/" }
   ];
 
   const MORE_DE = [
-    { key: "lesezeichen", href: "/lesezeichen/", label: "Lesezeichen" },
-    { key: "email-links", href: "/email-links-bereinigen/", label: "E-Mail-Links bereinigen" },
-    { key: "messenger-links", href: "/messenger-links-bereinigen/", label: "Messenger-Links bereinigen" },
-    { key: "social-links", href: "/social-links-bereinigen/", label: "Social-Links bereinigen" },
-    { key: "tracking", href: "/tracking-parameter/", label: "Tracking-Parameter erklärt" },
-    { key: "utm", href: "/utm-parameter-entfernen/", label: "UTM-Parameter entfernen" },
-    { key: "vergleich", href: "/url-cleaner-tool-vergleich/", label: "Tool-Vergleich" },
-    { key: "privacy-sharing", href: "/datenschutz-beim-link-teilen/", label: "Datenschutz beim Link-Teilen" },
-    { key: "shortcuts", href: "/shortcuts/", label: "Shortcuts" },
-    { key: "datenschutz", href: "/datenschutz/", label: "Datenschutz" },
-    { key: "terms", href: "/nutzungsbedingungen/", label: "Nutzungsbedingungen" },
-    { key: "impressum", href: "/impressum/", label: "Impressum" }
+    { key: "lesezeichen",      label: "Lesezeichen",                 href: "/lesezeichen/" },
+    { key: "email-links",      label: "E-Mail-Links bereinigen",     href: "/email-links-bereinigen/" },
+    { key: "messenger-links",  label: "Messenger-Links bereinigen",  href: "/messenger-links-bereinigen/" },
+    { key: "social-links",     label: "Social-Links bereinigen",     href: "/social-links-bereinigen/" },
+    { key: "tracking",         label: "Tracking-Parameter erklärt",  href: "/tracking-parameter/" },
+    { key: "utm",              label: "UTM-Parameter entfernen",     href: "/utm-parameter-entfernen/" },
+    { key: "vergleich",        label: "Tool-Vergleich",              href: "/url-cleaner-tool-vergleich/" },
+    { key: "privacy-sharing",  label: "Datenschutz beim Link-Teilen",href: "/datenschutz-beim-link-teilen/" },
+    { key: "shortcuts",        label: "Shortcuts",                   href: "/shortcuts/" }
   ];
 
   const MORE_EN = [
-    { key: "bookmarks", href: "/en/bookmarks/", label: "Bookmarks" },
-    { key: "email-links", href: "/en/email-link-cleaning/", label: "E-Mail links" },
-    { key: "messenger-links", href: "/en/messenger-link-cleaning/", label: "Messenger links" },
-    { key: "social-links", href: "/en/social-link-cleaning/", label: "Social links" },
-    { key: "tracking", href: "/en/tracking-parameters/", label: "Tracking parameters" },
-    { key: "utm", href: "/en/remove-utm-parameter/", label: "Remove UTM" },
-    { key: "vergleich", href: "/en/url-cleaner-comparison/", label: "Tool comparison" },
-    { key: "privacy-sharing", href: "/en/privacy-when-sharing-links/", label: "Privacy when sharing links" },
-    { key: "shortcuts", href: "/en/shortcuts/", label: "Shortcuts" },
-    { key: "datenschutz", href: "/en/privacy/", label: "Privacy" },
-    { key: "terms", href: "/en/terms/", label: "Terms" },
-    { key: "impressum", href: "/en/imprint/", label: "Imprint" }
+    { key: "bookmarks",        label: "Bookmarks",                   href: "/en/bookmarks/" },
+    { key: "email-links",      label: "E-Mail links",                href: "/en/email-link-cleaning/" },
+    { key: "messenger-links",  label: "Messenger links",             href: "/en/messenger-link-cleaning/" },
+    { key: "social-links",     label: "Social links",                href: "/en/social-link-cleaning/" },
+    { key: "tracking",         label: "Tracking parameters",         href: "/en/tracking-parameters/" },
+    { key: "utm",              label: "Remove UTM",                  href: "/en/remove-utm-parameter/" },
+    { key: "vergleich",        label: "Tool comparison",             href: "/en/url-cleaner-comparison/" },
+    { key: "privacy-sharing",  label: "Privacy when sharing links",  href: "/en/privacy-when-sharing-links/" },
+    { key: "shortcuts",        label: "Shortcuts",                   href: "/en/shortcuts/" }
   ];
 
-  const FOOTER_LEGAL_DE = [
-    { key: "datenschutz", href: "/datenschutz/", label: "Datenschutz" },
-    { key: "impressum", href: "/impressum/", label: "Impressum" },
-    { key: "terms", href: "/nutzungsbedingungen/", label: "Nutzungsbedingungen" }
+  const LEGAL_DE = [
+    { key: "datenschutz", label: "Datenschutz",         href: "/datenschutz/" },
+    { key: "impressum",   label: "Impressum",           href: "/impressum/" },
+    { key: "terms",       label: "Nutzungsbedingungen", href: "/nutzungsbedingungen/" }
   ];
 
-  const FOOTER_LEGAL_EN = [
-    { key: "datenschutz", href: "/en/privacy/", label: "Privacy" },
-    { key: "impressum", href: "/en/imprint/", label: "Imprint" },
-    { key: "terms", href: "/en/terms/", label: "Terms" }
+  const LEGAL_EN = [
+    { key: "datenschutz", label: "Privacy", href: "/en/privacy/" },
+    { key: "impressum",   label: "Imprint", href: "/en/imprint/" },
+    { key: "terms",       label: "Terms",   href: "/en/terms/" }
   ];
 
   const MAIN = lang === "en" ? MAIN_EN : MAIN_DE;
   const MORE = lang === "en" ? MORE_EN : MORE_DE;
-  const FOOTER_LEGAL = lang === "en" ? FOOTER_LEGAL_EN : FOOTER_LEGAL_DE;
+  const LEGAL = lang === "en" ? LEGAL_EN : LEGAL_DE;
 
-  function pageFromPath(p) {
-    // EN
-    if (p === "/en/" || p === "/en") return "start";
-    if (p.startsWith("/en/app/")) return "app";
-    if (p.startsWith("/en/pro/")) return "pro";
-    if (p.startsWith("/en/school/")) return "schule";
-    if (p.startsWith("/en/help/")) return "hilfe";
-    if (p.startsWith("/en/bookmarks/")) return "bookmarks";
-    if (p.startsWith("/en/email-link-cleaning/")) return "email-links";
-    if (p.startsWith("/en/messenger-link-cleaning/")) return "messenger-links";
-    if (p.startsWith("/en/social-link-cleaning/")) return "social-links";
-    if (p.startsWith("/en/tracking-parameters/")) return "tracking";
-    if (p.startsWith("/en/remove-utm-parameter/")) return "utm";
-    if (p.startsWith("/en/url-cleaner-comparison/")) return "vergleich";
-    if (p.startsWith("/en/privacy-when-sharing-links/")) return "privacy-sharing";
-    if (p.startsWith("/en/shortcuts/")) return "shortcuts";
-    if (p.startsWith("/en/privacy/")) return "datenschutz";
-    if (p.startsWith("/en/terms/")) return "terms";
-    if (p.startsWith("/en/imprint/")) return "impressum";
+  /* ---------- helpers ---------- */
+  const esc = (s) =>
+    String(s).replace(/[&<>"']/g, (m) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
 
-    // DE
-    if (p === "/" || p === "") return "start";
-    if (p.startsWith("/app/")) return "app";
-    if (p.startsWith("/pro/")) return "pro";
-    if (p.startsWith("/schule/")) return "schule";
-    if (p.startsWith("/hilfe/")) return "hilfe";
-    if (p.startsWith("/lesezeichen/")) return "lesezeichen";
-    if (p.startsWith("/email-links-bereinigen/")) return "email-links";
-    if (p.startsWith("/messenger-links-bereinigen/")) return "messenger-links";
-    if (p.startsWith("/social-links-bereinigen/")) return "social-links";
-    if (p.startsWith("/tracking-parameter/")) return "tracking";
-    if (p.startsWith("/utm-parameter-entfernen/")) return "utm";
-    if (p.startsWith("/url-cleaner-tool-vergleich/")) return "vergleich";
-    if (p.startsWith("/datenschutz-beim-link-teilen/")) return "privacy-sharing";
-    if (p.startsWith("/shortcuts/")) return "shortcuts";
-    if (p.startsWith("/datenschutz/")) return "datenschutz";
-    if (p.startsWith("/nutzungsbedingungen/")) return "terms";
-    if (p.startsWith("/impressum/")) return "impressum";
-
-    return "";
+  function chip(item, currentKey, withDataPage = true) {
+    const active = item.key === currentKey;
+    const cls = `ss-chip${active ? " is-active is-current" : ""}`;
+    const dp = withDataPage ? ` data-page="${esc(item.key)}"` : "";
+    if (active) return `<span class="${cls}" aria-current="page">${esc(item.label)}</span>`;
+    return `<a class="${cls}" href="${esc(item.href)}"${dp}>${esc(item.label)}</a>`;
   }
 
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, (m) => (
-      { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[m]
-    ));
+  function navLink(item, currentKey) {
+    const active = item.key === currentKey;
+    const cls = `ss-navLink${active ? " is-active is-current" : ""}`;
+    if (active) return `<span class="${cls}" aria-current="page">${esc(item.label)}</span>`;
+    return `<a class="${cls}" href="${esc(item.href)}" data-page="${esc(item.key)}">${esc(item.label)}</a>`;
   }
 
-  function makeLink(item, cls = "ss-chip") {
-    const active = item.key === currentPage;
-    if (active) {
-      return `<span class="${cls} is-active is-current" aria-current="page">${esc(item.label)}</span>`;
+  function switchHref() {
+    if (lang === "en") {
+      // EN -> DE
+      const map = {
+        "/en/": "/",
+        "/en/app/": "/app/",
+        "/en/pro/": "/pro/",
+        "/en/school/": "/schule/",
+        "/en/help/": "/hilfe/",
+        "/en/privacy/": "/datenschutz/",
+        "/en/imprint/": "/impressum/",
+        "/en/terms/": "/nutzungsbedingungen/",
+        "/en/privacy-when-sharing-links/": "/datenschutz-beim-link-teilen/"
+      };
+      return map[normalizePath(location.pathname)] || "/";
+    } else {
+      // DE -> EN
+      const map = {
+        "/": "/en/",
+        "/app/": "/en/app/",
+        "/pro/": "/en/pro/",
+        "/schule/": "/en/school/",
+        "/hilfe/": "/en/help/",
+        "/datenschutz/": "/en/privacy/",
+        "/impressum/": "/en/imprint/",
+        "/nutzungsbedingungen/": "/en/terms/",
+        "/datenschutz-beim-link-teilen/": "/en/privacy-when-sharing-links/"
+      };
+      return map[normalizePath(location.pathname)] || "/en/";
     }
-    return `<a class="${cls}" href="${item.href}" data-page="${item.key}">${esc(item.label)}</a>`;
   }
 
-  function renderHeader() {
-    const langSwitchHref = lang === "en" ? deFromEn(path) : enFromDe(path);
-    const langSwitchLabel = lang === "en" ? "DE" : "EN";
-
-    return `
-<header class="ss-top" role="banner">
-  <div class="ss-wrap ss-top__row">
-    <a class="ss-brand" href="${lang === "en" ? "/en/" : "/"}" aria-label="SafeShare">SafeShare</a>
-    <div class="ss-top__actions">
-      <a class="ss-chip ss-lang" href="${langSwitchHref}" hreflang="${lang === "en" ? "de" : "en"}">${langSwitchLabel}</a>
-      <button id="ss-more-open" class="ss-chip" type="button" aria-haspopup="dialog" aria-expanded="false">More</button>
-    </div>
-  </div>
-  <nav class="ss-mainnav" aria-label="${lang === "en" ? "Main navigation" : "Hauptnavigation"}">
-    <div class="ss-wrap ss-mainnav__row">
-      ${MAIN.map((i) => makeLink(i, "ss-tab")).join("")}
-    </div>
-  </nav>
-</header>
-`;
+  function normalizePath(p) {
+    let x = (p || "/").trim();
+    if (!x.startsWith("/")) x = "/" + x;
+    x = x.replace(/\/index\.html$/i, "/");
+    x = x.replace(/\/+$/, "/");
+    return x;
   }
 
-  function renderMore() {
-    return `
-<div id="ss-more-overlay" class="ss-more-overlay" hidden></div>
-<section id="ss-more-panel" class="ss-more-panel" role="dialog" aria-modal="true" aria-label="More" hidden>
-  <div class="ss-more-head">
-    <strong>More</strong>
-    <button id="ss-more-close" class="ss-more-close" type="button" aria-label="Close">×</button>
-  </div>
-  <nav class="ss-more-list" aria-label="More links">
-    ${MORE.map((i) => makeLink(i, "ss-more-item")).join("")}
-  </nav>
-</section>
-`;
-  }
+  /* ---------- render ---------- */
+  shellHost.innerHTML = `
+    <header class="ss-top" role="banner">
+      <div class="ss-wrap ss-topRow">
+        <a class="ss-brand" href="${lang === "en" ? "/en/" : "/"}" aria-label="SafeShare">
+          <span class="ss-brandText">SafeShare</span>
+        </a>
+        <div class="ss-topActions">
+          <a class="ss-chip" href="${switchHref()}">${lang === "en" ? "DE" : "EN"}</a>
+          <button class="ss-chip ss-moreBtn" id="ssMoreBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
+            ${lang === "en" ? "More" : "Mehr"}
+          </button>
+        </div>
+      </div>
+      <div class="ss-wrap ss-nav" role="navigation" aria-label="${lang === "en" ? "Main navigation" : "Hauptnavigation"}">
+        ${MAIN.map((i) => navLink(i, page)).join("")}
+      </div>
+    </header>
 
-  function renderFooter() {
+    <div class="ss-moreOverlay" id="ssMoreOverlay" hidden></div>
+    <aside class="ss-moreSheet" id="ssMoreSheet" role="dialog" aria-modal="true" aria-label="${lang === "en" ? "More" : "Mehr"}" hidden>
+      <div class="ss-moreHead">
+        <strong>${lang === "en" ? "More" : "Mehr"}</strong>
+        <button class="ss-close" id="ssMoreClose" type="button" aria-label="${lang === "en" ? "Close" : "Schließen"}">×</button>
+      </div>
+      <div class="ss-moreList">
+        ${MORE.map((i) => chip(i, page)).join("")}
+        <div class="ss-divider"></div>
+        ${LEGAL.map((i) => chip(i, page)).join("")}
+      </div>
+    </aside>
+  `;
+
+  const footerHost = d.getElementById("ss-footer");
+  if (footerHost) {
     const year = new Date().getFullYear();
-    return `
-<footer class="ss-footer" role="contentinfo">
-  <div class="ss-wrap">
-    <div class="ss-footer__copy">© ${year} SafeShare</div>
-    <nav class="ss-footer__nav" aria-label="${lang === "en" ? "Main navigation" : "Hauptnavigation"}">
-      ${MAIN.map((i) => makeLink(i, "ss-chip")).join("")}
-    </nav>
-    <nav class="ss-footer__legal" aria-label="${lang === "en" ? "Legal navigation" : "Rechtliches"}">
-      ${FOOTER_LEGAL.map((i) => makeLink(i, "ss-chip")).join("")}
-    </nav>
-  </div>
-</footer>
-`;
+    footerHost.innerHTML = `
+      <footer class="ss-footer" role="contentinfo">
+        <div class="ss-wrap">
+          <div class="ss-copy">© ${year} SafeShare</div>
+          <nav class="ss-footerNav" aria-label="${lang === "en" ? "Main navigation" : "Hauptnavigation"}">
+            ${MAIN.map((i) => chip(i, page, true)).join("")}
+          </nav>
+          <nav class="ss-footerLegal" aria-label="${lang === "en" ? "Legal navigation" : "Rechtliches"}">
+            ${LEGAL.map((i) => chip(i, page, true)).join("")}
+          </nav>
+        </div>
+      </footer>
+    `;
   }
 
-  function enFromDe(p) {
-    const map = [
-      ["/", "/en/"],
-      ["/app/", "/en/app/"],
-      ["/pro/", "/en/pro/"],
-      ["/schule/", "/en/school/"],
-      ["/hilfe/", "/en/help/"],
-      ["/lesezeichen/", "/en/bookmarks/"],
-      ["/email-links-bereinigen/", "/en/email-link-cleaning/"],
-      ["/messenger-links-bereinigen/", "/en/messenger-link-cleaning/"],
-      ["/social-links-bereinigen/", "/en/social-link-cleaning/"],
-      ["/tracking-parameter/", "/en/tracking-parameters/"],
-      ["/utm-parameter-entfernen/", "/en/remove-utm-parameter/"],
-      ["/url-cleaner-tool-vergleich/", "/en/url-cleaner-comparison/"],
-      ["/datenschutz-beim-link-teilen/", "/en/privacy-when-sharing-links/"],
-      ["/shortcuts/", "/en/shortcuts/"],
-      ["/datenschutz/", "/en/privacy/"],
-      ["/nutzungsbedingungen/", "/en/terms/"],
-      ["/impressum/", "/en/imprint/"]
-    ];
-    const found = map.find(([de]) => p.startsWith(de));
-    return found ? found[1] : "/en/";
-  }
+  /* ---------- interactions ---------- */
+  const moreBtn = d.getElementById("ssMoreBtn");
+  const overlay = d.getElementById("ssMoreOverlay");
+  const sheet = d.getElementById("ssMoreSheet");
+  const closeBtn = d.getElementById("ssMoreClose");
 
-  function deFromEn(p) {
-    const map = [
-      ["/en/", "/"],
-      ["/en/app/", "/app/"],
-      ["/en/pro/", "/pro/"],
-      ["/en/school/", "/schule/"],
-      ["/en/help/", "/hilfe/"],
-      ["/en/bookmarks/", "/lesezeichen/"],
-      ["/en/email-link-cleaning/", "/email-links-bereinigen/"],
-      ["/en/messenger-link-cleaning/", "/messenger-links-bereinigen/"],
-      ["/en/social-link-cleaning/", "/social-links-bereinigen/"],
-      ["/en/tracking-parameters/", "/tracking-parameter/"],
-      ["/en/remove-utm-parameter/", "/utm-parameter-entfernen/"],
-      ["/en/url-cleaner-comparison/", "/url-cleaner-tool-vergleich/"],
-      ["/en/privacy-when-sharing-links/", "/datenschutz-beim-link-teilen/"],
-      ["/en/shortcuts/", "/shortcuts/"],
-      ["/en/privacy/", "/datenschutz/"],
-      ["/en/terms/", "/nutzungsbedingungen/"],
-      ["/en/imprint/", "/impressum/"]
-    ];
-    const found = map.find(([en]) => p.startsWith(en));
-    return found ? found[1] : "/";
-  }
-
-  // Render shell
-  if (shellMount) {
-    shellMount.innerHTML = renderHeader() + renderMore();
-  }
-  if (footerMount) {
-    footerMount.innerHTML = renderFooter();
-  }
-
-  // More interactions
-  const moreBtn = d.getElementById("ss-more-open");
-  const moreOverlay = d.getElementById("ss-more-overlay");
-  const morePanel = d.getElementById("ss-more-panel");
-  const moreClose = d.getElementById("ss-more-close");
-
-  if (moreBtn && moreOverlay && morePanel && moreClose) {
+  if (moreBtn && overlay && sheet && closeBtn) {
     const open = () => {
-      moreOverlay.hidden = false;
-      morePanel.hidden = false;
-      body.classList.add("ss-no-scroll");
+      overlay.hidden = false;
+      sheet.hidden = false;
+      requestAnimationFrame(() => sheet.classList.add("is-open"));
       moreBtn.setAttribute("aria-expanded", "true");
-    };
-    const close = () => {
-      moreOverlay.hidden = true;
-      morePanel.hidden = true;
-      body.classList.remove("ss-no-scroll");
-      moreBtn.setAttribute("aria-expanded", "false");
+      body.classList.add("ss-lock");
     };
 
-    moreBtn.addEventListener("click", open);
-    moreClose.addEventListener("click", close);
-    moreOverlay.addEventListener("click", close);
+    const close = () => {
+      sheet.classList.remove("is-open");
+      moreBtn.setAttribute("aria-expanded", "false");
+      setTimeout(() => {
+        overlay.hidden = true;
+        sheet.hidden = true;
+        body.classList.remove("ss-lock");
+      }, 140);
+    };
+
+    moreBtn.addEventListener("click", () => {
+      const expanded = moreBtn.getAttribute("aria-expanded") === "true";
+      expanded ? close() : open();
+    });
+
+    overlay.addEventListener("click", close);
+    closeBtn.addEventListener("click", close);
+    sheet.addEventListener("click", (e) => {
+      if (e.target.closest("a")) close();
+    });
+
     d.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !morePanel.hidden) close();
+      if (e.key === "Escape" && !sheet.hidden) close();
     });
   }
+
+  // Debug marker
+  d.documentElement.setAttribute("data-ss-shell-live", "1");
 })();
