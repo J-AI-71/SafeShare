@@ -1,6 +1,38 @@
-<!doctype html><html><head>
-<link rel="stylesheet" href="/css/ss-shell.css">
-</head><body data-page="app" data-lang="de">
-<div id="ss-shell"></div>
-<script src="/js/ss-shell.js" defer></script>
-</body></html>
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>MF Shell Test</title>
+  <link rel="stylesheet" href="/css/ss-page.css" />
+  <link rel="stylesheet" href="/css/ss-shell.css" />
+  <style>
+    body { margin:0; font-family:system-ui; background:#0b1020; color:#fff; }
+    .debug { padding:12px 16px; background:#111827; border-bottom:1px solid #374151; }
+    .ok { color:#34d399; }
+    .bad { color:#f87171; }
+  </style>
+</head>
+<body data-page="app" data-lang="de">
+  <div class="debug" id="dbg">Test lädt …</div>
+  <div id="ss-shell"></div>
+  <main style="padding:16px">Wenn nur das hier sichtbar ist, rendert die Shell nicht.</main>
+
+  <script>
+    window.addEventListener('error', function(e){
+      document.getElementById('dbg').innerHTML =
+        '<span class="bad">JS Fehler:</span> ' + (e.message || 'unbekannt');
+    });
+  </script>
+  <script src="/js/ss-shell.js"></script>
+  <script>
+    const shell = document.getElementById('ss-shell');
+    const dbg = document.getElementById('dbg');
+    if (shell && shell.children.length > 0) {
+      dbg.innerHTML = '<span class="ok">OK:</span> Shell wurde gerendert.';
+    } else {
+      dbg.innerHTML = '<span class="bad">Fehler:</span> ss-shell.js geladen, aber nichts gerendert.';
+    }
+  </script>
+</body>
+</html>
