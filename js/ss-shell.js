@@ -1,5 +1,9 @@
 /* File: /js/ss-shell.js */
-/* SafeShare Master-Flow strict Shell v2 (Zero header/footer in HTML) */
+/* SafeShare Master-Flow strict Shell v3
+   - Zero header/footer in page HTML
+   - Renders header + more menu + footer directly inside #ss-shell
+   - Uses existing #ss-content (must be inside #ss-shell)
+*/
 (() => {
   "use strict";
 
@@ -7,6 +11,10 @@
   const body = d.body;
   const mount = d.getElementById("ss-shell");
   if (!mount) return;
+
+  // #ss-content must exist (inside #ss-shell)
+  const content = d.getElementById("ss-content");
+  if (!content) return;
 
   const rawPath = window.location.pathname || "/";
   const path = rawPath.replace(/index\.html$/i, "").replace(/\/?$/, "/");
@@ -103,7 +111,7 @@
     "/en/terms/": "/nutzungsbedingungen/",
     "/en/imprint/": "/impressum/",
     "/en/privacy-when-sharing-links/": "/datenschutz-beim-link-teilen/",
-    "/en/404/": "/404.html"
+    "/en/404/": "/404.html/"
   };
 
   const esc = (s) =>
@@ -164,6 +172,7 @@
     return `<a class="${cls}" href="${esc(href)}" data-page="${esc(key || "")}">${esc(label)}</a>`;
   }
 
+  // Build nav + menus
   const navHtml = NAV.map(([href, label, key]) =>
     linkOrCurrent(href, label, key, "ss-nav__link")
   ).join("");
@@ -174,7 +183,42 @@
     .map(([href, label, key]) => linkOrCurrent(href, label, key, "ss-moreMenu__link"))
     .join("");
 
-  mount.innerHTML = `
+  // Build footer links
+  const mainFooter = isEn
+    ? [
+        { key: "start", label: "Start", href: "/en/" },
+        { key: "app", label: "App", href: "/en/app/" },
+        { key: "schule", label: "School", href: "/en/school/" },
+        { key: "pro", label: "Pro", href: "/en/pro/" },
+        { key: "hilfe", label: "Help", href: "/en/help/" }
+      ]
+    : [
+        { key: "start", label: "Start", href: "/" },
+        { key: "app", label: "App", href: "/app/" },
+        { key: "schule", label: "Schule", href: "/schule/" },
+        { key: "pro", label: "Pro", href: "/pro/" },
+        { key: "hilfe", label: "Hilfe", href: "/hilfe/" }
+      ];
+
+  const legalFooter = isEn
+    ? [
+        { key: "datenschutz", label: "Privacy", href: "/en/privacy/" },
+        { key: "impressum", label: "Imprint", href: "/en/imprint/" },
+        { key: "terms", label: "Terms", href: "/en/terms/" }
+      ]
+    : [
+        { key: "datenschutz", label: "Datenschutz", href: "/datenschutz/" },
+        { key: "impressum", label: "Impressum", href: "/impressum/" },
+        { key: "terms", label: "Nutzungsbedingungen", href: "/nutzungsbedingungen/" }
+      ];
+
+  const year = new Date().getFullYear();
+
+  // ---------- Render shell structure ----------
+  // Keep #ss-content, inject header before and footer/menu after.
+  mount.insertAdjacentHTML(
+    "afterbegin",
+    `
 <header class="ss-header">
   <div class="ss-header__inner">
     <div class="ss-brand">
@@ -194,8 +238,12 @@
       </button>
     </div>
   </div>
-</header>
+</header>`
+  );
 
+  mount.insertAdjacentHTML(
+    "beforeend",
+    `
 <div class="ss-moreBackdrop" id="ss-moreBackdrop" hidden></div>
 
 <aside class="ss-moreMenu" id="ss-moreMenu" role="dialog" aria-modal="true" aria-label="${isEn ? "More menu" : "Mehr-Menü"}" hidden>
@@ -210,60 +258,21 @@
     <button class="ss-moreMenu__close" type="button">${isEn ? "Close" : "Schließen"}</button>
   </div>
 </aside>
-`;
 
-  // Footer shell
-  const footer = d.getElementById("ss-footer");
-  if (footer) {
-    const main = isEn
-      ? [
-          { key: "start", label: "Start", href: "/en/" },
-          { key: "app", label: "App", href: "/en/app/" },
-          { key: "schule", label: "School", href: "/en/school/" },
-          { key: "pro", label: "Pro", href: "/en/pro/" },
-          { key: "hilfe", label: "Help", href: "/en/help/" }
-        ]
-      : [
-          { key: "start", label: "Start", href: "/" },
-          { key: "app", label: "App", href: "/app/" },
-          { key: "schule", label: "Schule", href: "/schule/" },
-          { key: "pro", label: "Pro", href: "/pro/" },
-          { key: "hilfe", label: "Hilfe", href: "/hilfe/" }
-        ];
-
-    const legal = isEn
-      ? [
-          { key: "datenschutz", label: "Privacy", href: "/en/privacy/" },
-          { key: "impressum", label: "Imprint", href: "/en/imprint/" },
-          { key: "terms", label: "Terms", href: "/en/terms/" }
-        ]
-      : [
-          { key: "datenschutz", label: "Datenschutz", href: "/datenschutz/" },
-          { key: "impressum", label: "Impressum", href: "/impressum/" },
-          { key: "terms", label: "Nutzungsbedingungen", href: "/nutzungsbedingungen/" }
-        ];
-
-    const year = new Date().getFullYear();
-
-    footer.innerHTML = `
 <footer class="ss-footer" role="contentinfo">
   <div class="ss-footer__inner">
     <p class="ss-small">© ${year} SafeShare</p>
 
     <nav class="ss-footerLinks" aria-label="${isEn ? "Main navigation" : "Hauptnavigation"}">
-      ${main
-        .map((i) => linkOrCurrent(i.href, i.label, i.key, "ss-chip"))
-        .join("")}
+      ${mainFooter.map((i) => linkOrCurrent(i.href, i.label, i.key, "ss-chip")).join("")}
     </nav>
 
     <nav class="ss-footerLegal" aria-label="${isEn ? "Legal navigation" : "Rechtliches"}">
-      ${legal
-        .map((i) => linkOrCurrent(i.href, i.label, i.key, "ss-chip"))
-        .join("")}
+      ${legalFooter.map((i) => linkOrCurrent(i.href, i.label, i.key, "ss-chip")).join("")}
     </nav>
   </div>
-</footer>`;
-  }
+</footer>`
+  );
 
   // ---------- Interactions ----------
   const panel = d.getElementById("ss-moreMenu");
