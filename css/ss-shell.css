@@ -1,5 +1,5 @@
 /* File: /css/ss-shell.css */
-/* SafeShare Master-Flow strict Shell v2 */
+/* SafeShare Master-Flow strict Shell v3 */
 
 :root{
   --ss-bg: var(--card, rgba(255,255,255,.06));
@@ -23,9 +23,17 @@
   }
 }
 
-/* avoid content hidden under sticky header */
-.ss-main{
-  padding-top: max(12px, calc(var(--ss-header-h) + 10px));
+/* Shell container structure */
+#ss-shell.ss-shell{
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+#ss-content.ss-main{
+  flex: 1 0 auto;
+  width: 100%;
+  padding-top: calc(var(--ss-header-h) + 6px);
 }
 
 /* ---------- Header ---------- */
