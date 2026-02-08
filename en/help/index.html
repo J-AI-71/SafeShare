@@ -7,7 +7,7 @@
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
   <title>Help – SafeShare</title>
-  <meta name="description" content="Help and troubleshooting for SafeShare: app, bookmarks, Pro start, and common questions." />
+  <meta name="description" content="Help and troubleshooting for SafeShare: quick fixes, parameter explanations, and direct support." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
@@ -17,11 +17,12 @@
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/hilfe/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/help/" />
 
-  <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
+  <!-- current verification values -->
+  <meta name="google-site-verification" content="3-mi6zLHRdFC14-RdTIF6GY90jKWfyLNLsFBhGLqQB0" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
   <meta property="og:title" content="Help – SafeShare" />
-  <meta property="og:description" content="Help and troubleshooting for SafeShare: app, bookmarks, Pro start, and common questions." />
+  <meta property="og:description" content="Quick, clear help for clean links." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="en_US" />
@@ -33,7 +34,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Help – SafeShare" />
-  <meta name="twitter:description" content="Help and troubleshooting for SafeShare: app, bookmarks, Pro start, and common questions." />
+  <meta name="twitter:description" content="Quick, clear help for clean links." />
   <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-help-en.png" />
   <meta name="twitter:image:alt" content="SafeShare Help page preview" />
 
@@ -42,45 +43,128 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
-  
+
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
 <body data-page="help" data-lang="en">
-  <div id="ss-shell"></div>
-
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="help-title">
-      <div class="ss-card ss-hero">
-        <h1 id="help-title">Help</h1>
-        <p class="ss-hero-kicker">Quick answers for app, bookmarks, and Pro.</p>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="faq-title">
-      <div class="ss-card">
-        <h2 id="faq-title">FAQ</h2>
-
-        <div class="ss-stack ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Are links uploaded?</h3>
-            <p class="ss-muted">No. Cleaning is local-first in your browser.</p>
-          </article>
-
-          <article class="ss-card ss-card--inner">
-            <h3>Why does a parameter sometimes remain?</h3>
-            <p class="ss-muted">Functional keys may be intentionally required; Pro gives fine control.</p>
-          </article>
-
-          <article class="ss-card ss-card--inner" id="prostart">
-            <h3>Pro does not start?</h3>
-            <p class="ss-muted">Unzip the package and open <code>01-START.html</code>.</p>
-          </article>
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="help-title">
+        <div class="ss-card ss-hero">
+          <h1 id="help-title">Help</h1>
+          <p class="ss-hero-kicker">Clean links in seconds.</p>
+          <p>Find fast answers to common issues: why a link is not cleaned, which parameters are removed, and what to do first when something looks wrong.</p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="#quick-help">Quick help</a>
+            <a class="ss-btn" href="#faq">FAQ</a>
+            <a class="ss-btn ss-btn--ghost" href="#contact">Contact</a>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
-  <div id="ss-footer"></div>
-<script src="/js/ss-shell.js" defer></script>
+      </section>
+
+      <section class="ss-section" aria-labelledby="quick-help">
+        <div class="ss-card">
+          <h2 id="quick-help">Quick help</h2>
+          <div class="ss-grid ss-grid--3 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Link is not detected</h3>
+              <ol>
+                <li>Paste the full URL (<code>https://…</code>).</li>
+                <li>Remove spaces before/after the link.</li>
+                <li>If copied from a message, copy only the link.</li>
+              </ol>
+            </article>
+
+            <article class="ss-card ss-card--inner">
+              <h3>Result stays unchanged</h3>
+              <ol>
+                <li>Check if the URL has parameters (<code>?</code>).</li>
+                <li>Reload the page and try again.</li>
+                <li>If needed, test another browser (Safari/Firefox/Chrome).</li>
+              </ol>
+            </article>
+
+            <article class="ss-card ss-card--inner">
+              <h3>Page behaves oddly</h3>
+              <ol>
+                <li>Do a hard refresh.</li>
+                <li>Temporarily disable browser extensions.</li>
+                <li>Try once more.</li>
+              </ol>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ss-section" aria-labelledby="faq">
+        <div class="ss-card">
+          <h2 id="faq">Frequently asked questions</h2>
+
+          <details class="ss-details" open>
+            <summary>What does SafeShare remove?</summary>
+            <p>SafeShare removes common tracking parameters such as <code>utm_*</code>, <code>gclid</code>, and <code>fbclid</code> to produce cleaner links.</p>
+          </details>
+
+          <details class="ss-details">
+            <summary>Why do some parameters remain?</summary>
+            <p>Not every parameter is tracking. Some keys are functional (for language, page, or product context) and may be kept so links still work correctly.</p>
+          </details>
+
+          <details class="ss-details">
+            <summary>Are my links uploaded or stored?</summary>
+            <p>No. Cleaning runs locally in your browser. Entered links are not uploaded to a server.</p>
+          </details>
+
+          <details class="ss-details">
+            <summary>Can I use SafeShare for messenger, email, and social media?</summary>
+            <p>Yes. Clean links can be shared in WhatsApp, Signal, email, newsletters, and social posts.</p>
+          </details>
+
+          <details class="ss-details" id="prostart">
+            <summary>Pro does not start?</summary>
+            <p>Unzip the package first, then open <code>01-START.html</code> in your browser.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="ss-section" aria-labelledby="guides">
+        <div class="ss-card">
+          <h2 id="guides">Guides by use case</h2>
+          <div class="ss-grid ss-grid--3 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Email links</h3>
+              <p>Clean links before sending so recipients get clear URLs.</p>
+              <a class="ss-btn ss-mt-12" href="/en/email-links-clean/">Open guide</a>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Messenger links</h3>
+              <p>Clean links before posting them in chats.</p>
+              <a class="ss-btn ss-mt-12" href="/en/messenger-links-clean/">Open guide</a>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Social links</h3>
+              <p>For posts and profiles: cleaner, more trustworthy URLs.</p>
+              <a class="ss-btn ss-mt-12" href="/en/social-links-clean/">Open guide</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ss-section" aria-labelledby="contact">
+        <div class="ss-card">
+          <h2 id="contact">Contact</h2>
+          <p>Didn’t find your issue here? Send us a message and we’ll help directly.</p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="mailto:listings@safesharepro.com?subject=Help%20with%20SafeShare&body=Hi%2C%0A%0AI%20have%20the%20following%20question%20about%20SafeShare%3A%0A%0A%5BPlease%20describe%20it%20here%5D%0A">Send email</a>
+            <a class="ss-btn" href="/en/app/">Go to app</a>
+            <a class="ss-btn ss-btn--ghost" href="/en/pro/">Go to SafeShare Pro</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/shell.js" defer></script>
 </body>
 </html>
