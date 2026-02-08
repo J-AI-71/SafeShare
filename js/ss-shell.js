@@ -59,7 +59,42 @@
         ["/nutzungsbedingungen/", "Nutzungsbedingungen"],
         ["/impressum/", "Impressum"]
       ];
+  const MORE_ITEMS_DE = [
+  { key: "lesezeichen", href: "/lesezeichen/", label: "Lesezeichen" },
+  { key: "email-links", href: "/email-links-bereinigen/", label: "E-Mail-Links bereinigen" },
+  { key: "messenger-links", href: "/messenger-links-bereinigen/", label: "Messenger-Links bereinigen" },
+  { key: "social-links", href: "/social-links-bereinigen/", label: "Social-Links bereinigen" },
+  { key: "tracking", href: "/tracking-parameter/", label: "Tracking-Parameter erklärt" },
+  { key: "utm", href: "/utm-parameter-entfernen/", label: "UTM-Parameter entfernen" },
+  { key: "vergleich", href: "/url-cleaner-tool-vergleich/", label: "Tool-Vergleich" },
 
+  // FEHLTE:
+  { key: "privacy-sharing", href: "/datenschutz-beim-link-teilen/", label: "Datenschutz beim Link-Teilen" },
+
+  { key: "shortcuts", href: "/shortcuts/", label: "Shortcuts" },
+  { key: "datenschutz", href: "/datenschutz/", label: "Datenschutz" },
+  { key: "impressum", href: "/impressum/", label: "Impressum" },
+  { key: "terms", href: "/nutzungsbedingungen/", label: "Nutzungsbedingungen" }
+];
+
+const MORE_ITEMS_EN = [
+  { key: "lesezeichen", href: "/en/bookmarks/", label: "Bookmarks" },
+  { key: "email-links", href: "/en/email-link-cleaning/", label: "E-Mail links" },
+  { key: "messenger-links", href: "/en/messenger-link-cleaning/", label: "Messenger links" },
+  { key: "social-links", href: "/en/social-link-cleaning/", label: "Social links" },
+  { key: "tracking", href: "/en/tracking-parameters/", label: "Tracking parameters" },
+  { key: "utm", href: "/en/remove-utm-parameter/", label: "Remove UTM" },
+  { key: "vergleich", href: "/en/url-cleaner-comparison/", label: "Tool comparison" },
+
+  // FEHLTE:
+  { key: "privacy-sharing", href: "/en/privacy-when-sharing-links/", label: "Privacy when sharing links" },
+
+  { key: "shortcuts", href: "/en/shortcuts/", label: "Shortcuts" },
+  { key: "datenschutz", href: "/en/privacy/", label: "Privacy" },
+  { key: "impressum", href: "/en/imprint/", label: "Imprint" },
+  { key: "terms", href: "/en/terms/", label: "Terms" }
+];
+  
   const FOOTER_MAIN = isEn
     ? [
         ["/en/", "Start"],
