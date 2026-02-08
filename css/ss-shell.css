@@ -385,3 +385,8 @@ body.ss-lock{
   .ss-headActions{ grid-area: actions; justify-self: end; }
   .ss-nav{ grid-area: nav; }
 }
+.ss-chip.is-current{
+  pointer-events: none;
+  cursor: default;
+  opacity: 1;
+}
