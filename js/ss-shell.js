@@ -339,6 +339,58 @@ function renderFooterShell({ lang = 'de', page = '' } = {}){
 
   const footerHost = document.getElementById('ss-footer');
   if (footerHost) footerHost.innerHTML = renderFooterShell({ lang, page });
-})();
-  
+function pageFromPath(pathname = location.pathname) {
+  const p = (pathname || "/").toLowerCase();
+
+  // ---------- HOME ----------
+  if (p === "/" || p === "/index.html" || p === "/en/" || p === "/en/index.html") return "start";
+
+  // ---------- CORE ----------
+  if (p.startsWith("/app/") || p === "/app" || p.startsWith("/en/app/") || p === "/en/app") return "app";
+  if (p.startsWith("/pro/") || p === "/pro" || p.startsWith("/en/pro/") || p === "/en/pro") return "pro";
+  if (p.startsWith("/hilfe/") || p === "/hilfe" || p.startsWith("/en/help/") || p === "/en/help") return "hilfe";
+  if (p.startsWith("/schule/") || p === "/schule" || p.startsWith("/en/school/") || p === "/en/school") return "schule";
+
+  // ---------- UTILITY ----------
+  if (p.startsWith("/lesezeichen/") || p === "/lesezeichen" || p.startsWith("/en/bookmarks/") || p === "/en/bookmarks") return "lesezeichen";
+  if (p.startsWith("/shortcuts/") || p === "/shortcuts" || p.startsWith("/en/shortcuts/") || p === "/en/shortcuts") return "shortcuts";
+
+  // ---------- CONTENT ----------
+  if (p.startsWith("/tracking-parameter/") || p === "/tracking-parameter" ||
+      p.startsWith("/en/tracking-parameters/") || p === "/en/tracking-parameters") return "tracking";
+
+  if (p.startsWith("/utm-parameter-entfernen/") || p === "/utm-parameter-entfernen" ||
+      p.startsWith("/en/remove-utm-parameter/") || p === "/en/remove-utm-parameter") return "utm";
+
+  if (p.startsWith("/url-cleaner-tool-vergleich/") || p === "/url-cleaner-tool-vergleich" ||
+      p.startsWith("/en/url-cleaner-comparison/") || p === "/en/url-cleaner-comparison") return "vergleich";
+
+  if (p.startsWith("/email-links-bereinigen/") || p === "/email-links-bereinigen" ||
+      p.startsWith("/en/email-link-cleaning/") || p === "/en/email-link-cleaning") return "email-links";
+
+  if (p.startsWith("/messenger-links-bereinigen/") || p === "/messenger-links-bereinigen" ||
+      p.startsWith("/en/messenger-link-cleaning/") || p === "/en/messenger-link-cleaning") return "messenger-links";
+
+  if (p.startsWith("/social-links-bereinigen/") || p === "/social-links-bereinigen" ||
+      p.startsWith("/en/social-link-cleaning/") || p === "/en/social-link-cleaning") return "social-links";
+
+  // ---------- PRIVACY SHARING (DE+EN requested) ----------
+  if (p.startsWith("/datenschutz-beim-link-teilen/") || p === "/datenschutz-beim-link-teilen" ||
+      p.startsWith("/en/privacy-when-sharing-links/") || p === "/en/privacy-when-sharing-links") {
+    return "privacy-sharing";
+  }
+
+  // ---------- LEGAL ----------
+  if (p.startsWith("/datenschutz/") || p === "/datenschutz" ||
+      p.startsWith("/en/privacy/") || p === "/en/privacy") return "datenschutz";
+
+  if (p.startsWith("/impressum/") || p === "/impressum" ||
+      p.startsWith("/en/imprint/") || p === "/en/imprint") return "impressum";
+
+  if (p.startsWith("/nutzungsbedingungen/") || p === "/nutzungsbedingungen" ||
+      p.startsWith("/en/terms/") || p === "/en/terms") return "terms";
+
+  // ---------- FALLBACK ----------
+  return "";
+}
 })();
