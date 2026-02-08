@@ -47,42 +47,40 @@
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
 <body data-page="app" data-lang="de">
-  <div id="ss-shell"></div>
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="app-title">
+        <div class="ss-card ss-hero">
+          <h1 id="app-title">Link bereinigen</h1>
+          <p class="ss-hero-kicker">Einfügen → Bereinigen → Kopieren/Teilen</p>
 
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="app-title">
-      <div class="ss-card ss-hero">
-        <h1 id="app-title">Link bereinigen</h1>
-        <p class="ss-hero-kicker">Einfügen → Bereinigen → Kopieren/Teilen</p>
+          <label class="ss-label ss-mt-12" for="rawUrl">URL eingeben</label>
+          <textarea
+            id="rawUrl"
+            class="ss-input ss-w-full ss-input--lg"
+            rows="5"
+            placeholder="https://example.com/?utm_source=..."
+            autocomplete="off"
+            autocapitalize="none"
+            spellcheck="false"
+            inputmode="url"
+          ></textarea>
 
-        <label class="ss-label ss-mt-12" for="rawUrl">URL eingeben</label>
-        <textarea
-          id="rawUrl"
-          class="ss-input ss-w-full ss-input--lg"
-          rows="5"
-          placeholder="https://example.com/?utm_source=..."
-          autocomplete="off"
-          autocapitalize="none"
-          spellcheck="false"
-          inputmode="url"
-        ></textarea>
+          <div class="ss-actions ss-mt-12">
+            <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Bereinigen</button>
+            <button id="copyBtn" class="ss-btn" type="button">Kopieren</button>
+            <button id="shareBtn" class="ss-btn ss-btn--ghost" type="button">Teilen</button>
+          </div>
 
-        <div class="ss-actions ss-mt-12">
-          <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Bereinigen</button>
-          <button id="copyBtn" class="ss-btn" type="button">Kopieren</button>
-          <button id="shareBtn" class="ss-btn ss-btn--ghost" type="button">Teilen</button>
+          <label class="ss-label ss-mt-12" for="cleanUrl">Bereinigte URL</label>
+          <textarea id="cleanUrl" class="ss-input ss-w-full ss-input--md" rows="4" readonly></textarea>
+
+          <div class="ss-note ss-mt-12">Local-first: Keine Uploads, keine Anmeldung.</div>
         </div>
+      </section>
+    </main>
+  </div>
 
-        <label class="ss-label ss-mt-12" for="cleanUrl">Bereinigte URL</label>
-        <textarea id="cleanUrl" class="ss-input ss-w-full ss-input--md" rows="4" readonly></textarea>
-
-        <div class="ss-note ss-mt-12">Local-first: Keine Uploads, keine Anmeldung.</div>
-      </div>
-    </section>
-  </main>
-
-  <div id="ss-footer"></div>
   <script src="/js/ss-shell.js" defer></script>
   <script src="/js/app.js" defer></script>
 </body>
-</html>
