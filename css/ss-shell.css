@@ -224,11 +224,16 @@ body{
 }
 
 /* Dialog-Container */
-#ss-more{
+.ss-more{
   position: fixed;
-  z-index: 9999;
   left: 12px;
   right: 12px;
+  top: calc(var(--ss-header-h, 72px) + 8px);
+  bottom: calc(env(safe-area-inset-bottom) + 12px);
+  max-height: none;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
   /* oben/unten mit Safe-Area */
   top: calc(12px + env(safe-area-inset-top));
@@ -256,6 +261,11 @@ function closeMore(){
   document.documentElement.style.overflow = '';
   document.body.style.overflow = '';
   // ... Dialog schließen
+}
+
+html.ss-lock,
+body.ss-lock{
+  overflow: hidden;
 }
 
 /* More modal: höher positionieren */
