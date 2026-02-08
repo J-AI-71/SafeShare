@@ -258,6 +258,40 @@ function closeMore(){
   // ... Dialog schließen
 }
 
+/* More modal: höher positionieren */
+#ss-more-dialog{
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  top: calc(var(--ss-header-h, 64px) + 10px);   /* direkt unter Header */
+  bottom: 14px;                                  /* genug Platz unten */
+  margin: 0;
+  max-height: none;                              /* Höhe über top+bottom */
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 10060;
+  border-radius: 18px;
+}
+
+/* iOS safe area berücksichtigen */
+@supports (padding: max(0px)) {
+  #ss-more-dialog{
+    top: max(calc(var(--ss-header-h, 64px) + 10px), env(safe-area-inset-top) + 8px);
+    bottom: max(14px, env(safe-area-inset-bottom) + 8px);
+  }
+}
+
+/* Mobile: noch näher an den Header */
+@media (max-width: 768px){
+  #ss-more-dialog{
+    left: 10px;
+    right: 10px;
+    top: calc(var(--ss-header-h, 60px) + 6px);
+    bottom: 10px;
+    border-radius: 14px;
+  }
+}
+
 /* Kopf bleibt oben, Liste scrollt */
 #ss-more .ss-more-head{
   flex: 0 0 auto;
