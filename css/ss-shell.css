@@ -1,218 +1,171 @@
-/* File: /css/ss-shell.css */
-/* SafeShare Shell — Master-Flow strict, Zero inline */
-/* Version: v2026-02-05-14 (safe-area fix) */
+/* ===== ss-shell.css — More-Menü (iPad/Safari-safe, Master-Flow strict) ===== */
 
+/* Header-Höhe zentral */
 :root{
-  --ss-text:#eaf2ff;
-  --ss-muted:rgba(234,242,255,.72);
-  --ss-border:rgba(255,255,255,.16);
-  --ss-hover:rgba(255,255,255,.08);
-  --ss-active:rgba(47,227,183,.18);
-  --ss-active-border:rgba(47,227,183,.46);
-  --ss-panel:rgba(11,16,28,.96);
+  --ss-header-h: 96px;                 /* bei Bedarf 104px */
+  --ss-more-gap: 10px;
+  --ss-more-z-overlay: 1200;
+  --ss-more-z-panel: 1210;
+  --ss-more-bg: rgba(9,14,28,.92);
+  --ss-more-border: rgba(255,255,255,.12);
+  --ss-more-shadow: 0 18px 45px rgba(0,0,0,.35);
 }
 
-/* Header */
-.ss-header{
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  padding-top: env(safe-area-inset-top);
-  border-bottom: 1px solid var(--ss-border);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  background: linear-gradient(180deg, rgba(0,0,0,.34), rgba(0,0,0,.12));
+/* Optional: wenn du auf light mode umschaltest */
+@media (prefers-color-scheme: light){
+  :root{
+    --ss-more-bg: rgba(255,255,255,.96);
+    --ss-more-border: rgba(17,24,39,.12);
+    --ss-more-shadow: 0 18px 45px rgba(17,24,39,.12);
+  }
 }
 
-.ss-header__inner{
-  width: min(1160px, calc(100% - 24px));
-  margin: 0 auto;
-  min-height: 62px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 10px;
-}
-
-.ss-brand a{
-  color: var(--ss-text);
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 1.05rem;
-}
-
-.ss-nav{
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  min-width: 0;
-  flex-wrap: wrap;
-}
-
-.ss-headActions{
-  display: flex;
-  gap: 8px;
-}
-
-/* Pills / buttons */
-.ss-nav__link,
-.ss-langSwitch,
-.ss-moreBtn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 40px;
-  padding: 10px 14px;
-  border: 1px solid var(--ss-border);
-  border-radius: 999px;
-  background: rgba(255,255,255,.03);
-  color: var(--ss-text);
-  text-decoration: none;
-  font-weight: 700;
-  line-height: 1;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.ss-nav__link:hover,
-.ss-langSwitch:hover,
-.ss-moreBtn:hover{
-  background: var(--ss-hover);
-}
-
-.ss-nav__link.is-active,
-.ss-moreMenu__link.is-active{
-  border-color: var(--ss-active-border);
-  background: var(--ss-active);
-}
-
-/* More menu */
-.ss-moreBackdrop{
+/* Overlay */
+.ss-moreOverlay{
   position: fixed;
   inset: 0;
-  z-index: 70;
-  background: rgba(0,0,0,.45);
+  z-index: var(--ss-more-z-overlay);
+  background: rgba(0,0,0,.26);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
-.ss-moreMenu{
+/* Panel */
+.ss-morePanel{
   position: fixed;
-  z-index: 80;
-  top: calc(env(safe-area-inset-top) + 68px);
-  right: 14px;
-  width: min(92vw, 420px);
-  max-height: calc(100vh - env(safe-area-inset-top) - 92px);
-  overflow: auto;
-  padding: 12px;
-  border: 1px solid var(--ss-border);
-  border-radius: 16px;
-  background: var(--ss-panel);
-  box-shadow: 0 16px 40px rgba(0,0,0,.45);
-}
+  left: 12px;
+  right: 12px;
 
-.ss-moreMenu__head{
+  /* Kritisch: unter Header starten */
+  top: calc(var(--ss-header-h) + var(--ss-more-gap));
+
+  /* Kritisch: unten Safe-Area berücksichtigen */
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+
+  z-index: var(--ss-more-z-panel);
+
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-.ss-moreMenu__head strong{ color: var(--ss-text); }
+  flex-direction: column;
+  overflow: hidden;
 
-.ss-moreMenu__close{
-  min-height: 34px;
-  padding: 6px 10px;
-  border: 1px solid var(--ss-border);
-  border-radius: 10px;
+  border: 1px solid var(--ss-more-border);
+  border-radius: 18px;
+  background: var(--ss-more-bg);
+  box-shadow: var(--ss-more-shadow);
+}
+
+/* Ein-/Ausblendung */
+.ss-morePanel[hidden],
+.ss-moreOverlay[hidden]{
+  display: none !important;
+}
+
+.ss-morePanel{
+  transform: translateY(10px);
+  opacity: 0;
+  transition: transform .16s ease, opacity .16s ease;
+}
+
+.ss-morePanel.is-open{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Scrollbarer Inhalt */
+.ss-morePanel__body{
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px;
+}
+
+/* Rubrik-Hinweis */
+.ss-moreHint{
+  font-size: 12px;
+  line-height: 1.3;
+  opacity: .72;
+  margin: 6px 4px 8px;
+}
+
+/* Divider */
+.ss-moreDivider{
+  height: 1px;
+  border-radius: 999px;
+  margin: 10px 4px;
+  background: rgba(255,255,255,.12);
+}
+@media (prefers-color-scheme: light){
+  .ss-moreDivider{ background: rgba(17,24,39,.12); }
+}
+
+/* Menü-Links */
+.ss-moreLink{
+  display: block;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  border-radius: 14px;
+  text-decoration: none;
+
+  border: 1px solid rgba(255,255,255,.12);
   background: rgba(255,255,255,.04);
-  color: var(--ss-text);
+  color: inherit;
+}
+.ss-moreLink:last-child{ margin-bottom: 0; }
+
+.ss-moreLink:hover,
+.ss-moreLink:focus-visible{
+  outline: none;
+  border-color: rgba(47,227,183,.35);
+  background: rgba(47,227,183,.10);
+}
+
+/* Footer bleibt unten sichtbar */
+.ss-morePanel__footer{
+  position: sticky;
+  bottom: 0;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(to top, rgba(9,14,28,.96), rgba(9,14,28,0));
+  border-top: 1px solid rgba(255,255,255,.10);
+}
+@media (prefers-color-scheme: light){
+  .ss-morePanel__footer{
+    background: linear-gradient(to top, rgba(255,255,255,.98), rgba(255,255,255,0));
+    border-top-color: rgba(17,24,39,.10);
+  }
+}
+
+/* Close Button */
+.ss-moreClose{
+  width: 100%;
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.05);
+  color: inherit;
+  border-radius: 12px;
+  padding: 11px 14px;
+  font: inherit;
   cursor: pointer;
 }
-.ss-moreMenu__close:hover{ background: var(--ss-hover); }
-
-.ss-moreMenu__list{
-  display: grid;
-  gap: 8px;
+.ss-moreClose:hover,
+.ss-moreClose:focus-visible{
+  outline: none;
+  border-color: rgba(47,227,183,.35);
+  background: rgba(47,227,183,.10);
 }
 
-.ss-moreMenu__link{
-  display: block;
-  padding: 10px 12px;
-  border: 1px solid var(--ss-border);
-  border-radius: 12px;
-  background: rgba(255,255,255,.03);
-  color: var(--ss-text);
-  text-decoration: none;
-  font-weight: 600;
-  overflow-wrap: anywhere;
-}
-
-.ss-moreMenu__foot{
-  margin-top: 12px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* Main spacing below sticky header */
-.ss-main{
-  padding-top: 12px;
-}
-
-/* Footer */
-.ss-footer{
-  margin-top: 20px;
-  border-top: 1px solid var(--ss-border);
-  padding: 18px 0 calc(30px + env(safe-area-inset-bottom));
-}
-.ss-footer__inner{
-  width: min(1160px, calc(100% - 24px));
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.ss-small{
-  margin: 0;
-  color: var(--ss-muted);
-  font-size: 14px;
-}
-.ss-footerLinks{
-  display: flex;
-  gap: 10px;
-}
-.ss-footerLinks a{
-  color: var(--ss-text);
-  text-decoration: none;
-  border: 1px solid var(--ss-border);
-  border-radius: 999px;
-  padding: 8px 12px;
-}
-.ss-footerLinks a:hover{
-  background: var(--ss-hover);
-}
-
-/* Utilities */
-.ss-noScroll{ overflow: hidden; }
-[hidden]{ display: none !important; }
-
-/* Responsive */
-@media (max-width:980px){
-  .ss-header__inner{
-    grid-template-columns: 1fr;
-    justify-items: start;
-    gap: 8px;
-    padding: 10px 0;
-    min-height: auto;
+/* iPad Landscape Feintuning */
+@media (min-width: 1024px){
+  .ss-morePanel{
+    left: max(12px, calc((100vw - 1120px)/2 + 12px));
+    right: max(12px, calc((100vw - 1120px)/2 + 12px));
   }
+}
 
-  .ss-nav{
-    justify-content: flex-start;
-  }
-
-  .ss-moreMenu{
-    top: calc(env(safe-area-inset-top) + 60px);
-    right: 8px;
-    width: calc(100vw - 16px);
-    max-height: calc(100vh - env(safe-area-inset-top) - 76px);
+/* Sehr kleine Höhen (z.B. Split View) */
+@media (max-height: 740px){
+  :root{ --ss-header-h: 88px; }
+  .ss-morePanel{
+    top: calc(var(--ss-header-h) + 8px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
   }
 }
