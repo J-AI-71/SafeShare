@@ -267,4 +267,78 @@
     }
     window.location.href = target;
   });
+// ... bestehender shell-code ...
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[m]));
+}
+
+function linkOrCurrent(item, currentPage){
+  const isCurrent = item.key === currentPage;
+  const cls = `ss-chip${isCurrent ? ' is-active is-current' : ''}`;
+  const label = escapeHtml(item.label);
+  if (isCurrent) return `<span class="${cls}" aria-current="page">${label}</span>`;
+  return `<a class="${cls}" href="${item.href}" data-page="${item.key}">${label}</a>`;
+}
+
+function renderFooterShell({ lang = 'de', page = '' } = {}){
+  const isEN = lang === 'en';
+  const main = isEN
+    ? [
+        { key:'start',  label:'Start',  href:'/en/' },
+        { key:'app',    label:'App',    href:'/en/app/' },
+        { key:'schule', label:'School', href:'/en/school/' },
+        { key:'pro',    label:'Pro',    href:'/en/pro/' },
+        { key:'hilfe',  label:'Help',   href:'/en/help/' }
+      ]
+    : [
+        { key:'start',  label:'Start',  href:'/' },
+        { key:'app',    label:'App',    href:'/app/' },
+        { key:'schule', label:'Schule', href:'/schule/' },
+        { key:'pro',    label:'Pro',    href:'/pro/' },
+        { key:'hilfe',  label:'Hilfe',  href:'/hilfe/' }
+      ];
+
+  const legal = isEN
+    ? [
+        { key:'datenschutz', label:'Privacy', href:'/en/privacy/' },
+        { key:'impressum',   label:'Imprint', href:'/en/imprint/' },
+        { key:'terms',       label:'Terms',   href:'/en/terms/' }
+      ]
+    : [
+        { key:'datenschutz', label:'Datenschutz', href:'/datenschutz/' },
+        { key:'impressum',   label:'Impressum', href:'/impressum/' },
+        { key:'terms',       label:'Nutzungsbedingungen', href:'/nutzungsbedingungen/' }
+      ];
+
+  const year = new Date().getFullYear();
+
+  return `
+    <footer class="ss-footer" role="contentinfo">
+      <div class="ss-wrap">
+        <div class="ss-footer__copy">© ${year} SafeShare</div>
+        <nav class="ss-footer__nav" aria-label="${isEN ? 'Main navigation' : 'Hauptnavigation'}">
+          ${main.map(i => linkOrCurrent(i, page)).join('')}
+        </nav>
+        <nav class="ss-footer__legal" aria-label="${isEN ? 'Legal navigation' : 'Rechtliches'}">
+          ${legal.map(i => linkOrCurrent(i, page)).join('')}
+        </nav>
+      </div>
+    </footer>
+  `;
+}
+
+// init / bootstrap
+(function initShell(){
+  const page = document.body.dataset.page || '';
+  const lang = document.body.dataset.lang || 'de';
+
+  // header render ... (dein bestehender code)
+
+  const footerHost = document.getElementById('ss-footer');
+  if (footerHost) footerHost.innerHTML = renderFooterShell({ lang, page });
+})();
+  
 })();
