@@ -428,4 +428,52 @@ function pageFromPath(pathname = location.pathname) {
   // ---------- FALLBACK ----------
   return "";
 }
+/* 4) ss-shell.js: finale pageFromPath()-Zuordnung (DE+EN) */
+function pageFromPath(pathname) {
+  const p = String(pathname || "/")
+    .replace(/index\.html$/i, "")
+    .replace(/\/+$/, "") || "/";
+
+  const map = {
+    "/": "start",
+    "/app": "app",
+    "/schule": "schule",
+    "/pro": "pro",
+    "/hilfe": "hilfe",
+    "/datenschutz": "datenschutz",
+    "/impressum": "impressum",
+    "/nutzungsbedingungen": "terms",
+    "/tracking-parameter": "tracking",
+    "/utm-parameter-entfernen": "utm",
+    "/url-cleaner-tool-vergleich": "vergleich",
+    "/email-links-bereinigen": "email",
+    "/messenger-links-bereinigen": "messenger",
+    "/social-links-bereinigen": "social",
+    "/datenschutz-beim-link-teilen": "privacy-sharing",
+    "/shortcuts": "shortcuts",
+    "/404": "notfound",
+    "/404.html": "notfound",
+
+    "/en": "start",
+    "/en/app": "app",
+    "/en/school": "schule",
+    "/en/pro": "pro",
+    "/en/help": "hilfe",
+    "/en/privacy": "datenschutz",
+    "/en/imprint": "impressum",
+    "/en/terms": "terms",
+    "/en/tracking-parameters": "tracking",
+    "/en/remove-utm-parameter": "utm",
+    "/en/url-cleaner-comparison": "vergleich",
+    "/en/email-link-cleaning": "email",
+    "/en/messenger-link-cleaning": "messenger",
+    "/en/social-link-cleaning": "social",
+    "/en/privacy-when-sharing-links": "privacy-sharing",
+    "/en/shortcuts": "shortcuts",
+    "/en/404": "notfound"
+  };
+
+  return map[p] || "";
+}
+  
 })();
