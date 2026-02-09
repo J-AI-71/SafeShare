@@ -47,119 +47,119 @@
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
 <body data-page="url-cleaner-comparison" data-lang="en">
-  <div id="ss-shell"></div>
-
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="cmp-title">
-      <div class="ss-card ss-hero">
-        <h1 id="cmp-title">URL cleaner comparison</h1>
-        <p class="ss-hero-kicker">Not “which is perfect?”, but: what fits your workflow?</p>
-        <p>
-          Many tools remove tracking parameters. The meaningful differences are usually
-          <strong>data minimization, control, and consistency</strong>.
-        </p>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="criteria-title">
-      <div class="ss-card">
-        <h2 id="criteria-title">What matters in practice</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Processing model</h3>
-            <p class="ss-muted">Local-first in-browser, or sent to an external service?</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Rule quality</h3>
-            <p class="ss-muted">Basic list only, or domain rules/allowlists?</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Transparency</h3>
-            <p class="ss-muted">Can you see what changed (audit), or just the output URL?</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Speed</h3>
-            <p class="ss-muted">How smooth is Copy → Clean → Share in real use?</p>
-          </article>
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="cmp-title">
+        <div class="ss-card ss-hero">
+          <h1 id="cmp-title">URL cleaner comparison</h1>
+          <p class="ss-hero-kicker">Not “which is perfect?”, but: what fits your workflow?</p>
+          <p>
+            Many tools remove tracking parameters. The meaningful differences are usually
+            <strong>data minimization, control, and consistency</strong>.
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="matrix-title">
-      <div class="ss-card">
-        <h2 id="matrix-title">Quick practical comparison</h2>
-        <div class="ss-stack ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Web cleaners (general)</h3>
-            <ul>
-              <li>Fast for occasional one-offs</li>
-              <li>May involve server-side handling depending on tool</li>
-              <li>Often limited fine-grained control</li>
-            </ul>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Browser extensions (general)</h3>
-            <ul>
-              <li>Convenient on desktop</li>
-              <li>Strongly browser-dependent</li>
-              <li>Configuration quality varies</li>
-            </ul>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>SafeShare app (standard)</h3>
-            <ul>
-              <li>Local-first in browser</li>
-              <li>Conservative removal of common tracking keys</li>
-              <li>Simple flow without mandatory account</li>
-            </ul>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>SafeShare Pro</h3>
-            <ul>
-              <li>Rules/allowlists/audit</li>
-              <li>More control for publishing/team processes</li>
-              <li>Offline package for stable operation</li>
-            </ul>
-          </article>
+      <section class="ss-section" aria-labelledby="criteria-title">
+        <div class="ss-card">
+          <h2 id="criteria-title">What matters in practice</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Processing model</h3>
+              <p class="ss-muted">Local-first in-browser, or sent to an external service?</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Rule quality</h3>
+              <p class="ss-muted">Basic list only, or domain rules/allowlists?</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Transparency</h3>
+              <p class="ss-muted">Can you see what changed (audit), or just the output URL?</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Speed</h3>
+              <p class="ss-muted">How smooth is Copy → Clean → Share in real use?</p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="decision-title">
-      <div class="ss-card">
-        <h2 id="decision-title">How to choose</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>You want quick and simple</h3>
-            <p class="ss-muted">Start with SafeShare app (standard tracking key cleanup).</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>You need repeatable rules</h3>
-            <p class="ss-muted">Use Pro with policies and audit.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>You rarely share links</h3>
-            <p class="ss-muted">A lightweight approach is enough if used intentionally.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>You publish regularly</h3>
-            <p class="ss-muted">Standardize cleanup as part of your workflow.</p>
-          </article>
+      <section class="ss-section" aria-labelledby="matrix-title">
+        <div class="ss-card">
+          <h2 id="matrix-title">Quick practical comparison</h2>
+          <div class="ss-stack ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Web cleaners (general)</h3>
+              <ul>
+                <li>Fast for occasional one-offs</li>
+                <li>May involve server-side handling depending on tool</li>
+                <li>Often limited fine-grained control</li>
+              </ul>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Browser extensions (general)</h3>
+              <ul>
+                <li>Convenient on desktop</li>
+                <li>Strongly browser-dependent</li>
+                <li>Configuration quality varies</li>
+              </ul>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>SafeShare app (standard)</h3>
+              <ul>
+                <li>Local-first in browser</li>
+                <li>Conservative removal of common tracking keys</li>
+                <li>Simple flow without mandatory account</li>
+              </ul>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>SafeShare Pro</h3>
+              <ul>
+                <li>Rules/allowlists/audit</li>
+                <li>More control for publishing/team processes</li>
+                <li>Offline package for stable operation</li>
+              </ul>
+            </article>
+          </div>
         </div>
+      </section>
 
-        <div class="ss-note ss-mt-12">
-          Important: do not strip everything blindly. Functional and affiliate attribution keys can be intentionally required.
-        </div>
+      <section class="ss-section" aria-labelledby="decision-title">
+        <div class="ss-card">
+          <h2 id="decision-title">How to choose</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>You want quick and simple</h3>
+              <p class="ss-muted">Start with SafeShare app (standard tracking key cleanup).</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>You need repeatable rules</h3>
+              <p class="ss-muted">Use Pro with policies and audit.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>You rarely share links</h3>
+              <p class="ss-muted">A lightweight approach is enough if used intentionally.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>You publish regularly</h3>
+              <p class="ss-muted">Standardize cleanup as part of your workflow.</p>
+            </article>
+          </div>
 
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/en/app/">Try app</a>
-          <a class="ss-btn" href="/en/pro/">See Pro</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/help/">Help</a>
+          <div class="ss-note ss-mt-12">
+            Important: do not strip everything blindly. Functional and affiliate attribution keys can be intentionally required.
+          </div>
+
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/en/app/">Try app</a>
+            <a class="ss-btn" href="/en/pro/">See Pro</a>
+            <a class="ss-btn ss-btn--ghost" href="/en/help/">Help</a>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
-  <div id="ss-footer"></div>
- <script src="/js/ss-shell.js" defer></script>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
