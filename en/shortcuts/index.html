@@ -46,102 +46,101 @@
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
-<body>
-  <div id="ss-shell"></div>
+<body data-page="shortcuts" data-lang="en">
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="shortcuts-title">
+        <div class="ss-card ss-hero">
+          <h1 id="shortcuts-title">iOS / iPadOS Share Sheet Shortcuts</h1>
+          <p class="ss-hero-kicker">1-tap flow: Share → clean → share clean.</p>
+          <p>
+            The shortcut removes common tracking parameters locally on your device.
+            No uploads, no forced account.
+          </p>
 
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="shortcuts-title">
-      <div class="ss-card ss-hero">
-        <h1 id="shortcuts-title">iOS / iPadOS Share Sheet Shortcuts</h1>
-        <p class="ss-hero-kicker">1-tap flow: Share → clean → share clean.</p>
-        <p>
-          The shortcut removes common tracking parameters locally on your device.
-          No uploads, no forced account.
-        </p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="REPLACE_WITH_ICLOUD_SHORTCUT_LINK_STANDARD">Install shortcut: Standard</a>
+            <a class="ss-btn" href="REPLACE_WITH_ICLOUD_SHORTCUT_LINK_MODE">Install shortcut: Mode select</a>
+            <a class="ss-btn ss-btn--ghost" href="/en/app/">Open web app</a>
+          </div>
 
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="REPLACE_WITH_ICLOUD_SHORTCUT_LINK_STANDARD">Install shortcut: Standard</a>
-          <a class="ss-btn" href="REPLACE_WITH_ICLOUD_SHORTCUT_LINK_MODE">Install shortcut: Mode select</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/app/">Open web app</a>
+          <div class="ss-note ss-mt-12">
+            Local-first: processing happens on your device.
+          </div>
+          <div class="ss-warn ss-mt-12">
+            Honest scope: the shortcut removes URL parameters, but does not automatically block login/cookies/fingerprinting.
+          </div>
         </div>
+      </section>
 
-        <div class="ss-note ss-mt-12">
-          Local-first: processing happens on your device.
+      <section class="ss-section" aria-labelledby="setup-title">
+        <div class="ss-card">
+          <h2 id="setup-title">Setup in 60 seconds</h2>
+          <ol class="ss-mt-12">
+            <li>Install the “Standard” shortcut.</li>
+            <li>In Safari/Mail/Messenger tap <strong>Share</strong>.</li>
+            <li>Run the shortcut and use the cleaned link.</li>
+          </ol>
+
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Standard</h3>
+              <p class="ss-muted">Best default for 95% of everyday use.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Mode select</h3>
+              <p class="ss-muted">For stricter or publisher-friendly edge cases.</p>
+            </article>
+          </div>
         </div>
-        <div class="ss-warn ss-mt-12">
-          Honest scope: the shortcut removes URL parameters, but does not automatically block login/cookies/fingerprinting.
+      </section>
+
+      <section class="ss-section" aria-labelledby="usecases-title">
+        <div class="ss-card">
+          <h2 id="usecases-title">Daily use cases</h2>
+          <div class="ss-grid ss-grid--3 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Email</h3>
+              <p class="ss-muted">Cleaner links in replies and forwards.</p>
+              <a class="ss-btn ss-mt-12" href="/en/email-link-cleaning/">Learn more</a>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Messenger</h3>
+              <p class="ss-muted">Fewer unnecessary IDs in chats and groups.</p>
+              <a class="ss-btn ss-mt-12" href="/en/messenger-link-cleaning/">Learn more</a>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Social</h3>
+              <p class="ss-muted">Cleaner URLs for posts and profiles.</p>
+              <a class="ss-btn ss-mt-12" href="/en/social-link-cleaning/">Learn more</a>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="setup-title">
-      <div class="ss-card">
-        <h2 id="setup-title">Setup in 60 seconds</h2>
-        <ol class="ss-mt-12">
-          <li>Install the “Standard” shortcut.</li>
-          <li>In Safari/Mail/Messenger tap <strong>Share</strong>.</li>
-          <li>Run the shortcut and use the cleaned link.</li>
-        </ol>
+      <section class="ss-section" aria-labelledby="faq-title">
+        <div class="ss-card">
+          <h2 id="faq-title">FAQ</h2>
 
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Standard</h3>
-            <p class="ss-muted">Best default for 95% of everyday use.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Mode select</h3>
-            <p class="ss-muted">For stricter or publisher-friendly edge cases.</p>
-          </article>
+          <details class="ss-mt-12">
+            <summary>Does the shortcut store links?</summary>
+            <p class="ss-muted ss-mt-12">No. Processing is local on your device.</p>
+          </details>
+
+          <details class="ss-mt-12">
+            <summary>Why two shortcuts?</summary>
+            <p class="ss-muted ss-mt-12">To keep “Standard” truly one tap and reserve “Mode select” for special cases.</p>
+          </details>
+
+          <details class="ss-mt-12">
+            <summary>Is shortcut enough instead of Pro?</summary>
+            <p class="ss-muted ss-mt-12">For quick sharing, yes. For rules/audit/bulk workflows, use Pro.</p>
+          </details>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
+  </div>
 
-    <section class="ss-section" aria-labelledby="usecases-title">
-      <div class="ss-card">
-        <h2 id="usecases-title">Daily use cases</h2>
-        <div class="ss-grid ss-grid--3 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Email</h3>
-            <p class="ss-muted">Cleaner links in replies and forwards.</p>
-            <a class="ss-btn ss-mt-12" href="/en/email-link-cleaning/">Learn more</a>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Messenger</h3>
-            <p class="ss-muted">Fewer unnecessary IDs in chats and groups.</p>
-            <a class="ss-btn ss-mt-12" href="/en/messenger-link-cleaning/">Learn more</a>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Social</h3>
-            <p class="ss-muted">Cleaner URLs for posts and profiles.</p>
-            <a class="ss-btn ss-mt-12" href="/en/social-link-cleaning/">Learn more</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="faq-title">
-      <div class="ss-card">
-        <h2 id="faq-title">FAQ</h2>
-
-        <details class="ss-mt-12">
-          <summary>Does the shortcut store links?</summary>
-          <p class="ss-muted ss-mt-12">No. Processing is local on your device.</p>
-        </details>
-
-        <details class="ss-mt-12">
-          <summary>Why two shortcuts?</summary>
-          <p class="ss-muted ss-mt-12">To keep “Standard” truly one tap and reserve “Mode select” for special cases.</p>
-        </details>
-
-        <details class="ss-mt-12">
-          <summary>Is shortcut enough instead of Pro?</summary>
-          <p class="ss-muted ss-mt-12">For quick sharing, yes. For rules/audit/bulk workflows, use Pro.</p>
-        </details>
-      </div>
-    </section>
-  </main>
-
-  <div id="ss-footer"></div>
   <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
