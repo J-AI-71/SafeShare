@@ -1,5 +1,5 @@
 /* /js/shell.js */
-/* SafeShare Shell – FINAL STABLE */
+/* SafeShare Shell – FINAL COMPLETE */
 
 (() => {
   "use strict";
@@ -51,49 +51,67 @@
   ];
 
   const MORE_GROUPS_DE = [
-    { title: "Produkt", items: [
-      { label: "Lesezeichen", href: "/lesezeichen/", meta: "Tools" },
-      { label: "Shortcuts", href: "/shortcuts/", meta: "Tool" },
-      { label: "Show Share", href: "/show-share/", meta: "Tool" }
-    ]},
-    { title: "Guides", items: [
-      { label: "Tracking-Parameter", href: "/tracking-parameter/", meta: "Guide" },
-      { label: "UTM entfernen", href: "/utm-parameter-entfernen/", meta: "Guide" },
-      { label: "Tool-Vergleich", href: "/url-cleaner-tool-vergleich/", meta: "Guide" },
-      { label: "E-Mail-Links", href: "/email-links-bereinigen/", meta: "Use case" },
-      { label: "Messenger-Links", href: "/messenger-links-bereinigen/", meta: "Use case" },
-      { label: "Social-Links", href: "/social-links-bereinigen/", meta: "Use case" },
-      { label: "Datenschutz beim Teilen", href: "/datenschutz-beim-link-teilen/", meta: "Guide" }
-    ]},
-    { title: "Recht & Kontakt", items: [
-      { label: "Datenschutz", href: "/datenschutz/", meta: "Legal" },
-      { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen/", meta: "Legal" },
-      { label: "Impressum", href: "/impressum/", meta: "Legal" },
-      { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Kontakt" }
-    ]}
+    {
+      title: "Produkt",
+      items: [
+        { label: "Lesezeichen", href: "/lesezeichen/", meta: "Tools" },
+        { label: "Shortcuts", href: "/shortcuts/", meta: "Tool" },
+        { label: "Show Share", href: "/show-share/", meta: "Tool" }
+      ]
+    },
+    {
+      title: "Guides",
+      items: [
+        { label: "Tracking-Parameter", href: "/tracking-parameter/", meta: "Guide" },
+        { label: "UTM entfernen", href: "/utm-parameter-entfernen/", meta: "Guide" },
+        { label: "Tool-Vergleich", href: "/url-cleaner-tool-vergleich/", meta: "Guide" },
+        { label: "E-Mail-Links", href: "/email-links-bereinigen/", meta: "Use case" },
+        { label: "Messenger-Links", href: "/messenger-links-bereinigen/", meta: "Use case" },
+        { label: "Social-Links", href: "/social-links-bereinigen/", meta: "Use case" },
+        { label: "Datenschutz beim Teilen", href: "/datenschutz-beim-link-teilen/", meta: "Guide" }
+      ]
+    },
+    {
+      title: "Recht & Kontakt",
+      items: [
+        { label: "Datenschutz", href: "/datenschutz/", meta: "Legal" },
+        { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen/", meta: "Legal" },
+        { label: "Impressum", href: "/impressum/", meta: "Legal" },
+        { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Kontakt" }
+      ]
+    }
   ];
 
   const MORE_GROUPS_EN = [
-    { title: "Product", items: [
-      { label: "Bookmarks", href: "/en/bookmarks/", meta: "Tools" },
-      { label: "Shortcuts", href: "/en/shortcuts/", meta: "Tool" },
-      { label: "Show Share", href: "/en/show-share/", meta: "Tool" }
-    ]},
-    { title: "Guides", items: [
-      { label: "Tracking Parameters", href: "/en/tracking-parameters/", meta: "Guide" },
-      { label: "Remove UTM Parameter", href: "/en/remove-utm-parameter/", meta: "Guide" },
-      { label: "Cleaner Comparison", href: "/en/url-cleaner-comparison/", meta: "Guide" },
-      { label: "Email Link Cleaning", href: "/en/email-link-cleaning/", meta: "Use case" },
-      { label: "Messenger Link Cleaning", href: "/en/messenger-link-cleaning/", meta: "Use case" },
-      { label: "Social Link Cleaning", href: "/en/social-link-cleaning/", meta: "Use case" },
-      { label: "Privacy when Sharing Links", href: "/en/privacy-when-sharing-links/", meta: "Guide" }
-    ]},
-    { title: "Legal & Contact", items: [
-      { label: "Privacy", href: "/en/privacy/", meta: "Legal" },
-      { label: "Terms", href: "/en/terms/", meta: "Legal" },
-      { label: "Imprint", href: "/en/imprint/", meta: "Legal" },
-      { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Contact" }
-    ]}
+    {
+      title: "Product",
+      items: [
+        { label: "Bookmarks", href: "/en/bookmarks/", meta: "Tools" },
+        { label: "Shortcuts", href: "/en/shortcuts/", meta: "Tool" },
+        { label: "Show Share", href: "/en/show-share/", meta: "Tool" }
+      ]
+    },
+    {
+      title: "Guides",
+      items: [
+        { label: "Tracking Parameters", href: "/en/tracking-parameters/", meta: "Guide" },
+        { label: "Remove UTM Parameter", href: "/en/remove-utm-parameter/", meta: "Guide" },
+        { label: "Cleaner Comparison", href: "/en/url-cleaner-comparison/", meta: "Guide" },
+        { label: "Email Link Cleaning", href: "/en/email-link-cleaning/", meta: "Use case" },
+        { label: "Messenger Link Cleaning", href: "/en/messenger-link-cleaning/", meta: "Use case" },
+        { label: "Social Link Cleaning", href: "/en/social-link-cleaning/", meta: "Use case" },
+        { label: "Privacy when Sharing Links", href: "/en/privacy-when-sharing-links/", meta: "Guide" }
+      ]
+    },
+    {
+      title: "Legal & Contact",
+      items: [
+        { label: "Privacy", href: "/en/privacy/", meta: "Legal" },
+        { label: "Terms", href: "/en/terms/", meta: "Legal" },
+        { label: "Imprint", href: "/en/imprint/", meta: "Legal" },
+        { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Contact" }
+      ]
+    }
   ];
 
   const FOOTER_DE = [
@@ -119,6 +137,7 @@
     if (!s.endsWith("/")) s += "/";
     return s;
   };
+
   const currentPath = () => sanitizePath(WIN.location.pathname);
   const isEN = (p) => p === "/en/" || p.startsWith("/en/");
   const lang = () => (isEN(currentPath()) ? "en" : "de");
@@ -144,7 +163,9 @@
     for (const i of nav) {
       if (!i.href) continue;
       const h = sanitizePath(i.href);
-      if (path === h || path.startsWith(h)) if (h.length > best.length) best = h;
+      if (path === h || path.startsWith(h)) {
+        if (h.length > best.length) best = h;
+      }
     }
     return best;
   };
@@ -169,7 +190,7 @@
       slot.id = "ss-footer-slot";
       DOC.body.appendChild(slot);
     } else {
-      DOC.body.appendChild(slot); // keep it as last body child
+      DOC.body.appendChild(slot); // keep at end of body
     }
     return slot;
   }
@@ -221,7 +242,7 @@
           <span class="ss-brand__txt">SafeShare</span>
         </a>
 
-        <div class="ss-navLane" aria-hidden="false">
+        <div class="ss-navLane">
           <nav class="ss-nav" aria-label="${l === "en" ? "Main navigation" : "Hauptnavigation"}">
             ${nav.map(i => i.action === "switchLang"
               ? `<a class="ss-nav__link" href="#" data-action="switchLang">${esc(i.label)}</a>`
@@ -268,45 +289,45 @@
       <div class="ss-sheet__body">${renderGroupedMore(groups)}</div>
     `;
     DOC.body.appendChild(sheet);
-
-    bindHeaderEvents();
   }
 
-  function bindHeaderEvents() {
+  function bindEvents() {
     const moreBtn = DOC.getElementById("ssMoreBtn");
     const closeBtn = DOC.getElementById("ssCloseBtn");
     const backdrop = DOC.getElementById("ssBackdrop");
     const sheet = DOC.getElementById("ssSheet");
-    if (!moreBtn || !closeBtn || !backdrop || !sheet) return;
 
-    let lastFocus = null;
+    if (moreBtn && closeBtn && backdrop && sheet) {
+      let lastFocus = null;
 
-    const openSheet = () => {
-      lastFocus = DOC.activeElement;
-      backdrop.classList.add("is-open");
-      sheet.classList.add("is-open");
-      DOC.body.classList.add("ss-no-scroll");
-      moreBtn.setAttribute("aria-expanded", "true");
-      closeBtn.focus();
-    };
-    const closeSheet = () => {
-      backdrop.classList.remove("is-open");
-      sheet.classList.remove("is-open");
-      DOC.body.classList.remove("ss-no-scroll");
-      moreBtn.setAttribute("aria-expanded", "false");
-      if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
-    };
+      const openSheet = () => {
+        lastFocus = DOC.activeElement;
+        backdrop.classList.add("is-open");
+        sheet.classList.add("is-open");
+        DOC.body.classList.add("ss-no-scroll");
+        moreBtn.setAttribute("aria-expanded", "true");
+        closeBtn.focus();
+      };
 
-    moreBtn.addEventListener("click", openSheet);
-    closeBtn.addEventListener("click", closeSheet);
-    backdrop.addEventListener("click", closeSheet);
+      const closeSheet = () => {
+        backdrop.classList.remove("is-open");
+        sheet.classList.remove("is-open");
+        DOC.body.classList.remove("ss-no-scroll");
+        moreBtn.setAttribute("aria-expanded", "false");
+        if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+      };
 
-    DOC.addEventListener("keydown", (ev) => {
-      if (ev.key === "Escape" && sheet.classList.contains("is-open")) {
-        ev.preventDefault();
-        closeSheet();
-      }
-    });
+      moreBtn.addEventListener("click", openSheet);
+      closeBtn.addEventListener("click", closeSheet);
+      backdrop.addEventListener("click", closeSheet);
+
+      DOC.addEventListener("keydown", (ev) => {
+        if (ev.key === "Escape" && sheet.classList.contains("is-open")) {
+          ev.preventDefault();
+          closeSheet();
+        }
+      });
+    }
 
     DOC.querySelectorAll('[data-action="switchLang"]').forEach((el) => {
       el.addEventListener("click", (ev) => {
@@ -318,6 +339,16 @@
     DOC.querySelectorAll(".ss-nav a[href], .ss-list a[href], .ss-siteFooter a[href], .ss-brand[href]").forEach((a) => {
       a.addEventListener("click", goTopImmediate, { passive: true });
     });
+
+    // IMPORTANT: make sure first nav item is visible on small widths
+    const resetNavScroll = () => {
+      const nav = DOC.querySelector(".ss-nav");
+      if (!nav) return;
+      if (WIN.innerWidth <= 900) nav.scrollLeft = 0;
+    };
+
+    resetNavScroll();
+    WIN.addEventListener("resize", resetNavScroll, { passive: true });
   }
 
   function renderFooter() {
@@ -347,10 +378,13 @@
   }
 
   function boot() {
-    goTopImmediate();
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    goTopImmediate();
+
     renderHeaderAndMore();
     renderFooter();
+    bindEvents();
+
     WIN.addEventListener("load", goTopImmediate, { once: true });
     WIN.addEventListener("pageshow", goTopImmediate);
   }
@@ -360,22 +394,4 @@
   } else {
     boot();
   }
-  /* /js/shell.js */
-/* small required addition for mobile nav start visibility */
-
-(() => {
-  function resetNavScroll() {
-    const nav = document.querySelector('.ss-nav');
-    if (nav) nav.scrollLeft = 0;
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', resetNavScroll, { once: true });
-  } else {
-    resetNavScroll();
-  }
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth <= 900) resetNavScroll();
-  }, { passive: true });
 })();
