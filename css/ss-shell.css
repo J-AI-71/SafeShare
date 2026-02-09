@@ -1,42 +1,38 @@
 /* File: /css/ss-shell.css */
-/* SafeShare Shell — FINAL (matches /js/ss-shell.js) */
+/* SafeShare Shell CSS — FINAL stable */
 
 :root{
   --ss-shell-max: 1120px;
-  --ss-radius: 14px;
 
-  --ss-bg: var(--card, rgba(255,255,255,.06));
+  --ss-bg: rgba(255,255,255,.06);
   --ss-bg-2: rgba(255,255,255,.04);
-  --ss-border: var(--border, rgba(255,255,255,.12));
-  --ss-text: var(--text, rgba(255,255,255,.94));
-  --ss-muted: var(--muted2, rgba(255,255,255,.68));
+  --ss-border: rgba(255,255,255,.14);
+  --ss-text: rgba(255,255,255,.94);
+  --ss-muted: rgba(255,255,255,.70);
 
   --ss-active-bg: rgba(47,227,183,.14);
-  --ss-active-border: rgba(47,227,183,.45);
+  --ss-active-border: rgba(47,227,183,.48);
 
-  --ss-panel-bg: rgba(14,16,22,.96);
-  --ss-backdrop: rgba(0,0,0,.55);
+  --ss-panel-bg: #0f1218;
+  --ss-backdrop: rgba(0,0,0,.62);
 
-  --ss-shadow: 0 16px 42px rgba(0,0,0,.34);
   --ss-focus: 0 0 0 2px rgba(47,227,183,.45);
+  --ss-shadow: 0 24px 64px rgba(0,0,0,.55);
 }
 
 *,
 *::before,
-*::after { box-sizing: border-box; }
+*::after{ box-sizing: border-box; }
 
-body.ss-noScroll { overflow: hidden; }
+body.ss-noScroll{ overflow: hidden; }
 
-/* shell mount */
 #ss-shell{
-  width: 100%;
   position: relative;
-  z-index: 20;
+  z-index: 40;
+  display: block;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 #ss-shell .ss-header{
   max-width: var(--ss-shell-max);
   margin: 10px auto 8px;
@@ -51,36 +47,18 @@ body.ss-noScroll { overflow: hidden; }
   margin-bottom: 10px;
 }
 
-/* brand */
 #ss-shell .ss-brand{
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   text-decoration: none;
+  color: var(--ss-text);
   font-weight: 800;
   letter-spacing: .2px;
-  color: var(--ss-text);
-  background: var(--ss-bg);
-  border: 1px solid var(--ss-border);
-  border-radius: 999px;
-  padding: 9px 14px;
   min-height: 40px;
-  white-space: nowrap;
-}
-
-#ss-shell .ss-brand__logo{
-  width: 18px;
-  height: 18px;
-  display: inline-block;
-  flex: 0 0 auto;
-}
-
-#ss-shell .ss-brand__text{
-  line-height: 1;
-}
-
-#ss-shell .ss-brand:hover{
-  background: rgba(255,255,255,.10);
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--ss-border);
+  background: var(--ss-bg);
 }
 
 #ss-shell .ss-brand:focus-visible{
@@ -88,66 +66,42 @@ body.ss-noScroll { overflow: hidden; }
   box-shadow: var(--ss-focus);
 }
 
-/* right actions */
 #ss-shell .ss-headActions{
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* language switch */
-#ss-shell .ss-langSwitch{
+#ss-shell .ss-langSwitch,
+#ss-shell .ss-moreBtn{
+  appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   color: var(--ss-text);
-  background: var(--ss-bg);
-  border: 1px solid var(--ss-border);
-  border-radius: 999px;
-  padding: 9px 12px;
-  min-height: 40px;
-  min-width: 48px;
-  font-weight: 800;
-  line-height: 1;
-}
-
-#ss-shell .ss-langSwitch:hover{
-  background: rgba(255,255,255,.10);
-}
-
-#ss-shell .ss-langSwitch:focus-visible{
-  outline: none;
-  box-shadow: var(--ss-focus);
-}
-
-/* more button */
-#ss-shell .ss-moreBtn{
-  appearance: none;
-  border: 1px solid var(--ss-border);
-  background: var(--ss-bg);
-  color: var(--ss-text);
-  border-radius: 999px;
-  padding: 9px 14px;
-  min-height: 40px;
-  font: inherit;
   font-weight: 700;
-  line-height: 1;
+  min-height: 40px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--ss-border);
+  background: var(--ss-bg);
   cursor: pointer;
+  font: inherit;
 }
 
+#ss-shell .ss-langSwitch:hover,
 #ss-shell .ss-moreBtn:hover{
   background: rgba(255,255,255,.10);
 }
 
+#ss-shell .ss-langSwitch:focus-visible,
 #ss-shell .ss-moreBtn:focus-visible{
   outline: none;
   box-shadow: var(--ss-focus);
 }
 
-/* =========================
-   TOP NAV
-========================= */
+/* NAV */
 #ss-shell .ss-nav{
   display: grid;
   grid-template-columns: repeat(5, minmax(0,1fr));
@@ -158,17 +112,16 @@ body.ss-noScroll { overflow: hidden; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
-  color: var(--ss-text);
-  background: var(--ss-bg);
-  border: 1px solid var(--ss-border);
-  border-radius: 999px;
-  padding: 9px 8px;
-  min-height: 40px;
-  font-weight: 700;
-  line-height: 1.15;
   text-align: center;
-  white-space: nowrap;
+  text-decoration: none;
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--ss-text);
+  min-height: 40px;
+  padding: 10px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--ss-border);
+  background: var(--ss-bg);
 }
 
 #ss-shell .ss-nav__link:hover{
@@ -185,9 +138,7 @@ body.ss-noScroll { overflow: hidden; }
   box-shadow: var(--ss-focus);
 }
 
-/* =========================
-   MORE OVERLAY
-========================= */
+/* MORE */
 #ss-shell .ss-more[hidden]{ display: none !important; }
 
 #ss-shell .ss-more{
@@ -202,268 +153,7 @@ body.ss-noScroll { overflow: hidden; }
   width: 100%;
   height: 100%;
   border: 0;
-  margin: 0;
-  padding: 0;
   background: var(--ss-backdrop);
-  backdrop-filter: blur(2px);
-  cursor: pointer;
-}
-
-#ss-shell .ss-more__panel{
-  position: absolute;
-  right: 12px;
-  top: max(12px, env(safe-area-inset-top));
-  width: min(420px, calc(100vw - 24px));
-  max-height: calc(100dvh - 24px - env(safe-area-inset-top));
-  overflow: auto;
-
-  border: 1px solid rgba(255,255,255,.16);
-  border-radius: 16px;
-  background: var(--ss-panel-bg);
-  color: #f3f6fb;
-  box-shadow: var(--ss-shadow);
-}
-
-#ss-shell .ss-more__head{
-  position: sticky;
-  top: 0;
-  z-index: 2;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-
-  padding: 12px 14px;
-  border-bottom: 1px solid rgba(255,255,255,.12);
-  background: var(--ss-panel-bg);
-}
-
-#ss-shell .ss-more__head strong{
-  color: #fff;
-  font-size: 16px;
-  line-height: 1.2;
-}
-
-#ss-shell .ss-more__close{
-  appearance: none;
-  border: 1px solid rgba(255,255,255,.2);
-  background: rgba(255,255,255,.06);
-  color: #fff;
-  border-radius: 10px;
-  min-width: 36px;
-  height: 36px;
-  font-size: 22px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-#ss-shell .ss-more__close:hover{
-  background: rgba(255,255,255,.12);
-}
-
-#ss-shell .ss-more__close:focus-visible{
-  outline: none;
-  box-shadow: var(--ss-focus);
-}
-
-#ss-shell .ss-more__list{
-  display: grid;
-  gap: 6px;
-  padding: 10px;
-}
-
-#ss-shell .ss-more__item{
-  display: block;
-  padding: 10px 12px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: #f3f6fb;
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.10);
-  line-height: 1.35;
-  font-weight: 650;
-  word-break: break-word;
-}
-
-#ss-shell .ss-more__item:hover{
-  background: rgba(255,255,255,.09);
-  border-color: rgba(255,255,255,.22);
-}
-
-#ss-shell .ss-more__item:focus-visible{
-  outline: none;
-  box-shadow: var(--ss-focus);
-}
-
-#ss-shell .ss-more__item.is-active{
-  background: var(--ss-active-bg);
-  border-color: var(--ss-active-border);
-}
-
-#ss-shell .ss-more__divider{
-  height: 1px;
-  margin: 2px 10px 4px;
-  background: rgba(255,255,255,.14);
-}
-
-#ss-shell .ss-more__list--secondary .ss-more__item{
-  background: rgba(255,255,255,.02);
-}
-
-/* =========================
-   FOOTER (rendered by shell.js)
-========================= */
-#ss-shell .ss-footer{
-  max-width: var(--ss-shell-max);
-  margin: 18px auto 10px;
-  padding: 0 12px;
-}
-
-#ss-shell .ss-footer__inner{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 42px;
-
-  text-align: center;
-  color: var(--ss-muted);
-  background: var(--ss-bg-2);
-  border: 1px solid var(--ss-border);
-  border-radius: 12px;
-  padding: 8px 12px;
-  font-size: .95rem;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 900px){
-  #ss-shell .ss-header{
-    margin-top: 8px;
-    padding: 0 10px;
-  }
-
-  #ss-shell .ss-nav{
-    gap: 6px;
-  }
-
-  #ss-shell .ss-nav__link{
-    min-height: 38px;
-    padding: 8px 6px;
-    font-size: .94rem;
-  }
-
-  #ss-shell .ss-brand,
-  #ss-shell .ss-langSwitch,
-  #ss-shell .ss-moreBtn{
-    min-height: 38px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-
-  #ss-shell .ss-footer{
-    padding: 0 10px;
-  }
-}
-
-@media (max-width: 700px){
-  #ss-shell .ss-header__row{
-    gap: 6px;
-  }
-
-  #ss-shell .ss-brand{
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  #ss-shell .ss-brand__text{
-    font-size: .95rem;
-  }
-
-  #ss-shell .ss-headActions{
-    gap: 6px;
-  }
-
-  #ss-shell .ss-langSwitch{
-    min-width: 44px;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: .9rem;
-  }
-
-  #ss-shell .ss-moreBtn{
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: .92rem;
-  }
-
-  #ss-shell .ss-nav__link{
-    font-size: .88rem;
-    letter-spacing: 0;
-  }
-}
-
-@media (max-width: 620px){
-  #ss-shell .ss-more__panel{
-    right: 8px;
-    left: 8px;
-    width: auto;
-    max-height: calc(100dvh - 16px - env(safe-area-inset-top));
-  }
-
-  #ss-shell .ss-footer__inner{
-    font-size: .9rem;
-  }
-}
-
-@media (max-width: 420px){
-  #ss-shell .ss-nav__link{
-    font-size: .82rem;
-    padding-left: 4px;
-    padding-right: 4px;
-  }
-
-  #ss-shell .ss-brand__text{
-    font-size: .9rem;
-  }
-}
-/* ===== SafeShare Shell HARD FIX (Footer sichtbar + More weniger milchig) ===== */
-
-/* 0) Shell muss über normalem Content liegen */
-#ss-shell{
-  position: relative;
-  z-index: 40;
-  display: block;
-}
-
-/* 1) Header + Nav stabil sichtbar */
-#ss-shell .ss-header{
-  position: relative;
-  z-index: 41;
-}
-
-/* 2) More Overlay klar und lesbar */
-#ss-shell .ss-more[hidden]{
-  display: none !important;
-}
-
-#ss-shell .ss-more{
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-}
-
-#ss-shell .ss-more__backdrop{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  background: rgba(0,0,0,.62);   /* dunkler, weniger milchig */
   backdrop-filter: blur(1.5px);
   -webkit-backdrop-filter: blur(1.5px);
 }
@@ -475,15 +165,13 @@ body.ss-noScroll { overflow: hidden; }
   width: min(420px, calc(100vw - 20px));
   max-height: calc(100dvh - 20px - env(safe-area-inset-top));
   overflow: auto;
-
-  background: #0f1218;            /* statt transparent/milchig */
+  background: var(--ss-panel-bg);
   color: #f5f7fb;
   border: 1px solid rgba(255,255,255,.16);
   border-radius: 16px;
-  box-shadow: 0 24px 64px rgba(0,0,0,.55);
+  box-shadow: var(--ss-shadow);
 }
 
-/* Sticky Kopf im More */
 #ss-shell .ss-more__head{
   position: sticky;
   top: 0;
@@ -491,11 +179,14 @@ body.ss-noScroll { overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
   padding: 12px 14px;
-  background: #0f1218;
   border-bottom: 1px solid rgba(255,255,255,.12);
+  background: var(--ss-panel-bg);
+}
+
+#ss-shell .ss-more__head strong{
   color: #fff;
+  font-size: 16px;
 }
 
 #ss-shell .ss-more__close{
@@ -511,10 +202,23 @@ body.ss-noScroll { overflow: hidden; }
   cursor: pointer;
 }
 
+#ss-shell .ss-more__close:hover{
+  background: rgba(255,255,255,.14);
+}
+
+#ss-shell .ss-more__close:focus-visible{
+  outline: none;
+  box-shadow: var(--ss-focus);
+}
+
 #ss-shell .ss-more__list{
   display: grid;
   gap: 8px;
   padding: 10px;
+}
+
+#ss-shell .ss-more__list--secondary .ss-more__item{
+  background: rgba(255,255,255,.025);
 }
 
 #ss-shell .ss-more__item{
@@ -529,51 +233,62 @@ body.ss-noScroll { overflow: hidden; }
   font-weight: 650;
 }
 
-#ss-shell .ss-more__item:hover{
+#ss-shell .ss-more__item:hover,
+#ss-shell .ss-more__item:focus-visible{
   background: rgba(255,255,255,.10);
   border-color: rgba(255,255,255,.24);
+  outline: none;
+}
+
+#ss-shell .ss-more__item.is-active{
+  background: var(--ss-active-bg);
+  border-color: var(--ss-active-border);
 }
 
 #ss-shell .ss-more__divider{
   height: 1px;
-  margin: 8px 10px;
+  margin: 2px 10px 8px;
   background: rgba(255,255,255,.14);
 }
 
-/* 3) Footer in Shell garantiert sichtbar */
+/* FOOTER (from shell only) */
 #ss-shell .ss-footer{
   position: relative;
   z-index: 41;
-  display: block;
-  max-width: 1120px;
-  margin: 18px auto 12px;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  max-width: var(--ss-shell-max);
+  margin: 18px auto 10px;
   padding: 0 12px;
 }
 
 #ss-shell .ss-footer__inner{
-  min-height: 42px;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  min-height: 42px;
   text-align: center;
+  color: var(--ss-muted);
+  background: var(--ss-bg-2);
+  border: 1px solid var(--ss-border);
   border-radius: 12px;
   padding: 8px 12px;
-
-  color: rgba(255,255,255,.78);
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.14);
-}
-
-/* 4) Falls globales CSS Footer versteckt */
-#ss-shell .ss-footer,
-#ss-shell .ss-footer__inner{
+  font-size: .95rem;
   visibility: visible !important;
   opacity: 1 !important;
 }
 
-/* 5) Mobile */
+/* responsive */
 @media (max-width: 900px){
+  #ss-shell .ss-header{ padding: 0 10px; margin-top: 8px; }
+  #ss-shell .ss-nav{ gap: 6px; }
+  #ss-shell .ss-nav__link{ min-height: 38px; padding: 9px 6px; font-size: .95rem; }
+  #ss-shell .ss-brand,
+  #ss-shell .ss-langSwitch,
+  #ss-shell .ss-moreBtn{ min-height: 38px; padding: 9px 12px; }
+
   #ss-shell .ss-more__panel{
     left: 8px;
     right: 8px;
@@ -581,29 +296,10 @@ body.ss-noScroll { overflow: hidden; }
     max-height: calc(100dvh - 16px - env(safe-area-inset-top));
   }
 
-  #ss-shell .ss-footer{
-    padding: 0 10px;
-  }
-  #ss-shell .ss-footer{
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  position:relative !important;
-  z-index:50 !important;
-  max-width:1120px;
-  margin:18px auto 10px;
-  padding:0 12px;
-}
-#ss-shell .ss-footer__inner{
-  display:flex !important;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  min-height:42px;
-  color:var(--ss-muted, rgba(255,255,255,.70));
-  background:var(--ss-bg-2, rgba(255,255,255,.04));
-  border:1px solid var(--ss-border, rgba(255,255,255,.14));
-  border-radius:12px;
-  padding:8px 12px;
+  #ss-shell .ss-footer{ padding: 0 10px; }
 }
 
+@media (max-width: 620px){
+  #ss-shell .ss-nav__link{ font-size: .90rem; }
+  #ss-shell .ss-footer__inner{ font-size: .9rem; }
+}
