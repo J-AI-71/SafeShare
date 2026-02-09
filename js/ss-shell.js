@@ -1,5 +1,10 @@
 /* /js/shell.js */
-/* SafeShare Master-Flow FINAL */
+/* SafeShare Shell – Professional Final
+   - Full DE/EN slug coverage
+   - Grouped More menu (Product / Guides / Legal)
+   - Minimal footer
+   - Scroll-to-top on navigation
+*/
 
 (() => {
   "use strict";
@@ -21,6 +26,7 @@
     "datenschutz": "privacy",
     "nutzungsbedingungen": "terms",
     "impressum": "imprint",
+
     "tracking-parameter": "tracking-parameters",
     "utm-parameter-entfernen": "remove-utm-parameter",
     "url-cleaner-tool-vergleich": "url-cleaner-comparison",
@@ -31,7 +37,9 @@
     "shortcuts": "shortcuts",
     "show-share": "show-share"
   };
-  const EN_TO_DE = Object.fromEntries(Object.entries(DE_TO_EN).map(([de, en]) => [en, de]));
+  const EN_TO_DE = Object.fromEntries(
+    Object.entries(DE_TO_EN).map(([de, en]) => [en, de])
+  );
 
   const NAV_DE = [
     { label: "Start", href: "/" },
@@ -50,19 +58,69 @@
     { label: "DE", action: "switchLang" }
   ];
 
-  const MORE_DE = [
-    { label: "Lesezeichen", href: "/lesezeichen/", meta: "Tools" },
-    { label: "Datenschutz", href: "/datenschutz/", meta: "Info" },
-    { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen/", meta: "Legal" },
-    { label: "Impressum", href: "/impressum/", meta: "Legal" },
-    { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Kontakt" }
+  /* Grouped More menu */
+  const MORE_GROUPS_DE = [
+    {
+      title: "Produkt",
+      items: [
+        { label: "Lesezeichen", href: "/lesezeichen/", meta: "Tools" },
+        { label: "Shortcuts", href: "/shortcuts/", meta: "Tool" },
+        { label: "Show Share", href: "/show-share/", meta: "Tool" }
+      ]
+    },
+    {
+      title: "Guides",
+      items: [
+        { label: "Tracking-Parameter", href: "/tracking-parameter/", meta: "Guide" },
+        { label: "UTM entfernen", href: "/utm-parameter-entfernen/", meta: "Guide" },
+        { label: "Tool-Vergleich", href: "/url-cleaner-tool-vergleich/", meta: "Guide" },
+        { label: "E-Mail-Links", href: "/email-links-bereinigen/", meta: "Use case" },
+        { label: "Messenger-Links", href: "/messenger-links-bereinigen/", meta: "Use case" },
+        { label: "Social-Links", href: "/social-links-bereinigen/", meta: "Use case" },
+        { label: "Datenschutz beim Teilen", href: "/datenschutz-beim-link-teilen/", meta: "Guide" }
+      ]
+    },
+    {
+      title: "Recht & Kontakt",
+      items: [
+        { label: "Datenschutz", href: "/datenschutz/", meta: "Legal" },
+        { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen/", meta: "Legal" },
+        { label: "Impressum", href: "/impressum/", meta: "Legal" },
+        { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Kontakt" }
+      ]
+    }
   ];
-  const MORE_EN = [
-    { label: "Bookmarks", href: "/en/bookmarks/", meta: "Tools" },
-    { label: "Privacy", href: "/en/privacy/", meta: "Info" },
-    { label: "Terms", href: "/en/terms/", meta: "Legal" },
-    { label: "Imprint", href: "/en/imprint/", meta: "Legal" },
-    { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Contact" }
+
+  const MORE_GROUPS_EN = [
+    {
+      title: "Product",
+      items: [
+        { label: "Bookmarks", href: "/en/bookmarks/", meta: "Tools" },
+        { label: "Shortcuts", href: "/en/shortcuts/", meta: "Tool" },
+        { label: "Show Share", href: "/en/show-share/", meta: "Tool" }
+      ]
+    },
+    {
+      title: "Guides",
+      items: [
+        { label: "Tracking Parameters", href: "/en/tracking-parameters/", meta: "Guide" },
+        { label: "Remove UTM Parameter", href: "/en/remove-utm-parameter/", meta: "Guide" },
+        { label: "Cleaner Comparison", href: "/en/url-cleaner-comparison/", meta: "Guide" },
+        { label: "Email Link Cleaning", href: "/en/email-link-cleaning/", meta: "Use case" },
+        { label: "Messenger Link Cleaning", href: "/en/messenger-link-cleaning/", meta: "Use case" },
+        { label: "Social Link Cleaning", href: "/en/social-link-cleaning/", meta: "Use case" },
+        { label: "Privacy when Sharing Links", href: "/en/privacy-when-sharing-links/", meta: "Guide" }
+      ]
+    },
+    {
+      title: "Legal & Contact",
+      items: [
+        { label: "Privacy", href: "/en/privacy/", meta: "Legal" },
+        { label: "Terms", href: "/en/terms/", meta: "Legal" },
+        { label: "Imprint", href: "/en/imprint/", meta: "Legal" },
+        { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Contact" }
+      ]
+    }
   ];
 
   const FOOTER_DE = [
@@ -70,10 +128,7 @@
     { label: "App", href: "/app/" },
     { label: "Hilfe", href: "/hilfe/" },
     { label: "Pro", href: "/pro/" },
-    { label: "Schule", href: "/schule/" },
-    { label: "Lesezeichen", href: "/lesezeichen/" },
     { label: "Datenschutz", href: "/datenschutz/" },
-    { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen/" },
     { label: "Impressum", href: "/impressum/" }
   ];
   const FOOTER_EN = [
@@ -81,10 +136,7 @@
     { label: "App", href: "/en/app/" },
     { label: "Help", href: "/en/help/" },
     { label: "Pro", href: "/en/pro/" },
-    { label: "School", href: "/en/school/" },
-    { label: "Bookmarks", href: "/en/bookmarks/" },
     { label: "Privacy", href: "/en/privacy/" },
-    { label: "Terms", href: "/en/terms/" },
     { label: "Imprint", href: "/en/imprint/" }
   ];
 
@@ -94,6 +146,7 @@
     if (!s.endsWith("/")) s += "/";
     return s;
   };
+
   const currentPath = () => sanitizePath(WIN.location.pathname);
   const isEN = (p) => p === "/en/" || p.startsWith("/en/");
   const lang = () => (isEN(currentPath()) ? "en" : "de");
@@ -103,6 +156,7 @@
     const p = sanitizePath(path);
     return l === "en" ? trim(p.replace(/^\/en\//, "")) : trim(p);
   };
+
   const mapSlug = (slug, from) =>
     from === "de"
       ? (Object.prototype.hasOwnProperty.call(DE_TO_EN, slug) ? DE_TO_EN[slug] : slug)
@@ -133,12 +187,37 @@
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 
+  function goTopImmediate() {
+    WIN.scrollTo(0, 0);
+    DOC.documentElement.scrollTop = 0;
+    DOC.body.scrollTop = 0;
+  }
+
   function switchLanguage() {
     const from = lang();
     const to = from === "de" ? "en" : "de";
     const fromSlug = getSlug(currentPath(), from);
     const toSlug = mapSlug(fromSlug, from);
+    goTopImmediate();
     WIN.location.href = buildPath(to, toSlug);
+  }
+
+  function renderGroupedMore(groups) {
+    return groups.map(group => `
+      <section class="ss-group">
+        <h3 class="ss-group__title">${esc(group.title)}</h3>
+        <ul class="ss-list">
+          ${group.items.map(item => `
+            <li>
+              <a href="${item.href}" class="ss-list__a">
+                <span>${esc(item.label)}</span>
+                <span class="ss-list__meta">${esc(item.meta || "")}</span>
+              </a>
+            </li>
+          `).join("")}
+        </ul>
+      </section>
+    `).join("");
   }
 
   function renderHeaderAndMore() {
@@ -147,7 +226,7 @@
     const l = lang();
     const path = currentPath();
     const nav = l === "en" ? NAV_EN : NAV_DE;
-    const more = l === "en" ? MORE_EN : MORE_DE;
+    const groups = l === "en" ? MORE_GROUPS_EN : MORE_GROUPS_DE;
     const active = findActive(path, nav);
 
     const header = DOC.createElement("header");
@@ -204,16 +283,7 @@
         </button>
       </div>
       <div class="ss-sheet__body">
-        <ul class="ss-list">
-          ${more.map(item => `
-            <li>
-              <a href="${item.href}" class="ss-list__a">
-                <span>${esc(item.label)}</span>
-                <span class="ss-list__meta">${esc(item.meta || "")}</span>
-              </a>
-            </li>
-          `).join("")}
-        </ul>
+        ${renderGroupedMore(groups)}
       </div>
     `;
     DOC.body.append(sheet);
@@ -238,6 +308,7 @@
       moreBtn.setAttribute("aria-expanded", "true");
       closeBtn.focus();
     };
+
     const closeSheet = () => {
       backdrop.classList.remove("is-open");
       sheet.classList.remove("is-open");
@@ -263,6 +334,12 @@
         switchLanguage();
       });
     });
+
+    DOC.querySelectorAll(".ss-nav a[href], .ss-list a[href], .ss-siteFooter a[href], .ss-brand[href]").forEach((a) => {
+      a.addEventListener("click", () => {
+        goTopImmediate();
+      });
+    });
   }
 
   function renderFooter() {
@@ -272,9 +349,6 @@
     const l = lang();
     const links = l === "en" ? FOOTER_EN : FOOTER_DE;
     const year = new Date().getFullYear();
-    const meta = l === "en"
-      ? `Local-first link hygiene. Support: ${SUPPORT_EMAIL}`
-      : `Local-first Link-Hygiene. Support: ${SUPPORT_EMAIL}`;
 
     const footer = DOC.createElement("footer");
     footer.className = "ss-siteFooter";
@@ -289,14 +363,21 @@
           ${links.map(i => `<a href="${i.href}">${esc(i.label)}</a>`).join("")}
         </nav>
       </div>
-      <div class="ss-siteFooter__meta">© ${year} SafeShare · ${esc(meta)}</div>
+      <div class="ss-siteFooter__meta">© ${year} SafeShare</div>
     `;
-    DOC.body.append(footer);
+
+    DOC.body.appendChild(footer);
   }
 
   function boot() {
+    goTopImmediate();
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
     renderHeaderAndMore();
     renderFooter();
+
+    WIN.addEventListener("load", goTopImmediate, { once: true });
+    WIN.addEventListener("pageshow", goTopImmediate);
   }
 
   if (DOC.readyState === "loading") {
