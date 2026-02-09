@@ -1,426 +1,320 @@
-/* Datei: /css/ss-shell.css */
-/* SafeShare Shell – Master-Flow kompatibel (Header + More + Footer via ss-shell.js) */
-/* Ziel:
-   - Keine statischen Header/Footer-Blöcke in Seiten-HTML
-   - Gute Lesbarkeit im More-Menü (iPad/Tablet/Desktop)
-   - Robustes Verhalten mit/ohne bestehende Page-Tokens
-*/
+/* File: /css/ss-shell.css */
+/* SafeShare Shell CSS — readable "More" panel + shell footer */
 
-/* ------------------------------
-   1) Design-Tokens / Fallbacks
---------------------------------*/
 :root{
-  --ss-max: 1120px;
-  --ss-radius: 16px;
-  --ss-gap: 12px;
+  --ss-shell-max: 1120px;
+  --ss-shell-radius: 14px;
+  --ss-shell-gap: 12px;
 
-  --ss-bg: rgba(11, 16, 26, .88);
-  --ss-bg-strong: rgba(9, 14, 24, .96);
+  --ss-bg: var(--card, rgba(255,255,255,.06));
+  --ss-bg-2: rgba(255,255,255,.04);
+  --ss-border: var(--border, rgba(255,255,255,.12));
+  --ss-text: var(--text, rgba(255,255,255,.94));
+  --ss-muted: var(--muted2, rgba(255,255,255,.68));
 
-  --ss-border: rgba(255,255,255,.12);
-  --ss-border-strong: rgba(255,255,255,.22);
+  --ss-active-bg: rgba(47,227,183,.14);
+  --ss-active-border: rgba(47,227,183,.45);
 
-  --ss-text: rgba(255,255,255,.94);
-  --ss-muted: rgba(255,255,255,.70);
+  --ss-panel-bg: rgba(14,16,22,.96);
+  --ss-backdrop: rgba(0,0,0,.52);
 
-  --ss-hover: rgba(255,255,255,.08);
-  --ss-active: rgba(47,227,183,.14);
-  --ss-active-border: rgba(47,227,183,.40);
-
-  --ss-shadow: 0 18px 45px rgba(0,0,0,.34);
-
-  /* Nutzt vorhandene Projektfarben, wenn gesetzt */
-  --ss-accent: var(--mint, #2fe3b7);
-  --ss-accent-2: var(--mint2, #67e8f9);
-
-  --ss-focus: 0 0 0 3px rgba(47,227,183,.30);
+  --ss-shadow: 0 14px 34px rgba(0,0,0,.28);
+  --ss-focus: 0 0 0 2px rgba(47,227,183,.45);
 }
 
-/* ------------------------------
-   2) Base
---------------------------------*/
 *,
 *::before,
-*::after{ box-sizing: border-box; }
+*::after { box-sizing: border-box; }
 
-html, body { max-width: 100%; }
+html, body { margin: 0; padding: 0; }
 
-body.ss-noScroll {
-  overflow: hidden;
-  touch-action: none;
-}
+body.ss-noScroll { overflow: hidden; }
 
-/* Seiteninhalt soll unter Shell sauber stehen */
-.ss-main{
-  width: min(var(--ss-max), calc(100% - 24px));
-  margin-inline: auto;
-  margin-top: 14px;
-}
-
-/* ------------------------------
-   3) Shell-Container
---------------------------------*/
+/* shell mount */
 #ss-shell{
   width: 100%;
   position: relative;
-  z-index: 30;
+  z-index: 10;
 }
 
-/* ------------------------------
-   4) Header
---------------------------------*/
-.ss-header{
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-
-  border-bottom: 1px solid var(--ss-border);
-  background:
-    linear-gradient(180deg, rgba(8,12,20,.92), rgba(8,12,20,.84));
-  backdrop-filter: saturate(140%) blur(8px);
-  -webkit-backdrop-filter: saturate(140%) blur(8px);
+/* HEADER */
+#ss-shell .ss-header{
+  max-width: var(--ss-shell-max);
+  margin: 10px auto 8px;
+  padding: 0 12px;
 }
 
-.ss-header__row{
-  width: min(var(--ss-max), calc(100% - 24px));
-  margin-inline: auto;
-  min-height: 60px;
+#ss-shell .ss-header__row{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--ss-gap);
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-.ss-brand{
+#ss-shell .ss-brand{
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
-  color: var(--ss-text);
   font-weight: 800;
   letter-spacing: .2px;
-  font-size: clamp(1rem, .92rem + .35vw, 1.18rem);
-  white-space: nowrap;
+  color: var(--ss-text);
+  background: var(--ss-bg);
+  border: 1px solid var(--ss-border);
+  border-radius: 999px;
+  padding: 10px 14px;
+  min-height: 40px;
 }
 
-.ss-brand:focus-visible{
+#ss-shell .ss-brand:focus-visible{
   outline: none;
-  border-radius: 10px;
   box-shadow: var(--ss-focus);
 }
 
-.ss-headActions{
+#ss-shell .ss-headActions{
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* "More" Button */
-.ss-moreBtn{
+#ss-shell .ss-moreBtn{
   appearance: none;
   border: 1px solid var(--ss-border);
-  background: rgba(255,255,255,.04);
+  background: var(--ss-bg);
   color: var(--ss-text);
   border-radius: 999px;
-  height: 38px;
-  padding: 0 14px;
-  font-weight: 650;
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: 700;
+  min-height: 40px;
   cursor: pointer;
-  white-space: nowrap;
-  transition: .18s ease;
 }
-.ss-moreBtn:hover{
-  background: var(--ss-hover);
-  border-color: var(--ss-border-strong);
+
+#ss-shell .ss-moreBtn:hover{
+  background: rgba(255,255,255,.10);
 }
-.ss-moreBtn:focus-visible{
+
+#ss-shell .ss-moreBtn:focus-visible{
   outline: none;
   box-shadow: var(--ss-focus);
 }
 
-/* ------------------------------
-   5) Primary Nav
---------------------------------*/
-.ss-nav{
-  width: min(var(--ss-max), calc(100% - 24px));
-  margin: 0 auto 10px;
-  display: flex;
+/* TOP NAV */
+#ss-shell .ss-nav{
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
   gap: 8px;
-  overflow-x: auto;
-  scrollbar-width: thin;
-  padding-bottom: 2px;
 }
 
-.ss-nav::-webkit-scrollbar{ height: 8px; }
-.ss-nav::-webkit-scrollbar-thumb{
-  background: rgba(255,255,255,.18);
-  border-radius: 999px;
-}
-
-.ss-nav__link{
-  flex: 0 0 auto;
-  text-decoration: none;
-  color: var(--ss-text);
-  border: 1px solid var(--ss-border);
-  background: rgba(255,255,255,.03);
-  border-radius: 999px;
-  min-height: 36px;
-  padding: 7px 13px;
-  font-size: .94rem;
-  line-height: 1.2;
+#ss-shell .ss-nav__link{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: .16s ease;
+  text-decoration: none;
+  color: var(--ss-text);
+  background: var(--ss-bg);
+  border: 1px solid var(--ss-border);
+  border-radius: 999px;
+  padding: 10px 10px;
+  min-height: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
 }
 
-.ss-nav__link:hover{
-  background: var(--ss-hover);
-  border-color: var(--ss-border-strong);
+#ss-shell .ss-nav__link:hover{
+  background: rgba(255,255,255,.10);
 }
 
-.ss-nav__link:focus-visible{
+#ss-shell .ss-nav__link.is-active{
+  background: var(--ss-active-bg);
+  border-color: var(--ss-active-border);
+}
+
+#ss-shell .ss-nav__link:focus-visible{
   outline: none;
   box-shadow: var(--ss-focus);
 }
 
-.ss-nav__link.is-active{
-  background: var(--ss-active);
-  border-color: var(--ss-active-border);
-}
-
-/* ------------------------------
-   6) More Overlay (Lesbarkeit fix)
---------------------------------*/
-.ss-more[hidden]{ display: none !important; }
-
-.ss-more{
+/* MORE OVERLAY */
+#ss-shell .ss-more{
   position: fixed;
   inset: 0;
   z-index: 1200;
 }
 
-/* Backdrop */
-.ss-more__backdrop{
+#ss-shell .ss-more__backdrop{
   position: absolute;
   inset: 0;
   border: 0;
   margin: 0;
   padding: 0;
-  cursor: default;
-  background: rgba(4,10,20,.72);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  width: 100%;
+  background: var(--ss-backdrop);
+  cursor: pointer;
 }
 
-/* Panel */
-.ss-more__panel{
+#ss-shell .ss-more__panel{
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: max(12px, env(safe-area-inset-bottom));
-  width: min(980px, calc(100% - 20px));
-  max-height: min(78vh, 820px);
+  top: max(10px, env(safe-area-inset-top));
+  right: 10px;
+  width: min(92vw, 420px);
+  max-height: min(86vh, 760px);
   overflow: auto;
 
-  border: 1px solid rgba(255,255,255,.16);
-  border-radius: 20px;
-  background: rgba(10,16,30,.96);
-  box-shadow: 0 24px 60px rgba(0,0,0,.45);
+  background: var(--ss-panel-bg);
+  border: 1px solid var(--ss-border);
+  border-radius: 16px;
+  box-shadow: var(--ss-shadow);
+  padding: 12px;
 }
 
-/* Sticky head */
-.ss-more__head{
-  position: sticky;
-  top: 0;
-  z-index: 2;
+#ss-shell .ss-more__head{
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-
-  padding: 14px 16px;
-  border-bottom: 1px solid rgba(255,255,255,.10);
-  background: rgba(10,16,30,.98);
-  color: rgba(255,255,255,.96);
+  margin-bottom: 8px;
+  color: var(--ss-text);
 }
 
-.ss-more__head strong{
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: .2px;
-}
-
-.ss-more__close{
+#ss-shell .ss-more__close{
   appearance: none;
-  border: 1px solid rgba(255,255,255,.20);
+  border: 1px solid var(--ss-border);
   background: rgba(255,255,255,.06);
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  cursor: pointer;
-  font-size: 24px;
+  color: var(--ss-text);
+  border-radius: 10px;
+  width: 34px;
+  height: 34px;
   line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: .16s ease;
+  font-size: 24px;
+  cursor: pointer;
 }
-.ss-more__close:hover{
+
+#ss-shell .ss-more__close:hover{
   background: rgba(255,255,255,.12);
-  border-color: rgba(255,255,255,.30);
 }
-.ss-more__close:focus-visible{
+
+#ss-shell .ss-more__close:focus-visible{
   outline: none;
   box-shadow: var(--ss-focus);
 }
 
-.ss-more__list{
-  padding: 12px;
+#ss-shell .ss-more__list{
+  display: grid;
+  gap: 8px;
 }
 
-.ss-more__item{
+#ss-shell .ss-more__item{
   display: block;
   text-decoration: none;
-  color: rgba(255,255,255,.95);
-
-  padding: 13px 14px;
-  margin: 8px 0;
-  border: 1px solid rgba(255,255,255,.14);
-  border-radius: 14px;
-  background: rgba(255,255,255,.03);
-
-  line-height: 1.35;
-  font-size: .98rem;
-  transition: .14s ease;
-}
-
-.ss-more__item:hover,
-.ss-more__item:focus-visible{
-  background: rgba(255,255,255,.08);
-  border-color: rgba(255,255,255,.26);
-  outline: none;
-}
-
-.ss-more__item[aria-current="page"],
-.ss-more__item.is-active{
-  border-color: var(--ss-active-border);
-  background: var(--ss-active);
-}
-
-/* ------------------------------
-   7) Footer (aus Shell)
---------------------------------*/
-.ss-footer{
-  margin-top: 28px;
-  border-top: 1px solid var(--ss-border);
-  background: rgba(8,12,20,.56);
-}
-
-.ss-footer__inner{
-  width: min(var(--ss-max), calc(100% - 24px));
-  margin-inline: auto;
-  padding: 16px 0 calc(16px + env(safe-area-inset-bottom));
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  align-items: center;
-  color: var(--ss-muted);
-  font-size: .94rem;
-  line-height: 1.4;
-}
-
-/* optionale Footer-Links */
-.ss-footer a{
   color: var(--ss-text);
-  text-decoration: none;
-  border-bottom: 1px dashed rgba(255,255,255,.28);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-weight: 650;
+  line-height: 1.25;
+  word-break: break-word;
 }
-.ss-footer a:hover{ border-bottom-color: rgba(255,255,255,.5); }
-.ss-footer a:focus-visible{
+
+#ss-shell .ss-more__item:hover{
+  background: rgba(255,255,255,.10);
+}
+
+#ss-shell .ss-more__item.is-active{
+  background: var(--ss-active-bg);
+  border-color: var(--ss-active-border);
+}
+
+#ss-shell .ss-more__item:focus-visible{
   outline: none;
   box-shadow: var(--ss-focus);
-  border-radius: 6px;
 }
 
-/* ------------------------------
-   8) Utility helpers (nur Shell-bezogen)
---------------------------------*/
-.ss-visually-hidden{
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  margin: -1px !important;
-  border: 0 !important;
-  padding: 0 !important;
-  white-space: nowrap !important;
-  clip-path: inset(50%) !important;
-  clip: rect(0 0 0 0) !important;
-  overflow: hidden !important;
+#ss-shell .ss-more__divider{
+  height: 1px;
+  margin: 10px 0 8px;
+  background: rgba(255,255,255,.14);
 }
 
-/* ------------------------------
-   9) Responsive
---------------------------------*/
+#ss-shell .ss-more__list--secondary .ss-more__item{
+  background: rgba(255,255,255,.025);
+  border-color: rgba(255,255,255,.12);
+}
+
+#ss-shell .ss-more__item--help{
+  font-weight: 800;
+}
+
+/* FOOTER (in shell) */
+#ss-shell .ss-footer{
+  max-width: var(--ss-shell-max);
+  margin: 18px auto 10px;
+  padding: 0 12px;
+}
+
+#ss-shell .ss-footer__inner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  text-align: center;
+  color: var(--ss-muted);
+  background: var(--ss-bg-2);
+  border: 1px solid var(--ss-border);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: .95rem;
+}
+
+/* mobile tuning */
 @media (max-width: 900px){
-  .ss-header__row{ min-height: 56px; }
-  .ss-nav{ margin-bottom: 8px; }
-  .ss-nav__link{
-    min-height: 34px;
-    padding: 6px 11px;
-    font-size: .91rem;
+  #ss-shell .ss-header{
+    margin-top: 8px;
+    padding: 0 10px;
   }
-  .ss-more__panel{
-    width: calc(100% - 14px);
-    border-radius: 16px;
+
+  #ss-shell .ss-nav{
+    gap: 6px;
+  }
+
+  #ss-shell .ss-nav__link{
+    min-height: 38px;
+    padding: 9px 8px;
+    font-size: .95rem;
+  }
+
+  #ss-shell .ss-brand,
+  #ss-shell .ss-moreBtn{
+    min-height: 38px;
+    padding: 9px 12px;
+  }
+
+  #ss-shell .ss-more__panel{
+    right: 8px;
+    left: 8px;
+    width: auto;
+    max-height: min(86vh, 760px);
+  }
+
+  #ss-shell .ss-footer{
+    padding: 0 10px;
   }
 }
 
-@media (max-width: 640px){
-  .ss-main{
-    width: calc(100% - 16px);
-    margin-top: 12px;
+@media (max-width: 620px){
+  #ss-shell .ss-nav{
+    grid-template-columns: repeat(5, minmax(0,1fr));
   }
 
-  .ss-header__row,
-  .ss-nav,
-  .ss-footer__inner{
-    width: calc(100% - 16px);
+  #ss-shell .ss-nav__link{
+    font-size: .9rem;
+    letter-spacing: 0;
   }
 
-  .ss-brand{
-    font-size: 1rem;
-    max-width: 62vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .ss-moreBtn{
-    height: 36px;
-    padding: 0 12px;
-    font-size: .93rem;
-  }
-
-  .ss-more__head{
-    padding: 12px 12px;
-  }
-
-  .ss-more__list{
-    padding: 10px;
-  }
-
-  .ss-more__item{
-    margin: 7px 0;
-    padding: 12px 12px;
-    font-size: .96rem;
-  }
-}
-
-/* Reduzierte Bewegung */
-@media (prefers-reduced-motion: reduce){
-  *,
-  *::before,
-  *::after{
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
+  #ss-shell .ss-footer__inner{
+    font-size: .9rem;
   }
 }
