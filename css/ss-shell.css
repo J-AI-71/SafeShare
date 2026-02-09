@@ -584,4 +584,26 @@ body.ss-noScroll { overflow: hidden; }
   #ss-shell .ss-footer{
     padding: 0 10px;
   }
+  #ss-shell .ss-footer{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:relative !important;
+  z-index:50 !important;
+  max-width:1120px;
+  margin:18px auto 10px;
+  padding:0 12px;
 }
+#ss-shell .ss-footer__inner{
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:42px;
+  color:var(--ss-muted, rgba(255,255,255,.70));
+  background:var(--ss-bg-2, rgba(255,255,255,.04));
+  border:1px solid var(--ss-border, rgba(255,255,255,.14));
+  border-radius:12px;
+  padding:8px 12px;
+}
+
