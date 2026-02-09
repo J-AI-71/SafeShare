@@ -1,12 +1,13 @@
-// /js/ss-shell.js
+// File: /js/ss-shell.js
+// SafeShare Shell (DE/EN) — footer in shell, top-nav + readable more menu
 (() => {
   const root = document.getElementById('ss-shell');
   if (!root) return;
 
   const lang = document.body?.dataset?.lang === 'de' ? 'de' : 'en';
-  const page = document.body?.dataset?.page || '';
+  const page = (document.body?.dataset?.page || '').trim();
 
-  const T = {
+  const I18N = {
     de: {
       brand: 'SafeShare',
       start: 'Start',
@@ -17,6 +18,9 @@
       more: 'Mehr',
       close: 'Schließen',
       footerNote: 'Local-first Link-Hygiene.',
+      primaryNavAria: 'Hauptnavigation',
+      moreAria: 'Mehr-Menü',
+      allTopics: 'Alle Themen in Hilfe',
       links: {
         start: '/',
         app: '/app/',
@@ -35,7 +39,7 @@
         compare: '/url-cleaner-tool-vergleich/',
         shortcuts: '/shortcuts/'
       },
-      moreLinks: [
+      moreLinksPrimary: [
         ['Datenschutz beim Link-Teilen', 'privacySharing'],
         ['Lesezeichen', 'bookmarks'],
         ['E-Mail-Links', 'email'],
@@ -43,12 +47,14 @@
         ['Social-Links', 'social'],
         ['Tracking-Parameter', 'tracking'],
         ['UTM entfernen', 'removeUtm'],
-        ['Tool-Vergleich', 'compare'],
-        ['Shortcuts', 'shortcuts'],
+        ['Tool-Vergleich', 'compare']
+      ],
+      moreLinksSecondary: [
         ['Datenschutz', 'privacy'],
         ['Nutzungsbedingungen', 'terms']
       ]
     },
+
     en: {
       brand: 'SafeShare',
       start: 'Start',
@@ -59,6 +65,9 @@
       more: 'More',
       close: 'Close',
       footerNote: 'Local-first link hygiene.',
+      primaryNavAria: 'Primary navigation',
+      moreAria: 'More menu',
+      allTopics: 'All topics in Help',
       links: {
         start: '/en/',
         app: '/en/app/',
@@ -77,7 +86,7 @@
         compare: '/en/url-cleaner-comparison/',
         shortcuts: '/en/shortcuts/'
       },
-      moreLinks: [
+      moreLinksPrimary: [
         ['Privacy when sharing links', 'privacySharing'],
         ['Bookmarks', 'bookmarks'],
         ['Email links', 'email'],
@@ -85,17 +94,33 @@
         ['Social links', 'social'],
         ['Tracking parameters', 'tracking'],
         ['Remove UTM', 'removeUtm'],
-        ['Tool comparison', 'compare'],
-        ['Shortcuts', 'shortcuts'],
+        ['Tool comparison', 'compare']
+      ],
+      moreLinksSecondary: [
         ['Privacy', 'privacy'],
         ['Terms', 'terms']
       ]
     }
-  }[lang];
+  };
 
-  const active = (href) => {
-    const p = location.pathname;
-    return p === href || p === href.replace(/\/$/, '');
+  const T = I18N[lang];
+  const currentPath = location.pathname.replace(/\/+$/, '') || '/';
+
+  const normalize = (href) => href.replace(/\/+$/, '') || '/';
+  const isActive = (href) => normalize(currentPath) === normalize(href);
+
+  // Optional: map data-page values to nav keys for robust active states
+  const pageToNavKey = {
+    // DE
+    'start': 'start',
+    'index': 'start',
+    'app': 'app',
+    'schule': 'school',
+    'hilfe': 'help',
+    'pro': 'pro',
+    // EN
+    'school': 'school',
+    'help': 'help'
   };
 
   const topNav = [
@@ -106,42 +131,74 @@
     ['help', T.links.help]
   ];
 
-  const navHtml = topNav.map(([k, href]) => `
-    <a class="ss-nav__link${active(href) ? ' is-active' : ''}" href="${href}">
-      ${T[k]}
-    </a>
-  `).join('');
+  const activeByPageKey = pageToNavKey[page] || null;
 
-  const moreHtml = T.moreLinks.map(([label, key]) => `
-    <a class="ss-more__item" href="${T.links[key]}">${label}</a>
-  `).join('');
+  const topNavHtml = topNav
+    .map(([key, href]) => {
+      const active = isActive(href) || activeByPageKey === key;
+      return `
+        <a class="ss-nav__link${active ? ' is-active' : ''}" href="${href}">
+          ${T[key]}
+        </a>
+      `;
+    })
+    .join('');
 
-  // footer in shell (kein statischer footer im HTML)
+  const buildMoreLinks = (arr) =>
+    arr.map(([label, key]) => {
+      const href = T.links[key];
+      const active = isActive(href);
+      return `<a class="ss-more__item${active ? ' is-active' : ''}" href="${href}">${label}</a>`;
+    }).join('');
+
+  const morePrimaryHtml = buildMoreLinks(T.moreLinksPrimary || []);
+  const moreSecondaryHtml = buildMoreLinks(T.moreLinksSecondary || []);
+
   root.innerHTML = `
-    <header class="ss-header">
+    <header class="ss-header" role="banner">
       <div class="ss-header__row">
         <a class="ss-brand" href="${T.links.start}" aria-label="${T.brand}">${T.brand}</a>
+
         <div class="ss-headActions">
-          <button class="ss-moreBtn" id="ssMoreBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
+          <button
+            class="ss-moreBtn"
+            id="ssMoreBtn"
+            type="button"
+            aria-haspopup="dialog"
+            aria-controls="ssMore"
+            aria-expanded="false"
+          >
             ${T.more}
           </button>
         </div>
       </div>
-      <nav class="ss-nav" aria-label="Primary">${navHtml}</nav>
+
+      <nav class="ss-nav" aria-label="${T.primaryNavAria}">
+        ${topNavHtml}
+      </nav>
     </header>
 
     <div class="ss-more" id="ssMore" hidden>
-      <div class="ss-more__panel" role="dialog" aria-modal="true" aria-label="${T.more}">
+      <div class="ss-more__panel" role="dialog" aria-modal="true" aria-label="${T.moreAria}">
         <div class="ss-more__head">
           <strong>${T.more}</strong>
           <button class="ss-more__close" id="ssMoreClose" type="button" aria-label="${T.close}">×</button>
         </div>
-        <div class="ss-more__list">${moreHtml}</div>
+
+        <div class="ss-more__list">${morePrimaryHtml}</div>
+
+        <div class="ss-more__divider" aria-hidden="true"></div>
+
+        <div class="ss-more__list ss-more__list--secondary">
+          ${moreSecondaryHtml}
+          <a class="ss-more__item ss-more__item--help" href="${T.links.help}">${T.allTopics}</a>
+        </div>
       </div>
+
       <button class="ss-more__backdrop" id="ssMoreBackdrop" aria-label="${T.close}"></button>
     </div>
 
-    <footer class="ss-footer">
+    <footer class="ss-footer" role="contentinfo">
       <div class="ss-footer__inner">
         <span>${T.brand}</span>
         <span>•</span>
@@ -155,21 +212,35 @@
   const closeBtn = root.querySelector('#ssMoreClose');
   const backdrop = root.querySelector('#ssMoreBackdrop');
 
+  if (!more || !moreBtn || !closeBtn || !backdrop) return;
+
   const openMore = () => {
     more.hidden = false;
-    moreBtn?.setAttribute('aria-expanded', 'true');
+    moreBtn.setAttribute('aria-expanded', 'true');
     document.body.classList.add('ss-noScroll');
-  };
-  const closeMore = () => {
-    more.hidden = true;
-    moreBtn?.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('ss-noScroll');
+    closeBtn.focus();
   };
 
-  moreBtn?.addEventListener('click', openMore);
-  closeBtn?.addEventListener('click', closeMore);
-  backdrop?.addEventListener('click', closeMore);
+  const closeMore = () => {
+    more.hidden = true;
+    moreBtn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('ss-noScroll');
+    moreBtn.focus();
+  };
+
+  moreBtn.addEventListener('click', () => {
+    if (more.hidden) openMore();
+    else closeMore();
+  });
+  closeBtn.addEventListener('click', closeMore);
+  backdrop.addEventListener('click', closeMore);
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !more.hidden) closeMore();
+  });
+
+  // Close on link click in panel
+  more.querySelectorAll('a.ss-more__item').forEach((a) => {
+    a.addEventListener('click', () => closeMore());
   });
 })();
