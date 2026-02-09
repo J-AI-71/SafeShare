@@ -47,152 +47,152 @@
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
 <body data-page="tracking-parameters" data-lang="en">
-  <div id="ss-shell"></div>
-
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="tp-title">
-      <div class="ss-card ss-hero">
-        <h1 id="tp-title">Tracking parameters explained</h1>
-        <p class="ss-hero-kicker">No panic. No fog. Just the essentials.</p>
-        <p>
-          Tracking parameters are additions in URLs, usually after <code>?</code>.
-          Examples: <code>utm_source</code>, <code>fbclid</code>, <code>gclid</code>.
-          They can help with campaign analytics, but are often unnecessary when sharing.
-        </p>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="what-title">
-      <div class="ss-card">
-        <h2 id="what-title">What is it exactly?</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Base URL</h3>
-            <p class="ss-mono">https://example.com/article</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>With parameters</h3>
-            <p class="ss-mono">https://example.com/article?utm_source=newsletter&amp;utm_campaign=launch&amp;fbclid=XYZ</p>
-          </article>
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="tp-title">
+        <div class="ss-card ss-hero">
+          <h1 id="tp-title">Tracking parameters explained</h1>
+          <p class="ss-hero-kicker">No panic. No fog. Just the essentials.</p>
+          <p>
+            Tracking parameters are additions in URLs, usually after <code>?</code>.
+            Examples: <code>utm_source</code>, <code>fbclid</code>, <code>gclid</code>.
+            They can help with campaign analytics, but are often unnecessary when sharing.
+          </p>
         </div>
-        <p class="ss-muted ss-mt-12">The page can be identical — only the appended metadata differs.</p>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="utm-fields-title">
-      <div class="ss-card">
-        <h2 id="utm-fields-title">What do UTM fields mean?</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3><code>utm_source</code></h3>
-            <p class="ss-muted">Source, e.g. newsletter, linkedin, mastodon.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3><code>utm_medium</code></h3>
-            <p class="ss-muted">Channel type, e.g. email, social, cpc.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3><code>utm_campaign</code></h3>
-            <p class="ss-muted">Campaign name, e.g. spring_launch.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3><code>utm_term</code> / <code>utm_content</code></h3>
-            <p class="ss-muted">Optional: keywords/variants (A/B, ad variation).</p>
-          </article>
+      <section class="ss-section" aria-labelledby="what-title">
+        <div class="ss-card">
+          <h2 id="what-title">What is it exactly?</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Base URL</h3>
+              <p class="ss-mono">https://example.com/article</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>With parameters</h3>
+              <p class="ss-mono">https://example.com/article?utm_source=newsletter&amp;utm_campaign=launch&amp;fbclid=XYZ</p>
+            </article>
+          </div>
+          <p class="ss-muted ss-mt-12">The page can be identical — only the appended metadata differs.</p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="ids-title">
-      <div class="ss-card">
-        <h2 id="ids-title">Other common tracking IDs</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3><code>fbclid</code></h3>
-            <p class="ss-muted">Click ID from Facebook/Meta context.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3><code>gclid</code></h3>
-            <p class="ss-muted">Google Ads click ID.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3><code>msclkid</code></h3>
-            <p class="ss-muted">Microsoft Ads click ID.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3><code>mc_eid</code> / <code>mc_cid</code></h3>
-            <p class="ss-muted">Newsletter/mailing IDs (e.g., Mailchimp).</p>
-          </article>
+      <section class="ss-section" aria-labelledby="utm-fields-title">
+        <div class="ss-card">
+          <h2 id="utm-fields-title">What do UTM fields mean?</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3><code>utm_source</code></h3>
+              <p class="ss-muted">Source, e.g. newsletter, linkedin, mastodon.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3><code>utm_medium</code></h3>
+              <p class="ss-muted">Channel type, e.g. email, social, cpc.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3><code>utm_campaign</code></h3>
+              <p class="ss-muted">Campaign name, e.g. spring_launch.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3><code>utm_term</code> / <code>utm_content</code></h3>
+              <p class="ss-muted">Optional: keywords/variants (A/B, ad variation).</p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="why-remove-title">
-      <div class="ss-card">
-        <h2 id="why-remove-title">Why remove them before sharing?</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Fewer data traces</h3>
-            <p class="ss-muted">You pass along less extra metadata in chats, emails, and docs.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Cleaner links</h3>
-            <p class="ss-muted">Shorter, clearer, more professional-looking URLs.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Less breakage risk</h3>
-            <p class="ss-muted">Very long links are less likely to break in tools/editors.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Intentional sharing</h3>
-            <p class="ss-muted">You decide what metadata is included.</p>
-          </article>
+      <section class="ss-section" aria-labelledby="ids-title">
+        <div class="ss-card">
+          <h2 id="ids-title">Other common tracking IDs</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3><code>fbclid</code></h3>
+              <p class="ss-muted">Click ID from Facebook/Meta context.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3><code>gclid</code></h3>
+              <p class="ss-muted">Google Ads click ID.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3><code>msclkid</code></h3>
+              <p class="ss-muted">Microsoft Ads click ID.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3><code>mc_eid</code> / <code>mc_cid</code></h3>
+              <p class="ss-muted">Newsletter/mailing IDs (e.g., Mailchimp).</p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="careful-title">
-      <div class="ss-card">
-        <h2 id="careful-title">When not to remove blindly</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Affiliate / referral</h3>
-            <p class="ss-muted">Keys like <code>ref</code> or <code>tag</code> may be intentional attribution.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Functional parameters</h3>
-            <p class="ss-muted">Some keys control language, filters, IDs, or search state.</p>
-          </article>
+      <section class="ss-section" aria-labelledby="why-remove-title">
+        <div class="ss-card">
+          <h2 id="why-remove-title">Why remove them before sharing?</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Fewer data traces</h3>
+              <p class="ss-muted">You pass along less extra metadata in chats, emails, and docs.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Cleaner links</h3>
+              <p class="ss-muted">Shorter, clearer, more professional-looking URLs.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Less breakage risk</h3>
+              <p class="ss-muted">Very long links are less likely to break in tools/editors.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Intentional sharing</h3>
+              <p class="ss-muted">You decide what metadata is included.</p>
+            </article>
+          </div>
         </div>
-        <div class="ss-warn ss-mt-12">
-          Good practice: remove standard tracking keys, but review functional/attribution keys deliberately.
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="example-title">
-      <div class="ss-card">
-        <h2 id="example-title">Example</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>With UTM</h3>
-            <p class="ss-mono">https://example.com/guide?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=q1</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Cleaned</h3>
-            <p class="ss-mono">https://example.com/guide</p>
-          </article>
+      <section class="ss-section" aria-labelledby="careful-title">
+        <div class="ss-card">
+          <h2 id="careful-title">When not to remove blindly</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Affiliate / referral</h3>
+              <p class="ss-muted">Keys like <code>ref</code> or <code>tag</code> may be intentional attribution.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Functional parameters</h3>
+              <p class="ss-muted">Some keys control language, filters, IDs, or search state.</p>
+            </article>
+          </div>
+          <div class="ss-warn ss-mt-12">
+            Good practice: remove standard tracking keys, but review functional/attribution keys deliberately.
+          </div>
         </div>
+      </section>
 
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/en/app/">Clean a link now</a>
-          <a class="ss-btn" href="/en/remove-utm-parameter/">UTM in detail</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/url-cleaner-comparison/">Tool comparison</a>
+      <section class="ss-section" aria-labelledby="example-title">
+        <div class="ss-card">
+          <h2 id="example-title">Example</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>With UTM</h3>
+              <p class="ss-mono">https://example.com/guide?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=q1</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Cleaned</h3>
+              <p class="ss-mono">https://example.com/guide</p>
+            </article>
+          </div>
+
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/en/app/">Clean a link now</a>
+            <a class="ss-btn" href="/en/remove-utm-parameter/">UTM in detail</a>
+            <a class="ss-btn ss-btn--ghost" href="/en/url-cleaner-comparison/">Tool comparison</a>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
-  <div id="ss-footer"></div>
+      </section>
+    </main>
+  </div>
+
   <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
