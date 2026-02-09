@@ -1,8 +1,9 @@
 /* Datei: /js/shell.js
-   SafeShare Shell (vollständig auf Sitemap-Stand)
-   - rendert Header + Nav + More + Footer global
-   - DE/EN Schema: /en/<slug>/
-   - enthält alle von dir genannten Seiten (Mapping + Footer-Links)
+   SafeShare Shell (komplett)
+   - Header + Nav + More + Footer global
+   - DE/EN: /en/<slug>/
+   - Sprache über Nav-Button (EN/DE)
+   - Logo: /assets/brand/mark-192.png
 */
 
 (() => {
@@ -11,11 +12,9 @@
   const DOC = document;
   const WIN = window;
   const SUPPORT_EMAIL = "listings@safesharepro.com";
+  const LOGO_SRC = "/assets/brand/mark-192.png";
+  const LOGO_ALT = "SafeShare Logo";
 
-  /* =========================
-     Vollständiges DE -> EN Mapping
-     (laut deiner Liste)
-  ========================= */
   const DE_TO_EN = {
     "": "",
     "app": "app",
@@ -26,7 +25,6 @@
     "datenschutz": "privacy",
     "nutzungsbedingungen": "terms",
     "impressum": "imprint",
-
     "tracking-parameter": "tracking-parameters",
     "utm-parameter-entfernen": "remove-utm-parameter",
     "url-cleaner-tool-vergleich": "url-cleaner-comparison",
@@ -39,49 +37,38 @@
   };
   const EN_TO_DE = Object.fromEntries(Object.entries(DE_TO_EN).map(([de, en]) => [en, de]));
 
-  /* =========================
-     Hauptnavigation
-  ========================= */
   const NAV_DE = [
     { label: "Start", href: "/" },
     { label: "App", href: "/app/" },
     { label: "Hilfe", href: "/hilfe/" },
     { label: "Pro", href: "/pro/" },
-    { label: "Schule", href: "/schule/" }
+    { label: "Schule", href: "/schule/" },
+    { label: "EN", action: "switchLang" }
   ];
-
   const NAV_EN = [
     { label: "Start", href: "/en/" },
     { label: "App", href: "/en/app/" },
     { label: "Help", href: "/en/help/" },
     { label: "Pro", href: "/en/pro/" },
-    { label: "School", href: "/en/school/" }
+    { label: "School", href: "/en/school/" },
+    { label: "DE", action: "switchLang" }
   ];
 
-  /* =========================
-     More-Menü
-  ========================= */
   const MORE_DE = [
     { label: "Lesezeichen", href: "/lesezeichen/", meta: "Tools" },
     { label: "Datenschutz", href: "/datenschutz/", meta: "Info" },
     { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen/", meta: "Legal" },
     { label: "Impressum", href: "/impressum/", meta: "Legal" },
-    { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Kontakt" },
-    { label: "EN wechseln", action: "switchLang", meta: "Sprache" }
+    { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Kontakt" }
   ];
-
   const MORE_EN = [
     { label: "Bookmarks", href: "/en/bookmarks/", meta: "Tools" },
     { label: "Privacy", href: "/en/privacy/", meta: "Info" },
     { label: "Terms", href: "/en/terms/", meta: "Legal" },
     { label: "Imprint", href: "/en/imprint/", meta: "Legal" },
-    { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Contact" },
-    { label: "Switch to DE", action: "switchLang", meta: "Language" }
+    { label: "Support", href: `mailto:${SUPPORT_EMAIL}`, meta: "Contact" }
   ];
 
-  /* =========================
-     Footer-Links (vollständig)
-  ========================= */
   const FOOTER_DE = [
     { label: "Start", href: "/" },
     { label: "App", href: "/app/" },
@@ -92,7 +79,6 @@
     { label: "Datenschutz", href: "/datenschutz/" },
     { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen/" },
     { label: "Impressum", href: "/impressum/" },
-
     { label: "Tracking-Parameter", href: "/tracking-parameter/" },
     { label: "UTM entfernen", href: "/utm-parameter-entfernen/" },
     { label: "Tool-Vergleich", href: "/url-cleaner-tool-vergleich/" },
@@ -103,7 +89,6 @@
     { label: "Shortcuts", href: "/shortcuts/" },
     { label: "Show Share", href: "/show-share/" }
   ];
-
   const FOOTER_EN = [
     { label: "Start", href: "/en/" },
     { label: "App", href: "/en/app/" },
@@ -114,7 +99,6 @@
     { label: "Privacy", href: "/en/privacy/" },
     { label: "Terms", href: "/en/terms/" },
     { label: "Imprint", href: "/en/imprint/" },
-
     { label: "Tracking Parameters", href: "/en/tracking-parameters/" },
     { label: "Remove UTM Parameter", href: "/en/remove-utm-parameter/" },
     { label: "Cleaner Comparison", href: "/en/url-cleaner-comparison/" },
@@ -126,16 +110,12 @@
     { label: "Show Share", href: "/en/show-share/" }
   ];
 
-  /* =========================
-     Helpers
-  ========================= */
   const sanitizePath = (p) => {
     let s = p || "/";
     s = s.replace(/\/{2,}/g, "/");
     if (!s.endsWith("/")) s += "/";
     return s;
   };
-
   const currentPath = () => sanitizePath(WIN.location.pathname);
   const isEN = (p) => p === "/en/" || p.startsWith("/en/");
   const lang = () => (isEN(currentPath()) ? "en" : "de");
@@ -158,8 +138,9 @@
   };
 
   const findActive = (path, nav) => {
-    let best = nav[0]?.href || "/";
+    let best = "/";
     for (const i of nav) {
+      if (!i.href) continue;
       const href = sanitizePath(i.href);
       if (path === href || path.startsWith(href)) {
         if (href.length > best.length) best = href;
@@ -175,11 +156,16 @@
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 
-  /* =========================
-     Render Header + More
-  ========================= */
+  function switchLanguage() {
+    const from = lang();
+    const to = from === "de" ? "en" : "de";
+    const fromSlug = getSlug(currentPath(), from);
+    const toSlug = mapSlug(fromSlug, from);
+    WIN.location.href = buildPath(to, toSlug);
+  }
+
   function renderHeaderAndMore() {
-    if (DOC.querySelector(".ss-shell")) return;
+    DOC.querySelectorAll("header.ss-shell, #ssBackdrop, #ssSheet").forEach(el => el.remove());
 
     const l = lang();
     const path = currentPath();
@@ -193,17 +179,19 @@
       <div class="ss-shell__inner">
         <a class="ss-brand" href="${l === "en" ? "/en/" : "/"}" aria-label="SafeShare Home">
           <span class="ss-brand__mark" aria-hidden="true">
-            <img src="/assets/fav/icon-192.png" alt="" loading="eager" decoding="async">
+            <img src="${LOGO_SRC}" alt="${esc(LOGO_ALT)}" loading="eager" decoding="async">
           </span>
           <span class="ss-brand__txt">SafeShare</span>
         </a>
 
         <nav class="ss-nav" aria-label="${l === "en" ? "Main navigation" : "Hauptnavigation"}">
-          ${nav.map(i => `<a class="ss-nav__link${sanitizePath(i.href) === active ? " is-active" : ""}" href="${i.href}">${esc(i.label)}</a>`).join("")}
+          ${nav.map(i => i.action === "switchLang"
+            ? `<a class="ss-nav__link" href="#" data-action="switchLang">${esc(i.label)}</a>`
+            : `<a class="ss-nav__link${sanitizePath(i.href) === active ? " is-active" : ""}" href="${i.href}">${esc(i.label)}</a>`
+          ).join("")}
         </nav>
 
         <div class="ss-actions">
-          <button class="ss-iconBtn" id="ssLangBtn" type="button" aria-label="${l === "en" ? "Switch language" : "Sprache wechseln"}">${l === "en" ? "DE" : "EN"}</button>
           <button class="ss-iconBtn" id="ssMoreBtn" type="button" aria-haspopup="dialog" aria-controls="ssSheet" aria-expanded="false" aria-label="${l === "en" ? "Open menu" : "Menü öffnen"}">
             <svg class="ss-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
           </button>
@@ -233,10 +221,7 @@
       </div>
       <div class="ss-sheet__body">
         <ul class="ss-list">
-          ${more.map(item => item.action === "switchLang"
-            ? `<li><a href="#" class="ss-list__a" data-action="switchLang"><span>${esc(item.label)}</span><span class="ss-list__meta">${esc(item.meta || "")}</span></a></li>`
-            : `<li><a href="${item.href}" class="ss-list__a"><span>${esc(item.label)}</span><span class="ss-list__meta">${esc(item.meta || "")}</span></a></li>`
-          ).join("")}
+          ${more.map(item => `<li><a href="${item.href}" class="ss-list__a"><span>${esc(item.label)}</span><span class="ss-list__meta">${esc(item.meta || "")}</span></a></li>`).join("")}
         </ul>
       </div>
     `;
@@ -248,7 +233,6 @@
   function bindHeaderEvents() {
     const moreBtn = DOC.getElementById("ssMoreBtn");
     const closeBtn = DOC.getElementById("ssCloseBtn");
-    const langBtn = DOC.getElementById("ssLangBtn");
     const backdrop = DOC.getElementById("ssBackdrop");
     const sheet = DOC.getElementById("ssSheet");
 
@@ -271,14 +255,6 @@
       if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
     };
 
-    const switchLanguage = () => {
-      const from = lang();
-      const to = from === "de" ? "en" : "de";
-      const fromSlug = getSlug(currentPath(), from);
-      const toSlug = mapSlug(fromSlug, from);
-      WIN.location.href = buildPath(to, toSlug);
-    };
-
     moreBtn.addEventListener("click", openSheet);
     closeBtn.addEventListener("click", closeSheet);
     backdrop.addEventListener("click", closeSheet);
@@ -290,22 +266,17 @@
       }
     });
 
-    langBtn.addEventListener("click", switchLanguage);
-
-    sheet.addEventListener("click", (ev) => {
-      const link = ev.target instanceof Element ? ev.target.closest("[data-action='switchLang']") : null;
-      if (!link) return;
-      ev.preventDefault();
-      closeSheet();
-      setTimeout(switchLanguage, 120);
+    DOC.querySelectorAll('[data-action="switchLang"]').forEach((el) => {
+      el.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        switchLanguage();
+      });
     });
   }
 
-  /* =========================
-     Render Footer (vollständig)
-  ========================= */
   function renderFooter() {
-    if (DOC.querySelector(".ss-siteFooter")) return;
+    const old = DOC.querySelector("footer.ss-siteFooter");
+    if (old) old.remove();
 
     const l = lang();
     const links = l === "en" ? FOOTER_EN : FOOTER_DE;
@@ -319,7 +290,10 @@
     footer.setAttribute("role", "contentinfo");
     footer.innerHTML = `
       <div class="ss-siteFooter__top">
-        <div class="ss-siteFooter__brand">SafeShare</div>
+        <div class="ss-siteFooter__brand">
+          <img src="${LOGO_SRC}" alt="${esc(LOGO_ALT)}" class="ss-siteFooter__brandMark">
+          SafeShare
+        </div>
         <nav class="ss-siteFooter__links" aria-label="${l === "en" ? "Footer navigation" : "Footer Navigation"}">
           ${links.map(i => `<a href="${i.href}">${esc(i.label)}</a>`).join("")}
         </nav>
