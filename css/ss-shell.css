@@ -1,10 +1,8 @@
 /* Datei: /css/ss-shell.css
-   SafeShare Master Shell
-   Ziel:
-   - Einheitlicher Header/Nav/More-Menü-Flow für DE+EN
-   - Zero-Header-Prinzip (Seiten liefern KEINEN statischen Header)
-   - Funktioniert mit Schema: /en/<slug>/
-   - Ohne Inline-Styles notwendig
+   SafeShare Master-Flow Strict
+   - Header + Nav + More + Footer werden per shell.js gerendert
+   - DE+EN unterstützt (/en/<slug>/)
+   - Zero-Header/Zero-Footer im HTML der Seiten (keine statischen Shell-Blöcke)
 */
 
 :root{
@@ -29,42 +27,45 @@
 
   --ss-header-h: 64px;
   --ss-z-header: 90;
-  --ss-z-sheet: 120;
   --ss-z-backdrop: 110;
+  --ss-z-sheet: 120;
 }
 
-/* Base helpers (nicht destruktiv für bestehende Seiten-CSS) */
+/* Base */
 html, body{
   background: var(--ss-bg);
   color: var(--ss-text);
 }
+body{
+  min-height: 100dvh;
+}
+
+/* Optional helpers für Seiteninhalt */
 .ss-wrap{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
   margin-inline: auto;
-}
-@media (max-width: 720px){
-  .ss-wrap{ width: calc(100% - 1.25rem); }
 }
 .ss-main{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
   margin: 1rem auto 2rem;
 }
 @media (max-width: 720px){
-  .ss-main{ width: calc(100% - 1.25rem); margin-top: .75rem; }
+  .ss-wrap, .ss-main{ width: calc(100% - 1.25rem); }
+  .ss-main{ margin-top: .75rem; }
 }
 
-/* ===== Shell Header ===== */
+/* =========================
+   Header / Nav
+========================= */
 .ss-shell{
   position: sticky;
   top: 0;
   z-index: var(--ss-z-header);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  background:
-    linear-gradient(to bottom, rgba(8,12,16,.82), rgba(8,12,16,.58));
+  background: linear-gradient(to bottom, rgba(8,12,16,.82), rgba(8,12,16,.58));
   border-bottom: 1px solid var(--ss-border);
 }
-
 .ss-shell__inner{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
   min-height: var(--ss-header-h);
@@ -138,21 +139,21 @@ html, body{
   padding: .56rem .78rem;
   border-radius: 999px;
   white-space: nowrap;
-  transition: .18s ease;
+  transition: .16s ease;
 }
 .ss-nav__link:hover{
   color: var(--ss-text);
   background: var(--ss-surface-2);
   border-color: rgba(255,255,255,.12);
 }
-.ss-nav__link:focus-visible{
-  outline: none;
-  box-shadow: var(--ss-focus);
-}
 .ss-nav__link.is-active{
   color: var(--ss-text);
   background: rgba(47,227,183,.14);
   border-color: rgba(47,227,183,.46);
+}
+.ss-nav__link:focus-visible{
+  outline: none;
+  box-shadow: var(--ss-focus);
 }
 
 .ss-actions{
@@ -160,7 +161,6 @@ html, body{
   align-items: center;
   gap: .45rem;
 }
-
 .ss-iconBtn{
   appearance: none;
   border: 1px solid var(--ss-border);
@@ -172,7 +172,7 @@ html, body{
   display: inline-grid;
   place-items: center;
   cursor: pointer;
-  transition: .18s ease;
+  transition: .16s ease;
 }
 .ss-iconBtn:hover{
   transform: translateY(-1px);
@@ -189,19 +189,24 @@ html, body{
   fill: currentColor;
 }
 
-/* ===== Bottom Sheet (More Menü) ===== */
+/* =========================
+   More Sheet
+========================= */
 .ss-backdrop{
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.52);
+  background: rgba(0,0,0,.34);
   z-index: var(--ss-z-backdrop);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity .18s ease;
+  transition: opacity .18s ease, visibility 0s linear .18s;
 }
 .ss-backdrop.is-open{
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition: opacity .18s ease, visibility 0s linear 0s;
 }
 
 .ss-sheet{
@@ -211,8 +216,7 @@ html, body{
   transform: translate(-50%, 100%);
   width: min(720px, calc(100% - 1rem));
   z-index: var(--ss-z-sheet);
-  background:
-    linear-gradient(180deg, rgba(19,28,36,.98), rgba(10,16,22,.98));
+  background: linear-gradient(180deg, rgba(19,28,36,.98), rgba(10,16,22,.98));
   border: 1px solid var(--ss-border);
   border-bottom: none;
   border-radius: 18px 18px 0 0;
@@ -220,9 +224,13 @@ html, body{
   transition: transform .22s ease;
   max-height: min(88dvh, 760px);
   overflow: auto;
+  visibility: hidden;
+  pointer-events: none;
 }
 .ss-sheet.is-open{
   transform: translate(-50%, 0%);
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .ss-sheet__grip{
@@ -232,7 +240,6 @@ html, body{
   background: rgba(255,255,255,.25);
   margin: .55rem auto .15rem;
 }
-
 .ss-sheet__head{
   display: flex;
   align-items: center;
@@ -247,13 +254,9 @@ html, body{
   font-weight: 700;
   letter-spacing: .2px;
 }
-
 .ss-sheet__body{
   padding: .45rem .6rem .95rem;
-  display: grid;
-  gap: .5rem;
 }
-
 .ss-list{
   list-style: none;
   margin: 0;
@@ -261,7 +264,6 @@ html, body{
   display: grid;
   gap: .35rem;
 }
-
 .ss-list__a{
   display: flex;
   align-items: center;
@@ -290,17 +292,10 @@ html, body{
   font-size: .9rem;
 }
 
-/* ===== Utilities ===== */
-.ss-hidden{
-  display: none !important;
-}
-.ss-no-scroll{
-  overflow: hidden !important;
-  touch-action: none;
-}
-
-/* Optional Footer-Pattern (falls Seite Footer nutzt) */
-.ss-footer{
+/* =========================
+   Footer (global)
+========================= */
+.ss-siteFooter{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
   margin: 2rem auto 1.2rem;
   padding: 1rem 1.1rem;
@@ -310,9 +305,44 @@ html, body{
   color: var(--ss-muted);
 }
 @media (max-width: 720px){
-  .ss-footer{ width: calc(100% - 1.25rem); }
+  .ss-siteFooter{ width: calc(100% - 1.25rem); }
 }
-.ss-footer a{
+.ss-siteFooter__top{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem 1rem;
+}
+.ss-siteFooter__brand{
+  font-weight: 800;
   color: var(--ss-text);
-  text-underline-offset: 2px;
+}
+.ss-siteFooter__links{
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem .7rem;
+}
+.ss-siteFooter__links a{
+  color: var(--ss-text);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.03);
+  padding: .36rem .58rem;
+  border-radius: 999px;
+}
+.ss-siteFooter__links a:hover{
+  border-color: rgba(47,227,183,.42);
+  background: rgba(47,227,183,.08);
+}
+.ss-siteFooter__meta{
+  margin-top: .75rem;
+  color: var(--ss-muted-2);
+  font-size: .92rem;
+}
+
+/* Utilities */
+.ss-no-scroll{
+  overflow: hidden !important;
+  touch-action: none;
 }
