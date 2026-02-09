@@ -46,71 +46,71 @@
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
-<body data-page="email-links-bereinigen" data-lang="de">
-  <div id="ss-shell"></div>
+<body data-page="email" data-lang="de">
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="email-title">
+        <div class="ss-card ss-hero">
+          <h1 id="email-title">E-Mail-Links bereinigen</h1>
+          <p class="ss-hero-kicker">Weniger Ballast beim Weiterleiten. Mehr Klarheit im Postfach.</p>
+          <p>
+            Newsletter- und Kampagnenlinks enthalten oft zusätzliche Parameter
+            (<code>utm_*</code>, <code>mc_cid</code>, <code>mkt_tok</code> …).
+            Für Empfänger sind sie meist nicht nötig.
+          </p>
 
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="email-title">
-      <div class="ss-card ss-hero">
-        <h1 id="email-title">E-Mail-Links bereinigen</h1>
-        <p class="ss-hero-kicker">Weniger Ballast beim Weiterleiten. Mehr Klarheit im Postfach.</p>
-        <p>
-          Newsletter- und Kampagnenlinks enthalten oft zusätzliche Parameter
-          (<code>utm_*</code>, <code>mc_cid</code>, <code>mkt_tok</code> …).
-          Für Empfänger sind sie meist nicht nötig.
-        </p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/app/">Jetzt Link bereinigen</a>
+            <a class="ss-btn" href="/tracking-parameter/">Tracking-Parameter erklärt</a>
+            <a class="ss-btn ss-btn--ghost" href="/pro/">Pro für Regeln/Allowlist</a>
+          </div>
 
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/app/">Jetzt Link bereinigen</a>
-          <a class="ss-btn" href="/tracking-parameter/">Tracking-Parameter erklärt</a>
-          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro für Regeln/Allowlist</a>
+          <div class="ss-note ss-mt-12">
+            SafeShare arbeitet local-first: Die Bereinigung passiert in deinem Browser, ohne Upload an Fremdserver.
+          </div>
         </div>
+      </section>
 
-        <div class="ss-note ss-mt-12">
-          SafeShare arbeitet local-first: Die Bereinigung passiert in deinem Browser, ohne Upload an Fremdserver.
+      <section class="ss-section" aria-labelledby="when-title">
+        <div class="ss-card">
+          <h2 id="when-title">Wann sinnvoll?</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Weiterleitungen im Team</h3>
+              <p class="ss-muted">Links werden kürzer, lesbarer und einheitlicher.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Externe Mails</h3>
+              <p class="ss-muted">Weniger unnötige Kampagnen-Infos beim Teilen mit Dritten.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Dokumentation</h3>
+              <p class="ss-muted">Saubere URLs in Wikis, Tickets und Notizen.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Schulungen</h3>
+              <p class="ss-muted">Bessere Beispiele ohne Tracking-Rauschen.</p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="when-title">
-      <div class="ss-card">
-        <h2 id="when-title">Wann sinnvoll?</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Weiterleitungen im Team</h3>
-            <p class="ss-muted">Links werden kürzer, lesbarer und einheitlicher.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Externe Mails</h3>
-            <p class="ss-muted">Weniger unnötige Kampagnen-Infos beim Teilen mit Dritten.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Dokumentation</h3>
-            <p class="ss-muted">Saubere URLs in Wikis, Tickets und Notizen.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Schulungen</h3>
-            <p class="ss-muted">Bessere Beispiele ohne Tracking-Rauschen.</p>
-          </article>
+      <section class="ss-section" aria-labelledby="careful-title">
+        <div class="ss-card">
+          <h2 id="careful-title">Worauf achten?</h2>
+          <div class="ss-warn ss-mt-12">
+            Nicht blind alles entfernen: Manche Parameter sind funktional oder für Attribution absichtlich gesetzt.
+          </div>
+          <ul class="ss-mt-12">
+            <li><strong>Affiliate/Ref:</strong> z. B. <code>ref</code>, <code>tag</code> können gewollt sein.</li>
+            <li><strong>Funktional:</strong> Sprache, Produkt-ID, Filter oder Suchzustände.</li>
+            <li><strong>Pro:</strong> Mit Regeln/Allowlist steuerst du pro Domain präzise.</li>
+          </ul>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
+  </div>
 
-    <section class="ss-section" aria-labelledby="careful-title">
-      <div class="ss-card">
-        <h2 id="careful-title">Worauf achten?</h2>
-        <div class="ss-warn ss-mt-12">
-          Nicht blind alles entfernen: Manche Parameter sind funktional oder für Attribution absichtlich gesetzt.
-        </div>
-        <ul class="ss-mt-12">
-          <li><strong>Affiliate/Ref:</strong> z. B. <code>ref</code>, <code>tag</code> können gewollt sein.</li>
-          <li><strong>Funktional:</strong> Sprache, Produkt-ID, Filter oder Suchzustände.</li>
-          <li><strong>Pro:</strong> Mit Regeln/Allowlist steuerst du pro Domain präzise.</li>
-        </ul>
-      </div>
-    </section>
-  </main>
-  <div id="ss-footer"></div>
- <script src="/js/ss-shell.js" defer></script>
+  <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
