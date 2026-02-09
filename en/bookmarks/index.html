@@ -46,85 +46,85 @@
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
-<body data-page="bookmarks" data-lang="en">
-  <div id="ss-shell"></div>
-
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="bm-title">
-      <div class="ss-card ss-hero">
-        <h1 id="bm-title">Bookmarks (Bookmarklets)</h1>
-        <p class="ss-hero-kicker">Desktop: one click, cleaner link.</p>
-        <p>
-          Drag a button to your bookmarks bar. Then clean the current page URL
-          and copy it, or open SafeShare app with that URL prefilled.
-        </p>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="install-title">
-      <div class="ss-card">
-        <h2 id="install-title">Install (Desktop)</h2>
-        <ol>
-          <li>Show your browser bookmarks bar.</li>
-          <li>Drag one of the buttons to that bar.</li>
-          <li>Click it on any page you want to clean.</li>
-        </ol>
-        <div class="ss-warn ss-mt-12">
-          iOS/iPadOS: bookmarklets can be unreliable. Use the Shortcut flow there.
+<body data-page="lesezeichen" data-lang="en">
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="bm-title">
+        <div class="ss-card ss-hero">
+          <h1 id="bm-title">Bookmarks (Bookmarklets)</h1>
+          <p class="ss-hero-kicker">Desktop: one click, cleaner link.</p>
+          <p>
+            Drag a button to your bookmarks bar. Then clean the current page URL
+            and copy it, or open SafeShare app with that URL prefilled.
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="buttons-title">
-      <div class="ss-card">
-        <h2 id="buttons-title">Bookmarklets</h2>
-
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Clean + Copy</h3>
-            <p class="ss-muted">Cleans the current URL and copies it to clipboard.</p>
-            <p>
-              <a class="ss-btn ss-btn--primary"
-                 href="javascript:(()=>{const u=new URL(location.href);const DROP=new Set(['gclid','dclid','gbraid','wbraid','fbclid','msclkid','igshid','twclid','ttclid','li_fat_id','yclid','mc_cid','mc_eid','mkt_tok','_hsenc','_hsmi','srsltid','obclid','tblci','_ga','_gid','_gac','_fbp','_fbc']);const p=u.searchParams;[...p.keys()].forEach(k=>{const kl=k.toLowerCase();if(kl.startsWith('utm_')||DROP.has(kl))p.delete(k)});u.search=p.toString()?('?'+p.toString()):'';const out=u.toString();const done=()=>alert('SafeShare: link cleaned and copied');if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out).then(done,()=>prompt('Copy:',out));}else{prompt('Copy:',out);}})();">
-                SafeShare: Clean + Copy
-              </a>
-            </p>
-          </article>
-
-          <article class="ss-card ss-card--inner">
-            <h3>Open in SafeShare App</h3>
-            <p class="ss-muted">Opens SafeShare app with current URL passed in.</p>
-            <p>
-              <a class="ss-btn"
-                 href="javascript:(()=>{const target='https://safesharepro.com/en/app/?url='+encodeURIComponent(location.href);location.href=target;})();">
-                SafeShare: Open App
-              </a>
-            </p>
-          </article>
-        </div>
-
-        <details class="ss-mt-12">
-          <summary>Show code (if drag & drop is blocked)</summary>
-          <div class="ss-stack ss-mt-12">
-            <div class="ss-card ss-card--inner">
-              <h3>Clean + Copy (Code)</h3>
-              <p class="ss-mono">javascript:(()=>{const u=new URL(location.href);const DROP=new Set(['gclid','dclid','gbraid','wbraid','fbclid','msclkid','igshid','twclid','ttclid','li_fat_id','yclid','mc_cid','mc_eid','mkt_tok','_hsenc','_hsmi','srsltid','obclid','tblci','_ga','_gid','_gac','_fbp','_fbc']);const p=u.searchParams;[...p.keys()].forEach(k=>{const kl=k.toLowerCase();if(kl.startsWith('utm_')||DROP.has(kl))p.delete(k)});u.search=p.toString()?('?'+p.toString()):'';const out=u.toString();const done=()=>alert('SafeShare: link cleaned and copied');if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out).then(done,()=>prompt('Copy:',out));}else{prompt('Copy:',out);}})();</p>
-            </div>
-            <div class="ss-card ss-card--inner">
-              <h3>Open App (Code)</h3>
-              <p class="ss-mono">javascript:(()=>{const target='https://safesharepro.com/en/app/?url='+encodeURIComponent(location.href);location.href=target;})();</p>
-            </div>
+      <section class="ss-section" aria-labelledby="install-title">
+        <div class="ss-card">
+          <h2 id="install-title">Install (Desktop)</h2>
+          <ol>
+            <li>Show your browser bookmarks bar.</li>
+            <li>Drag one of the buttons to that bar.</li>
+            <li>Click it on any page you want to clean.</li>
+          </ol>
+          <div class="ss-warn ss-mt-12">
+            iOS/iPadOS: bookmarklets can be unreliable. Use the Shortcut flow there.
           </div>
-        </details>
-
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn" href="/en/help/">Help</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/app/">Open app directly</a>
         </div>
-      </div>
-    </section>
-  </main>
-  <div id="ss-footer"></div>
+      </section>
+
+      <section class="ss-section" aria-labelledby="buttons-title">
+        <div class="ss-card">
+          <h2 id="buttons-title">Bookmarklets</h2>
+
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Clean + Copy</h3>
+              <p class="ss-muted">Cleans the current URL and copies it to clipboard.</p>
+              <p>
+                <a class="ss-btn ss-btn--primary"
+                   href="javascript:(()=>{const u=new URL(location.href);const DROP=new Set(['gclid','dclid','gbraid','wbraid','fbclid','msclkid','igshid','twclid','ttclid','li_fat_id','yclid','mc_cid','mc_eid','mkt_tok','_hsenc','_hsmi','srsltid','obclid','tblci','_ga','_gid','_gac','_fbp','_fbc']);const p=u.searchParams;[...p.keys()].forEach(k=>{const kl=k.toLowerCase();if(kl.startsWith('utm_')||DROP.has(kl))p.delete(k)});u.search=p.toString()?('?'+p.toString()):'';const out=u.toString();const done=()=>alert('SafeShare: link cleaned and copied');if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out).then(done,()=>prompt('Copy:',out));}else{prompt('Copy:',out);}})();">
+                  SafeShare: Clean + Copy
+                </a>
+              </p>
+            </article>
+
+            <article class="ss-card ss-card--inner">
+              <h3>Open in SafeShare App</h3>
+              <p class="ss-muted">Opens SafeShare app with current URL passed in.</p>
+              <p>
+                <a class="ss-btn"
+                   href="javascript:(()=>{const target='https://safesharepro.com/en/app/?url='+encodeURIComponent(location.href);location.href=target;})();">
+                  SafeShare: Open App
+                </a>
+              </p>
+            </article>
+          </div>
+
+          <details class="ss-mt-12">
+            <summary>Show code (if drag & drop is blocked)</summary>
+            <div class="ss-stack ss-mt-12">
+              <div class="ss-card ss-card--inner">
+                <h3>Clean + Copy (Code)</h3>
+                <p class="ss-mono">javascript:(()=>{const u=new URL(location.href);const DROP=new Set(['gclid','dclid','gbraid','wbraid','fbclid','msclkid','igshid','twclid','ttclid','li_fat_id','yclid','mc_cid','mc_eid','mkt_tok','_hsenc','_hsmi','srsltid','obclid','tblci','_ga','_gid','_gac','_fbp','_fbc']);const p=u.searchParams;[...p.keys()].forEach(k=>{const kl=k.toLowerCase();if(kl.startsWith('utm_')||DROP.has(kl))p.delete(k)});u.search=p.toString()?('?'+p.toString()):'';const out=u.toString();const done=()=>alert('SafeShare: link cleaned and copied');if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out).then(done,()=>prompt('Copy:',out));}else{prompt('Copy:',out);}})();</p>
+              </div>
+              <div class="ss-card ss-card--inner">
+                <h3>Open App (Code)</h3>
+                <p class="ss-mono">javascript:(()=>{const target='https://safesharepro.com/en/app/?url='+encodeURIComponent(location.href);location.href=target;})();</p>
+              </div>
+            </div>
+          </details>
+
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn" href="/en/help/">Help</a>
+            <a class="ss-btn ss-btn--ghost" href="/en/app/">Open app directly</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
   <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
