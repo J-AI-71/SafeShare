@@ -1,5 +1,5 @@
-/* Datei: /js/shell.js */
-/* SafeShare Master Shell v2026-02-09-01
+/* Datei: /js/shell.js
+   SafeShare Master Shell
    - Rendert Header + Nav + More-Menü vollständig per JS
    - DE/EN Routing mit Schema /en/<slug>/
    - Aktive Seite automatisch
@@ -76,9 +76,7 @@
   const sanitizePath = (path) => {
     if (!path) return "/";
     let p = path;
-    // Doppelte Slashes reduzieren
     p = p.replace(/\/{2,}/g, "/");
-    // Trailing slash erzwingen
     if (!p.endsWith("/")) p += "/";
     return p;
   };
@@ -93,11 +91,9 @@
   const getSlug = (path, lang) => {
     const cleaned = sanitizePath(path);
     if (lang === "en") {
-      // /en/<slug>/
       const rest = cleaned.replace(/^\/en\//, "");
-      return stripLeadingAndTrailingSlash(rest); // "" for /en/
+      return stripLeadingAndTrailingSlash(rest);
     }
-    // /<slug>/
     return stripLeadingAndTrailingSlash(cleaned);
   };
 
@@ -110,12 +106,11 @@
   const getLang = () => (isEnglishPath(getCurrentPath()) ? "en" : "de");
 
   const mapSlugToOtherLang = (slug, fromLang) => {
-    if (fromLang === "de") return DE_TO_EN.hasOwnProperty(slug) ? DE_TO_EN[slug] : slug;
-    return EN_TO_DE.hasOwnProperty(slug) ? EN_TO_DE[slug] : slug;
+    if (fromLang === "de") return Object.prototype.hasOwnProperty.call(DE_TO_EN, slug) ? DE_TO_EN[slug] : slug;
+    return Object.prototype.hasOwnProperty.call(EN_TO_DE, slug) ? EN_TO_DE[slug] : slug;
   };
 
   const getActiveHref = (path, navList) => {
-    // Längstes Prefix gewinnt (damit /app/ vor /)
     let match = navList[0]?.href || "/";
     for (const item of navList) {
       const href = sanitizePath(item.href);
@@ -159,8 +154,7 @@
 
         <nav class="ss-nav" aria-label="${lang === "en" ? "Main navigation" : "Hauptnavigation"}">
           ${nav.map(item => `
-            <a class="ss-nav__link${sanitizePath(item.href) === activeHref ? " is-active" : ""}"
-               href="${item.href}">
+            <a class="ss-nav__link${sanitizePath(item.href) === activeHref ? " is-active" : ""}" href="${item.href}">
               ${escapeHtml(item.label)}
             </a>
           `).join("")}
@@ -179,7 +173,6 @@
       </div>
     `;
 
-    // Backdrop + Sheet
     const backdrop = DOC.createElement("div");
     backdrop.className = "ss-backdrop";
     backdrop.id = "ssBackdrop";
@@ -250,29 +243,28 @@
       backdrop.hidden = false;
       sheet.hidden = false;
 
-      // nächster Frame für CSS Transition
       requestAnimationFrame(() => {
         backdrop.classList.add("is-open");
         sheet.classList.add("is-open");
       });
 
       DOC.body.classList.add("ss-no-scroll");
-      moreBtn?.setAttribute("aria-expanded", "true");
-      closeBtn?.focus();
+      if (moreBtn) moreBtn.setAttribute("aria-expanded", "true");
+      if (closeBtn) closeBtn.focus();
     };
 
     const closeSheet = () => {
       backdrop.classList.remove("is-open");
       sheet.classList.remove("is-open");
       DOC.body.classList.remove("ss-no-scroll");
-      moreBtn?.setAttribute("aria-expanded", "false");
+      if (moreBtn) moreBtn.setAttribute("aria-expanded", "false");
 
       const onEnd = () => {
         sheet.hidden = true;
         backdrop.hidden = true;
-        sheet.removeEventListener("transitionend", onEnd);
         if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
       };
+
       sheet.addEventListener("transitionend", onEnd, { once: true });
     };
 
@@ -284,12 +276,11 @@
       const fromSlug = getSlug(currentPath, fromLang);
       const toSlug = mapSlugToOtherLang(fromSlug, fromLang);
 
-      const target = buildPath(toLang, toSlug);
-      WIN.location.href = target;
+      WIN.location.href = buildPath(toLang, toSlug);
     };
 
-    moreBtn?.addEventListener("click", openSheet);
-    closeBtn?.addEventListener("click", closeSheet);
+    if (moreBtn) moreBtn.addEventListener("click", openSheet);
+    if (closeBtn) closeBtn.addEventListener("click", closeSheet);
     backdrop.addEventListener("click", closeSheet);
 
     DOC.addEventListener("keydown", (ev) => {
@@ -299,15 +290,13 @@
       }
     });
 
-    langBtn?.addEventListener("click", switchLanguage);
+    if (langBtn) langBtn.addEventListener("click", switchLanguage);
 
-    // Delegation für switchLang im Sheet
     sheet.addEventListener("click", (ev) => {
       const target = ev.target instanceof Element ? ev.target.closest("[data-action='switchLang']") : null;
       if (!target) return;
       ev.preventDefault();
       closeSheet();
-      // kleines Delay, damit close animieren kann
       setTimeout(() => switchLanguage(), 120);
     });
   };
@@ -317,8 +306,7 @@
   --------------------------------------------------------- */
 
   const boot = () => {
-    // Idempotenz: wenn schon gerendert, nicht doppeln
-    if (DOC.querySelector(".ss-shell")) return;
+    if (DOC.querySelector(".ss-shell")) return; // idempotent
     renderShell();
   };
 
