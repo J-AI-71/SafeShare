@@ -1,5 +1,5 @@
 /* File: /css/ss-shell.css */
-/* SafeShare Shell CSS — FINAL stable */
+/* SafeShare Shell CSS — stable + footer rendered by JS at body end */
 
 :root{
   --ss-shell-max: 1120px;
@@ -22,9 +22,9 @@
 
 *,
 *::before,
-*::after{ box-sizing: border-box; }
+*::after { box-sizing: border-box; }
 
-body.ss-noScroll{ overflow: hidden; }
+body.ss-noScroll { overflow: hidden; }
 
 #ss-shell{
   position: relative;
@@ -208,11 +208,6 @@ body.ss-noScroll{ overflow: hidden; }
   cursor: pointer;
 }
 
-#ss-shell .ss-more__close:focus-visible{
-  outline: none;
-  box-shadow: var(--ss-focus);
-}
-
 #ss-shell .ss-more__list{
   display: grid;
   gap: 8px;
@@ -249,17 +244,15 @@ body.ss-noScroll{ overflow: hidden; }
   background: rgba(255,255,255,.14);
 }
 
-/* FOOTER (shell only) */
-#ss-shell .ss-footer{
-  position: relative;
-  z-index: 41;
-  display: block;
+/* Footer rendered by JS at end of body */
+#ss-shell-footer.ss-footer{
   max-width: var(--ss-shell-max);
   margin: 18px auto 10px;
   padding: 0 12px;
+  display: block;
 }
 
-#ss-shell .ss-footer__inner{
+#ss-shell-footer .ss-footer__inner{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -272,13 +265,6 @@ body.ss-noScroll{ overflow: hidden; }
   border-radius: 12px;
   padding: 8px 12px;
   font-size: .95rem;
-}
-
-/* defensive visibility */
-#ss-shell .ss-footer,
-#ss-shell .ss-footer__inner{
-  visibility: visible !important;
-  opacity: 1 !important;
 }
 
 /* responsive */
@@ -297,10 +283,10 @@ body.ss-noScroll{ overflow: hidden; }
     max-height: calc(100dvh - 16px - env(safe-area-inset-top));
   }
 
-  #ss-shell .ss-footer{ padding: 0 10px; }
+  #ss-shell-footer.ss-footer{ padding: 0 10px; }
 }
 
 @media (max-width: 620px){
   #ss-shell .ss-nav__link{ font-size: .90rem; }
-  #ss-shell .ss-footer__inner{ font-size: .9rem; }
+  #ss-shell-footer .ss-footer__inner{ font-size: .9rem; }
 }
