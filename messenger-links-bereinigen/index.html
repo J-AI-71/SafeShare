@@ -40,77 +40,77 @@
   <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" /> 
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
-  
+
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
-<body data-page="messenger-links-bereinigen" data-lang="de">
-  <div id="ss-shell"></div>
+<body data-page="messenger" data-lang="de">
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="msg-title">
+        <div class="ss-card ss-hero">
+          <h1 id="msg-title">Messenger-Links bereinigen</h1>
+          <p class="ss-hero-kicker">Vor dem Senden kurz sauber machen.</p>
+          <p>
+            In Messenger-Chats werden Links oft direkt weitergereicht.
+            Viele enthalten unnötige Tracking-Parameter oder Click-IDs.
+            SafeShare entfernt typische Keys lokal im Browser.
+          </p>
 
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="msg-title">
-      <div class="ss-card ss-hero">
-        <h1 id="msg-title">Messenger-Links bereinigen</h1>
-        <p class="ss-hero-kicker">Vor dem Senden kurz sauber machen.</p>
-        <p>
-          In Messenger-Chats werden Links oft direkt weitergereicht.
-          Viele enthalten unnötige Tracking-Parameter oder Click-IDs.
-          SafeShare entfernt typische Keys lokal im Browser.
-        </p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/app/">Link jetzt bereinigen</a>
+            <a class="ss-btn" href="/hilfe/">Hilfe</a>
+            <a class="ss-btn ss-btn--ghost" href="/pro/">Pro für Feinkontrolle</a>
+          </div>
 
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/app/">Link jetzt bereinigen</a>
-          <a class="ss-btn" href="/hilfe/">Hilfe</a>
-          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro für Feinkontrolle</a>
+          <div class="ss-note ss-mt-12">
+            Local-first: keine Uploads, keine Pflicht-Anmeldung, kein zusätzlicher Tracking-Dienst.
+          </div>
         </div>
+      </section>
 
-        <div class="ss-note ss-mt-12">
-          Local-first: keine Uploads, keine Pflicht-Anmeldung, kein zusätzlicher Tracking-Dienst.
+      <section class="ss-section" aria-labelledby="benefit-title">
+        <div class="ss-card">
+          <h2 id="benefit-title">Warum gerade im Messenger?</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Schneller Alltag</h3>
+              <p class="ss-muted">Weniger Link-Müll bei spontanen Shares.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Gruppen-Chats</h3>
+              <p class="ss-muted">Sauberere, lesbarere URLs für alle Beteiligten.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Weniger Metadaten</h3>
+              <p class="ss-muted">Du verteilst weniger unnötige Kampagnen-Infos.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Konsistenz</h3>
+              <p class="ss-muted">Ein klarer Workflow: Copy → Clean → Share.</p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="benefit-title">
-      <div class="ss-card">
-        <h2 id="benefit-title">Warum gerade im Messenger?</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Schneller Alltag</h3>
-            <p class="ss-muted">Weniger Link-Müll bei spontanen Shares.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Gruppen-Chats</h3>
-            <p class="ss-muted">Sauberere, lesbarere URLs für alle Beteiligten.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Weniger Metadaten</h3>
-            <p class="ss-muted">Du verteilst weniger unnötige Kampagnen-Infos.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Konsistenz</h3>
-            <p class="ss-muted">Ein klarer Workflow: Copy → Clean → Share.</p>
-          </article>
+      <section class="ss-section" aria-labelledby="care-title">
+        <div class="ss-card">
+          <h2 id="care-title">Wichtiger Hinweis</h2>
+          <div class="ss-warn ss-mt-12">
+            Nicht blind alle Parameter löschen. Manche sind funktional oder gewollte Attribution.
+          </div>
+          <ul class="ss-mt-12">
+            <li><strong>Funktional:</strong> Sprache, Suche, Produktvarianten.</li>
+            <li><strong>Affiliate:</strong> <code>ref</code> / <code>tag</code> können absichtlich gesetzt sein.</li>
+            <li><strong>Pro:</strong> Domain-Regeln/Allowlist für präzise Kontrolle.</li>
+          </ul>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
+  </div>
 
-    <section class="ss-section" aria-labelledby="care-title">
-      <div class="ss-card">
-        <h2 id="care-title">Wichtiger Hinweis</h2>
-        <div class="ss-warn ss-mt-12">
-          Nicht blind alle Parameter löschen. Manche sind funktional oder gewollte Attribution.
-        </div>
-        <ul class="ss-mt-12">
-          <li><strong>Funktional:</strong> Sprache, Suche, Produktvarianten.</li>
-          <li><strong>Affiliate:</strong> <code>ref</code> / <code>tag</code> können absichtlich gesetzt sein.</li>
-          <li><strong>Pro:</strong> Domain-Regeln/Allowlist für präzise Kontrolle.</li>
-        </ul>
-      </div>
-    </section>
-  </main>
-  <div id="ss-footer"></div>
   <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
