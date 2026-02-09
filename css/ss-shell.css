@@ -1,13 +1,9 @@
 /* File: /css/ss-shell.css */
-/* SafeShare Shell CSS — consolidated, readable More panel + shell footer */
+/* SafeShare Shell CSS — final, readable More panel, footer from shell */
 
-/* =========================
-   Tokens
-========================= */
+/* ===== Tokens ===== */
 :root{
   --ss-shell-max: 1120px;
-  --ss-shell-radius: 14px;
-  --ss-shell-gap: 12px;
 
   --ss-bg: var(--card, rgba(255,255,255,.06));
   --ss-bg-2: rgba(255,255,255,.04);
@@ -25,29 +21,22 @@
   --ss-focus: 0 0 0 2px rgba(47,227,183,.45);
 }
 
+/* ===== Base ===== */
 *,
 *::before,
-*::after{ box-sizing: border-box; }
+*::after { box-sizing: border-box; }
 
-html, body{ margin: 0; padding: 0; }
+html, body { margin: 0; padding: 0; }
 
-body.ss-noScroll{
-  overflow: hidden;
-  touch-action: none;
-}
+body.ss-noScroll { overflow: hidden; }
 
-/* =========================
-   Shell mount
-========================= */
 #ss-shell{
   width: 100%;
   position: relative;
-  z-index: 10;
+  z-index: 20;
 }
 
-/* =========================
-   Header
-========================= */
+/* ===== Header ===== */
 #ss-shell .ss-header{
   max-width: var(--ss-shell-max);
   margin: 10px auto 8px;
@@ -76,6 +65,10 @@ body.ss-noScroll{
   min-height: 40px;
 }
 
+#ss-shell .ss-brand:hover{
+  background: rgba(255,255,255,.10);
+}
+
 #ss-shell .ss-brand:focus-visible{
   outline: none;
   box-shadow: var(--ss-focus);
@@ -87,6 +80,30 @@ body.ss-noScroll{
   gap: 8px;
 }
 
+/* optional language switch link/button if present in JS */
+#ss-shell .ss-langBtn{
+  appearance: none;
+  border: 1px solid var(--ss-border);
+  background: var(--ss-bg);
+  color: var(--ss-text);
+  border-radius: 999px;
+  padding: 10px 12px;
+  min-height: 40px;
+  text-decoration: none;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#ss-shell .ss-langBtn:hover{
+  background: rgba(255,255,255,.10);
+}
+
+#ss-shell .ss-langBtn:focus-visible{
+  outline: none;
+  box-shadow: var(--ss-focus);
+}
+
 #ss-shell .ss-moreBtn{
   appearance: none;
   border: 1px solid var(--ss-border);
@@ -94,9 +111,9 @@ body.ss-noScroll{
   color: var(--ss-text);
   border-radius: 999px;
   padding: 10px 14px;
+  min-height: 40px;
   font: inherit;
   font-weight: 700;
-  min-height: 40px;
   cursor: pointer;
 }
 
@@ -109,28 +126,7 @@ body.ss-noScroll{
   box-shadow: var(--ss-focus);
 }
 
-/* Optional language button support */
-#ss-shell .ss-langBtn{
-  appearance: none;
-  border: 1px solid var(--ss-border);
-  background: var(--ss-bg);
-  color: var(--ss-text);
-  border-radius: 999px;
-  padding: 10px 12px;
-  font: inherit;
-  font-weight: 700;
-  min-height: 40px;
-  cursor: pointer;
-}
-#ss-shell .ss-langBtn:hover{ background: rgba(255,255,255,.10); }
-#ss-shell .ss-langBtn:focus-visible{
-  outline: none;
-  box-shadow: var(--ss-focus);
-}
-
-/* =========================
-   Top nav
-========================= */
+/* ===== Top nav ===== */
 #ss-shell .ss-nav{
   display: grid;
   grid-template-columns: repeat(5, minmax(0,1fr));
@@ -141,16 +137,17 @@ body.ss-noScroll{
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 40px;
+  padding: 10px 10px;
+  text-align: center;
+  line-height: 1.1;
   text-decoration: none;
+  font-weight: 700;
   color: var(--ss-text);
+
   background: var(--ss-bg);
   border: 1px solid var(--ss-border);
   border-radius: 999px;
-  padding: 10px 10px;
-  min-height: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
 }
 
 #ss-shell .ss-nav__link:hover{
@@ -167,10 +164,10 @@ body.ss-noScroll{
   box-shadow: var(--ss-focus);
 }
 
-/* =========================
-   More overlay (single source of truth)
-========================= */
-#ss-shell .ss-more[hidden]{ display: none !important; }
+/* ===== More overlay ===== */
+#ss-shell .ss-more[hidden]{
+  display: none !important;
+}
 
 #ss-shell .ss-more{
   position: fixed;
@@ -181,11 +178,11 @@ body.ss-noScroll{
 #ss-shell .ss-more__backdrop{
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   border: 0;
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
   background: var(--ss-backdrop);
   backdrop-filter: blur(2px);
   cursor: pointer;
@@ -199,18 +196,14 @@ body.ss-noScroll{
   max-height: calc(100dvh - 24px - env(safe-area-inset-top));
   overflow: auto;
 
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.16);
   background: var(--ss-panel-bg);
   color: #f3f6fb;
-  border: 1px solid rgba(255,255,255,.16);
-  border-radius: 16px;
   box-shadow: var(--ss-shadow);
 }
 
 #ss-shell .ss-more__head{
-  position: sticky;
-  top: 0;
-  z-index: 1;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -218,20 +211,25 @@ body.ss-noScroll{
 
   padding: 12px 14px;
   border-bottom: 1px solid rgba(255,255,255,.12);
+
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background: var(--ss-panel-bg);
 }
 
 #ss-shell .ss-more__head strong{
-  color: #fff;
+  color: #ffffff;
   font-size: 16px;
   line-height: 1.2;
+  font-weight: 800;
 }
 
 #ss-shell .ss-more__close{
   appearance: none;
   border: 1px solid rgba(255,255,255,.20);
   background: rgba(255,255,255,.06);
-  color: #fff;
+  color: #ffffff;
   border-radius: 10px;
   min-width: 36px;
   height: 36px;
@@ -257,22 +255,27 @@ body.ss-noScroll{
 
 #ss-shell .ss-more__item{
   display: block;
-  text-decoration: none;
-  color: #f3f6fb;
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 10px;
   padding: 10px 12px;
+  border-radius: 10px;
+
+  text-decoration: none;
   line-height: 1.35;
   word-break: break-word;
   font-weight: 650;
+
+  color: #f3f6fb;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08);
 }
 
-#ss-shell .ss-more__item:hover,
-#ss-shell .ss-more__item:focus-visible{
+#ss-shell .ss-more__item:hover{
   background: rgba(255,255,255,.09);
   border-color: rgba(255,255,255,.22);
+}
+
+#ss-shell .ss-more__item:focus-visible{
   outline: none;
+  box-shadow: var(--ss-focus);
 }
 
 #ss-shell .ss-more__item.is-active{
@@ -282,7 +285,7 @@ body.ss-noScroll{
 
 #ss-shell .ss-more__divider{
   height: 1px;
-  margin: 10px 0 8px;
+  margin: 10px 10px 8px;
   background: rgba(255,255,255,.14);
 }
 
@@ -295,9 +298,7 @@ body.ss-noScroll{
   font-weight: 800;
 }
 
-/* =========================
-   Footer (rendered by ss-shell.js)
-========================= */
+/* ===== Footer from shell ===== */
 #ss-shell .ss-footer{
   max-width: var(--ss-shell-max);
   margin: 18px auto 10px;
@@ -305,30 +306,32 @@ body.ss-noScroll{
 }
 
 #ss-shell .ss-footer__inner{
+  min-height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 42px;
+
   text-align: center;
   color: var(--ss-muted);
+  font-size: .95rem;
+
   background: var(--ss-bg-2);
   border: 1px solid var(--ss-border);
   border-radius: 12px;
   padding: 8px 12px;
-  font-size: .95rem;
 }
 
-/* =========================
-   Responsive
-========================= */
+/* ===== Responsive ===== */
 @media (max-width: 900px){
   #ss-shell .ss-header{
     margin-top: 8px;
     padding: 0 10px;
   }
 
-  #ss-shell .ss-nav{ gap: 6px; }
+  #ss-shell .ss-nav{
+    gap: 6px;
+  }
 
   #ss-shell .ss-nav__link{
     min-height: 38px;
