@@ -1,12 +1,12 @@
-// File: /js/ss-shell.js
+/* File: /js/ss-shell.js */
+/* SafeShare Shell JS — FINAL stable (DE/EN switch, nav, readable more, shell footer) */
 (() => {
   const root = document.getElementById('ss-shell');
   if (!root) return;
 
-  const isDE = document.body?.dataset?.lang === 'de';
-  const lang = isDE ? 'de' : 'en';
-  const page = (document.body?.dataset?.page || '').trim();
-  const path = (location.pathname || '/').replace(/\/+$/, '') || '/';
+  const body = document.body || document.documentElement;
+  const lang = (body.dataset.lang === 'de') ? 'de' : 'en';
+  const page = (body.dataset.page || '').trim();
 
   const I18N = {
     de: {
@@ -18,10 +18,8 @@
       help: 'Hilfe',
       more: 'Mehr',
       close: 'Schließen',
+      langSwitch: 'EN',
       footerNote: 'Local-first Link-Hygiene.',
-      legalPrivacy: 'Datenschutz',
-      legalTerms: 'Nutzungsbedingungen',
-      langBtn: 'EN',
       links: {
         start: '/',
         app: '/app/',
@@ -30,6 +28,7 @@
         help: '/hilfe/',
         privacy: '/datenschutz/',
         terms: '/nutzungsbedingungen/',
+        imprint: '/impressum/',
         privacySharing: '/datenschutz-beim-link-teilen/',
         bookmarks: '/lesezeichen/',
         email: '/email-links-bereinigen/',
@@ -38,25 +37,8 @@
         tracking: '/tracking-parameter/',
         removeUtm: '/utm-parameter-entfernen/',
         compare: '/url-cleaner-tool-vergleich/',
-        shortcuts: '/shortcuts/',
-        imprint: '/impressum/'
-      },
-      morePrimary: [
-        ['Datenschutz beim Link-Teilen', 'privacySharing'],
-        ['Lesezeichen', 'bookmarks'],
-        ['E-Mail-Links', 'email'],
-        ['Messenger-Links', 'messenger'],
-        ['Social-Links', 'social'],
-        ['Tracking-Parameter', 'tracking'],
-        ['UTM entfernen', 'removeUtm'],
-        ['Tool-Vergleich', 'compare']
-      ],
-      moreSecondary: [
-        ['Shortcuts', 'shortcuts'],
-        ['Impressum', 'imprint'],
-        ['Datenschutz', 'privacy'],
-        ['Nutzungsbedingungen', 'terms']
-      ]
+        shortcuts: '/shortcuts/'
+      }
     },
     en: {
       brand: 'SafeShare',
@@ -67,10 +49,8 @@
       help: 'Help',
       more: 'More',
       close: 'Close',
+      langSwitch: 'DE',
       footerNote: 'Local-first link hygiene.',
-      legalPrivacy: 'Privacy',
-      legalTerms: 'Terms',
-      langBtn: 'DE',
       links: {
         start: '/en/',
         app: '/en/app/',
@@ -79,6 +59,7 @@
         help: '/en/help/',
         privacy: '/en/privacy/',
         terms: '/en/terms/',
+        imprint: '/en/imprint/',
         privacySharing: '/en/privacy-when-sharing-links/',
         bookmarks: '/en/bookmarks/',
         email: '/en/email-link-cleaning/',
@@ -87,109 +68,13 @@
         tracking: '/en/tracking-parameters/',
         removeUtm: '/en/remove-utm-parameter/',
         compare: '/en/url-cleaner-comparison/',
-        shortcuts: '/en/shortcuts/',
-        imprint: '/en/imprint/'
-      },
-      morePrimary: [
-        ['Privacy when sharing links', 'privacySharing'],
-        ['Bookmarks', 'bookmarks'],
-        ['Email links', 'email'],
-        ['Messenger links', 'messenger'],
-        ['Social links', 'social'],
-        ['Tracking parameters', 'tracking'],
-        ['Remove UTM', 'removeUtm'],
-        ['Tool comparison', 'compare']
-      ],
-      moreSecondary: [
-        ['Shortcuts', 'shortcuts'],
-        ['Imprint', 'imprint'],
-        ['Privacy', 'privacy'],
-        ['Terms', 'terms']
-      ]
+        shortcuts: '/en/shortcuts/'
+      }
     }
   };
 
   const T = I18N[lang];
-
-  // Seite -> Sprach-Zielseite
-  const SWITCH_MAP = {
-    '404': { de: '/404.html', en: '/en/404/' },
-    'help': { de: '/hilfe/', en: '/en/help/' },
-    'hilfe': { de: '/hilfe/', en: '/en/help/' },
-
-    'start': { de: '/', en: '/en/' },
-    'home': { de: '/', en: '/en/' },
-
-    'app': { de: '/app/', en: '/en/app/' },
-    'pro': { de: '/pro/', en: '/en/pro/' },
-
-    'school': { de: '/schule/', en: '/en/school/' },
-    'schule': { de: '/schule/', en: '/en/school/' },
-
-    'bookmarks': { de: '/lesezeichen/', en: '/en/bookmarks/' },
-    'lesezeichen': { de: '/lesezeichen/', en: '/en/bookmarks/' },
-
-    'social-links-bereinigen': { de: '/social-links-bereinigen/', en: '/en/social-link-cleaning/' },
-    'social-link-cleaning': { de: '/social-links-bereinigen/', en: '/en/social-link-cleaning/' },
-
-    'messenger-links-bereinigen': { de: '/messenger-links-bereinigen/', en: '/en/messenger-link-cleaning/' },
-    'messenger-link-cleaning': { de: '/messenger-links-bereinigen/', en: '/en/messenger-link-cleaning/' },
-
-    'email-links-bereinigen': { de: '/email-links-bereinigen/', en: '/en/email-link-cleaning/' },
-    'email-link-cleaning': { de: '/email-links-bereinigen/', en: '/en/email-link-cleaning/' },
-
-    'tracking-parameter': { de: '/tracking-parameter/', en: '/en/tracking-parameters/' },
-    'tracking-parameters': { de: '/tracking-parameter/', en: '/en/tracking-parameters/' },
-
-    'utm-parameter-entfernen': { de: '/utm-parameter-entfernen/', en: '/en/remove-utm-parameter/' },
-    'remove-utm-parameter': { de: '/utm-parameter-entfernen/', en: '/en/remove-utm-parameter/' },
-
-    'url-cleaner-tool-vergleich': { de: '/url-cleaner-tool-vergleich/', en: '/en/url-cleaner-comparison/' },
-    'url-cleaner-comparison': { de: '/url-cleaner-tool-vergleich/', en: '/en/url-cleaner-comparison/' },
-
-    'shortcuts': { de: '/shortcuts/', en: '/en/shortcuts/' },
-
-    'privacy': { de: '/datenschutz/', en: '/en/privacy/' },
-    'datenschutz': { de: '/datenschutz/', en: '/en/privacy/' },
-
-    'terms': { de: '/nutzungsbedingungen/', en: '/en/terms/' },
-    'nutzungsbedingungen': { de: '/nutzungsbedingungen/', en: '/en/terms/' },
-
-    'imprint': { de: '/impressum/', en: '/en/imprint/' },
-    'impressum': { de: '/impressum/', en: '/en/imprint/' }
-  };
-
-  function normalize(p) {
-    return (p || '/').replace(/\/+$/, '') || '/';
-  }
-
-  function isActive(href) {
-    return normalize(path) === normalize(href);
-  }
-
-  function oppositeLangHref() {
-    const targetLang = lang === 'de' ? 'en' : 'de';
-
-    // 1) data-page mapping
-    if (page && SWITCH_MAP[page]?.[targetLang]) return SWITCH_MAP[page][targetLang];
-
-    // 2) heuristische Fallbacks
-    const p = normalize(path);
-
-    // de -> en
-    if (targetLang === 'en') {
-      if (p === '/') return '/en/';
-      if (!p.startsWith('/en')) return `/en${p === '/' ? '' : p}/`.replace(/\/{2,}/g, '/');
-    }
-
-    // en -> de
-    if (targetLang === 'de') {
-      if (p === '/en') return '/';
-      if (p.startsWith('/en/')) return p.replace(/^\/en/, '') + (p.endsWith('/') ? '' : '/');
-    }
-
-    return targetLang === 'en' ? '/en/' : '/';
-  }
+  const ALT = I18N[lang === 'de' ? 'en' : 'de'];
 
   const topNav = [
     ['start', T.links.start],
@@ -199,47 +84,135 @@
     ['help', T.links.help]
   ];
 
+  // More: erst Top-8 + dann Basislinks
+  const primaryMore = [
+    [lang === 'de' ? 'Datenschutz beim Link-Teilen' : 'Privacy when sharing links', 'privacySharing'],
+    [lang === 'de' ? 'Lesezeichen' : 'Bookmarks', 'bookmarks'],
+    [lang === 'de' ? 'E-Mail-Links' : 'Email links', 'email'],
+    [lang === 'de' ? 'Messenger-Links' : 'Messenger links', 'messenger'],
+    [lang === 'de' ? 'Social-Links' : 'Social links', 'social'],
+    [lang === 'de' ? 'Tracking-Parameter' : 'Tracking parameters', 'tracking'],
+    [lang === 'de' ? 'UTM entfernen' : 'Remove UTM', 'removeUtm'],
+    [lang === 'de' ? 'Tool-Vergleich' : 'Tool comparison', 'compare']
+  ];
+
+  const secondaryMore = [
+    [lang === 'de' ? 'Shortcuts' : 'Shortcuts', 'shortcuts'],
+    [lang === 'de' ? 'Datenschutz' : 'Privacy', 'privacy'],
+    [lang === 'de' ? 'Impressum' : 'Imprint', 'imprint'],
+    [lang === 'de' ? 'Nutzungsbedingungen' : 'Terms', 'terms'],
+    [lang === 'de' ? 'Hilfe' : 'Help', 'help']
+  ];
+
+  const normalize = (p) => (p || '').replace(/\/+$/, '') || '/';
+  const here = normalize(location.pathname);
+
+  const isActive = (href) => {
+    const target = normalize(href);
+    return here === target;
+  };
+
   const navHtml = topNav.map(([k, href]) => {
-    const cls = `ss-nav__link${isActive(href) ? ' is-active' : ''}`;
-    return `<a class="${cls}" href="${href}">${T[k]}</a>`;
+    const activeClass = isActive(href) ? ' is-active' : '';
+    return `<a class="ss-nav__link${activeClass}" href="${href}">${T[k]}</a>`;
   }).join('');
 
-  const makeMoreItems = (arr) =>
-    arr.map(([label, key]) => {
+  const renderMoreList = (arr, isSecondary = false) => {
+    const listClass = isSecondary ? 'ss-more__list ss-more__list--secondary' : 'ss-more__list';
+    const items = arr.map(([label, key]) => {
       const href = T.links[key];
-      const cls = `ss-more__item${isActive(href) ? ' is-active' : ''}`;
-      return `<a class="${cls}" href="${href}">${label}</a>`;
+      const activeClass = isActive(href) ? ' is-active' : '';
+      return `<a class="ss-more__item${activeClass}" href="${href}">${label}</a>`;
     }).join('');
+    return `<div class="${listClass}">${items}</div>`;
+  };
 
-  const morePrimaryHtml = makeMoreItems(T.morePrimary);
-  const moreSecondaryHtml = makeMoreItems(T.moreSecondary);
+  // Sprachwechsel: page-basiert, falls nicht vorhanden -> Start
+  const pageMap = {
+    // top pages
+    'start': ['/', '/en/'],
+    'app': ['/app/', '/en/app/'],
+    'schule': ['/schule/', '/en/school/'],
+    'school': ['/schule/', '/en/school/'],
+    'pro': ['/pro/', '/en/pro/'],
+    'hilfe': ['/hilfe/', '/en/help/'],
+    'help': ['/hilfe/', '/en/help/'],
+
+    // content pages
+    'email-links-bereinigen': ['/email-links-bereinigen/', '/en/email-link-cleaning/'],
+    'email-link-cleaning': ['/email-links-bereinigen/', '/en/email-link-cleaning/'],
+    'messenger-links-bereinigen': ['/messenger-links-bereinigen/', '/en/messenger-link-cleaning/'],
+    'messenger-link-cleaning': ['/messenger-links-bereinigen/', '/en/messenger-link-cleaning/'],
+    'social-links-bereinigen': ['/social-links-bereinigen/', '/en/social-link-cleaning/'],
+    'social-link-cleaning': ['/social-links-bereinigen/', '/en/social-link-cleaning/'],
+    'tracking-parameter': ['/tracking-parameter/', '/en/tracking-parameters/'],
+    'tracking-parameters': ['/tracking-parameter/', '/en/tracking-parameters/'],
+    'utm-parameter-entfernen': ['/utm-parameter-entfernen/', '/en/remove-utm-parameter/'],
+    'remove-utm-parameter': ['/utm-parameter-entfernen/', '/en/remove-utm-parameter/'],
+    'url-cleaner-tool-vergleich': ['/url-cleaner-tool-vergleich/', '/en/url-cleaner-comparison/'],
+    'url-cleaner-comparison': ['/url-cleaner-tool-vergleich/', '/en/url-cleaner-comparison/'],
+    'shortcuts': ['/shortcuts/', '/en/shortcuts/'],
+
+    // legal/support
+    'datenschutz': ['/datenschutz/', '/en/privacy/'],
+    'privacy': ['/datenschutz/', '/en/privacy/'],
+    'nutzungsbedingungen': ['/nutzungsbedingungen/', '/en/terms/'],
+    'terms': ['/nutzungsbedingungen/', '/en/terms/'],
+    'impressum': ['/impressum/', '/en/imprint/'],
+    'imprint': ['/impressum/', '/en/imprint/'],
+
+    // 404
+    '404': ['/404.html', '/en/404/']
+  };
+
+  const getLangSwitchHref = () => {
+    const pair = pageMap[page];
+    if (pair) return lang === 'de' ? pair[1] : pair[0];
+
+    // fallback by pathname if page missing/incorrect
+    const p = location.pathname;
+    if (p.startsWith('/en/')) {
+      const deGuess = p.replace(/^\/en\//, '/');
+      return deGuess === '/' ? '/' : deGuess;
+    }
+    const enGuess = `/en${p.startsWith('/') ? '' : '/'}${p}`;
+    return enGuess === '/en/404.html' ? '/en/404/' : enGuess;
+  };
+
+  const langHref = getLangSwitchHref();
 
   root.innerHTML = `
     <header class="ss-header">
       <div class="ss-header__row">
         <a class="ss-brand" href="${T.links.start}" aria-label="${T.brand}">${T.brand}</a>
+
         <div class="ss-headActions">
-          <a class="ss-langBtn" href="${oppositeLangHref()}" hreflang="${lang === 'de' ? 'en' : 'de'}" lang="${lang === 'de' ? 'en' : 'de'}">${T.langBtn}</a>
-          <button class="ss-moreBtn" id="ssMoreBtn" type="button" aria-haspopup="dialog" aria-expanded="false">${T.more}</button>
+          <a class="ss-langSwitch" href="${langHref}" hreflang="${lang === 'de' ? 'en' : 'de'}" lang="${lang === 'de' ? 'en' : 'de'}">${T.langSwitch}</a>
+          <button class="ss-moreBtn" id="ssMoreBtn" type="button" aria-haspopup="dialog" aria-controls="ssMore" aria-expanded="false">${T.more}</button>
         </div>
       </div>
-      <nav class="ss-nav" aria-label="Primary">${navHtml}</nav>
+
+      <nav class="ss-nav" aria-label="Primary navigation">
+        ${navHtml}
+      </nav>
     </header>
 
     <div class="ss-more" id="ssMore" hidden>
-      <button class="ss-more__backdrop" id="ssMoreBackdrop" aria-label="${T.close}" type="button"></button>
+      <button class="ss-more__backdrop" id="ssMoreBackdrop" type="button" aria-label="${T.close}"></button>
+
       <div class="ss-more__panel" role="dialog" aria-modal="true" aria-label="${T.more}">
         <div class="ss-more__head">
           <strong>${T.more}</strong>
           <button class="ss-more__close" id="ssMoreClose" type="button" aria-label="${T.close}">×</button>
         </div>
-        <div class="ss-more__list">${morePrimaryHtml}</div>
+
+        ${renderMoreList(primaryMore)}
         <div class="ss-more__divider"></div>
-        <div class="ss-more__list ss-more__list--secondary">${moreSecondaryHtml}</div>
+        ${renderMoreList(secondaryMore, true)}
       </div>
     </div>
 
-    <footer class="ss-footer">
+    <footer class="ss-footer" role="contentinfo">
       <div class="ss-footer__inner">
         <span>${T.brand}</span>
         <span>•</span>
@@ -257,20 +230,17 @@
     if (!more) return;
     more.hidden = false;
     moreBtn?.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('ss-noScroll');
+    body.classList.add('ss-noScroll');
   };
 
   const closeMore = () => {
     if (!more) return;
     more.hidden = true;
     moreBtn?.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('ss-noScroll');
+    body.classList.remove('ss-noScroll');
   };
 
-  moreBtn?.addEventListener('click', () => {
-    if (more?.hidden) openMore();
-    else closeMore();
-  });
+  moreBtn?.addEventListener('click', openMore);
   closeBtn?.addEventListener('click', closeMore);
   backdrop?.addEventListener('click', closeMore);
 
