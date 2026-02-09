@@ -47,117 +47,117 @@
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
 <body data-page="privacy-sharing" data-lang="de">
-  <div id="ss-shell"></div>
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="privacy-title">
-      <div class="ss-card ss-hero">
-        <h1 id="privacy-title">Datenschutz beim Link-Teilen</h1>
-        <p class="ss-hero-kicker">Realistisch. Konkrete Schritte. Keine Panik.</p>
-        <p>
-          Datenschutz heißt beim Teilen nicht „unsichtbar werden“.
-          Es heißt: weniger unnötige Zusatzinfos mitgeben und bewusst entscheiden, was im Link enthalten ist.
-        </p>
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="privacy-title">
+        <div class="ss-card ss-hero">
+          <h1 id="privacy-title">Datenschutz beim Link-Teilen</h1>
+          <p class="ss-hero-kicker">Realistisch. Konkrete Schritte. Keine Panik.</p>
+          <p>
+            Datenschutz heißt beim Teilen nicht „unsichtbar werden“.
+            Es heißt: weniger unnötige Zusatzinfos mitgeben und bewusst entscheiden, was im Link enthalten ist.
+          </p>
 
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/app/">Link jetzt bereinigen</a>
-          <a class="ss-btn" href="/schule/">Zur Schule</a>
-          <a class="ss-btn ss-btn--ghost" href="/hilfe/">Hilfe</a>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/app/">Link jetzt bereinigen</a>
+            <a class="ss-btn" href="/schule/">Zur Schule</a>
+            <a class="ss-btn ss-btn--ghost" href="/hilfe/">Hilfe</a>
+          </div>
+
+          <div class="ss-note ss-mt-12">
+            SafeShare ist Link-Hygiene: Tracking-Etiketten entfernen, lokal im Browser, ohne Upload.
+          </div>
         </div>
+      </section>
 
-        <div class="ss-note ss-mt-12">
-          SafeShare ist Link-Hygiene: Tracking-Etiketten entfernen, lokal im Browser, ohne Upload.
+      <section class="ss-section" aria-labelledby="example-title">
+        <div class="ss-card">
+          <h2 id="example-title">Was passiert beim Weiterleiten eines Links?</h2>
+          <p>
+            Viele Links enthalten Zusätze wie <code>utm_*</code>, <code>gclid</code> oder <code>fbclid</code>.
+            Diese Anhänge können Kontext über Quelle, Kampagne oder Klickpfad transportieren.
+          </p>
+
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Mit Tracking-Anhang</h3>
+              <p class="ss-mono">https://example.com/artikel?utm_source=newsletter&utm_medium=email&utm_campaign=q1&fbclid=XYZ</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Bereinigt</h3>
+              <p class="ss-mono">https://example.com/artikel</p>
+            </article>
+          </div>
+
+          <p class="ss-muted ss-mt-12">
+            Die Zielseite kann identisch sein – der Unterschied liegt oft nur im mitgesendeten Metadaten-Anhang.
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="example-title">
-      <div class="ss-card">
-        <h2 id="example-title">Was passiert beim Weiterleiten eines Links?</h2>
-        <p>
-          Viele Links enthalten Zusätze wie <code>utm_*</code>, <code>gclid</code> oder <code>fbclid</code>.
-          Diese Anhänge können Kontext über Quelle, Kampagne oder Klickpfad transportieren.
-        </p>
+      <section class="ss-section" aria-labelledby="layers-title">
+        <div class="ss-card">
+          <h2 id="layers-title">Schutz in Schichten</h2>
 
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Mit Tracking-Anhang</h3>
-            <p class="ss-mono">https://example.com/artikel?utm_source=newsletter&utm_medium=email&utm_campaign=q1&fbclid=XYZ</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Bereinigt</h3>
-            <p class="ss-mono">https://example.com/artikel</p>
-          </article>
+          <h3>Stufe A: alltagstauglich</h3>
+          <ul>
+            <li>Drittanbieter-Cookies blockieren</li>
+            <li>Tracking-Schutz im Browser aktivieren</li>
+            <li>App-Berechtigungen knapp halten</li>
+            <li>Links vor dem Teilen bereinigen</li>
+          </ul>
+
+          <h3>Stufe B: deutlich stärker</h3>
+          <ul>
+            <li>Tracker-/Werbeblocker einsetzen</li>
+            <li>Getrennte Browserprofile (Login vs. Recherche)</li>
+            <li>Weniger dauerhaft eingeloggt bleiben</li>
+          </ul>
+
+          <h3>Stufe C: maximal</h3>
+          <ul>
+            <li>VPN als zusätzliche Schicht</li>
+            <li>Für sensible Fälle: Tor Browser / getrennte Geräte</li>
+          </ul>
+
+          <div class="ss-warn ss-mt-12">
+            Wichtig: Kein einzelner Schritt macht „unsichtbar“. Der Effekt entsteht durch Kombination und Gewohnheit.
+          </div>
         </div>
+      </section>
 
-        <p class="ss-muted ss-mt-12">
-          Die Zielseite kann identisch sein – der Unterschied liegt oft nur im mitgesendeten Metadaten-Anhang.
-        </p>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="layers-title">
-      <div class="ss-card">
-        <h2 id="layers-title">Schutz in Schichten</h2>
-
-        <h3>Stufe A: alltagstauglich</h3>
-        <ul>
-          <li>Drittanbieter-Cookies blockieren</li>
-          <li>Tracking-Schutz im Browser aktivieren</li>
-          <li>App-Berechtigungen knapp halten</li>
-          <li>Links vor dem Teilen bereinigen</li>
-        </ul>
-
-        <h3>Stufe B: deutlich stärker</h3>
-        <ul>
-          <li>Tracker-/Werbeblocker einsetzen</li>
-          <li>Getrennte Browserprofile (Login vs. Recherche)</li>
-          <li>Weniger dauerhaft eingeloggt bleiben</li>
-        </ul>
-
-        <h3>Stufe C: maximal</h3>
-        <ul>
-          <li>VPN als zusätzliche Schicht</li>
-          <li>Für sensible Fälle: Tor Browser / getrennte Geräte</li>
-        </ul>
-
-        <div class="ss-warn ss-mt-12">
-          Wichtig: Kein einzelner Schritt macht „unsichtbar“. Der Effekt entsteht durch Kombination und Gewohnheit.
+      <section class="ss-section" aria-labelledby="limits-title">
+        <div class="ss-card">
+          <h2 id="limits-title">Ehrliche Grenzen</h2>
+          <ul>
+            <li>Die Zielseite muss technisch erreichbar sein (ohne Verbindung kein Inhalt).</li>
+            <li>Ein Login verknüpft Aktivität stark mit einem Konto.</li>
+            <li>Inkognito reduziert lokale Spuren, ersetzt aber keinen Netzwerkschutz.</li>
+            <li>Vollständige Verhinderung ist selten realistisch, starke Reduktion dagegen schon.</li>
+          </ul>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="limits-title">
-      <div class="ss-card">
-        <h2 id="limits-title">Ehrliche Grenzen</h2>
-        <ul>
-          <li>Die Zielseite muss technisch erreichbar sein (ohne Verbindung kein Inhalt).</li>
-          <li>Ein Login verknüpft Aktivität stark mit einem Konto.</li>
-          <li>Inkognito reduziert lokale Spuren, ersetzt aber keinen Netzwerkschutz.</li>
-          <li>Vollständige Verhinderung ist selten realistisch, starke Reduktion dagegen schon.</li>
-        </ul>
-      </div>
-    </section>
+      <section class="ss-section" aria-labelledby="checklist-title">
+        <div class="ss-card">
+          <h2 id="checklist-title">60-Sekunden-Check vor dem Teilen</h2>
+          <ol>
+            <li>Muss ich dafür eingeloggt sein?</li>
+            <li>Ist der Link unnötig lang durch Tracking-Parameter?</li>
+            <li>Kann ich ihn erst bereinigen und dann teilen?</li>
+            <li>Sind Berechtigungen/Tracker-Schutz sinnvoll eingestellt?</li>
+          </ol>
 
-    <section class="ss-section" aria-labelledby="checklist-title">
-      <div class="ss-card">
-        <h2 id="checklist-title">60-Sekunden-Check vor dem Teilen</h2>
-        <ol>
-          <li>Muss ich dafür eingeloggt sein?</li>
-          <li>Ist der Link unnötig lang durch Tracking-Parameter?</li>
-          <li>Kann ich ihn erst bereinigen und dann teilen?</li>
-          <li>Sind Berechtigungen/Tracker-Schutz sinnvoll eingestellt?</li>
-        </ol>
-
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/app/">Jetzt bereinigen</a>
-          <a class="ss-btn" href="/tracking-parameter/">Tracking-Parameter erklärt</a>
-          <a class="ss-btn ss-btn--ghost" href="/utm-parameter-entfernen/">UTM im Detail</a>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/app/">Jetzt bereinigen</a>
+            <a class="ss-btn" href="/tracking-parameter/">Tracking-Parameter erklärt</a>
+            <a class="ss-btn ss-btn--ghost" href="/utm-parameter-entfernen/">UTM im Detail</a>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
+  </div>
 
-  <div id="ss-footer"></div>
   <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
