@@ -1,265 +1,290 @@
-// File: /js/ss-shell.js
-(() => {
-  const root = document.getElementById('ss-shell');
-  if (!root) return;
+/* File: /css/ss-shell.css */
+/* SafeShare Shell FINAL stable */
 
-  const body = document.body || document.documentElement;
-  const lang = body.dataset.lang === 'de' ? 'de' : 'en';
-  const page = body.dataset.page || '';
+:root{
+  --ss-shell-max: 1120px;
 
-  const CFG = {
-    de: {
-      code: 'DE',
-      brand: 'SafeShare',
-      start: 'Start',
-      app: 'App',
-      school: 'Schule',
-      pro: 'Pro',
-      help: 'Hilfe',
-      more: 'Mehr',
-      close: 'Schließen',
-      footerNote: 'Local-first Link-Hygiene.',
-      links: {
-        start: '/',
-        app: '/app/',
-        school: '/schule/',
-        pro: '/pro/',
-        help: '/hilfe/',
-        privacy: '/datenschutz/',
-        terms: '/nutzungsbedingungen/',
-        imprint: '/impressum/',
-        privacySharing: '/datenschutz-beim-link-teilen/',
-        bookmarks: '/lesezeichen/',
-        email: '/email-links-bereinigen/',
-        messenger: '/messenger-links-bereinigen/',
-        social: '/social-links-bereinigen/',
-        tracking: '/tracking-parameter/',
-        removeUtm: '/utm-parameter-entfernen/',
-        compare: '/url-cleaner-tool-vergleich/',
-        shortcuts: '/shortcuts/'
-      },
-      morePrimary: [
-        ['Datenschutz beim Link-Teilen', 'privacySharing'],
-        ['Lesezeichen', 'bookmarks'],
-        ['E-Mail-Links', 'email'],
-        ['Messenger-Links', 'messenger'],
-        ['Social-Links', 'social'],
-        ['Tracking-Parameter', 'tracking'],
-        ['UTM entfernen', 'removeUtm'],
-        ['Tool-Vergleich', 'compare']
-      ],
-      moreSecondary: [
-        ['Shortcuts', 'shortcuts'],
-        ['Datenschutz', 'privacy'],
-        ['Nutzungsbedingungen', 'terms'],
-        ['Impressum', 'imprint']
-      ]
-    },
-    en: {
-      code: 'EN',
-      brand: 'SafeShare',
-      start: 'Start',
-      app: 'App',
-      school: 'School',
-      pro: 'Pro',
-      help: 'Help',
-      more: 'More',
-      close: 'Close',
-      footerNote: 'Local-first link hygiene.',
-      links: {
-        start: '/en/',
-        app: '/en/app/',
-        school: '/en/school/',
-        pro: '/en/pro/',
-        help: '/en/help/',
-        privacy: '/en/privacy/',
-        terms: '/en/terms/',
-        imprint: '/en/imprint/',
-        privacySharing: '/en/privacy-when-sharing-links/',
-        bookmarks: '/en/bookmarks/',
-        email: '/en/email-link-cleaning/',
-        messenger: '/en/messenger-link-cleaning/',
-        social: '/en/social-link-cleaning/',
-        tracking: '/en/tracking-parameters/',
-        removeUtm: '/en/remove-utm-parameter/',
-        compare: '/en/url-cleaner-comparison/',
-        shortcuts: '/en/shortcuts/'
-      },
-      morePrimary: [
-        ['Privacy when sharing links', 'privacySharing'],
-        ['Bookmarks', 'bookmarks'],
-        ['Email links', 'email'],
-        ['Messenger links', 'messenger'],
-        ['Social links', 'social'],
-        ['Tracking parameters', 'tracking'],
-        ['Remove UTM', 'removeUtm'],
-        ['Tool comparison', 'compare']
-      ],
-      moreSecondary: [
-        ['Shortcuts', 'shortcuts'],
-        ['Privacy', 'privacy'],
-        ['Terms', 'terms'],
-        ['Imprint', 'imprint']
-      ]
-    }
-  };
+  --ss-bg: rgba(255,255,255,.06);
+  --ss-bg-2: rgba(255,255,255,.04);
+  --ss-border: rgba(255,255,255,.14);
+  --ss-text: rgba(255,255,255,.94);
+  --ss-muted: rgba(255,255,255,.70);
 
-  const T = CFG[lang];
-  const ALT = CFG[lang === 'de' ? 'en' : 'de'];
+  --ss-active-bg: rgba(47,227,183,.14);
+  --ss-active-border: rgba(47,227,183,.48);
 
-  const normalize = (p) => (p || '/').replace(/\/+$/, '') || '/';
-  const currentPath = normalize(location.pathname);
+  --ss-panel-bg: #0f1218;
+  --ss-backdrop: rgba(0,0,0,.62);
 
-  const samePageMap = {
-    // core
-    '/': '/en/',
-    '/app/': '/en/app/',
-    '/schule/': '/en/school/',
-    '/pro/': '/en/pro/',
-    '/hilfe/': '/en/help/',
+  --ss-focus: 0 0 0 2px rgba(47,227,183,.45);
+  --ss-shadow: 0 24px 64px rgba(0,0,0,.55);
+}
 
-    // content
-    '/email-links-bereinigen/': '/en/email-link-cleaning/',
-    '/messenger-links-bereinigen/': '/en/messenger-link-cleaning/',
-    '/social-links-bereinigen/': '/en/social-link-cleaning/',
-    '/tracking-parameter/': '/en/tracking-parameters/',
-    '/utm-parameter-entfernen/': '/en/remove-utm-parameter/',
-    '/url-cleaner-tool-vergleich/': '/en/url-cleaner-comparison/',
-    '/shortcuts/': '/en/shortcuts/',
-    '/datenschutz/': '/en/privacy/',
-    '/nutzungsbedingungen/': '/en/terms/',
-    '/impressum/': '/en/imprint/',
-    '/datenschutz-beim-link-teilen/': '/en/privacy-when-sharing-links/',
-    '/lesezeichen/': '/en/bookmarks/',
-    '/404.html': '/en/404/',
+*,
+*::before,
+*::after{ box-sizing: border-box; }
 
-    // reverse
-    '/en/': '/',
-    '/en/app/': '/app/',
-    '/en/school/': '/schule/',
-    '/en/pro/': '/pro/',
-    '/en/help/': '/hilfe/',
+body.ss-noScroll{ overflow: hidden; }
 
-    '/en/email-link-cleaning/': '/email-links-bereinigen/',
-    '/en/messenger-link-cleaning/': '/messenger-links-bereinigen/',
-    '/en/social-link-cleaning/': '/social-links-bereinigen/',
-    '/en/tracking-parameters/': '/tracking-parameter/',
-    '/en/remove-utm-parameter/': '/utm-parameter-entfernen/',
-    '/en/url-cleaner-comparison/': '/url-cleaner-tool-vergleich/',
-    '/en/shortcuts/': '/shortcuts/',
-    '/en/privacy/': '/datenschutz/',
-    '/en/terms/': '/nutzungsbedingungen/',
-    '/en/imprint/': '/impressum/',
-    '/en/privacy-when-sharing-links/': '/datenschutz-beim-link-teilen/',
-    '/en/bookmarks/': '/lesezeichen/',
-    '/en/404/': '/404.html'
-  };
+#ss-shell{
+  position: relative;
+  z-index: 40;
+  display: block;
+}
 
-  const switchHref = samePageMap[currentPath] || ALT.links.start;
+/* HEADER */
+#ss-shell .ss-header{
+  max-width: var(--ss-shell-max);
+  margin: 10px auto 8px;
+  padding: 0 12px;
+}
 
-  const isActive = (href) => {
-    const n = normalize(href);
-    return currentPath === n;
-  };
+#ss-shell .ss-header__row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
 
-  const topNav = [
-    ['start', T.links.start],
-    ['app', T.links.app],
-    ['school', T.links.school],
-    ['pro', T.links.pro],
-    ['help', T.links.help]
-  ];
+#ss-shell .ss-brand{
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ss-text);
+  font-weight: 800;
+  letter-spacing: .2px;
+  min-height: 40px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--ss-border);
+  background: var(--ss-bg);
+}
 
-  const navHtml = topNav.map(([k, href]) => `
-    <a class="ss-nav__link${isActive(href) ? ' is-active' : ''}" href="${href}">${T[k]}</a>
-  `).join('');
+#ss-shell .ss-brand:focus-visible{
+  outline: none;
+  box-shadow: var(--ss-focus);
+}
 
-  const primaryHtml = T.morePrimary.map(([label, key]) => `
-    <a class="ss-more__item${isActive(T.links[key]) ? ' is-active' : ''}" href="${T.links[key]}">${label}</a>
-  `).join('');
+#ss-shell .ss-headActions{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-  const secondaryHtml = T.moreSecondary.map(([label, key]) => `
-    <a class="ss-more__item${isActive(T.links[key]) ? ' is-active' : ''}" href="${T.links[key]}">${label}</a>
-  `).join('');
+#ss-shell .ss-langSwitch,
+#ss-shell .ss-moreBtn{
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--ss-text);
+  font-weight: 700;
+  min-height: 40px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--ss-border);
+  background: var(--ss-bg);
+  cursor: pointer;
+  font: inherit;
+}
 
-  // inline SVG glyph (robust: kein externer Dateipfad nötig)
-  const glyph = `
-    <svg class="ss-brand__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-      <defs>
-        <linearGradient id="ssg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#2fe3b7"></stop>
-          <stop offset="100%" stop-color="#15b79a"></stop>
-        </linearGradient>
-      </defs>
-      <rect x="6" y="6" width="52" height="52" rx="14" fill="url(#ssg)"></rect>
-      <path d="M32 18c-6 0-11 5-11 11v6c0 6 5 11 11 11s11-5 11-11v-6c0-6-5-11-11-11zm0 5c3.4 0 6 2.6 6 6v6c0 3.4-2.6 6-6 6s-6-2.6-6-6v-6c0-3.4 2.6-6 6-6z" fill="#0b1a1a"></path>
-    </svg>
-  `;
+#ss-shell .ss-langSwitch:hover,
+#ss-shell .ss-moreBtn:hover{
+  background: rgba(255,255,255,.10);
+}
 
-  root.innerHTML = `
-    <header class="ss-header">
-      <div class="ss-header__row">
-        <a class="ss-brand" href="${T.links.start}" aria-label="${T.brand}">
-          ${glyph}
-          <span class="ss-brand__text">${T.brand}</span>
-        </a>
+#ss-shell .ss-langSwitch:focus-visible,
+#ss-shell .ss-moreBtn:focus-visible{
+  outline: none;
+  box-shadow: var(--ss-focus);
+}
 
-        <div class="ss-headActions">
-          <a class="ss-langSwitch" href="${switchHref}" hreflang="${ALT.code.toLowerCase()}" lang="${ALT.code.toLowerCase()}" aria-label="${ALT.code}">
-            ${ALT.code}
-          </a>
-          <button class="ss-moreBtn" id="ssMoreBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
-            ${T.more}
-          </button>
-        </div>
-      </div>
+/* NAV */
+#ss-shell .ss-nav{
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap: 8px;
+}
 
-      <nav class="ss-nav" aria-label="Primary">${navHtml}</nav>
-    </header>
+#ss-shell .ss-nav__link{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--ss-text);
+  min-height: 40px;
+  padding: 10px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--ss-border);
+  background: var(--ss-bg);
+}
 
-    <div class="ss-more" id="ssMore" hidden>
-      <div class="ss-more__panel" role="dialog" aria-modal="true" aria-label="${T.more}">
-        <div class="ss-more__head">
-          <strong>${T.more}</strong>
-          <button class="ss-more__close" id="ssMoreClose" type="button" aria-label="${T.close}">×</button>
-        </div>
+#ss-shell .ss-nav__link:hover{
+  background: rgba(255,255,255,.10);
+}
 
-        <div class="ss-more__list ss-more__list--primary">${primaryHtml}</div>
-        <div class="ss-more__divider" role="separator" aria-hidden="true"></div>
-        <div class="ss-more__list ss-more__list--secondary">${secondaryHtml}</div>
-      </div>
+#ss-shell .ss-nav__link.is-active{
+  background: var(--ss-active-bg);
+  border-color: var(--ss-active-border);
+}
 
-      <button class="ss-more__backdrop" id="ssMoreBackdrop" type="button" aria-label="${T.close}"></button>
-    </div>
+#ss-shell .ss-nav__link:focus-visible{
+  outline: none;
+  box-shadow: var(--ss-focus);
+}
 
-    <footer class="ss-footer">
-      <div class="ss-footer__inner">
-        <span>${T.brand}</span><span>•</span><span>${T.footerNote}</span>
-      </div>
-    </footer>
-  `;
+/* MORE */
+#ss-shell .ss-more[hidden]{ display: none !important; }
 
-  const more = root.querySelector('#ssMore');
-  const moreBtn = root.querySelector('#ssMoreBtn');
-  const closeBtn = root.querySelector('#ssMoreClose');
-  const backdrop = root.querySelector('#ssMoreBackdrop');
+#ss-shell .ss-more{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
 
-  const openMore = () => {
-    more.hidden = false;
-    moreBtn?.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('ss-noScroll');
-  };
-  const closeMore = () => {
-    more.hidden = true;
-    moreBtn?.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('ss-noScroll');
-  };
+#ss-shell .ss-more__backdrop{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--ss-backdrop);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+}
 
-  moreBtn?.addEventListener('click', openMore);
-  closeBtn?.addEventListener('click', closeMore);
-  backdrop?.addEventListener('click', closeMore);
+#ss-shell .ss-more__panel{
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+  right: 10px;
+  width: min(420px, calc(100vw - 20px));
+  max-height: calc(100dvh - 20px - env(safe-area-inset-top));
+  overflow: auto;
+  background: var(--ss-panel-bg);
+  color: #f5f7fb;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 16px;
+  box-shadow: var(--ss-shadow);
+}
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && more && !more.hidden) closeMore();
-  });
-})();
+#ss-shell .ss-more__head{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  background: var(--ss-panel-bg);
+}
+
+#ss-shell .ss-more__head strong{
+  color: #fff;
+  font-size: 16px;
+}
+
+#ss-shell .ss-more__close{
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#ss-shell .ss-more__list{
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+#ss-shell .ss-more__item{
+  display: block;
+  text-decoration: none;
+  color: #f5f7fb;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 11px;
+  padding: 10px 12px;
+  line-height: 1.3;
+  font-weight: 650;
+}
+
+#ss-shell .ss-more__item:hover,
+#ss-shell .ss-more__item:focus-visible{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.24);
+  outline: none;
+}
+
+#ss-shell .ss-more__divider{
+  height: 1px;
+  margin: 2px 10px 8px;
+  background: rgba(255,255,255,.14);
+}
+
+/* FOOTER (from shell only) */
+#ss-shell .ss-footer{
+  position: relative;
+  z-index: 41;
+  display: block;
+  max-width: var(--ss-shell-max);
+  margin: 18px auto 10px;
+  padding: 0 12px;
+}
+
+#ss-shell .ss-footer__inner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  text-align: center;
+  color: var(--ss-muted);
+  background: var(--ss-bg-2);
+  border: 1px solid var(--ss-border);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: .95rem;
+}
+
+/* defensive: force visible */
+#ss-shell .ss-footer,
+#ss-shell .ss-footer__inner{
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* responsive */
+@media (max-width: 900px){
+  #ss-shell .ss-header{ padding: 0 10px; margin-top: 8px; }
+  #ss-shell .ss-nav{ gap: 6px; }
+  #ss-shell .ss-nav__link{ min-height: 38px; padding: 9px 6px; font-size: .95rem; }
+  #ss-shell .ss-brand,
+  #ss-shell .ss-langSwitch,
+  #ss-shell .ss-moreBtn{ min-height: 38px; padding: 9px 12px; }
+
+  #ss-shell .ss-more__panel{
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-height: calc(100dvh - 16px - env(safe-area-inset-top));
+  }
+
+  #ss-shell .ss-footer{ padding: 0 10px; }
+}
+
+@media (max-width: 620px){
+  #ss-shell .ss-nav__link{ font-size: .90rem; }
+  #ss-shell .ss-footer__inner{ font-size: .9rem; }
+}
