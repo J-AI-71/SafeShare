@@ -46,119 +46,118 @@
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
-<body>
-  <body data-page="privacy-sharing" data-lang="en">
-  <div id="ss-shell"></div>
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="privacy-title">
-      <div class="ss-card ss-hero">
-        <h1 id="privacy-title">Privacy when sharing links</h1>
-        <p class="ss-hero-kicker">Realistic. Concrete. No fear framing.</p>
-        <p>
-          Privacy while sharing is not about becoming invisible.
-          It is about passing less unnecessary metadata and choosing deliberately what stays in a link.
-        </p>
+<body data-page="privacy-sharing" data-lang="en">
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="privacy-title">
+        <div class="ss-card ss-hero">
+          <h1 id="privacy-title">Privacy when sharing links</h1>
+          <p class="ss-hero-kicker">Realistic. Concrete. No fear framing.</p>
+          <p>
+            Privacy while sharing is not about becoming invisible.
+            It is about passing less unnecessary metadata and choosing deliberately what stays in a link.
+          </p>
 
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/en/app/">Clean a link now</a>
-          <a class="ss-btn" href="/en/school/">Go to School</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/help/">Help</a>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/en/app/">Clean a link now</a>
+            <a class="ss-btn" href="/en/school/">Go to School</a>
+            <a class="ss-btn ss-btn--ghost" href="/en/help/">Help</a>
+          </div>
+
+          <div class="ss-note ss-mt-12">
+            SafeShare is link hygiene: remove tracking labels locally in your browser, with no upload.
+          </div>
         </div>
+      </section>
 
-        <div class="ss-note ss-mt-12">
-          SafeShare is link hygiene: remove tracking labels locally in your browser, with no upload.
+      <section class="ss-section" aria-labelledby="example-title">
+        <div class="ss-card">
+          <h2 id="example-title">What happens when you forward a link?</h2>
+          <p>
+            Many URLs include add-ons such as <code>utm_*</code>, <code>gclid</code>, or <code>fbclid</code>.
+            These can carry source, campaign, or click-path context.
+          </p>
+
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>With tracking suffix</h3>
+              <p class="ss-mono">https://example.com/article?utm_source=newsletter&utm_medium=email&utm_campaign=q1&fbclid=XYZ</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Cleaned</h3>
+              <p class="ss-mono">https://example.com/article</p>
+            </article>
+          </div>
+
+          <p class="ss-muted ss-mt-12">
+            The destination page may be identical — the difference is often only appended metadata.
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="example-title">
-      <div class="ss-card">
-        <h2 id="example-title">What happens when you forward a link?</h2>
-        <p>
-          Many URLs include add-ons such as <code>utm_*</code>, <code>gclid</code>, or <code>fbclid</code>.
-          These can carry source, campaign, or click-path context.
-        </p>
+      <section class="ss-section" aria-labelledby="layers-title">
+        <div class="ss-card">
+          <h2 id="layers-title">Protection in layers</h2>
 
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>With tracking suffix</h3>
-            <p class="ss-mono">https://example.com/article?utm_source=newsletter&utm_medium=email&utm_campaign=q1&fbclid=XYZ</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Cleaned</h3>
-            <p class="ss-mono">https://example.com/article</p>
-          </article>
+          <h3>Level A: everyday baseline</h3>
+          <ul>
+            <li>Block third-party cookies</li>
+            <li>Enable browser tracking protection</li>
+            <li>Keep app permissions minimal</li>
+            <li>Clean links before sharing</li>
+          </ul>
+
+          <h3>Level B: stronger setup</h3>
+          <ul>
+            <li>Use tracker/ad blockers</li>
+            <li>Split browser profiles (logged-in vs research)</li>
+            <li>Stay logged out where possible</li>
+          </ul>
+
+          <h3>Level C: maximum setup</h3>
+          <ul>
+            <li>Use VPN as an extra layer</li>
+            <li>For sensitive cases: Tor Browser / separate devices</li>
+          </ul>
+
+          <div class="ss-warn ss-mt-12">
+            No single step makes you invisible. The effect comes from combining habits and controls.
+          </div>
         </div>
+      </section>
 
-        <p class="ss-muted ss-mt-12">
-          The destination page may be identical — the difference is often only appended metadata.
-        </p>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="layers-title">
-      <div class="ss-card">
-        <h2 id="layers-title">Protection in layers</h2>
-
-        <h3>Level A: everyday baseline</h3>
-        <ul>
-          <li>Block third-party cookies</li>
-          <li>Enable browser tracking protection</li>
-          <li>Keep app permissions minimal</li>
-          <li>Clean links before sharing</li>
-        </ul>
-
-        <h3>Level B: stronger setup</h3>
-        <ul>
-          <li>Use tracker/ad blockers</li>
-          <li>Split browser profiles (logged-in vs research)</li>
-          <li>Stay logged out where possible</li>
-        </ul>
-
-        <h3>Level C: maximum setup</h3>
-        <ul>
-          <li>Use VPN as an extra layer</li>
-          <li>For sensitive cases: Tor Browser / separate devices</li>
-        </ul>
-
-        <div class="ss-warn ss-mt-12">
-          No single step makes you invisible. The effect comes from combining habits and controls.
+      <section class="ss-section" aria-labelledby="limits-title">
+        <div class="ss-card">
+          <h2 id="limits-title">Honest limits</h2>
+          <ul>
+            <li>The destination site still needs technical connectivity to serve content.</li>
+            <li>A login strongly links activity to an account.</li>
+            <li>Private/Incognito mode reduces local traces, not all network traces.</li>
+            <li>Total prevention is rarely realistic; strong reduction is.</li>
+          </ul>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="limits-title">
-      <div class="ss-card">
-        <h2 id="limits-title">Honest limits</h2>
-        <ul>
-          <li>The destination site still needs technical connectivity to serve content.</li>
-          <li>A login strongly links activity to an account.</li>
-          <li>Private/Incognito mode reduces local traces, not all network traces.</li>
-          <li>Total prevention is rarely realistic; strong reduction is.</li>
-        </ul>
-      </div>
-    </section>
+      <section class="ss-section" aria-labelledby="checklist-title">
+        <div class="ss-card">
+          <h2 id="checklist-title">60-second pre-share checklist</h2>
+          <ol>
+            <li>Do I need to be logged in for this?</li>
+            <li>Is the link bloated with tracking parameters?</li>
+            <li>Can I clean it before sharing?</li>
+            <li>Are permissions and tracking protections set sensibly?</li>
+          </ol>
 
-    <section class="ss-section" aria-labelledby="checklist-title">
-      <div class="ss-card">
-        <h2 id="checklist-title">60-second pre-share checklist</h2>
-        <ol>
-          <li>Do I need to be logged in for this?</li>
-          <li>Is the link bloated with tracking parameters?</li>
-          <li>Can I clean it before sharing?</li>
-          <li>Are permissions and tracking protections set sensibly?</li>
-        </ol>
-
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/en/app/">Clean now</a>
-          <a class="ss-btn" href="/en/tracking-parameters/">Tracking parameters explained</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/remove-utm-parameter/">UTM in detail</a>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/en/app/">Clean now</a>
+            <a class="ss-btn" href="/en/tracking-parameters/">Tracking parameters explained</a>
+            <a class="ss-btn ss-btn--ghost" href="/en/remove-utm-parameter/">UTM in detail</a>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
+  </div>
 
-  <div id="ss-footer"></div>
   <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
