@@ -360,4 +360,22 @@
   } else {
     boot();
   }
+  /* /js/shell.js */
+/* small required addition for mobile nav start visibility */
+
+(() => {
+  function resetNavScroll() {
+    const nav = document.querySelector('.ss-nav');
+    if (nav) nav.scrollLeft = 0;
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', resetNavScroll, { once: true });
+  } else {
+    resetNavScroll();
+  }
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 900) resetNavScroll();
+  }, { passive: true });
 })();
