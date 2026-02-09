@@ -429,3 +429,159 @@ body.ss-noScroll { overflow: hidden; }
     font-size: .9rem;
   }
 }
+/* ===== SafeShare Shell HARD FIX (Footer sichtbar + More weniger milchig) ===== */
+
+/* 0) Shell muss über normalem Content liegen */
+#ss-shell{
+  position: relative;
+  z-index: 40;
+  display: block;
+}
+
+/* 1) Header + Nav stabil sichtbar */
+#ss-shell .ss-header{
+  position: relative;
+  z-index: 41;
+}
+
+/* 2) More Overlay klar und lesbar */
+#ss-shell .ss-more[hidden]{
+  display: none !important;
+}
+
+#ss-shell .ss-more{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+#ss-shell .ss-more__backdrop{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: rgba(0,0,0,.62);   /* dunkler, weniger milchig */
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+}
+
+#ss-shell .ss-more__panel{
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+  right: 10px;
+  width: min(420px, calc(100vw - 20px));
+  max-height: calc(100dvh - 20px - env(safe-area-inset-top));
+  overflow: auto;
+
+  background: #0f1218;            /* statt transparent/milchig */
+  color: #f5f7fb;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 16px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.55);
+}
+
+/* Sticky Kopf im More */
+#ss-shell .ss-more__head{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #0f1218;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  color: #fff;
+}
+
+#ss-shell .ss-more__close{
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#ss-shell .ss-more__list{
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+#ss-shell .ss-more__item{
+  display: block;
+  text-decoration: none;
+  color: #f5f7fb;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 11px;
+  padding: 10px 12px;
+  line-height: 1.3;
+  font-weight: 650;
+}
+
+#ss-shell .ss-more__item:hover{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.24);
+}
+
+#ss-shell .ss-more__divider{
+  height: 1px;
+  margin: 8px 10px;
+  background: rgba(255,255,255,.14);
+}
+
+/* 3) Footer in Shell garantiert sichtbar */
+#ss-shell .ss-footer{
+  position: relative;
+  z-index: 41;
+  display: block;
+  max-width: 1120px;
+  margin: 18px auto 12px;
+  padding: 0 12px;
+}
+
+#ss-shell .ss-footer__inner{
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  border-radius: 12px;
+  padding: 8px 12px;
+
+  color: rgba(255,255,255,.78);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+/* 4) Falls globales CSS Footer versteckt */
+#ss-shell .ss-footer,
+#ss-shell .ss-footer__inner{
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* 5) Mobile */
+@media (max-width: 900px){
+  #ss-shell .ss-more__panel{
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-height: calc(100dvh - 16px - env(safe-area-inset-top));
+  }
+
+  #ss-shell .ss-footer{
+    padding: 0 10px;
+  }
+}
