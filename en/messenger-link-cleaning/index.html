@@ -46,71 +46,71 @@
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
-<body data-page="messenger-link-cleaning" data-lang="en">
-  <div id="ss-shell"></div>
+<body data-page="messenger" data-lang="en">
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="msg-title">
+        <div class="ss-card ss-hero">
+          <h1 id="msg-title">Messenger Link Cleaning</h1>
+          <p class="ss-hero-kicker">Clean once before you send.</p>
+          <p>
+            Links are often forwarded as-is in chat apps.
+            Many include unnecessary tracking parameters or click IDs.
+            SafeShare removes common keys locally in your browser.
+          </p>
 
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="msg-title">
-      <div class="ss-card ss-hero">
-        <h1 id="msg-title">Messenger Link Cleaning</h1>
-        <p class="ss-hero-kicker">Clean once before you send.</p>
-        <p>
-          Links are often forwarded as-is in chat apps.
-          Many include unnecessary tracking parameters or click IDs.
-          SafeShare removes common keys locally in your browser.
-        </p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/en/app/">Clean link now</a>
+            <a class="ss-btn" href="/en/help/">Help</a>
+            <a class="ss-btn ss-btn--ghost" href="/en/pro/">Pro for fine control</a>
+          </div>
 
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/en/app/">Clean link now</a>
-          <a class="ss-btn" href="/en/help/">Help</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/pro/">Pro for fine control</a>
+          <div class="ss-note ss-mt-12">
+            Local-first: no uploads, no mandatory accounts, no extra tracking layer.
+          </div>
         </div>
+      </section>
 
-        <div class="ss-note ss-mt-12">
-          Local-first: no uploads, no mandatory accounts, no extra tracking layer.
+      <section class="ss-section" aria-labelledby="benefit-title">
+        <div class="ss-card">
+          <h2 id="benefit-title">Why especially for messengers?</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Everyday speed</h3>
+              <p class="ss-muted">Less link noise in quick shares.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Group chats</h3>
+              <p class="ss-muted">Cleaner, more readable URLs for everyone.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Less metadata</h3>
+              <p class="ss-muted">You pass along fewer unnecessary campaign markers.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Consistent flow</h3>
+              <p class="ss-muted">One habit: Copy → Clean → Share.</p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="benefit-title">
-      <div class="ss-card">
-        <h2 id="benefit-title">Why especially for messengers?</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Everyday speed</h3>
-            <p class="ss-muted">Less link noise in quick shares.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Group chats</h3>
-            <p class="ss-muted">Cleaner, more readable URLs for everyone.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Less metadata</h3>
-            <p class="ss-muted">You pass along fewer unnecessary campaign markers.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Consistent flow</h3>
-            <p class="ss-muted">One habit: Copy → Clean → Share.</p>
-          </article>
+      <section class="ss-section" aria-labelledby="care-title">
+        <div class="ss-card">
+          <h2 id="care-title">Important note</h2>
+          <div class="ss-warn ss-mt-12">
+            Do not remove every parameter blindly. Some are functional or intentional attribution.
+          </div>
+          <ul class="ss-mt-12">
+            <li><strong>Functional:</strong> language, search state, product variants.</li>
+            <li><strong>Affiliate:</strong> <code>ref</code> / <code>tag</code> may be intentional.</li>
+            <li><strong>Pro:</strong> use per-domain rules/allowlists for precise control.</li>
+          </ul>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
+  </div>
 
-    <section class="ss-section" aria-labelledby="care-title">
-      <div class="ss-card">
-        <h2 id="care-title">Important note</h2>
-        <div class="ss-warn ss-mt-12">
-          Do not remove every parameter blindly. Some are functional or intentional attribution.
-        </div>
-        <ul class="ss-mt-12">
-          <li><strong>Functional:</strong> language, search state, product variants.</li>
-          <li><strong>Affiliate:</strong> <code>ref</code> / <code>tag</code> may be intentional.</li>
-          <li><strong>Pro:</strong> use per-domain rules/allowlists for precise control.</li>
-        </ul>
-      </div>
-    </section>
-  </main>
-  <div id="ss-footer"></div>
   <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
