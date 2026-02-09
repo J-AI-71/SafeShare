@@ -42,106 +42,105 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
-  
+
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
-<body>
-  <div id="ss-shell"></div>
+<body data-page="shortcuts" data-lang="de">
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="shortcuts-title">
+        <div class="ss-card ss-hero">
+          <h1 id="shortcuts-title">iOS / iPadOS Share-Sheet Shortcuts</h1>
+          <p class="ss-hero-kicker">1-Tap: Teilen → bereinigen → sauber weitergeben.</p>
+          <p>
+            Der Shortcut entfernt typische Tracking-Parameter lokal auf deinem Gerät.
+            Keine Uploads, kein Konto-Zwang.
+          </p>
 
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="shortcuts-title">
-      <div class="ss-card ss-hero">
-        <h1 id="shortcuts-title">iOS / iPadOS Share-Sheet Shortcuts</h1>
-        <p class="ss-hero-kicker">1-Tap: Teilen → bereinigen → sauber weitergeben.</p>
-        <p>
-          Der Shortcut entfernt typische Tracking-Parameter lokal auf deinem Gerät.
-          Keine Uploads, kein Konto-Zwang.
-        </p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="REPLACE_WITH_ICLOUD_SHORTCUT_LINK_STANDARD">Shortcut installieren: Standard</a>
+            <a class="ss-btn" href="REPLACE_WITH_ICLOUD_SHORTCUT_LINK_MODE">Shortcut installieren: Modus wählen</a>
+            <a class="ss-btn ss-btn--ghost" href="/app/">Web-App öffnen</a>
+          </div>
 
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="REPLACE_WITH_ICLOUD_SHORTCUT_LINK_STANDARD">Shortcut installieren: Standard</a>
-          <a class="ss-btn" href="REPLACE_WITH_ICLOUD_SHORTCUT_LINK_MODE">Shortcut installieren: Modus wählen</a>
-          <a class="ss-btn ss-btn--ghost" href="/app/">Web-App öffnen</a>
+          <div class="ss-note ss-mt-12">
+            Local-first: Die Verarbeitung passiert auf dem Gerät.
+          </div>
+          <div class="ss-warn ss-mt-12">
+            Ehrlich: Der Shortcut entfernt URL-Parameter, verhindert aber nicht automatisch Logins/Cookies/Fingerprinting.
+          </div>
         </div>
+      </section>
 
-        <div class="ss-note ss-mt-12">
-          Local-first: Die Verarbeitung passiert auf dem Gerät.
+      <section class="ss-section" aria-labelledby="setup-title">
+        <div class="ss-card">
+          <h2 id="setup-title">Setup in 60 Sekunden</h2>
+          <ol class="ss-mt-12">
+            <li>„Standard“-Shortcut installieren.</li>
+            <li>In Safari/Mail/Messenger auf <strong>Teilen</strong> tippen.</li>
+            <li>Shortcut wählen und den sauberen Link nutzen.</li>
+          </ol>
+
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Standard</h3>
+              <p class="ss-muted">Für 95% der Fälle: schnell und robust.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Modus wählen</h3>
+              <p class="ss-muted">Für Sonderfälle (strenger / publisher-freundlich).</p>
+            </article>
+          </div>
         </div>
-        <div class="ss-warn ss-mt-12">
-          Ehrlich: Der Shortcut entfernt URL-Parameter, verhindert aber nicht automatisch Logins/Cookies/Fingerprinting.
+      </section>
+
+      <section class="ss-section" aria-labelledby="usecases-title">
+        <div class="ss-card">
+          <h2 id="usecases-title">Einsatz im Alltag</h2>
+          <div class="ss-grid ss-grid--3 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>E-Mail</h3>
+              <p class="ss-muted">Saubere Links in Antworten und Weiterleitungen.</p>
+              <a class="ss-btn ss-mt-12" href="/email-links-bereinigen/">Mehr dazu</a>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Messenger</h3>
+              <p class="ss-muted">Weniger unnötige IDs in Chats und Gruppen.</p>
+              <a class="ss-btn ss-mt-12" href="/messenger-links-bereinigen/">Mehr dazu</a>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Social</h3>
+              <p class="ss-muted">Klare URLs für Posts und Profile.</p>
+              <a class="ss-btn ss-mt-12" href="/social-links-bereinigen/">Mehr dazu</a>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="setup-title">
-      <div class="ss-card">
-        <h2 id="setup-title">Setup in 60 Sekunden</h2>
-        <ol class="ss-mt-12">
-          <li>„Standard“-Shortcut installieren.</li>
-          <li>In Safari/Mail/Messenger auf <strong>Teilen</strong> tippen.</li>
-          <li>Shortcut wählen und den sauberen Link nutzen.</li>
-        </ol>
+      <section class="ss-section" aria-labelledby="faq-title">
+        <div class="ss-card">
+          <h2 id="faq-title">FAQ</h2>
 
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Standard</h3>
-            <p class="ss-muted">Für 95% der Fälle: schnell und robust.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Modus wählen</h3>
-            <p class="ss-muted">Für Sonderfälle (strenger / publisher-freundlich).</p>
-          </article>
+          <details class="ss-mt-12">
+            <summary>Speichert der Shortcut Links?</summary>
+            <p class="ss-muted ss-mt-12">Nein. Verarbeitung lokal auf deinem Gerät.</p>
+          </details>
+
+          <details class="ss-mt-12">
+            <summary>Warum zwei Shortcuts?</summary>
+            <p class="ss-muted ss-mt-12">Damit „Standard“ 1-Tap bleibt und „Modus“ nur bei Sonderfällen genutzt wird.</p>
+          </details>
+
+          <details class="ss-mt-12">
+            <summary>Reicht Shortcut statt Pro?</summary>
+            <p class="ss-muted ss-mt-12">Für schnelles Teilen ja. Für Regeln/Audit/Bulk besser Pro.</p>
+          </details>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
+  </div>
 
-    <section class="ss-section" aria-labelledby="usecases-title">
-      <div class="ss-card">
-        <h2 id="usecases-title">Einsatz im Alltag</h2>
-        <div class="ss-grid ss-grid--3 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>E-Mail</h3>
-            <p class="ss-muted">Saubere Links in Antworten und Weiterleitungen.</p>
-            <a class="ss-btn ss-mt-12" href="/email-links-bereinigen/">Mehr dazu</a>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Messenger</h3>
-            <p class="ss-muted">Weniger unnötige IDs in Chats und Gruppen.</p>
-            <a class="ss-btn ss-mt-12" href="/messenger-links-bereinigen/">Mehr dazu</a>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Social</h3>
-            <p class="ss-muted">Klare URLs für Posts und Profile.</p>
-            <a class="ss-btn ss-mt-12" href="/social-links-bereinigen/">Mehr dazu</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="faq-title">
-      <div class="ss-card">
-        <h2 id="faq-title">FAQ</h2>
-
-        <details class="ss-mt-12">
-          <summary>Speichert der Shortcut Links?</summary>
-          <p class="ss-muted ss-mt-12">Nein. Verarbeitung lokal auf deinem Gerät.</p>
-        </details>
-
-        <details class="ss-mt-12">
-          <summary>Warum zwei Shortcuts?</summary>
-          <p class="ss-muted ss-mt-12">Damit „Standard“ 1-Tap bleibt und „Modus“ nur bei Sonderfällen genutzt wird.</p>
-        </details>
-
-        <details class="ss-mt-12">
-          <summary>Reicht Shortcut statt Pro?</summary>
-          <p class="ss-muted ss-mt-12">Für schnelles Teilen ja. Für Regeln/Audit/Bulk besser Pro.</p>
-        </details>
-      </div>
-    </section>
-  </main>
-
-  <div id="ss-footer"></div>
   <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
