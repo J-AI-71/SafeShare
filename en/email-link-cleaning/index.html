@@ -46,71 +46,71 @@
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
-<body data-page="email-link-cleaning" data-lang="en">
-  <div id="ss-shell"></div>
+<body data-page="email" data-lang="en">
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="email-title">
+        <div class="ss-card ss-hero">
+          <h1 id="email-title">Email Link Cleaning</h1>
+          <p class="ss-hero-kicker">Less noise in forwarded emails. More clarity in communication.</p>
+          <p>
+            Newsletter and campaign URLs often include extra parameters
+            (<code>utm_*</code>, <code>mc_cid</code>, <code>mkt_tok</code> …).
+            Most recipients do not need them.
+          </p>
 
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="email-title">
-      <div class="ss-card ss-hero">
-        <h1 id="email-title">Email Link Cleaning</h1>
-        <p class="ss-hero-kicker">Less noise in forwarded emails. More clarity in communication.</p>
-        <p>
-          Newsletter and campaign URLs often include extra parameters
-          (<code>utm_*</code>, <code>mc_cid</code>, <code>mkt_tok</code> …).
-          Most recipients do not need them.
-        </p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/en/app/">Clean a link now</a>
+            <a class="ss-btn" href="/en/tracking-parameters/">Tracking parameters explained</a>
+            <a class="ss-btn ss-btn--ghost" href="/en/pro/">Pro for rules/allowlists</a>
+          </div>
 
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/en/app/">Clean a link now</a>
-          <a class="ss-btn" href="/en/tracking-parameters/">Tracking parameters explained</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/pro/">Pro for rules/allowlists</a>
+          <div class="ss-note ss-mt-12">
+            SafeShare is local-first: cleaning happens in your browser, with no third-party uploads.
+          </div>
         </div>
+      </section>
 
-        <div class="ss-note ss-mt-12">
-          SafeShare is local-first: cleaning happens in your browser, with no third-party uploads.
+      <section class="ss-section" aria-labelledby="when-title">
+        <div class="ss-card">
+          <h2 id="when-title">When is it useful?</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Team forwarding</h3>
+              <p class="ss-muted">URLs stay shorter, cleaner, and consistent.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>External emails</h3>
+              <p class="ss-muted">Share less campaign metadata with third parties.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Documentation</h3>
+              <p class="ss-muted">Cleaner links in wikis, tickets, and notes.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Training material</h3>
+              <p class="ss-muted">Examples are easier to read without tracking noise.</p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="when-title">
-      <div class="ss-card">
-        <h2 id="when-title">When is it useful?</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Team forwarding</h3>
-            <p class="ss-muted">URLs stay shorter, cleaner, and consistent.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>External emails</h3>
-            <p class="ss-muted">Share less campaign metadata with third parties.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Documentation</h3>
-            <p class="ss-muted">Cleaner links in wikis, tickets, and notes.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Training material</h3>
-            <p class="ss-muted">Examples are easier to read without tracking noise.</p>
-          </article>
+      <section class="ss-section" aria-labelledby="careful-title">
+        <div class="ss-card">
+          <h2 id="careful-title">What to watch out for</h2>
+          <div class="ss-warn ss-mt-12">
+            Do not remove everything blindly: some parameters are functional or intentionally used for attribution.
+          </div>
+          <ul class="ss-mt-12">
+            <li><strong>Affiliate/ref:</strong> keys like <code>ref</code> or <code>tag</code> may be intentional.</li>
+            <li><strong>Functional:</strong> language, product IDs, filters, and search states.</li>
+            <li><strong>Pro:</strong> use per-domain rules/allowlists for precise control.</li>
+          </ul>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
+  </div>
 
-    <section class="ss-section" aria-labelledby="careful-title">
-      <div class="ss-card">
-        <h2 id="careful-title">What to watch out for</h2>
-        <div class="ss-warn ss-mt-12">
-          Do not remove everything blindly: some parameters are functional or intentionally used for attribution.
-        </div>
-        <ul class="ss-mt-12">
-          <li><strong>Affiliate/ref:</strong> keys like <code>ref</code> or <code>tag</code> may be intentional.</li>
-          <li><strong>Functional:</strong> language, product IDs, filters, and search states.</li>
-          <li><strong>Pro:</strong> use per-domain rules/allowlists for precise control.</li>
-        </ul>
-      </div>
-    </section>
-  </main>
-  <div id="ss-footer"></div>
-<script src="/js/ss-shell.js" defer></script>
+  <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
