@@ -1,238 +1,330 @@
-/* File: /js/ss-shell.js */
-/* SafeShare Shell JS — stable footer-at-bottom + robust lang switch */
+/* Datei: /js/shell.js */
+/* SafeShare Master Shell v2026-02-09-01
+   - Rendert Header + Nav + More-Menü vollständig per JS
+   - DE/EN Routing mit Schema /en/<slug>/
+   - Aktive Seite automatisch
+   - Language Switch bleibt auf "derselben" Seite (Mapped Slug)
+   - Escape + Backdrop + Outside Click schließen Sheet
+*/
 
 (() => {
-  const root = document.getElementById('ss-shell');
-  if (!root) return;
+  "use strict";
 
-  const lang = document.body?.dataset?.lang === 'de' ? 'de' : 'en';
-  const page = (document.body?.dataset?.page || '').trim();
+  const DOC = document;
+  const WIN = window;
 
-  const I18N = {
-    de: {
-      brand: 'SafeShare',
-      start: 'Start',
-      app: 'App',
-      school: 'Schule',
-      pro: 'Pro',
-      help: 'Hilfe',
-      more: 'Mehr',
-      close: 'Schließen',
-      footerNote: 'Local-first Link-Hygiene.',
-      langLabel: 'EN',
-      links: {
-        start: '/',
-        app: '/app/',
-        school: '/schule/',
-        pro: '/pro/',
-        help: '/hilfe/',
-        privacy: '/datenschutz/',
-        terms: '/nutzungsbedingungen/',
-        imprint: '/impressum/',
-        privacySharing: '/datenschutz-beim-link-teilen/',
-        bookmarks: '/lesezeichen/',
-        email: '/email-links-bereinigen/',
-        messenger: '/messenger-links-bereinigen/',
-        social: '/social-links-bereinigen/',
-        tracking: '/tracking-parameter/',
-        removeUtm: '/utm-parameter-entfernen/',
-        compare: '/url-cleaner-tool-vergleich/',
-        shortcuts: '/shortcuts/'
-      },
-      morePrimary: [
-        ['Datenschutz beim Link-Teilen', 'privacySharing'],
-        ['Lesezeichen', 'bookmarks'],
-        ['E-Mail-Links', 'email'],
-        ['Messenger-Links', 'messenger'],
-        ['Social-Links', 'social'],
-        ['Tracking-Parameter', 'tracking'],
-        ['UTM entfernen', 'removeUtm'],
-        ['Tool-Vergleich', 'compare']
-      ],
-      moreSecondary: [
-        ['Kurzbefehle', 'shortcuts'],
-        ['Datenschutz', 'privacy'],
-        ['Impressum', 'imprint'],
-        ['Nutzungsbedingungen', 'terms']
-      ]
-    },
-    en: {
-      brand: 'SafeShare',
-      start: 'Start',
-      app: 'App',
-      school: 'School',
-      pro: 'Pro',
-      help: 'Help',
-      more: 'More',
-      close: 'Close',
-      footerNote: 'Local-first link hygiene.',
-      langLabel: 'DE',
-      links: {
-        start: '/en/',
-        app: '/en/app/',
-        school: '/en/school/',
-        pro: '/en/pro/',
-        help: '/en/help/',
-        privacy: '/en/privacy/',
-        terms: '/en/terms/',
-        imprint: '/en/imprint/',
-        privacySharing: '/en/privacy-when-sharing-links/',
-        bookmarks: '/en/bookmarks/',
-        email: '/en/email-link-cleaning/',
-        messenger: '/en/messenger-link-cleaning/',
-        social: '/en/social-link-cleaning/',
-        tracking: '/en/tracking-parameters/',
-        removeUtm: '/en/remove-utm-parameter/',
-        compare: '/en/url-cleaner-comparison/',
-        shortcuts: '/en/shortcuts/'
-      },
-      morePrimary: [
-        ['Privacy when sharing links', 'privacySharing'],
-        ['Bookmarks', 'bookmarks'],
-        ['Email links', 'email'],
-        ['Messenger links', 'messenger'],
-        ['Social links', 'social'],
-        ['Tracking parameters', 'tracking'],
-        ['Remove UTM', 'removeUtm'],
-        ['Tool comparison', 'compare']
-      ],
-      moreSecondary: [
-        ['Shortcuts', 'shortcuts'],
-        ['Privacy', 'privacy'],
-        ['Imprint', 'imprint'],
-        ['Terms', 'terms']
-      ]
-    }
-  }[lang];
+  /* ---------------------------------------------------------
+     Konfiguration
+  --------------------------------------------------------- */
 
-  const deToEnByPage = {
-    start: '/en/', home: '/en/', app: '/en/app/', schule: '/en/school/', school: '/en/school/',
-    pro: '/en/pro/', hilfe: '/en/help/', help: '/en/help/', datenschutz: '/en/privacy/',
-    nutzungsbedingungen: '/en/terms/', impressum: '/en/imprint/',
-    'datenschutz-beim-link-teilen': '/en/privacy-when-sharing-links/',
-    lesezeichen: '/en/bookmarks/', 'email-links-bereinigen': '/en/email-link-cleaning/',
-    'messenger-links-bereinigen': '/en/messenger-link-cleaning/', 'social-links-bereinigen': '/en/social-link-cleaning/',
-    'tracking-parameter': '/en/tracking-parameters/', 'utm-parameter-entfernen': '/en/remove-utm-parameter/',
-    'url-cleaner-tool-vergleich': '/en/url-cleaner-comparison/', shortcuts: '/en/shortcuts/',
-    '404': '/en/404/', offline: '/en/offline/'
+  // Slug-Mapping DE -> EN (Schema: /en/<slug>/)
+  const DE_TO_EN = {
+    "": "",                // Start
+    "app": "app",
+    "hilfe": "help",
+    "pro": "pro",
+    "schule": "school",
+
+    "utm-parameter-entfernen": "remove-utm-parameters",
+    "email-links-bereinigen": "clean-email-links",
+    "messenger-links-bereinigen": "clean-messenger-links",
+    "social-links-bereinigen": "clean-social-links",
+    "datenschutz-ist-nicht-dasselbe-wie-privatheit": "privacy-is-not-the-same-as-secrecy"
   };
 
-  const enToDeByPage = {
-    start: '/', home: '/', app: '/app/', school: '/schule/', pro: '/pro/', help: '/hilfe/',
-    privacy: '/datenschutz/', terms: '/nutzungsbedingungen/', imprint: '/impressum/',
-    'privacy-when-sharing-links': '/datenschutz-beim-link-teilen/', bookmarks: '/lesezeichen/',
-    'email-link-cleaning': '/email-links-bereinigen/', 'messenger-link-cleaning': '/messenger-links-bereinigen/',
-    'social-link-cleaning': '/social-links-bereinigen/', 'tracking-parameters': '/tracking-parameter/',
-    'remove-utm-parameter': '/utm-parameter-entfernen/', 'url-cleaner-comparison': '/url-cleaner-tool-vergleich/',
-    shortcuts: '/shortcuts/', '404': '/404.html', offline: '/offline/'
-  };
+  // Auto-Reverse EN -> DE
+  const EN_TO_DE = Object.fromEntries(
+    Object.entries(DE_TO_EN).map(([de, en]) => [en, de])
+  );
 
-  function computeLangHref() {
-    if (lang === 'de') {
-      if (deToEnByPage[page]) return deToEnByPage[page];
-      const p = location.pathname.replace(/\/+$/, '') || '/';
-      if (p === '/') return '/en/';
-      return (`/en${p}/`).replace(/\/{2,}/g, '/');
-    } else {
-      if (enToDeByPage[page]) return enToDeByPage[page];
-      const p = location.pathname.replace(/\/+$/, '') || '/';
-      if (p === '/en') return '/';
-      if (p.startsWith('/en/')) return (p.slice(3) || '/');
-      return '/';
-    }
-  }
-
-  function isActive(href) {
-    const a = (location.pathname.replace(/\/+$/, '') || '/');
-    const b = (href.replace(/\/+$/, '') || '/');
-    return a === b;
-  }
-
-  const topNav = [
-    ['start', I18N.links.start],
-    ['app', I18N.links.app],
-    ['school', I18N.links.school],
-    ['pro', I18N.links.pro],
-    ['help', I18N.links.help]
+  // Hauptnavigation
+  const NAV_DE = [
+    { key: "start", label: "Start", href: "/" },
+    { key: "app", label: "App", href: "/app/" },
+    { key: "hilfe", label: "Hilfe", href: "/hilfe/" },
+    { key: "pro", label: "Pro", href: "/pro/" },
+    { key: "schule", label: "Schule", href: "/schule/" }
   ];
 
-  const navHtml = topNav.map(([k, href]) =>
-    `<a class="ss-nav__link${isActive(href) ? ' is-active' : ''}" href="${href}">${I18N[k]}</a>`
-  ).join('');
+  const NAV_EN = [
+    { key: "start", label: "Start", href: "/en/" },
+    { key: "app", label: "App", href: "/en/app/" },
+    { key: "help", label: "Help", href: "/en/help/" },
+    { key: "pro", label: "Pro", href: "/en/pro/" },
+    { key: "school", label: "School", href: "/en/school/" }
+  ];
 
-  const morePrimary = I18N.morePrimary.map(([label, key]) =>
-    `<a class="ss-more__item${isActive(I18N.links[key]) ? ' is-active' : ''}" href="${I18N.links[key]}">${label}</a>`
-  ).join('');
+  // More-Menü
+  const MORE_DE = [
+    { label: "Support", href: "mailto:listings@safesharepro.com", meta: "Kontakt" },
+    { label: "Datenschutz", href: "/privacy/", meta: "Info" },
+    { label: "Impressum", href: "/impressum/", meta: "Legal" },
+    { label: "EN wechseln", action: "switchLang", meta: "Sprache" }
+  ];
 
-  const moreSecondary = I18N.moreSecondary.map(([label, key]) =>
-    `<a class="ss-more__item${isActive(I18N.links[key]) ? ' is-active' : ''}" href="${I18N.links[key]}">${label}</a>`
-  ).join('');
+  const MORE_EN = [
+    { label: "Support", href: "mailto:listings@safesharepro.com", meta: "Contact" },
+    { label: "Privacy", href: "/en/privacy/", meta: "Info" },
+    { label: "Legal Notice", href: "/en/legal/", meta: "Legal" },
+    { label: "Switch to DE", action: "switchLang", meta: "Language" }
+  ];
 
-  root.innerHTML = `
-    <header class="ss-header">
-      <div class="ss-header__row">
-        <a class="ss-brand" href="${I18N.links.start}" aria-label="${I18N.brand}">
-          <span class="ss-brand__word">${I18N.brand}</span>
+  /* ---------------------------------------------------------
+     Helper
+  --------------------------------------------------------- */
+
+  const sanitizePath = (path) => {
+    if (!path) return "/";
+    let p = path;
+    // Doppelte Slashes reduzieren
+    p = p.replace(/\/{2,}/g, "/");
+    // Trailing slash erzwingen
+    if (!p.endsWith("/")) p += "/";
+    return p;
+  };
+
+  const getCurrentPath = () => sanitizePath(WIN.location.pathname);
+
+  const isEnglishPath = (path) => path === "/en/" || path.startsWith("/en/");
+
+  const stripLeadingAndTrailingSlash = (str) =>
+    str.replace(/^\/+|\/+$/g, "");
+
+  const getSlug = (path, lang) => {
+    const cleaned = sanitizePath(path);
+    if (lang === "en") {
+      // /en/<slug>/
+      const rest = cleaned.replace(/^\/en\//, "");
+      return stripLeadingAndTrailingSlash(rest); // "" for /en/
+    }
+    // /<slug>/
+    return stripLeadingAndTrailingSlash(cleaned);
+  };
+
+  const buildPath = (lang, slug) => {
+    const s = (slug || "").trim();
+    if (lang === "en") return s ? `/en/${s}/` : "/en/";
+    return s ? `/${s}/` : "/";
+  };
+
+  const getLang = () => (isEnglishPath(getCurrentPath()) ? "en" : "de");
+
+  const mapSlugToOtherLang = (slug, fromLang) => {
+    if (fromLang === "de") return DE_TO_EN.hasOwnProperty(slug) ? DE_TO_EN[slug] : slug;
+    return EN_TO_DE.hasOwnProperty(slug) ? EN_TO_DE[slug] : slug;
+  };
+
+  const getActiveHref = (path, navList) => {
+    // Längstes Prefix gewinnt (damit /app/ vor /)
+    let match = navList[0]?.href || "/";
+    for (const item of navList) {
+      const href = sanitizePath(item.href);
+      if (path === href || path.startsWith(href)) {
+        if (href.length > match.length) match = href;
+      }
+    }
+    return match;
+  };
+
+  const escapeHtml = (str) =>
+    String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+  /* ---------------------------------------------------------
+     Render
+  --------------------------------------------------------- */
+
+  const renderShell = () => {
+    const lang = getLang();
+    const path = getCurrentPath();
+    const nav = lang === "en" ? NAV_EN : NAV_DE;
+    const more = lang === "en" ? MORE_EN : MORE_DE;
+    const activeHref = getActiveHref(path, nav);
+
+    const shell = DOC.createElement("header");
+    shell.className = "ss-shell";
+    shell.setAttribute("role", "banner");
+    shell.innerHTML = `
+      <div class="ss-shell__inner">
+        <a class="ss-brand" href="${lang === "en" ? "/en/" : "/"}" aria-label="SafeShare Home">
+          <span class="ss-brand__mark" aria-hidden="true">
+            <img src="/assets/fav/icon-192.png" alt="" loading="eager" decoding="async" />
+          </span>
+          <span class="ss-brand__txt">SafeShare</span>
         </a>
-        <div class="ss-headActions">
-          <a class="ss-langSwitch" href="${computeLangHref()}" hreflang="${lang === 'de' ? 'en' : 'de'}">${I18N.langLabel}</a>
-          <button class="ss-moreBtn" id="ssMoreBtn" type="button" aria-haspopup="dialog" aria-expanded="false">${I18N.more}</button>
+
+        <nav class="ss-nav" aria-label="${lang === "en" ? "Main navigation" : "Hauptnavigation"}">
+          ${nav.map(item => `
+            <a class="ss-nav__link${sanitizePath(item.href) === activeHref ? " is-active" : ""}"
+               href="${item.href}">
+              ${escapeHtml(item.label)}
+            </a>
+          `).join("")}
+        </nav>
+
+        <div class="ss-actions">
+          <button class="ss-iconBtn" id="ssLangBtn" type="button" aria-label="${lang === "en" ? "Switch language" : "Sprache wechseln"}">
+            ${lang === "en" ? "DE" : "EN"}
+          </button>
+          <button class="ss-iconBtn" id="ssMoreBtn" type="button" aria-haspopup="dialog" aria-controls="ssSheet" aria-expanded="false" aria-label="${lang === "en" ? "Open menu" : "Menü öffnen"}">
+            <svg class="ss-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
+            </svg>
+          </button>
         </div>
       </div>
-      <nav class="ss-nav" aria-label="Primary">${navHtml}</nav>
-    </header>
+    `;
 
-    <div class="ss-more" id="ssMore" hidden>
-      <button class="ss-more__backdrop" id="ssMoreBackdrop" aria-label="${I18N.close}"></button>
-      <div class="ss-more__panel" role="dialog" aria-modal="true" aria-label="${I18N.more}">
-        <div class="ss-more__head">
-          <strong>${I18N.more}</strong>
-          <button class="ss-more__close" id="ssMoreClose" type="button" aria-label="${I18N.close}">×</button>
-        </div>
-        <div class="ss-more__list">${morePrimary}</div>
-        <div class="ss-more__divider"></div>
-        <div class="ss-more__list ss-more__list--secondary">${moreSecondary}</div>
+    // Backdrop + Sheet
+    const backdrop = DOC.createElement("div");
+    backdrop.className = "ss-backdrop";
+    backdrop.id = "ssBackdrop";
+    backdrop.setAttribute("hidden", "");
+
+    const sheet = DOC.createElement("section");
+    sheet.className = "ss-sheet";
+    sheet.id = "ssSheet";
+    sheet.setAttribute("role", "dialog");
+    sheet.setAttribute("aria-modal", "true");
+    sheet.setAttribute("aria-label", lang === "en" ? "More menu" : "Mehr Menü");
+    sheet.setAttribute("hidden", "");
+    sheet.innerHTML = `
+      <div class="ss-sheet__grip" aria-hidden="true"></div>
+      <div class="ss-sheet__head">
+        <h2 class="ss-sheet__title">${lang === "en" ? "More" : "Mehr"}</h2>
+        <button class="ss-iconBtn" id="ssCloseBtn" type="button" aria-label="${lang === "en" ? "Close menu" : "Menü schließen"}">
+          <svg class="ss-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.6l6.3-6.31z"></path>
+          </svg>
+        </button>
       </div>
-    </div>
-  `;
+      <div class="ss-sheet__body">
+        <ul class="ss-list">
+          ${more.map((item, idx) => {
+            if (item.action === "switchLang") {
+              return `
+                <li>
+                  <a href="#" class="ss-list__a" data-action="switchLang" data-idx="${idx}">
+                    <span>${escapeHtml(item.label)}</span>
+                    <span class="ss-list__meta">${escapeHtml(item.meta || "")}</span>
+                  </a>
+                </li>
+              `;
+            }
+            return `
+              <li>
+                <a href="${item.href}" class="ss-list__a">
+                  <span>${escapeHtml(item.label)}</span>
+                  <span class="ss-list__meta">${escapeHtml(item.meta || "")}</span>
+                </a>
+              </li>
+            `;
+          }).join("")}
+        </ul>
+      </div>
+    `;
 
-  // ---- Footer robust at page bottom (rendered by shell JS, not static HTML) ----
-  const oldFooter = document.getElementById('ss-shell-footer');
-  if (oldFooter) oldFooter.remove();
+    DOC.body.prepend(shell);
+    DOC.body.append(backdrop, sheet);
 
-  const footer = document.createElement('footer');
-  footer.id = 'ss-shell-footer';
-  footer.className = 'ss-footer';
-  footer.innerHTML = `
-    <div class="ss-footer__inner">
-      <span>${I18N.brand}</span><span>•</span><span>${I18N.footerNote}</span>
-    </div>
-  `;
-  document.body.appendChild(footer);
-
-  // More interactions
-  const more = root.querySelector('#ssMore');
-  const moreBtn = root.querySelector('#ssMoreBtn');
-  const closeBtn = root.querySelector('#ssMoreClose');
-  const backdrop = root.querySelector('#ssMoreBackdrop');
-
-  const openMore = () => {
-    if (!more) return;
-    more.hidden = false;
-    moreBtn?.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('ss-noScroll');
-  };
-  const closeMore = () => {
-    if (!more) return;
-    more.hidden = true;
-    moreBtn?.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('ss-noScroll');
+    bindEvents({ lang, sheet, backdrop });
   };
 
-  moreBtn?.addEventListener('click', openMore);
-  closeBtn?.addEventListener('click', closeMore);
-  backdrop?.addEventListener('click', closeMore);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && more && !more.hidden) closeMore();
-  });
+  /* ---------------------------------------------------------
+     Interaktionen
+  --------------------------------------------------------- */
+
+  const bindEvents = ({ lang, sheet, backdrop }) => {
+    const moreBtn = DOC.getElementById("ssMoreBtn");
+    const closeBtn = DOC.getElementById("ssCloseBtn");
+    const langBtn = DOC.getElementById("ssLangBtn");
+
+    let lastFocus = null;
+
+    const openSheet = () => {
+      lastFocus = DOC.activeElement;
+      backdrop.hidden = false;
+      sheet.hidden = false;
+
+      // nächster Frame für CSS Transition
+      requestAnimationFrame(() => {
+        backdrop.classList.add("is-open");
+        sheet.classList.add("is-open");
+      });
+
+      DOC.body.classList.add("ss-no-scroll");
+      moreBtn?.setAttribute("aria-expanded", "true");
+      closeBtn?.focus();
+    };
+
+    const closeSheet = () => {
+      backdrop.classList.remove("is-open");
+      sheet.classList.remove("is-open");
+      DOC.body.classList.remove("ss-no-scroll");
+      moreBtn?.setAttribute("aria-expanded", "false");
+
+      const onEnd = () => {
+        sheet.hidden = true;
+        backdrop.hidden = true;
+        sheet.removeEventListener("transitionend", onEnd);
+        if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+      };
+      sheet.addEventListener("transitionend", onEnd, { once: true });
+    };
+
+    const switchLanguage = () => {
+      const currentPath = getCurrentPath();
+      const fromLang = lang;
+      const toLang = fromLang === "de" ? "en" : "de";
+
+      const fromSlug = getSlug(currentPath, fromLang);
+      const toSlug = mapSlugToOtherLang(fromSlug, fromLang);
+
+      const target = buildPath(toLang, toSlug);
+      WIN.location.href = target;
+    };
+
+    moreBtn?.addEventListener("click", openSheet);
+    closeBtn?.addEventListener("click", closeSheet);
+    backdrop.addEventListener("click", closeSheet);
+
+    DOC.addEventListener("keydown", (ev) => {
+      if (ev.key === "Escape" && !sheet.hidden) {
+        ev.preventDefault();
+        closeSheet();
+      }
+    });
+
+    langBtn?.addEventListener("click", switchLanguage);
+
+    // Delegation für switchLang im Sheet
+    sheet.addEventListener("click", (ev) => {
+      const target = ev.target instanceof Element ? ev.target.closest("[data-action='switchLang']") : null;
+      if (!target) return;
+      ev.preventDefault();
+      closeSheet();
+      // kleines Delay, damit close animieren kann
+      setTimeout(() => switchLanguage(), 120);
+    });
+  };
+
+  /* ---------------------------------------------------------
+     Boot
+  --------------------------------------------------------- */
+
+  const boot = () => {
+    // Idempotenz: wenn schon gerendert, nicht doppeln
+    if (DOC.querySelector(".ss-shell")) return;
+    renderShell();
+  };
+
+  if (DOC.readyState === "loading") {
+    DOC.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
 })();
