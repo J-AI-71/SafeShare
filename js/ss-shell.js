@@ -1,246 +1,234 @@
-// File: /js/ss-shell.js
-// SafeShare Shell (DE/EN) — footer in shell, top-nav + readable more menu
-(() => {
-  const root = document.getElementById('ss-shell');
-  if (!root) return;
+/* SafeShare Master-Flow Strict Shell */
+/* Datei: /js/shell.js */
 
-  const lang = document.body?.dataset?.lang === 'de' ? 'de' : 'en';
-  const page = (document.body?.dataset?.page || '').trim();
+(function () {
+  "use strict";
 
-  const I18N = {
+  // ---------- ROUTES (DE + EN Schema /en/<slug>/) ----------
+  const ROUTES = {
     de: {
-      brand: 'SafeShare',
-      start: 'Start',
-      app: 'App',
-      school: 'Schule',
-      pro: 'Pro',
-      help: 'Hilfe',
-      more: 'Mehr',
-      close: 'Schließen',
-      footerNote: 'Local-first Link-Hygiene.',
-      primaryNavAria: 'Hauptnavigation',
-      moreAria: 'Mehr-Menü',
-      allTopics: 'Alle Themen in Hilfe',
-      links: {
-        start: '/',
-        app: '/app/',
-        school: '/schule/',
-        pro: '/pro/',
-        help: '/hilfe/',
-        privacy: '/datenschutz/',
-        terms: '/nutzungsbedingungen/',
-        privacySharing: '/datenschutz-beim-link-teilen/',
-        bookmarks: '/lesezeichen/',
-        email: '/email-links-bereinigen/',
-        messenger: '/messenger-links-bereinigen/',
-        social: '/social-links-bereinigen/',
-        tracking: '/tracking-parameter/',
-        removeUtm: '/utm-parameter-entfernen/',
-        compare: '/url-cleaner-tool-vergleich/',
-        shortcuts: '/shortcuts/'
-      },
-      moreLinksPrimary: [
-        ['Datenschutz beim Link-Teilen', 'privacySharing'],
-        ['Lesezeichen', 'bookmarks'],
-        ['E-Mail-Links', 'email'],
-        ['Messenger-Links', 'messenger'],
-        ['Social-Links', 'social'],
-        ['Tracking-Parameter', 'tracking'],
-        ['UTM entfernen', 'removeUtm'],
-        ['Tool-Vergleich', 'compare']
-      ],
-      moreLinksSecondary: [
-        ['Datenschutz', 'privacy'],
-        ['Nutzungsbedingungen', 'terms']
-      ]
+      home: "/",
+      app: "/app/",
+      pro: "/pro/",
+      school: "/schule/",
+      help: "/hilfe/",
+      support: "/support/",
+      privacy: "/datenschutz/",
+      imprint: "/impressum/"
     },
-
     en: {
-      brand: 'SafeShare',
-      start: 'Start',
-      app: 'App',
-      school: 'School',
-      pro: 'Pro',
-      help: 'Help',
-      more: 'More',
-      close: 'Close',
-      footerNote: 'Local-first link hygiene.',
-      primaryNavAria: 'Primary navigation',
-      moreAria: 'More menu',
-      allTopics: 'All topics in Help',
-      links: {
-        start: '/en/',
-        app: '/en/app/',
-        school: '/en/school/',
-        pro: '/en/pro/',
-        help: '/en/help/',
-        privacy: '/en/privacy/',
-        terms: '/en/terms/',
-        privacySharing: '/en/privacy-when-sharing-links/',
-        bookmarks: '/en/bookmarks/',
-        email: '/en/email-link-cleaning/',
-        messenger: '/en/messenger-link-cleaning/',
-        social: '/en/social-link-cleaning/',
-        tracking: '/en/tracking-parameters/',
-        removeUtm: '/en/remove-utm-parameter/',
-        compare: '/en/url-cleaner-comparison/',
-        shortcuts: '/en/shortcuts/'
-      },
-      moreLinksPrimary: [
-        ['Privacy when sharing links', 'privacySharing'],
-        ['Bookmarks', 'bookmarks'],
-        ['Email links', 'email'],
-        ['Messenger links', 'messenger'],
-        ['Social links', 'social'],
-        ['Tracking parameters', 'tracking'],
-        ['Remove UTM', 'removeUtm'],
-        ['Tool comparison', 'compare']
-      ],
-      moreLinksSecondary: [
-        ['Privacy', 'privacy'],
-        ['Terms', 'terms']
-      ]
+      home: "/en/",
+      app: "/en/app/",
+      pro: "/en/pro/",
+      school: "/en/school/",
+      help: "/en/help/",
+      support: "/en/support/",
+      privacy: "/en/privacy/",
+      imprint: "/en/imprint/"
     }
   };
 
-  const T = I18N[lang];
-  const currentPath = location.pathname.replace(/\/+$/, '') || '/';
-
-  const normalize = (href) => href.replace(/\/+$/, '') || '/';
-  const isActive = (href) => normalize(currentPath) === normalize(href);
-
-  // Optional: map data-page values to nav keys for robust active states
-  const pageToNavKey = {
-    // DE
-    'start': 'start',
-    'index': 'start',
-    'app': 'app',
-    'schule': 'school',
-    'hilfe': 'help',
-    'pro': 'pro',
-    // EN
-    'school': 'school',
-    'help': 'help'
+  const LABELS = {
+    de: {
+      brand: "SafeShare",
+      home: "Start",
+      app: "App",
+      pro: "Pro",
+      school: "Schule",
+      help: "Hilfe",
+      more: "Mehr",
+      support: "Support",
+      privacy: "Datenschutz",
+      imprint: "Impressum",
+      sheetTitle: "Mehr"
+    },
+    en: {
+      brand: "SafeShare",
+      home: "Home",
+      app: "App",
+      pro: "Pro",
+      school: "School",
+      help: "Help",
+      more: "More",
+      support: "Support",
+      privacy: "Privacy",
+      imprint: "Imprint",
+      sheetTitle: "More"
+    }
   };
 
-  const topNav = [
-    ['start', T.links.start],
-    ['app', T.links.app],
-    ['school', T.links.school],
-    ['pro', T.links.pro],
-    ['help', T.links.help]
-  ];
+  function getLangFromPath(pathname) {
+    return pathname.startsWith("/en/") || pathname === "/en" ? "en" : "de";
+  }
 
-  const activeByPageKey = pageToNavKey[page] || null;
+  function normalizePath(path) {
+    if (!path) return "/";
+    let p = path.split("?")[0].split("#")[0];
+    if (!p.startsWith("/")) p = "/" + p;
+    if (p !== "/" && !p.endsWith("/")) p += "/";
+    return p;
+  }
 
-  const topNavHtml = topNav
-    .map(([key, href]) => {
-      const active = isActive(href) || activeByPageKey === key;
-      return `
-        <a class="ss-nav__link${active ? ' is-active' : ''}" href="${href}">
-          ${T[key]}
+  function buildAltPath(targetLang, currentPath) {
+    const p = normalizePath(currentPath);
+    if (targetLang === "en") {
+      if (p === "/") return "/en/";
+      if (p.startsWith("/en/")) return p;
+      return "/en" + p;
+    }
+    // target de
+    if (p === "/en/" || p === "/en") return "/";
+    if (p.startsWith("/en/")) return p.replace(/^\/en/, "") || "/";
+    return p;
+  }
+
+  function currentKey(lang, path) {
+    const r = ROUTES[lang];
+    const p = normalizePath(path);
+    const entries = [
+      ["home", r.home], ["app", r.app], ["pro", r.pro],
+      ["school", r.school], ["help", r.help]
+    ];
+    for (const [k, v] of entries) {
+      if (normalizePath(v) === p) return k;
+    }
+    return "";
+  }
+
+  function link(href, label, active) {
+    const a = document.createElement("a");
+    a.href = href;
+    a.textContent = label;
+    a.className = "ss-nav__link";
+    if (active) a.setAttribute("aria-current", "page");
+    return a;
+  }
+
+  function tab(href, label, active) {
+    const a = document.createElement("a");
+    a.href = href;
+    a.textContent = label;
+    a.className = "ss-tab";
+    if (active) a.setAttribute("aria-current", "page");
+    return a;
+  }
+
+  function mountShell() {
+    const root = document.getElementById("ss-shell");
+    const content = document.getElementById("ss-content");
+    if (!root || !content) return;
+
+    const lang = getLangFromPath(window.location.pathname);
+    const t = LABELS[lang];
+    const r = ROUTES[lang];
+    const active = currentKey(lang, window.location.pathname);
+
+    // Header
+    const header = document.createElement("header");
+    header.className = "ss-header";
+    header.innerHTML = `
+      <div class="ss-header__inner">
+        <a class="ss-brand" href="${r.home}" aria-label="${t.brand}">
+          <span class="ss-brand__logo" aria-hidden="true"></span>
+          <span class="ss-brand__text">${t.brand}</span>
         </a>
-      `;
-    })
-    .join('');
-
-  const buildMoreLinks = (arr) =>
-    arr.map(([label, key]) => {
-      const href = T.links[key];
-      const active = isActive(href);
-      return `<a class="ss-more__item${active ? ' is-active' : ''}" href="${href}">${label}</a>`;
-    }).join('');
-
-  const morePrimaryHtml = buildMoreLinks(T.moreLinksPrimary || []);
-  const moreSecondaryHtml = buildMoreLinks(T.moreLinksSecondary || []);
-
-  root.innerHTML = `
-    <header class="ss-header" role="banner">
-      <div class="ss-header__row">
-        <a class="ss-brand" href="${T.links.start}" aria-label="${T.brand}">${T.brand}</a>
-
-        <div class="ss-headActions">
-          <button
-            class="ss-moreBtn"
-            id="ssMoreBtn"
-            type="button"
-            aria-haspopup="dialog"
-            aria-controls="ssMore"
-            aria-expanded="false"
-          >
-            ${T.more}
-          </button>
+        <nav class="ss-nav" aria-label="Main"></nav>
+        <div class="ss-header__actions">
+          <button type="button" class="ss-lang" id="ss-lang-btn">${lang.toUpperCase()}</button>
+          <button type="button" class="ss-more-btn" id="ss-more-btn">${t.more}</button>
         </div>
       </div>
+    `;
 
-      <nav class="ss-nav" aria-label="${T.primaryNavAria}">
-        ${topNavHtml}
-      </nav>
-    </header>
+    const nav = header.querySelector(".ss-nav");
+    nav.append(
+      link(r.home, t.home, active === "home"),
+      link(r.app, t.app, active === "app"),
+      link(r.pro, t.pro, active === "pro"),
+      link(r.school, t.school, active === "school"),
+      link(r.help, t.help, active === "help")
+    );
 
-    <div class="ss-more" id="ssMore" hidden>
-      <div class="ss-more__panel" role="dialog" aria-modal="true" aria-label="${T.moreAria}">
-        <div class="ss-more__head">
-          <strong>${T.more}</strong>
-          <button class="ss-more__close" id="ssMoreClose" type="button" aria-label="${T.close}">×</button>
-        </div>
-
-        <div class="ss-more__list">${morePrimaryHtml}</div>
-
-        <div class="ss-more__divider" aria-hidden="true"></div>
-
-        <div class="ss-more__list ss-more__list--secondary">
-          ${moreSecondaryHtml}
-          <a class="ss-more__item ss-more__item--help" href="${T.links.help}">${T.allTopics}</a>
-        </div>
-      </div>
-
-      <button class="ss-more__backdrop" id="ssMoreBackdrop" aria-label="${T.close}"></button>
-    </div>
-
-    <footer class="ss-footer" role="contentinfo">
+    // Footer (desktop)
+    const footer = document.createElement("footer");
+    footer.className = "ss-footer";
+    footer.innerHTML = `
       <div class="ss-footer__inner">
-        <span>${T.brand}</span>
-        <span>•</span>
-        <span>${T.footerNote}</span>
+        <small class="ss-muted">© ${new Date().getFullYear()} SafeShare</small>
+        <div class="ss-footer__links">
+          <a class="ss-footer__link" href="${r.support}">${t.support}</a>
+          <a class="ss-footer__link" href="${r.privacy}">${t.privacy}</a>
+          <a class="ss-footer__link" href="${r.imprint}">${t.imprint}</a>
+        </div>
       </div>
-    </footer>
-  `;
+    `;
 
-  const more = root.querySelector('#ssMore');
-  const moreBtn = root.querySelector('#ssMoreBtn');
-  const closeBtn = root.querySelector('#ssMoreClose');
-  const backdrop = root.querySelector('#ssMoreBackdrop');
+    // Mobile tabs
+    const tabs = document.createElement("nav");
+    tabs.className = "ss-tabs";
+    tabs.setAttribute("aria-label", "Tabs");
+    const tabsInner = document.createElement("div");
+    tabsInner.className = "ss-tabs__inner";
+    tabsInner.append(
+      tab(r.home, t.home, active === "home"),
+      tab(r.app, t.app, active === "app"),
+      tab(r.pro, t.pro, active === "pro"),
+      tab(r.school, t.school, active === "school"),
+      tab(r.help, t.help, active === "help")
+    );
+    tabs.appendChild(tabsInner);
 
-  if (!more || !moreBtn || !closeBtn || !backdrop) return;
+    // More sheet
+    const sheet = document.createElement("div");
+    sheet.className = "ss-sheet";
+    sheet.id = "ss-sheet";
+    sheet.innerHTML = `
+      <div class="ss-sheet__backdrop" data-close="1"></div>
+      <div class="ss-sheet__panel" role="dialog" aria-modal="true" aria-label="${t.sheetTitle}">
+        <h3 class="ss-sheet__title">${t.sheetTitle}</h3>
+        <div class="ss-sheet__list">
+          <a class="ss-sheet__item" href="${r.support}">${t.support}</a>
+          <a class="ss-sheet__item" href="${r.privacy}">${t.privacy}</a>
+          <a class="ss-sheet__item" href="${r.imprint}">${t.imprint}</a>
+        </div>
+      </div>
+    `;
 
-  const openMore = () => {
-    more.hidden = false;
-    moreBtn.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('ss-noScroll');
-    closeBtn.focus();
-  };
+    // Mount order
+    root.innerHTML = "";
+    root.appendChild(header);
+    root.appendChild(content);
+    root.appendChild(footer);
+    root.appendChild(tabs);
+    root.appendChild(sheet);
 
-  const closeMore = () => {
-    more.hidden = true;
-    moreBtn.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('ss-noScroll');
-    moreBtn.focus();
-  };
+    // Actions
+    const langBtn = root.querySelector("#ss-lang-btn");
+    const moreBtn = root.querySelector("#ss-more-btn");
+    const closeEls = sheet.querySelectorAll("[data-close='1']");
 
-  moreBtn.addEventListener('click', () => {
-    if (more.hidden) openMore();
-    else closeMore();
-  });
-  closeBtn.addEventListener('click', closeMore);
-  backdrop.addEventListener('click', closeMore);
+    langBtn.addEventListener("click", function () {
+      const targetLang = lang === "de" ? "en" : "de";
+      const targetPath = buildAltPath(targetLang, window.location.pathname);
+      window.location.href = targetPath;
+    });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !more.hidden) closeMore();
-  });
+    moreBtn.addEventListener("click", function () {
+      sheet.setAttribute("open", "");
+    });
 
-  // Close on link click in panel
-  more.querySelectorAll('a.ss-more__item').forEach((a) => {
-    a.addEventListener('click', () => closeMore());
-  });
+    closeEls.forEach(el => el.addEventListener("click", () => {
+      sheet.removeAttribute("open");
+    }));
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") sheet.removeAttribute("open");
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mountShell);
+  } else {
+    mountShell();
+  }
 })();
