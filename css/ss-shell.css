@@ -1,6 +1,9 @@
 /* File: /css/ss-shell.css */
-/* SafeShare Shell CSS — readable "More" panel + shell footer */
+/* SafeShare Shell CSS — consolidated, readable More panel + shell footer */
 
+/* =========================
+   Tokens
+========================= */
 :root{
   --ss-shell-max: 1120px;
   --ss-shell-radius: 14px;
@@ -15,29 +18,36 @@
   --ss-active-bg: rgba(47,227,183,.14);
   --ss-active-border: rgba(47,227,183,.45);
 
-  --ss-panel-bg: rgba(14,16,22,.96);
-  --ss-backdrop: rgba(0,0,0,.52);
+  --ss-panel-bg: #111318;
+  --ss-backdrop: rgba(0,0,0,.55);
 
-  --ss-shadow: 0 14px 34px rgba(0,0,0,.28);
+  --ss-shadow: 0 20px 60px rgba(0,0,0,.45);
   --ss-focus: 0 0 0 2px rgba(47,227,183,.45);
 }
 
 *,
 *::before,
-*::after { box-sizing: border-box; }
+*::after{ box-sizing: border-box; }
 
-html, body { margin: 0; padding: 0; }
+html, body{ margin: 0; padding: 0; }
 
-body.ss-noScroll { overflow: hidden; }
+body.ss-noScroll{
+  overflow: hidden;
+  touch-action: none;
+}
 
-/* shell mount */
+/* =========================
+   Shell mount
+========================= */
 #ss-shell{
   width: 100%;
   position: relative;
   z-index: 10;
 }
 
-/* HEADER */
+/* =========================
+   Header
+========================= */
 #ss-shell .ss-header{
   max-width: var(--ss-shell-max);
   margin: 10px auto 8px;
@@ -99,7 +109,28 @@ body.ss-noScroll { overflow: hidden; }
   box-shadow: var(--ss-focus);
 }
 
-/* TOP NAV */
+/* Optional language button support */
+#ss-shell .ss-langBtn{
+  appearance: none;
+  border: 1px solid var(--ss-border);
+  background: var(--ss-bg);
+  color: var(--ss-text);
+  border-radius: 999px;
+  padding: 10px 12px;
+  font: inherit;
+  font-weight: 700;
+  min-height: 40px;
+  cursor: pointer;
+}
+#ss-shell .ss-langBtn:hover{ background: rgba(255,255,255,.10); }
+#ss-shell .ss-langBtn:focus-visible{
+  outline: none;
+  box-shadow: var(--ss-focus);
+}
+
+/* =========================
+   Top nav
+========================= */
 #ss-shell .ss-nav{
   display: grid;
   grid-template-columns: repeat(5, minmax(0,1fr));
@@ -136,11 +167,15 @@ body.ss-noScroll { overflow: hidden; }
   box-shadow: var(--ss-focus);
 }
 
-/* MORE OVERLAY */
+/* =========================
+   More overlay (single source of truth)
+========================= */
+#ss-shell .ss-more[hidden]{ display: none !important; }
+
 #ss-shell .ss-more{
   position: fixed;
   inset: 0;
-  z-index: 1200;
+  z-index: 9999;
 }
 
 #ss-shell .ss-more__backdrop{
@@ -150,44 +185,58 @@ body.ss-noScroll { overflow: hidden; }
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100%;
   background: var(--ss-backdrop);
+  backdrop-filter: blur(2px);
   cursor: pointer;
 }
 
 #ss-shell .ss-more__panel{
   position: absolute;
-  top: max(10px, env(safe-area-inset-top));
-  right: 10px;
-  width: min(92vw, 420px);
-  max-height: min(86vh, 760px);
+  right: 12px;
+  top: max(12px, env(safe-area-inset-top));
+  width: min(420px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px - env(safe-area-inset-top));
   overflow: auto;
 
   background: var(--ss-panel-bg);
-  border: 1px solid var(--ss-border);
+  color: #f3f6fb;
+  border: 1px solid rgba(255,255,255,.16);
   border-radius: 16px;
   box-shadow: var(--ss-shadow);
-  padding: 12px;
 }
 
 #ss-shell .ss-more__head{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 8px;
-  color: var(--ss-text);
+  gap: 10px;
+
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  background: var(--ss-panel-bg);
+}
+
+#ss-shell .ss-more__head strong{
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.2;
 }
 
 #ss-shell .ss-more__close{
   appearance: none;
-  border: 1px solid var(--ss-border);
+  border: 1px solid rgba(255,255,255,.20);
   background: rgba(255,255,255,.06);
-  color: var(--ss-text);
+  color: #fff;
   border-radius: 10px;
-  width: 34px;
-  height: 34px;
+  min-width: 36px;
+  height: 36px;
+  font-size: 20px;
   line-height: 1;
-  font-size: 24px;
   cursor: pointer;
 }
 
@@ -202,34 +251,33 @@ body.ss-noScroll { overflow: hidden; }
 
 #ss-shell .ss-more__list{
   display: grid;
-  gap: 8px;
+  gap: 6px;
+  padding: 10px;
 }
 
 #ss-shell .ss-more__item{
   display: block;
   text-decoration: none;
-  color: var(--ss-text);
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.14);
-  border-radius: 12px;
+  color: #f3f6fb;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
   padding: 10px 12px;
-  font-weight: 650;
-  line-height: 1.25;
+  line-height: 1.35;
   word-break: break-word;
+  font-weight: 650;
 }
 
-#ss-shell .ss-more__item:hover{
-  background: rgba(255,255,255,.10);
+#ss-shell .ss-more__item:hover,
+#ss-shell .ss-more__item:focus-visible{
+  background: rgba(255,255,255,.09);
+  border-color: rgba(255,255,255,.22);
+  outline: none;
 }
 
 #ss-shell .ss-more__item.is-active{
   background: var(--ss-active-bg);
   border-color: var(--ss-active-border);
-}
-
-#ss-shell .ss-more__item:focus-visible{
-  outline: none;
-  box-shadow: var(--ss-focus);
 }
 
 #ss-shell .ss-more__divider{
@@ -247,7 +295,9 @@ body.ss-noScroll { overflow: hidden; }
   font-weight: 800;
 }
 
-/* FOOTER (in shell) */
+/* =========================
+   Footer (rendered by ss-shell.js)
+========================= */
 #ss-shell .ss-footer{
   max-width: var(--ss-shell-max);
   margin: 18px auto 10px;
@@ -269,16 +319,16 @@ body.ss-noScroll { overflow: hidden; }
   font-size: .95rem;
 }
 
-/* mobile tuning */
+/* =========================
+   Responsive
+========================= */
 @media (max-width: 900px){
   #ss-shell .ss-header{
     margin-top: 8px;
     padding: 0 10px;
   }
 
-  #ss-shell .ss-nav{
-    gap: 6px;
-  }
+  #ss-shell .ss-nav{ gap: 6px; }
 
   #ss-shell .ss-nav__link{
     min-height: 38px;
@@ -287,7 +337,8 @@ body.ss-noScroll { overflow: hidden; }
   }
 
   #ss-shell .ss-brand,
-  #ss-shell .ss-moreBtn{
+  #ss-shell .ss-moreBtn,
+  #ss-shell .ss-langBtn{
     min-height: 38px;
     padding: 9px 12px;
   }
@@ -296,7 +347,6 @@ body.ss-noScroll { overflow: hidden; }
     right: 8px;
     left: 8px;
     width: auto;
-    max-height: min(86vh, 760px);
   }
 
   #ss-shell .ss-footer{
@@ -317,93 +367,4 @@ body.ss-noScroll { overflow: hidden; }
   #ss-shell .ss-footer__inner{
     font-size: .9rem;
   }
-}
-/* More menu readability + layout */
-.ss-more[hidden] { display: none !important; }
-
-.ss-more {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-}
-
-.ss-more__backdrop {
-  position: absolute;
-  inset: 0;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,.55);
-  backdrop-filter: blur(2px);
-}
-
-.ss-more__panel {
-  position: absolute;
-  right: 12px;
-  top: max(12px, env(safe-area-inset-top));
-  width: min(420px, calc(100vw - 24px));
-  max-height: calc(100dvh - 24px - env(safe-area-inset-top));
-  overflow: auto;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.16);
-  background: #111318;
-  color: #f3f6fb;
-  box-shadow: 0 20px 60px rgba(0,0,0,.45);
-}
-
-.ss-more__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 12px 14px;
-  border-bottom: 1px solid rgba(255,255,255,.12);
-  position: sticky;
-  top: 0;
-  background: #111318;
-  z-index: 1;
-}
-
-.ss-more__head strong {
-  color: #ffffff;
-  font-size: 16px;
-  line-height: 1.2;
-}
-
-.ss-more__close {
-  border: 1px solid rgba(255,255,255,.2);
-  background: rgba(255,255,255,.06);
-  color: #ffffff;
-  border-radius: 10px;
-  min-width: 36px;
-  height: 36px;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.ss-more__list {
-  display: grid;
-  gap: 6px;
-  padding: 10px;
-}
-
-.ss-more__item {
-  display: block;
-  padding: 10px 12px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: #f3f6fb;
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.08);
-  line-height: 1.35;
-}
-
-.ss-more__item:hover,
-.ss-more__item:focus-visible {
-  background: rgba(255,255,255,.09);
-  border-color: rgba(255,255,255,.22);
-  outline: none;
 }
