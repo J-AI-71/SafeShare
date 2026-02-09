@@ -1,290 +1,280 @@
-/* File: /css/ss-shell.css */
-/* SafeShare Shell FINAL stable */
+// File: /js/ss-shell.js
+(() => {
+  const root = document.getElementById('ss-shell');
+  if (!root) return;
 
-:root{
-  --ss-shell-max: 1120px;
+  const isDE = document.body?.dataset?.lang === 'de';
+  const lang = isDE ? 'de' : 'en';
+  const page = (document.body?.dataset?.page || '').trim();
+  const path = (location.pathname || '/').replace(/\/+$/, '') || '/';
 
-  --ss-bg: rgba(255,255,255,.06);
-  --ss-bg-2: rgba(255,255,255,.04);
-  --ss-border: rgba(255,255,255,.14);
-  --ss-text: rgba(255,255,255,.94);
-  --ss-muted: rgba(255,255,255,.70);
+  const I18N = {
+    de: {
+      brand: 'SafeShare',
+      start: 'Start',
+      app: 'App',
+      school: 'Schule',
+      pro: 'Pro',
+      help: 'Hilfe',
+      more: 'Mehr',
+      close: 'Schließen',
+      footerNote: 'Local-first Link-Hygiene.',
+      legalPrivacy: 'Datenschutz',
+      legalTerms: 'Nutzungsbedingungen',
+      langBtn: 'EN',
+      links: {
+        start: '/',
+        app: '/app/',
+        school: '/schule/',
+        pro: '/pro/',
+        help: '/hilfe/',
+        privacy: '/datenschutz/',
+        terms: '/nutzungsbedingungen/',
+        privacySharing: '/datenschutz-beim-link-teilen/',
+        bookmarks: '/lesezeichen/',
+        email: '/email-links-bereinigen/',
+        messenger: '/messenger-links-bereinigen/',
+        social: '/social-links-bereinigen/',
+        tracking: '/tracking-parameter/',
+        removeUtm: '/utm-parameter-entfernen/',
+        compare: '/url-cleaner-tool-vergleich/',
+        shortcuts: '/shortcuts/',
+        imprint: '/impressum/'
+      },
+      morePrimary: [
+        ['Datenschutz beim Link-Teilen', 'privacySharing'],
+        ['Lesezeichen', 'bookmarks'],
+        ['E-Mail-Links', 'email'],
+        ['Messenger-Links', 'messenger'],
+        ['Social-Links', 'social'],
+        ['Tracking-Parameter', 'tracking'],
+        ['UTM entfernen', 'removeUtm'],
+        ['Tool-Vergleich', 'compare']
+      ],
+      moreSecondary: [
+        ['Shortcuts', 'shortcuts'],
+        ['Impressum', 'imprint'],
+        ['Datenschutz', 'privacy'],
+        ['Nutzungsbedingungen', 'terms']
+      ]
+    },
+    en: {
+      brand: 'SafeShare',
+      start: 'Start',
+      app: 'App',
+      school: 'School',
+      pro: 'Pro',
+      help: 'Help',
+      more: 'More',
+      close: 'Close',
+      footerNote: 'Local-first link hygiene.',
+      legalPrivacy: 'Privacy',
+      legalTerms: 'Terms',
+      langBtn: 'DE',
+      links: {
+        start: '/en/',
+        app: '/en/app/',
+        school: '/en/school/',
+        pro: '/en/pro/',
+        help: '/en/help/',
+        privacy: '/en/privacy/',
+        terms: '/en/terms/',
+        privacySharing: '/en/privacy-when-sharing-links/',
+        bookmarks: '/en/bookmarks/',
+        email: '/en/email-link-cleaning/',
+        messenger: '/en/messenger-link-cleaning/',
+        social: '/en/social-link-cleaning/',
+        tracking: '/en/tracking-parameters/',
+        removeUtm: '/en/remove-utm-parameter/',
+        compare: '/en/url-cleaner-comparison/',
+        shortcuts: '/en/shortcuts/',
+        imprint: '/en/imprint/'
+      },
+      morePrimary: [
+        ['Privacy when sharing links', 'privacySharing'],
+        ['Bookmarks', 'bookmarks'],
+        ['Email links', 'email'],
+        ['Messenger links', 'messenger'],
+        ['Social links', 'social'],
+        ['Tracking parameters', 'tracking'],
+        ['Remove UTM', 'removeUtm'],
+        ['Tool comparison', 'compare']
+      ],
+      moreSecondary: [
+        ['Shortcuts', 'shortcuts'],
+        ['Imprint', 'imprint'],
+        ['Privacy', 'privacy'],
+        ['Terms', 'terms']
+      ]
+    }
+  };
 
-  --ss-active-bg: rgba(47,227,183,.14);
-  --ss-active-border: rgba(47,227,183,.48);
+  const T = I18N[lang];
 
-  --ss-panel-bg: #0f1218;
-  --ss-backdrop: rgba(0,0,0,.62);
+  // Seite -> Sprach-Zielseite
+  const SWITCH_MAP = {
+    '404': { de: '/404.html', en: '/en/404/' },
+    'help': { de: '/hilfe/', en: '/en/help/' },
+    'hilfe': { de: '/hilfe/', en: '/en/help/' },
 
-  --ss-focus: 0 0 0 2px rgba(47,227,183,.45);
-  --ss-shadow: 0 24px 64px rgba(0,0,0,.55);
-}
+    'start': { de: '/', en: '/en/' },
+    'home': { de: '/', en: '/en/' },
 
-*,
-*::before,
-*::after{ box-sizing: border-box; }
+    'app': { de: '/app/', en: '/en/app/' },
+    'pro': { de: '/pro/', en: '/en/pro/' },
 
-body.ss-noScroll{ overflow: hidden; }
+    'school': { de: '/schule/', en: '/en/school/' },
+    'schule': { de: '/schule/', en: '/en/school/' },
 
-#ss-shell{
-  position: relative;
-  z-index: 40;
-  display: block;
-}
+    'bookmarks': { de: '/lesezeichen/', en: '/en/bookmarks/' },
+    'lesezeichen': { de: '/lesezeichen/', en: '/en/bookmarks/' },
 
-/* HEADER */
-#ss-shell .ss-header{
-  max-width: var(--ss-shell-max);
-  margin: 10px auto 8px;
-  padding: 0 12px;
-}
+    'social-links-bereinigen': { de: '/social-links-bereinigen/', en: '/en/social-link-cleaning/' },
+    'social-link-cleaning': { de: '/social-links-bereinigen/', en: '/en/social-link-cleaning/' },
 
-#ss-shell .ss-header__row{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-}
+    'messenger-links-bereinigen': { de: '/messenger-links-bereinigen/', en: '/en/messenger-link-cleaning/' },
+    'messenger-link-cleaning': { de: '/messenger-links-bereinigen/', en: '/en/messenger-link-cleaning/' },
 
-#ss-shell .ss-brand{
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  color: var(--ss-text);
-  font-weight: 800;
-  letter-spacing: .2px;
-  min-height: 40px;
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--ss-border);
-  background: var(--ss-bg);
-}
+    'email-links-bereinigen': { de: '/email-links-bereinigen/', en: '/en/email-link-cleaning/' },
+    'email-link-cleaning': { de: '/email-links-bereinigen/', en: '/en/email-link-cleaning/' },
 
-#ss-shell .ss-brand:focus-visible{
-  outline: none;
-  box-shadow: var(--ss-focus);
-}
+    'tracking-parameter': { de: '/tracking-parameter/', en: '/en/tracking-parameters/' },
+    'tracking-parameters': { de: '/tracking-parameter/', en: '/en/tracking-parameters/' },
 
-#ss-shell .ss-headActions{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+    'utm-parameter-entfernen': { de: '/utm-parameter-entfernen/', en: '/en/remove-utm-parameter/' },
+    'remove-utm-parameter': { de: '/utm-parameter-entfernen/', en: '/en/remove-utm-parameter/' },
 
-#ss-shell .ss-langSwitch,
-#ss-shell .ss-moreBtn{
-  appearance: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: var(--ss-text);
-  font-weight: 700;
-  min-height: 40px;
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--ss-border);
-  background: var(--ss-bg);
-  cursor: pointer;
-  font: inherit;
-}
+    'url-cleaner-tool-vergleich': { de: '/url-cleaner-tool-vergleich/', en: '/en/url-cleaner-comparison/' },
+    'url-cleaner-comparison': { de: '/url-cleaner-tool-vergleich/', en: '/en/url-cleaner-comparison/' },
 
-#ss-shell .ss-langSwitch:hover,
-#ss-shell .ss-moreBtn:hover{
-  background: rgba(255,255,255,.10);
-}
+    'shortcuts': { de: '/shortcuts/', en: '/en/shortcuts/' },
 
-#ss-shell .ss-langSwitch:focus-visible,
-#ss-shell .ss-moreBtn:focus-visible{
-  outline: none;
-  box-shadow: var(--ss-focus);
-}
+    'privacy': { de: '/datenschutz/', en: '/en/privacy/' },
+    'datenschutz': { de: '/datenschutz/', en: '/en/privacy/' },
 
-/* NAV */
-#ss-shell .ss-nav{
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0,1fr));
-  gap: 8px;
-}
+    'terms': { de: '/nutzungsbedingungen/', en: '/en/terms/' },
+    'nutzungsbedingungen': { de: '/nutzungsbedingungen/', en: '/en/terms/' },
 
-#ss-shell .ss-nav__link{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  text-decoration: none;
-  line-height: 1.1;
-  font-weight: 700;
-  color: var(--ss-text);
-  min-height: 40px;
-  padding: 10px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--ss-border);
-  background: var(--ss-bg);
-}
+    'imprint': { de: '/impressum/', en: '/en/imprint/' },
+    'impressum': { de: '/impressum/', en: '/en/imprint/' }
+  };
 
-#ss-shell .ss-nav__link:hover{
-  background: rgba(255,255,255,.10);
-}
-
-#ss-shell .ss-nav__link.is-active{
-  background: var(--ss-active-bg);
-  border-color: var(--ss-active-border);
-}
-
-#ss-shell .ss-nav__link:focus-visible{
-  outline: none;
-  box-shadow: var(--ss-focus);
-}
-
-/* MORE */
-#ss-shell .ss-more[hidden]{ display: none !important; }
-
-#ss-shell .ss-more{
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-}
-
-#ss-shell .ss-more__backdrop{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  background: var(--ss-backdrop);
-  backdrop-filter: blur(1.5px);
-  -webkit-backdrop-filter: blur(1.5px);
-}
-
-#ss-shell .ss-more__panel{
-  position: absolute;
-  top: max(10px, env(safe-area-inset-top));
-  right: 10px;
-  width: min(420px, calc(100vw - 20px));
-  max-height: calc(100dvh - 20px - env(safe-area-inset-top));
-  overflow: auto;
-  background: var(--ss-panel-bg);
-  color: #f5f7fb;
-  border: 1px solid rgba(255,255,255,.16);
-  border-radius: 16px;
-  box-shadow: var(--ss-shadow);
-}
-
-#ss-shell .ss-more__head{
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 14px;
-  border-bottom: 1px solid rgba(255,255,255,.12);
-  background: var(--ss-panel-bg);
-}
-
-#ss-shell .ss-more__head strong{
-  color: #fff;
-  font-size: 16px;
-}
-
-#ss-shell .ss-more__close{
-  appearance: none;
-  border: 1px solid rgba(255,255,255,.22);
-  background: rgba(255,255,255,.08);
-  color: #fff;
-  border-radius: 10px;
-  width: 36px;
-  height: 36px;
-  font-size: 22px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-#ss-shell .ss-more__list{
-  display: grid;
-  gap: 8px;
-  padding: 10px;
-}
-
-#ss-shell .ss-more__item{
-  display: block;
-  text-decoration: none;
-  color: #f5f7fb;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.14);
-  border-radius: 11px;
-  padding: 10px 12px;
-  line-height: 1.3;
-  font-weight: 650;
-}
-
-#ss-shell .ss-more__item:hover,
-#ss-shell .ss-more__item:focus-visible{
-  background: rgba(255,255,255,.10);
-  border-color: rgba(255,255,255,.24);
-  outline: none;
-}
-
-#ss-shell .ss-more__divider{
-  height: 1px;
-  margin: 2px 10px 8px;
-  background: rgba(255,255,255,.14);
-}
-
-/* FOOTER (from shell only) */
-#ss-shell .ss-footer{
-  position: relative;
-  z-index: 41;
-  display: block;
-  max-width: var(--ss-shell-max);
-  margin: 18px auto 10px;
-  padding: 0 12px;
-}
-
-#ss-shell .ss-footer__inner{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 42px;
-  text-align: center;
-  color: var(--ss-muted);
-  background: var(--ss-bg-2);
-  border: 1px solid var(--ss-border);
-  border-radius: 12px;
-  padding: 8px 12px;
-  font-size: .95rem;
-}
-
-/* defensive: force visible */
-#ss-shell .ss-footer,
-#ss-shell .ss-footer__inner{
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-/* responsive */
-@media (max-width: 900px){
-  #ss-shell .ss-header{ padding: 0 10px; margin-top: 8px; }
-  #ss-shell .ss-nav{ gap: 6px; }
-  #ss-shell .ss-nav__link{ min-height: 38px; padding: 9px 6px; font-size: .95rem; }
-  #ss-shell .ss-brand,
-  #ss-shell .ss-langSwitch,
-  #ss-shell .ss-moreBtn{ min-height: 38px; padding: 9px 12px; }
-
-  #ss-shell .ss-more__panel{
-    left: 8px;
-    right: 8px;
-    width: auto;
-    max-height: calc(100dvh - 16px - env(safe-area-inset-top));
+  function normalize(p) {
+    return (p || '/').replace(/\/+$/, '') || '/';
   }
 
-  #ss-shell .ss-footer{ padding: 0 10px; }
-}
+  function isActive(href) {
+    return normalize(path) === normalize(href);
+  }
 
-@media (max-width: 620px){
-  #ss-shell .ss-nav__link{ font-size: .90rem; }
-  #ss-shell .ss-footer__inner{ font-size: .9rem; }
-}
+  function oppositeLangHref() {
+    const targetLang = lang === 'de' ? 'en' : 'de';
+
+    // 1) data-page mapping
+    if (page && SWITCH_MAP[page]?.[targetLang]) return SWITCH_MAP[page][targetLang];
+
+    // 2) heuristische Fallbacks
+    const p = normalize(path);
+
+    // de -> en
+    if (targetLang === 'en') {
+      if (p === '/') return '/en/';
+      if (!p.startsWith('/en')) return `/en${p === '/' ? '' : p}/`.replace(/\/{2,}/g, '/');
+    }
+
+    // en -> de
+    if (targetLang === 'de') {
+      if (p === '/en') return '/';
+      if (p.startsWith('/en/')) return p.replace(/^\/en/, '') + (p.endsWith('/') ? '' : '/');
+    }
+
+    return targetLang === 'en' ? '/en/' : '/';
+  }
+
+  const topNav = [
+    ['start', T.links.start],
+    ['app', T.links.app],
+    ['school', T.links.school],
+    ['pro', T.links.pro],
+    ['help', T.links.help]
+  ];
+
+  const navHtml = topNav.map(([k, href]) => {
+    const cls = `ss-nav__link${isActive(href) ? ' is-active' : ''}`;
+    return `<a class="${cls}" href="${href}">${T[k]}</a>`;
+  }).join('');
+
+  const makeMoreItems = (arr) =>
+    arr.map(([label, key]) => {
+      const href = T.links[key];
+      const cls = `ss-more__item${isActive(href) ? ' is-active' : ''}`;
+      return `<a class="${cls}" href="${href}">${label}</a>`;
+    }).join('');
+
+  const morePrimaryHtml = makeMoreItems(T.morePrimary);
+  const moreSecondaryHtml = makeMoreItems(T.moreSecondary);
+
+  root.innerHTML = `
+    <header class="ss-header">
+      <div class="ss-header__row">
+        <a class="ss-brand" href="${T.links.start}" aria-label="${T.brand}">${T.brand}</a>
+        <div class="ss-headActions">
+          <a class="ss-langBtn" href="${oppositeLangHref()}" hreflang="${lang === 'de' ? 'en' : 'de'}" lang="${lang === 'de' ? 'en' : 'de'}">${T.langBtn}</a>
+          <button class="ss-moreBtn" id="ssMoreBtn" type="button" aria-haspopup="dialog" aria-expanded="false">${T.more}</button>
+        </div>
+      </div>
+      <nav class="ss-nav" aria-label="Primary">${navHtml}</nav>
+    </header>
+
+    <div class="ss-more" id="ssMore" hidden>
+      <button class="ss-more__backdrop" id="ssMoreBackdrop" aria-label="${T.close}" type="button"></button>
+      <div class="ss-more__panel" role="dialog" aria-modal="true" aria-label="${T.more}">
+        <div class="ss-more__head">
+          <strong>${T.more}</strong>
+          <button class="ss-more__close" id="ssMoreClose" type="button" aria-label="${T.close}">×</button>
+        </div>
+        <div class="ss-more__list">${morePrimaryHtml}</div>
+        <div class="ss-more__divider"></div>
+        <div class="ss-more__list ss-more__list--secondary">${moreSecondaryHtml}</div>
+      </div>
+    </div>
+
+    <footer class="ss-footer">
+      <div class="ss-footer__inner">
+        <span>${T.brand}</span>
+        <span>•</span>
+        <span>${T.footerNote}</span>
+      </div>
+    </footer>
+  `;
+
+  const more = root.querySelector('#ssMore');
+  const moreBtn = root.querySelector('#ssMoreBtn');
+  const closeBtn = root.querySelector('#ssMoreClose');
+  const backdrop = root.querySelector('#ssMoreBackdrop');
+
+  const openMore = () => {
+    if (!more) return;
+    more.hidden = false;
+    moreBtn?.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('ss-noScroll');
+  };
+
+  const closeMore = () => {
+    if (!more) return;
+    more.hidden = true;
+    moreBtn?.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('ss-noScroll');
+  };
+
+  moreBtn?.addEventListener('click', () => {
+    if (more?.hidden) openMore();
+    else closeMore();
+  });
+  closeBtn?.addEventListener('click', closeMore);
+  backdrop?.addEventListener('click', closeMore);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && more && !more.hidden) closeMore();
+  });
+})();
