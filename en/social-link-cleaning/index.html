@@ -42,116 +42,116 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
- 
+
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 </head>
 <body data-page="social-link-cleaning" data-lang="en">
-  <div id="ss-shell"></div>
-
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="social-title">
-      <div class="ss-card ss-hero">
-        <h1 id="social-title">Clean social links</h1>
-        <p class="ss-hero-kicker">For Mastodon, X, LinkedIn, Reddit, and more.</p>
-        <p>
-          Social posts often contain URL add-ons like <code>utm_*</code>, <code>fbclid</code>, or <code>gclid</code>.
-          For people receiving the link, that is usually just noise.
-        </p>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="why-title">
-      <div class="ss-card">
-        <h2 id="why-title">Why clean links before posting?</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Cleaner presentation</h3>
-            <p class="ss-muted">Short links look clearer and more trustworthy.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Less metadata spread</h3>
-            <p class="ss-muted">You pass fewer extra identifiers into feeds and reposts.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Less line-break mess</h3>
-            <p class="ss-muted">Long query strings are less likely to wrap badly.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Consistent workflow</h3>
-            <p class="ss-muted">Copy → Clean → Share becomes a reliable habit.</p>
-          </article>
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="social-title">
+        <div class="ss-card ss-hero">
+          <h1 id="social-title">Clean social links</h1>
+          <p class="ss-hero-kicker">For Mastodon, X, LinkedIn, Reddit, and more.</p>
+          <p>
+            Social posts often contain URL add-ons like <code>utm_*</code>, <code>fbclid</code>, or <code>gclid</code>.
+            For people receiving the link, that is usually just noise.
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="how-title">
-      <div class="ss-card">
-        <h2 id="how-title">How it works in 3 steps</h2>
-        <ol class="ss-mt-12">
-          <li>Copy the link from a post, profile, or campaign.</li>
-          <li>Paste it into SafeShare and clean it.</li>
-          <li>Use the clean link in your post or DM.</li>
-        </ol>
-
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Before</h3>
-            <p class="ss-mono">https://example.com/offer?utm_source=social&amp;utm_medium=post&amp;utm_campaign=launch&amp;fbclid=XYZ</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>After</h3>
-            <p class="ss-mono">https://example.com/offer</p>
-          </article>
+      <section class="ss-section" aria-labelledby="why-title">
+        <div class="ss-card">
+          <h2 id="why-title">Why clean links before posting?</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Cleaner presentation</h3>
+              <p class="ss-muted">Short links look clearer and more trustworthy.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Less metadata spread</h3>
+              <p class="ss-muted">You pass fewer extra identifiers into feeds and reposts.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Less line-break mess</h3>
+              <p class="ss-muted">Long query strings are less likely to wrap badly.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Consistent workflow</h3>
+              <p class="ss-muted">Copy → Clean → Share becomes a reliable habit.</p>
+            </article>
+          </div>
         </div>
+      </section>
 
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/en/app/">Clean link now</a>
-          <a class="ss-btn" href="/en/bookmarks/">Bookmarks (Desktop)</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/help/">Help</a>
-        </div>
-      </div>
-    </section>
+      <section class="ss-section" aria-labelledby="how-title">
+        <div class="ss-card">
+          <h2 id="how-title">How it works in 3 steps</h2>
+          <ol class="ss-mt-12">
+            <li>Copy the link from a post, profile, or campaign.</li>
+            <li>Paste it into SafeShare and clean it.</li>
+            <li>Use the clean link in your post or DM.</li>
+          </ol>
 
-    <section class="ss-section" aria-labelledby="platform-title">
-      <div class="ss-card">
-        <h2 id="platform-title">Platform notes</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Mastodon / Fediverse</h3>
-            <p class="ss-muted">Clean links fit transparent, respectful sharing culture.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>LinkedIn / X</h3>
-            <p class="ss-muted">Especially in business posts, cleaner URLs look more professional.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Messaging apps</h3>
-            <p class="ss-muted">Forwarded links remain easier to read and trust.</p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Profile links</h3>
-            <p class="ss-muted">Keep bio/profile links durable and campaign-noise free.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Before</h3>
+              <p class="ss-mono">https://example.com/offer?utm_source=social&amp;utm_medium=post&amp;utm_campaign=launch&amp;fbclid=XYZ</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>After</h3>
+              <p class="ss-mono">https://example.com/offer</p>
+            </article>
+          </div>
 
-    <section class="ss-section" aria-labelledby="careful-title">
-      <div class="ss-card">
-        <h2 id="careful-title">Do not strip everything blindly</h2>
-        <p>
-          Some parameters are functional (e.g., language/filter state), and some are intentional referral attribution.
-          Review important cases consciously.
-        </p>
-        <div class="ss-note ss-mt-12">
-          SafeShare app uses conservative standard tracking-key cleanup.
-          For fine control, use SafeShare Pro (rules, allowlist, audit).
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/en/app/">Clean link now</a>
+            <a class="ss-btn" href="/en/bookmarks/">Bookmarks (Desktop)</a>
+            <a class="ss-btn ss-btn--ghost" href="/en/help/">Help</a>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
-  <div id="ss-footer"></div>
+      </section>
+
+      <section class="ss-section" aria-labelledby="platform-title">
+        <div class="ss-card">
+          <h2 id="platform-title">Platform notes</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Mastodon / Fediverse</h3>
+              <p class="ss-muted">Clean links fit transparent, respectful sharing culture.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>LinkedIn / X</h3>
+              <p class="ss-muted">Especially in business posts, cleaner URLs look more professional.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Messaging apps</h3>
+              <p class="ss-muted">Forwarded links remain easier to read and trust.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Profile links</h3>
+              <p class="ss-muted">Keep bio/profile links durable and campaign-noise free.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ss-section" aria-labelledby="careful-title">
+        <div class="ss-card">
+          <h2 id="careful-title">Do not strip everything blindly</h2>
+          <p>
+            Some parameters are functional (e.g., language/filter state), and some are intentional referral attribution.
+            Review important cases consciously.
+          </p>
+          <div class="ss-note ss-mt-12">
+            SafeShare app uses conservative standard tracking-key cleanup.
+            For fine control, use SafeShare Pro (rules, allowlist, audit).
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
   <script src="/js/ss-shell.js" defer></script>
 </body>
 </html>
