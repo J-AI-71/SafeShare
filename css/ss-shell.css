@@ -1,5 +1,9 @@
 /* /css/ss-shell.css */
-/* SafeShare Shell – FINAL STABLE (centered nav + persistent footer) */
+/* SafeShare Shell – FINAL STABLE
+   - Desktop: nav centered
+   - Mobile: nav starts left (no clipping of first item)
+   - Footer persistent
+*/
 
 :root{
   --ss-shell-max: 1120px;
@@ -48,7 +52,9 @@ html, body{
   background: var(--ss-bg);
   color: var(--ss-text);
 }
-html{ scroll-behavior: smooth; }
+html{
+  scroll-behavior: smooth;
+}
 
 /* Shell layout */
 body{
@@ -57,7 +63,7 @@ body{
   grid-template-rows: auto 1fr auto; /* header / content / footer */
 }
 
-/* prevent content containers from causing footer overlap */
+/* Prevent content containers from breaking footer flow */
 main, #app, .page, .page-wrap, .ss-main{
   min-height: 0;
 }
@@ -84,24 +90,25 @@ main, #app, .page, .page-wrap, .ss-main{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
   height: var(--ss-header-h);
   margin-inline: auto;
-  position: relative;
-  display: flex;
+
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr) auto; /* brand | nav | more */
   align-items: center;
-  justify-content: space-between;
+  gap: .5rem;
 }
 @media (max-width: 720px){
-  .ss-shell__inner{ width: calc(100% - 1.25rem); }
+  .ss-shell__inner{ width: calc(100% - 1rem); }
 }
 
 .ss-brand{
-  position: relative;
-  z-index: 2;
   display: inline-flex;
   align-items: center;
   gap: .55rem;
   min-width: 0;
+  max-width: 36vw; /* keep room for nav */
   text-decoration: none;
   color: var(--ss-text);
+  overflow: hidden;
 }
 .ss-brand__mark{
   width: 30px;
@@ -125,45 +132,36 @@ main, #app, .page, .page-wrap, .ss-main{
   line-height: 1;
   font-weight: 800;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ss-actions{
-  position: relative;
-  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
-/* absolute center lane for nav -> truly centered independent of side widths */
+/* Middle lane */
 .ss-navLane{
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-  height: 100%;
-  width: min(700px, calc(100% - 260px)); /* reserves space for brand+more */
+  min-width: 0;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
-}
-@media (max-width: 860px){
-  .ss-navLane{ width: min(620px, calc(100% - 220px)); }
-}
-@media (max-width: 720px){
-  .ss-navLane{ width: calc(100% - 170px); }
 }
 
 .ss-nav{
-  pointer-events: auto;
+  min-width: 0;
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; /* desktop center */
   gap: .35rem;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
+  padding-inline: .25rem;
 }
 .ss-nav::-webkit-scrollbar{ height: 6px; }
 .ss-nav::-webkit-scrollbar-thumb{
@@ -172,6 +170,7 @@ main, #app, .page, .page-wrap, .ss-main{
 }
 
 .ss-nav__link{
+  flex: 0 0 auto; /* do not shrink */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -230,6 +229,29 @@ main, #app, .page, .page-wrap, .ss-main{
   height: 18px;
   fill: currentColor;
   display: block;
+}
+
+/* Mobile behavior:
+   nav starts at left so first item (Start) is never hidden behind brand */
+@media (max-width: 900px){
+  .ss-brand{ max-width: 30vw; }
+
+  .ss-nav{
+    justify-content: flex-start;
+    padding-left: .25rem;
+    padding-right: .25rem;
+    scroll-padding-left: .25rem;
+  }
+
+  .ss-nav__link{
+    padding: .5rem .68rem;
+    font-size: .96rem;
+  }
+}
+@media (max-width: 680px){
+  .ss-shell__inner{ gap: .35rem; }
+  .ss-brand{ max-width: 27vw; }
+  .ss-brand__txt{ font-size: .98rem; }
 }
 
 /* ================= More Sheet ================= */
