@@ -1,21 +1,17 @@
-/* Datei: /css/ss-shell.css
-   SafeShare Shell (Master-Flow)
-   - Header + Nav + More + Global Footer
-   - Zero inline styles
-   - Logo aus /assets/brand/mark-192.png (JS)
-*/
+/* /css/ss-shell.css */
+/* SafeShare Master-Flow FINAL */
 
 :root{
   --ss-shell-max: 1120px;
   --ss-bg: var(--bg, #0c1116);
-  --ss-surface: var(--card, rgba(255,255,255,.06));
-  --ss-surface-2: var(--card2, rgba(255,255,255,.04));
-  --ss-border: var(--border, rgba(255,255,255,.14));
+  --ss-surface: var(--card, rgba(255,255,255,.055));
+  --ss-surface-2: var(--card2, rgba(255,255,255,.035));
+  --ss-border: var(--border, rgba(255,255,255,.10));
   --ss-text: var(--text, #eaf2ff);
-  --ss-muted: var(--muted, rgba(234,242,255,.74));
-  --ss-muted-2: var(--muted2, rgba(234,242,255,.60));
+  --ss-muted: var(--muted, rgba(234,242,255,.78));
+  --ss-muted-2: var(--muted2, rgba(234,242,255,.62));
   --ss-focus: 0 0 0 3px rgba(47,227,183,.30);
-  --ss-shadow: 0 14px 38px rgba(0,0,0,.32);
+  --ss-shadow: 0 18px 42px rgba(0,0,0,.30);
   --ss-header-h: 64px;
   --ss-z-header: 90;
   --ss-z-backdrop: 110;
@@ -26,9 +22,11 @@ html, body{
   background: var(--ss-bg);
   color: var(--ss-text);
 }
-body{ min-height: 100dvh; }
+body{
+  min-height: 100dvh;
+  margin: 0;
+}
 
-/* Optionaler Seiten-Container */
 .ss-main{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
   margin: 1rem auto 2rem;
@@ -37,17 +35,15 @@ body{ min-height: 100dvh; }
   .ss-main{ width: calc(100% - 1.25rem); }
 }
 
-/* =========================
-   Header
-========================= */
+/* Header */
 .ss-shell{
   position: sticky;
   top: 0;
   z-index: var(--ss-z-header);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  background: linear-gradient(to bottom, rgba(8,12,16,.82), rgba(8,12,16,.58));
-  border-bottom: 1px solid var(--ss-border);
+  background: linear-gradient(to bottom, rgba(7,11,16,.84), rgba(7,11,16,.62));
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
 .ss-shell__inner{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
@@ -59,7 +55,10 @@ body{ min-height: 100dvh; }
   gap: .75rem;
 }
 @media (max-width: 720px){
-  .ss-shell__inner{ width: calc(100% - 1.25rem); }
+  .ss-shell__inner{
+    width: calc(100% - 1.25rem);
+    gap: .5rem;
+  }
 }
 
 .ss-brand{
@@ -81,6 +80,7 @@ body{ min-height: 100dvh; }
     var(--ss-surface);
   border: 1px solid rgba(47,227,183,.34);
   overflow: hidden;
+  flex: 0 0 auto;
 }
 .ss-brand__mark img{
   width: 100%;
@@ -92,6 +92,10 @@ body{ min-height: 100dvh; }
   font-weight: 800;
   letter-spacing: .2px;
   white-space: nowrap;
+  line-height: 1;
+}
+@media (max-width: 720px){
+  .ss-brand__txt{ font-size: 1.02rem; }
 }
 
 .ss-nav{
@@ -104,12 +108,16 @@ body{ min-height: 100dvh; }
   scrollbar-width: thin;
 }
 .ss-nav::-webkit-scrollbar{ height: 6px; }
-.ss-nav::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.18); border-radius: 999px; }
+.ss-nav::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,.18);
+  border-radius: 999px;
+}
 
 .ss-nav__link{
   text-decoration: none;
   color: var(--ss-muted);
-  font-weight: 700;
+  font-weight: 680;
+  letter-spacing: .1px;
   border: 1px solid transparent;
   padding: .56rem .78rem;
   border-radius: 999px;
@@ -123,8 +131,15 @@ body{ min-height: 100dvh; }
 }
 .ss-nav__link.is-active{
   color: var(--ss-text);
-  background: rgba(47,227,183,.14);
-  border-color: rgba(47,227,183,.46);
+  background: linear-gradient(180deg, rgba(47,227,183,.20), rgba(47,227,183,.12));
+  border-color: rgba(47,227,183,.50);
+  box-shadow: inset 0 0 0 1px rgba(47,227,183,.15);
+}
+@media (max-width: 720px){
+  .ss-nav__link{
+    padding: .5rem .68rem;
+    font-size: .98rem;
+  }
 }
 
 .ss-actions{
@@ -132,13 +147,12 @@ body{ min-height: 100dvh; }
   align-items: center;
   justify-content: center;
   align-self: center;
-  gap: .45rem;
   height: 100%;
 }
 .ss-iconBtn{
   appearance: none;
-  border: 1px solid var(--ss-border);
-  background: var(--ss-surface);
+  border: 1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   color: var(--ss-text);
   width: 38px;
   height: 38px;
@@ -151,10 +165,16 @@ body{ min-height: 100dvh; }
   justify-content: center;
   line-height: 1;
   cursor: pointer;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease;
 }
 .ss-iconBtn:hover{
-  border-color: rgba(47,227,183,.46);
+  border-color: rgba(47,227,183,.45);
   transform: translateY(-1px);
+}
+.ss-iconBtn:active{ transform: translateY(0); }
+.ss-iconBtn:focus-visible{
+  outline: none;
+  box-shadow: var(--ss-focus);
 }
 .ss-icon{
   width: 18px;
@@ -164,9 +184,7 @@ body{ min-height: 100dvh; }
   fill: currentColor;
 }
 
-/* =========================
-   More Sheet
-========================= */
+/* More sheet */
 .ss-backdrop{
   position: fixed;
   inset: 0;
@@ -183,6 +201,7 @@ body{ min-height: 100dvh; }
   pointer-events: auto;
   transition: opacity .18s ease, visibility 0s linear 0s;
 }
+
 .ss-sheet{
   position: fixed;
   left: 50%;
@@ -190,10 +209,10 @@ body{ min-height: 100dvh; }
   transform: translate(-50%, 100%);
   width: min(720px, calc(100% - 1rem));
   z-index: var(--ss-z-sheet);
-  background: linear-gradient(180deg, rgba(19,28,36,.98), rgba(10,16,22,.98));
-  border: 1px solid var(--ss-border);
+  background: linear-gradient(180deg, rgba(16,24,32,.97), rgba(10,16,22,.98));
+  border: 1px solid rgba(255,255,255,.10);
   border-bottom: none;
-  border-radius: 18px 18px 0 0;
+  border-radius: 20px 20px 0 0;
   box-shadow: var(--ss-shadow);
   max-height: min(88dvh, 760px);
   overflow: auto;
@@ -239,11 +258,17 @@ body{ min-height: 100dvh; }
   justify-content: space-between;
   text-decoration: none;
   color: var(--ss-text);
-  background: rgba(255,255,255,.035);
-  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.028);
+  border: 1px solid rgba(255,255,255,.09);
   border-radius: 12px;
   padding: .72rem .8rem;
   font-weight: 650;
+  transition: border-color .16s ease, background .16s ease, transform .16s ease;
+}
+.ss-list__a:hover{
+  background: rgba(255,255,255,.05);
+  border-color: rgba(47,227,183,.35);
+  transform: translateY(-1px);
 }
 .ss-list__meta{
   color: var(--ss-muted-2);
@@ -251,16 +276,14 @@ body{ min-height: 100dvh; }
   font-size: .9rem;
 }
 
-/* =========================
-   Footer
-========================= */
+/* Footer */
 .ss-siteFooter{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
-  margin: 2rem auto 1.2rem;
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--ss-border);
+  margin: 1.25rem auto 1rem;
+  padding: .9rem 1rem;
+  border: 1px solid rgba(255,255,255,.10);
   border-radius: 18px;
-  background: var(--ss-surface);
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.035));
   color: var(--ss-muted);
 }
 @media (max-width: 720px){
@@ -271,7 +294,7 @@ body{ min-height: 100dvh; }
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: .6rem 1rem;
+  gap: .55rem .9rem;
 }
 .ss-siteFooter__brand{
   font-weight: 800;
@@ -289,18 +312,23 @@ body{ min-height: 100dvh; }
 .ss-siteFooter__links{
   display: flex;
   flex-wrap: wrap;
-  gap: .45rem .7rem;
+  gap: .35rem .5rem;
 }
 .ss-siteFooter__links a{
   color: var(--ss-text);
   text-decoration: none;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.03);
-  padding: .36rem .58rem;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.025);
+  padding: .3rem .52rem;
   border-radius: 999px;
+  transition: border-color .16s ease, background .16s ease;
+}
+.ss-siteFooter__links a:hover{
+  background: rgba(255,255,255,.045);
+  border-color: rgba(47,227,183,.34);
 }
 .ss-siteFooter__meta{
-  margin-top: .75rem;
+  margin-top: .65rem;
   color: var(--ss-muted-2);
   font-size: .92rem;
 }
@@ -308,4 +336,12 @@ body{ min-height: 100dvh; }
 .ss-no-scroll{
   overflow: hidden !important;
   touch-action: none;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .ss-iconBtn,
+  .ss-list__a,
+  .ss-siteFooter__links a{
+    transition: none !important;
+  }
 }
