@@ -1,16 +1,12 @@
-/* Datei: /js/shell.js
-   SafeShare Shell (komplett)
-   - Header + Nav + More + Footer global
-   - DE/EN: /en/<slug>/
-   - Sprache über Nav-Button (EN/DE)
-   - Logo: /assets/brand/mark-192.png
-*/
+/* /js/shell.js */
+/* SafeShare Master-Flow FINAL */
 
 (() => {
   "use strict";
 
   const DOC = document;
   const WIN = window;
+
   const SUPPORT_EMAIL = "listings@safesharepro.com";
   const LOGO_SRC = "/assets/brand/mark-192.png";
   const LOGO_ALT = "SafeShare Logo";
@@ -78,16 +74,7 @@
     { label: "Lesezeichen", href: "/lesezeichen/" },
     { label: "Datenschutz", href: "/datenschutz/" },
     { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen/" },
-    { label: "Impressum", href: "/impressum/" },
-    { label: "Tracking-Parameter", href: "/tracking-parameter/" },
-    { label: "UTM entfernen", href: "/utm-parameter-entfernen/" },
-    { label: "Tool-Vergleich", href: "/url-cleaner-tool-vergleich/" },
-    { label: "E-Mail-Links", href: "/email-links-bereinigen/" },
-    { label: "Messenger-Links", href: "/messenger-links-bereinigen/" },
-    { label: "Social-Links", href: "/social-links-bereinigen/" },
-    { label: "Datenschutz beim Teilen", href: "/datenschutz-beim-link-teilen/" },
-    { label: "Shortcuts", href: "/shortcuts/" },
-    { label: "Show Share", href: "/show-share/" }
+    { label: "Impressum", href: "/impressum/" }
   ];
   const FOOTER_EN = [
     { label: "Start", href: "/en/" },
@@ -98,16 +85,7 @@
     { label: "Bookmarks", href: "/en/bookmarks/" },
     { label: "Privacy", href: "/en/privacy/" },
     { label: "Terms", href: "/en/terms/" },
-    { label: "Imprint", href: "/en/imprint/" },
-    { label: "Tracking Parameters", href: "/en/tracking-parameters/" },
-    { label: "Remove UTM Parameter", href: "/en/remove-utm-parameter/" },
-    { label: "Cleaner Comparison", href: "/en/url-cleaner-comparison/" },
-    { label: "Email Link Cleaning", href: "/en/email-link-cleaning/" },
-    { label: "Messenger Link Cleaning", href: "/en/messenger-link-cleaning/" },
-    { label: "Social Link Cleaning", href: "/en/social-link-cleaning/" },
-    { label: "Privacy when Sharing Links", href: "/en/privacy-when-sharing-links/" },
-    { label: "Shortcuts", href: "/en/shortcuts/" },
-    { label: "Show Share", href: "/en/show-share/" }
+    { label: "Imprint", href: "/en/imprint/" }
   ];
 
   const sanitizePath = (p) => {
@@ -125,7 +103,6 @@
     const p = sanitizePath(path);
     return l === "en" ? trim(p.replace(/^\/en\//, "")) : trim(p);
   };
-
   const mapSlug = (slug, from) =>
     from === "de"
       ? (Object.prototype.hasOwnProperty.call(DE_TO_EN, slug) ? DE_TO_EN[slug] : slug)
@@ -192,8 +169,12 @@
         </nav>
 
         <div class="ss-actions">
-          <button class="ss-iconBtn" id="ssMoreBtn" type="button" aria-haspopup="dialog" aria-controls="ssSheet" aria-expanded="false" aria-label="${l === "en" ? "Open menu" : "Menü öffnen"}">
-            <svg class="ss-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
+          <button class="ss-iconBtn" id="ssMoreBtn" type="button"
+            aria-haspopup="dialog" aria-controls="ssSheet" aria-expanded="false"
+            aria-label="${l === "en" ? "Open menu" : "Menü öffnen"}">
+            <svg class="ss-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
+            </svg>
           </button>
         </div>
       </div>
@@ -215,13 +196,23 @@
       <div class="ss-sheet__grip" aria-hidden="true"></div>
       <div class="ss-sheet__head">
         <h2 class="ss-sheet__title">${l === "en" ? "More" : "Mehr"}</h2>
-        <button class="ss-iconBtn" id="ssCloseBtn" type="button" aria-label="${l === "en" ? "Close menu" : "Menü schließen"}">
-          <svg class="ss-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.6l6.3-6.31z"></path></svg>
+        <button class="ss-iconBtn" id="ssCloseBtn" type="button"
+          aria-label="${l === "en" ? "Close menu" : "Menü schließen"}">
+          <svg class="ss-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.6l6.3-6.31z"></path>
+          </svg>
         </button>
       </div>
       <div class="ss-sheet__body">
         <ul class="ss-list">
-          ${more.map(item => `<li><a href="${item.href}" class="ss-list__a"><span>${esc(item.label)}</span><span class="ss-list__meta">${esc(item.meta || "")}</span></a></li>`).join("")}
+          ${more.map(item => `
+            <li>
+              <a href="${item.href}" class="ss-list__a">
+                <span>${esc(item.label)}</span>
+                <span class="ss-list__meta">${esc(item.meta || "")}</span>
+              </a>
+            </li>
+          `).join("")}
         </ul>
       </div>
     `;
@@ -235,6 +226,7 @@
     const closeBtn = DOC.getElementById("ssCloseBtn");
     const backdrop = DOC.getElementById("ssBackdrop");
     const sheet = DOC.getElementById("ssSheet");
+    if (!moreBtn || !closeBtn || !backdrop || !sheet) return;
 
     let lastFocus = null;
 
@@ -246,7 +238,6 @@
       moreBtn.setAttribute("aria-expanded", "true");
       closeBtn.focus();
     };
-
     const closeSheet = () => {
       backdrop.classList.remove("is-open");
       sheet.classList.remove("is-open");
