@@ -1,5 +1,5 @@
 /* /js/shell.js */
-/* SafeShare Shell – FINAL COMPLETE */
+/* SafeShare Master-Flow strict – single complete file */
 
 (() => {
   "use strict";
@@ -11,6 +11,7 @@
   const LOGO_SRC = "/assets/brand/mark-192.png";
   const LOGO_ALT = "SafeShare Logo";
 
+  // ===== Slug mapping DE <-> EN =====
   const DE_TO_EN = {
     "": "",
     "app": "app",
@@ -31,8 +32,11 @@
     "shortcuts": "shortcuts",
     "show-share": "show-share"
   };
-  const EN_TO_DE = Object.fromEntries(Object.entries(DE_TO_EN).map(([de, en]) => [en, de]));
+  const EN_TO_DE = Object.fromEntries(
+    Object.entries(DE_TO_EN).map(([de, en]) => [en, de])
+  );
 
+  // ===== Full desktop nav =====
   const NAV_DE = [
     { label: "Start", href: "/" },
     { label: "App", href: "/app/" },
@@ -50,6 +54,7 @@
     { label: "DE", action: "switchLang" }
   ];
 
+  // ===== More menu groups =====
   const MORE_GROUPS_DE = [
     {
       title: "Produkt",
@@ -114,23 +119,21 @@
     }
   ];
 
+  // compact footer
   const FOOTER_DE = [
     { label: "Start", href: "/" },
     { label: "App", href: "/app/" },
-    { label: "Hilfe", href: "/hilfe/" },
-    { label: "Pro", href: "/pro/" },
     { label: "Datenschutz", href: "/datenschutz/" },
     { label: "Impressum", href: "/impressum/" }
   ];
   const FOOTER_EN = [
     { label: "Start", href: "/en/" },
     { label: "App", href: "/en/app/" },
-    { label: "Help", href: "/en/help/" },
-    { label: "Pro", href: "/en/pro/" },
     { label: "Privacy", href: "/en/privacy/" },
     { label: "Imprint", href: "/en/imprint/" }
   ];
 
+  // ===== utils =====
   const sanitizePath = (p) => {
     let s = p || "/";
     s = s.replace(/\/{2,}/g, "/");
@@ -148,15 +151,22 @@
     return l === "en" ? trim(p.replace(/^\/en\//, "")) : trim(p);
   };
 
+  const buildPath = (l, slug) => {
+    const s = (slug || "").trim();
+    return l === "en" ? (s ? `/en/${s}/` : "/en/") : (s ? `/${s}/` : "/");
+  };
+
   const mapSlug = (slug, from) =>
     from === "de"
       ? (Object.prototype.hasOwnProperty.call(DE_TO_EN, slug) ? DE_TO_EN[slug] : slug)
       : (Object.prototype.hasOwnProperty.call(EN_TO_DE, slug) ? EN_TO_DE[slug] : slug);
 
-  const buildPath = (l, slug) => {
-    const s = (slug || "").trim();
-    return l === "en" ? (s ? `/en/${s}/` : "/en/") : (s ? `/${s}/` : "/");
-  };
+  const esc = (str) => String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 
   const findActive = (path, nav) => {
     let best = "/";
@@ -170,17 +180,28 @@
     return best;
   };
 
-  const esc = (str) => String(str)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-
   function goTopImmediate() {
     WIN.scrollTo(0, 0);
     DOC.documentElement.scrollTop = 0;
     DOC.body.scrollTop = 0;
+  }
+
+  function currentTopLabel(l) {
+    const p = currentPath();
+    if (l === "de") {
+      if (p === "/") return "Start";
+      if (p.startsWith("/app/")) return "App";
+      if (p.startsWith("/hilfe/")) return "Hilfe";
+      if (p.startsWith("/pro/")) return "Pro";
+      if (p.startsWith("/schule/")) return "Schule";
+      return "Seite";
+    }
+    if (p === "/en/") return "Start";
+    if (p.startsWith("/en/app/")) return "App";
+    if (p.startsWith("/en/help/")) return "Help";
+    if (p.startsWith("/en/pro/")) return "Pro";
+    if (p.startsWith("/en/school/")) return "School";
+    return "Page";
   }
 
   function ensureFooterSlot() {
@@ -190,7 +211,7 @@
       slot.id = "ss-footer-slot";
       DOC.body.appendChild(slot);
     } else {
-      DOC.body.appendChild(slot); // keep at end of body
+      DOC.body.appendChild(slot);
     }
     return slot;
   }
@@ -205,15 +226,15 @@
   }
 
   function renderGroupedMore(groups) {
-    return groups.map(g => `
+    return groups.map(group => `
       <section class="ss-group">
-        <h3 class="ss-group__title">${esc(g.title)}</h3>
+        <h3 class="ss-group__title">${esc(group.title)}</h3>
         <ul class="ss-list">
-          ${g.items.map(it => `
+          ${group.items.map(item => `
             <li>
-              <a href="${it.href}" class="ss-list__a">
-                <span>${esc(it.label)}</span>
-                <span class="ss-list__meta">${esc(it.meta || "")}</span>
+              <a href="${item.href}" class="ss-list__a">
+                <span>${esc(item.label)}</span>
+                <span class="ss-list__meta">${esc(item.meta || "")}</span>
               </a>
             </li>
           `).join("")}
@@ -222,14 +243,45 @@
     `).join("");
   }
 
+  function buildNavItems() {
+    const l = lang();
+    const full = l === "de" ? NAV_DE : NAV_EN;
+    const mobile = WIN.matchMedia("(max-width: 680px)").matches;
+
+    if (!mobile) return full;
+
+    // Mobile: keep brand readable; only core items in top bar
+    const base = l === "de"
+      ? [
+          { label: "Start", href: "/" },
+          { label: "App", href: "/app/" }
+        ]
+      : [
+          { label: "Start", href: "/en/" },
+          { label: "App", href: "/en/app/" }
+        ];
+
+    const curHref = currentPath();
+    const curLabel = currentTopLabel(l);
+    const hasCurrent = base.some(i => sanitizePath(i.href) === curHref);
+
+    const items = [...base];
+    if (!hasCurrent) items.push({ label: curLabel, href: curHref });
+
+    items.push(l === "de"
+      ? { label: "EN", action: "switchLang" }
+      : { label: "DE", action: "switchLang" });
+
+    return items;
+  }
+
   function renderHeaderAndMore() {
     DOC.querySelectorAll("header.ss-shell, #ssBackdrop, #ssSheet").forEach(el => el.remove());
 
     const l = lang();
-    const path = currentPath();
-    const nav = l === "en" ? NAV_EN : NAV_DE;
+    const navItems = buildNavItems();
     const groups = l === "en" ? MORE_GROUPS_EN : MORE_GROUPS_DE;
-    const active = findActive(path, nav);
+    const active = findActive(currentPath(), navItems);
 
     const header = DOC.createElement("header");
     header.className = "ss-shell";
@@ -244,7 +296,7 @@
 
         <div class="ss-navLane">
           <nav class="ss-nav" aria-label="${l === "en" ? "Main navigation" : "Hauptnavigation"}">
-            ${nav.map(i => i.action === "switchLang"
+            ${navItems.map(i => i.action === "switchLang"
               ? `<a class="ss-nav__link" href="#" data-action="switchLang">${esc(i.label)}</a>`
               : `<a class="ss-nav__link${sanitizePath(i.href) === active ? " is-active" : ""}" href="${i.href}">${esc(i.label)}</a>`
             ).join("")}
@@ -286,9 +338,37 @@
           </svg>
         </button>
       </div>
-      <div class="ss-sheet__body">${renderGroupedMore(groups)}</div>
+      <div class="ss-sheet__body">
+        ${renderGroupedMore(groups)}
+      </div>
     `;
     DOC.body.appendChild(sheet);
+  }
+
+  function renderFooter() {
+    const slot = ensureFooterSlot();
+    slot.innerHTML = "";
+
+    const l = lang();
+    const links = l === "en" ? FOOTER_EN : FOOTER_DE;
+    const year = new Date().getFullYear();
+
+    const footer = DOC.createElement("footer");
+    footer.className = "ss-siteFooter";
+    footer.setAttribute("role", "contentinfo");
+    footer.innerHTML = `
+      <div class="ss-siteFooter__top">
+        <div class="ss-siteFooter__brand">
+          <img src="${LOGO_SRC}" alt="${esc(LOGO_ALT)}" class="ss-siteFooter__brandMark">
+          SafeShare
+        </div>
+        <nav class="ss-siteFooter__links" aria-label="${l === "en" ? "Footer navigation" : "Footer Navigation"}">
+          ${links.map(i => `<a href="${i.href}">${esc(i.label)}</a>`).join("")}
+        </nav>
+      </div>
+      <div class="ss-siteFooter__meta">© ${year} SafeShare</div>
+    `;
+    slot.appendChild(footer);
   }
 
   function bindEvents() {
@@ -329,18 +409,17 @@
       });
     }
 
-    DOC.querySelectorAll('[data-action="switchLang"]').forEach((el) => {
+    DOC.querySelectorAll('[data-action="switchLang"]').forEach(el => {
       el.addEventListener("click", (ev) => {
         ev.preventDefault();
         switchLanguage();
       });
     });
 
-    DOC.querySelectorAll(".ss-nav a[href], .ss-list a[href], .ss-siteFooter a[href], .ss-brand[href]").forEach((a) => {
+    DOC.querySelectorAll(".ss-nav a[href], .ss-list a[href], .ss-siteFooter a[href], .ss-brand[href]").forEach(a => {
       a.addEventListener("click", goTopImmediate, { passive: true });
     });
 
-    // IMPORTANT: make sure first nav item is visible on small widths
     const resetNavScroll = () => {
       const nav = DOC.querySelector(".ss-nav");
       if (!nav) return;
@@ -349,32 +428,6 @@
 
     resetNavScroll();
     WIN.addEventListener("resize", resetNavScroll, { passive: true });
-  }
-
-  function renderFooter() {
-    const slot = ensureFooterSlot();
-    slot.innerHTML = "";
-
-    const l = lang();
-    const links = l === "en" ? FOOTER_EN : FOOTER_DE;
-    const year = new Date().getFullYear();
-
-    const footer = DOC.createElement("footer");
-    footer.className = "ss-siteFooter";
-    footer.setAttribute("role", "contentinfo");
-    footer.innerHTML = `
-      <div class="ss-siteFooter__top">
-        <div class="ss-siteFooter__brand">
-          <img src="${LOGO_SRC}" alt="${esc(LOGO_ALT)}" class="ss-siteFooter__brandMark">
-          SafeShare
-        </div>
-        <nav class="ss-siteFooter__links" aria-label="${l === "en" ? "Footer navigation" : "Footer Navigation"}">
-          ${links.map(i => `<a href="${i.href}">${esc(i.label)}</a>`).join("")}
-        </nav>
-      </div>
-      <div class="ss-siteFooter__meta">© ${year} SafeShare</div>
-    `;
-    slot.appendChild(footer);
   }
 
   function boot() {
