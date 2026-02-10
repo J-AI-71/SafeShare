@@ -298,3 +298,36 @@ pre{
 pre{
   white-space:pre-wrap;
 }
+/* App textarea sizing */
+#urlInput,
+#urlOutput{
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  line-height: 1.45;
+  font-size: 16px;             /* verhindert iOS-Zoom */
+  border-radius: 12px;
+  padding: 14px 14px;
+  resize: vertical;            /* Nutzer kann Höhe selbst ziehen */
+  overflow: auto;
+}
+
+/* Mindesthöhen statt nur rows-Attribut */
+#urlInput{
+  min-height: 210px;           /* ~8 Zeilen */
+}
+
+#urlOutput{
+  min-height: 160px;           /* ~6 Zeilen */
+}
+
+/* Mehr Platz in der Karte */
+.ss-card.ss-hero{
+  padding: 20px;
+}
+
+@media (min-width: 768px){
+  #urlInput{ min-height: 240px; }
+  #urlOutput{ min-height: 180px; }
+  .ss-card.ss-hero{ padding: 24px; }
+}
