@@ -298,44 +298,37 @@ pre{
 pre{
   white-space:pre-wrap;
 }
-/* === SafeShare App: Textareas immer untereinander, volle Breite === */
-#urlInput,
-#urlOutput{
+/* ===== SafeShare App field layout fix ===== */
+.ss-appField{
+  display: block;
+  width: 100%;
+}
+
+.ss-appField > textarea{
   display: block !important;
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
+
   float: none !important;
   clear: both !important;
   position: static !important;
+
+  min-width: 0 !important;
   margin: 0 !important;
 
   line-height: 1.45;
-  font-size: 16px;            /* iOS no zoom */
+  font-size: 16px; /* iOS zoom prevention */
   padding: 14px;
   border-radius: 12px;
   resize: vertical;
 }
 
-/* Größen */
 #urlInput{ min-height: 220px !important; }
 #urlOutput{ min-height: 170px !important; }
 
-/* Labels sauber oberhalb */
-label[for="urlInput"],
-label[for="urlOutput"]{
-  display: block !important;
-  margin: 12px 0 8px !important;
-}
-
-/* Falls ein Parent Flex/Grid erzwingt */
-#urlInput, #urlOutput{
+#urlInput,
+#urlOutput{
   grid-column: 1 / -1 !important;
   flex: 0 0 100% !important;
-}
-
-/* Sicherheitsnetz: in der App keine 2-Spalten-Inputs */
-.ss-card.ss-hero .ss-input{
-  display: block;
-  width: 100%;
 }
