@@ -136,6 +136,12 @@ main, #app, .page, .page-wrap, .ss-main{
   text-overflow: ellipsis;
 }
 
+.ss-brand__txt{
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+}
+
 .ss-actions{
   display: inline-flex;
   align-items: center;
