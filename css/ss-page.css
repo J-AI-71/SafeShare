@@ -298,36 +298,44 @@ pre{
 pre{
   white-space:pre-wrap;
 }
-/* App textarea sizing */
+/* === SafeShare App: Textareas immer untereinander, volle Breite === */
 #urlInput,
 #urlOutput{
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  float: none !important;
+  clear: both !important;
+  position: static !important;
+  margin: 0 !important;
+
   line-height: 1.45;
-  font-size: 16px;             /* verhindert iOS-Zoom */
+  font-size: 16px;            /* iOS no zoom */
+  padding: 14px;
   border-radius: 12px;
-  padding: 14px 14px;
-  resize: vertical;            /* Nutzer kann Höhe selbst ziehen */
-  overflow: auto;
+  resize: vertical;
 }
 
-/* Mindesthöhen statt nur rows-Attribut */
-#urlInput{
-  min-height: 210px;           /* ~8 Zeilen */
+/* Größen */
+#urlInput{ min-height: 220px !important; }
+#urlOutput{ min-height: 170px !important; }
+
+/* Labels sauber oberhalb */
+label[for="urlInput"],
+label[for="urlOutput"]{
+  display: block !important;
+  margin: 12px 0 8px !important;
 }
 
-#urlOutput{
-  min-height: 160px;           /* ~6 Zeilen */
+/* Falls ein Parent Flex/Grid erzwingt */
+#urlInput, #urlOutput{
+  grid-column: 1 / -1 !important;
+  flex: 0 0 100% !important;
 }
 
-/* Mehr Platz in der Karte */
-.ss-card.ss-hero{
-  padding: 20px;
-}
-
-@media (min-width: 768px){
-  #urlInput{ min-height: 240px; }
-  #urlOutput{ min-height: 180px; }
-  .ss-card.ss-hero{ padding: 24px; }
+/* Sicherheitsnetz: in der App keine 2-Spalten-Inputs */
+.ss-card.ss-hero .ss-input{
+  display: block;
+  width: 100%;
 }
