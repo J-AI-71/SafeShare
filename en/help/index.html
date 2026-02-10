@@ -46,76 +46,29 @@
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 
-  <!-- JSON-LD FAQPage for: /en/help/index.html -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "inLanguage": "en",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What does SafeShare remove?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "SafeShare removes common tracking parameters such as utm_*, gclid, and fbclid. The goal is a clean link without unnecessary tracking noise."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Why do some parameters remain?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Not every parameter is tracking. Some are required for functionality, for example language, page state, product ID, filters, or search state. These remain so the link keeps working."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Are my links stored or uploaded?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Cleaning runs locally in your browser. Entered links are not uploaded to third-party services or stored by SafeShare."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I use SafeShare for messenger, email, and social posts?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. You can use cleaned links in WhatsApp, Signal, email, newsletters, and social posts."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does SafeShare work on mobile?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. SafeShare works on smartphone, tablet, and desktop directly in the browser."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is a shortcut enough instead of SafeShare Pro?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "For quick sharing, often yes. For repeatable policies, allowlists, audits, and team workflows, SafeShare Pro is the better fit."
-        }
-      }
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "inLanguage":"en",
+    "mainEntity":[
+      {"@type":"Question","name":"What does SafeShare remove?","acceptedAnswer":{"@type":"Answer","text":"SafeShare removes common tracking parameters such as utm_*, gclid, and fbclid. The goal is a clean link without unnecessary tracking noise."}},
+      {"@type":"Question","name":"Why do some parameters remain?","acceptedAnswer":{"@type":"Answer","text":"Not every parameter is tracking. Some are required for functionality, for example language, page state, product ID, filters, or search state. These remain so the link keeps working."}},
+      {"@type":"Question","name":"Are my links stored or uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Cleaning runs locally in your browser. Entered links are not uploaded to third-party services or stored by SafeShare."}},
+      {"@type":"Question","name":"Can I use SafeShare for messenger, email, and social posts?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can use cleaned links in WhatsApp, Signal, email, newsletters, and social posts."}},
+      {"@type":"Question","name":"Does SafeShare work on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes. SafeShare works on smartphone, tablet, and desktop directly in the browser."}},
+      {"@type":"Question","name":"Is a shortcut enough instead of SafeShare Pro?","acceptedAnswer":{"@type":"Answer","text":"For quick sharing, often yes. For repeatable policies, allowlists, audits, and team workflows, SafeShare Pro is the better fit."}}
     ]
   }
   </script>
 </head>
 <body data-page="help" data-lang="en">
-
   <main class="ss-main" id="top">
     <section class="ss-section" aria-labelledby="help-title">
       <div class="ss-card ss-hero">
         <h1 id="help-title">Help Center</h1>
         <p class="ss-hero-kicker">Clean links in seconds.</p>
-        <p>
-          Find quick answers to the most common questions: why a link is not cleaned,
-          which parameters are removed, and what to do first when something looks wrong.
-        </p>
+        <p>Find quick answers to the most common questions: why a link is not cleaned, which parameters are removed, and what to do first when something looks wrong.</p>
         <div class="ss-actions ss-mt-12">
           <a class="ss-btn ss-btn--primary" href="#quick-help">Quick help</a>
           <a class="ss-btn" href="#faq">FAQ</a>
@@ -136,7 +89,6 @@
               <li>If copied from a message, copy only the link.</li>
             </ol>
           </article>
-
           <article class="ss-card ss-card--inner">
             <h3>Result stays unchanged</h3>
             <ol>
@@ -145,7 +97,6 @@
               <li>Try another browser (Safari/Firefox/Chrome).</li>
             </ol>
           </article>
-
           <article class="ss-card ss-card--inner">
             <h3>Page does not load correctly</h3>
             <ol>
@@ -161,27 +112,22 @@
     <section class="ss-section" aria-labelledby="faq">
       <div class="ss-card">
         <h2 id="faq">Frequently asked questions</h2>
-
         <details class="ss-details" open>
           <summary>What does SafeShare remove?</summary>
           <p>SafeShare removes common tracking parameters such as <code>utm_*</code>, <code>gclid</code>, and <code>fbclid</code>. The goal is a clean link without unnecessary tracking noise.</p>
         </details>
-
         <details class="ss-details">
           <summary>Why do some parameters remain?</summary>
           <p>Not every parameter is tracking. Some are required for functionality (e.g. language, page, product ID), so they stay to keep the link working.</p>
         </details>
-
         <details class="ss-details">
           <summary>Are my links stored or uploaded?</summary>
           <p>No. Cleaning runs locally in your browser. Entered links are not stored on a server.</p>
         </details>
-
         <details class="ss-details">
           <summary>Can I use SafeShare for messenger, email, and social posts?</summary>
           <p>Yes. You can use cleaned links in WhatsApp, Signal, email, newsletters, and social posts.</p>
         </details>
-
         <details class="ss-details">
           <summary>Does SafeShare work on mobile?</summary>
           <p>Yes. SafeShare works on smartphone, tablet, and desktop directly in the browser.</p>
@@ -225,6 +171,19 @@
     </section>
   </main>
 
-  <script src="/js/shell.js" defer></script>
+  <script>
+  (function () {
+    var s = document.createElement("script");
+    s.defer = true;
+    s.src = "/js/shell.js";
+    s.onerror = function () {
+      var f = document.createElement("script");
+      f.defer = true;
+      f.src = "/js/ss-shell.js";
+      document.body.appendChild(f);
+    };
+    document.body.appendChild(s);
+  })();
+  </script>
 </body>
 </html>
