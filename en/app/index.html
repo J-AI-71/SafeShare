@@ -124,7 +124,7 @@
     </section>
   </main>
 
-  <script>
+   <script>
   (function () {
     var s = document.createElement("script");
     s.defer = true;
@@ -138,6 +138,9 @@
     document.body.appendChild(s);
   })();
   </script>
+
+  <!-- WICHTIG: rules VOR app -->
+  <script src="/js/ss-rules.js" defer></script>
   <script src="/js/app.js" defer></script>
 </body>
 </html>
