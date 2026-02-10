@@ -52,9 +52,7 @@ html, body{
   background: var(--ss-bg);
   color: var(--ss-text);
 }
-html{
-  scroll-behavior: smooth;
-}
+html{ scroll-behavior: smooth; }
 
 /* Shell layout */
 body{
@@ -132,14 +130,8 @@ main, #app, .page, .page-wrap, .ss-main{
   line-height: 1;
   font-weight: 800;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ss-brand__txt{
-  white-space: nowrap;
-  overflow: visible;
-  text-overflow: clip;
+  overflow: hidden;         /* IMPORTANT */
+  text-overflow: ellipsis;  /* IMPORTANT */
 }
 
 .ss-actions{
@@ -154,7 +146,7 @@ main, #app, .page, .page-wrap, .ss-main{
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;  /* desktop centered */
 }
 
 .ss-nav{
@@ -241,6 +233,10 @@ main, #app, .page, .page-wrap, .ss-main{
    nav starts at left so first item (Start) is never hidden behind brand */
 @media (max-width: 900px){
   .ss-brand{ max-width: 30vw; }
+
+  .ss-navLane{
+    justify-content: flex-start; /* IMPORTANT on mobile */
+  }
 
   .ss-nav{
     justify-content: flex-start;
