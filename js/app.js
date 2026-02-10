@@ -1,274 +1,314 @@
-// File: /js/app.js
-// SafeShare App FINAL single-file (no module import)
-// Works for /app/ (DE) and /en/app/ (EN)
+/* File: /js/app.js */
+/* SafeShare App logic – Standard vs Strict */
 
 (() => {
   "use strict";
 
-  // ---------------------------
-  // Rules (embedded)
-  // ---------------------------
+  // ---------- DOM ----------
+  const $ = (id) => document.getElementById(id);
 
-  const GLOBAL_DROP_EXACT = new Set([
-    "fbclid",
-    "gclid",
-    "dclid",
-    "msclkid",
-    "mc_eid",
-    "igshid",
-    "si",
-    "_hsenc",
-    "_hsmi",
-    "vero_id",
-    "wickedid",
-    "yclid",
-    "ref",
-    "ref_src"
-  ]);
+  const elInput = $("urlInput");
+  const elOutput = $("urlOutput");
+  const elMeta = $("cleanMeta");
 
-  const GLOBAL_DROP_PREFIX = [
-    "utm_"
-  ];
+  const btnClean = $("cleanBtn");
+  const btnCopy = $("copyBtn");
+  const btnShare = $("shareBtn");
+  const btnReset = $("resetBtn");
 
-  // Keep set used in strict mode (generic essentials)
-  const GLOBAL_ESSENTIAL_KEEP = new Set([
-    "id", "p", "v", "q", "k", "list", "t", "page", "article"
-  ]);
+  const modeRadios = () => Array.from(document.querySelectorAll('input[name="mode"]'));
 
-  const HOST_RULES = {
-    "google.com": {
-      keep: new Set(["q", "kgmid", "tbm"]),
-      dropExact: new Set(["sca_esv", "sxsrf", "source", "shndl", "ved", "ei", "oq", "gs_lcp", "uact"])
-    },
-    "www.google.com": {
-      keep: new Set(["q", "kgmid", "tbm"]),
-      dropExact: new Set(["sca_esv", "sxsrf", "source", "shndl", "ved", "ei", "oq", "gs_lcp", "uact"])
-    },
-    "youtube.com": {
-      keep: new Set(["v", "list", "t"]),
-      dropExact: new Set(["si", "feature", "pp", "embeds_referring_euri"])
-    },
-    "www.youtube.com": {
-      keep: new Set(["v", "list", "t"]),
-      dropExact: new Set(["si", "feature", "pp", "embeds_referring_euri"])
-    },
-    "amazon.de": {
-      keep: new Set(["k", "i", "node", "page"]),
-      dropExact: new Set(["tag", "pf_rd_r", "pf_rd_p", "psc", "smid", "ascsubtag"])
-    },
-    "www.amazon.de": {
-      keep: new Set(["k", "i", "node", "page"]),
-      dropExact: new Set(["tag", "pf_rd_r", "pf_rd_p", "psc", "smid", "ascsubtag"])
-    }
-  };
-
-  function normalizeHost(hostname) {
-    return hostname.toLowerCase().replace(/^m\./, "");
+  if (!elInput || !elOutput || !btnClean || !btnCopy || !btnShare || !btnReset) {
+    // Seite nicht vollständig vorhanden -> still beenden
+    return;
   }
 
-  function shouldDropGlobal(keyLower) {
-    if (GLOBAL_DROP_EXACT.has(keyLower)) return true;
-    for (const prefix of GLOBAL_DROP_PREFIX) {
-      if (keyLower.startsWith(prefix)) return true;
+  // ---------- Parameterlisten ----------
+  // Immer entfernen (klarer Tracking-Müll)
+  const ALWAYS_REMOVE = new Set([
+    "fbclid", "gclid", "dclid", "gbraid", "wbraid", "msclkid",
+    "mc_cid", "mc_eid", "_hsenc", "_hsmi", "mkt_tok",
+    "vero_id", "oly_anon_id", "oly_enc_id", "wickedid", "yclid"
+  ]);
+
+  // Prefixe, die immer raus sollen
+  const ALWAYS_PREFIX = [
+    "utm_",      // utm_source, utm_medium ...
+    "pk_",       // Matomo Kampagnen-Parameter
+    "mtm_"       // Matomo Tag Manager / Campaign
+  ];
+
+  // Standard-Modus: funktionale Keys je Host erhalten
+  // (minimal, damit Zielstabilität hoch bleibt)
+  const STANDARD_ALLOW_BY_HOST = [
+    {
+      host: /(^|\.)google\./i,
+      keys: new Set([
+        "q",       // Suchbegriff
+        "kgmid",   // Knowledge graph entity
+        "tbm",     // search type (images/news/...)
+        "hl", "gl", "uule", "oq", "aq", "safe"
+      ])
+    },
+    {
+      host: /(^|\.)youtube\.com$/i,
+      keys: new Set([
+        "v", "list", "index", "t", "start"
+      ])
+    }
+  ];
+
+  // Strict-Modus: aggressiver -> nur sehr wenige funktionale Schlüssel pro Host
+  const STRICT_ALLOW_BY_HOST = [
+    {
+      host: /(^|\.)google\./i,
+      keys: new Set([
+        "q" // absichtlich nur q, damit strict wirklich strenger ist
+      ])
+    },
+    {
+      host: /(^|\.)youtube\.com$/i,
+      keys: new Set([
+        "v" // nur Video-ID
+      ])
+    }
+  ];
+
+  // Globale "oft funktionale" Schlüssel (beide Modi)
+  const GENERIC_FUNCTIONAL_KEYS = new Set([
+    "id", "page", "lang", "hl", "ref", "sort", "filter", "query", "search"
+  ]);
+
+  // ---------- Helpers ----------
+  function normalizeUrlInput(raw) {
+    const s = (raw || "").trim();
+    if (!s) return "";
+
+    // Falls Nutzer ohne Schema einfügt
+    if (!/^https?:\/\//i.test(s)) {
+      return "https://" + s;
+    }
+    return s;
+  }
+
+  function getCurrentMode() {
+    const checked = document.querySelector('input[name="mode"]:checked');
+    return checked ? checked.value : "standard";
+  }
+
+  function matchesPrefix(key, prefixes) {
+    const k = key.toLowerCase();
+    for (const p of prefixes) {
+      if (k.startsWith(p)) return true;
     }
     return false;
   }
 
-  function getHostRule(hostname) {
-    return HOST_RULES[normalizeHost(hostname)] || null;
-  }
-
-  function parseUrlFlexible(input) {
-    try {
-      return new URL(input);
-    } catch (_) {
-      // Allow "example.com?a=1"
-      return new URL("https://" + input);
+  function getHostAllowSet(hostname, mode) {
+    const rules = mode === "strict" ? STRICT_ALLOW_BY_HOST : STANDARD_ALLOW_BY_HOST;
+    for (const rule of rules) {
+      if (rule.host.test(hostname)) return rule.keys;
     }
+    return null;
   }
 
-  function cleanUrl(input, mode) {
-    const parsed = parseUrlFlexible(input);
-    const rule = getHostRule(parsed.hostname);
+  function shouldRemoveKey({ key, hostname, mode, hostAllowSet }) {
+    const k = key.toLowerCase();
+
+    // Immer raus
+    if (ALWAYS_REMOVE.has(k)) return true;
+    if (matchesPrefix(k, ALWAYS_PREFIX)) return true;
+
+    // Host-spezifische Regeln
+    if (hostAllowSet) {
+      // in Host-Regel enthalten -> behalten
+      if (hostAllowSet.has(k)) return false;
+
+      // strict: alles andere auf diesem Host raus
+      if (mode === "strict") return true;
+
+      // standard: auf bekannten Hosts generische funktionale keys behalten
+      if (GENERIC_FUNCTIONAL_KEYS.has(k)) return false;
+
+      // standard: unbekannte keys eher raus (tracking-arm)
+      return true;
+    }
+
+    // Unbekannter Host:
+    if (mode === "strict") {
+      // strict auf unbekanntem Host: nur generische funktionale keys behalten
+      return !GENERIC_FUNCTIONAL_KEYS.has(k);
+    }
+
+    // standard auf unbekanntem Host:
+    // aggressive tracking keys raus, sonst behalten (zielstabil)
+    return false;
+  }
+
+  function cleanUrl(rawUrl, mode = "standard") {
+    const normalized = normalizeUrlInput(rawUrl);
+    if (!normalized) {
+      return {
+        ok: false,
+        error: "Bitte eine URL eingeben.",
+        output: "",
+        removed: [],
+        kept: []
+      };
+    }
+
+    let u;
+    try {
+      u = new URL(normalized);
+    } catch {
+      return {
+        ok: false,
+        error: "Ungültige URL. Bitte vollständigen Link einfügen.",
+        output: "",
+        removed: [],
+        kept: []
+      };
+    }
+
+    const hostAllowSet = getHostAllowSet(u.hostname, mode);
 
     const removed = [];
     const kept = [];
 
-    const allowKeep = new Set([
-      ...GLOBAL_ESSENTIAL_KEEP,
-      ...(rule ? Array.from(rule.keep) : [])
-    ]);
+    // Iteration über Kopie, da wir löschen
+    const entries = Array.from(u.searchParams.entries());
+    for (const [key] of entries) {
+      const remove = shouldRemoveKey({
+        key,
+        hostname: u.hostname,
+        mode,
+        hostAllowSet
+      });
 
-    // Rebuild search params deterministically
-    const originalParams = Array.from(parsed.searchParams.entries());
-    parsed.search = "";
-
-    for (const [key, value] of originalParams) {
-      const lk = key.toLowerCase();
-
-      const dropByGlobal = shouldDropGlobal(lk);
-      const dropByHost = !!rule && rule.dropExact.has(lk);
-
-      if (dropByGlobal || dropByHost) {
+      if (remove) {
         removed.push(key);
-        continue;
-      }
-
-      if (mode === "strict") {
-        if (allowKeep.has(lk)) {
-          parsed.searchParams.append(key, value);
-          kept.push(key);
-        } else {
-          removed.push(key);
-        }
+        u.searchParams.delete(key);
       } else {
-        // standard: remove only known tracking/session noise
-        parsed.searchParams.append(key, value);
-        if (allowKeep.has(lk)) kept.push(key);
+        kept.push(key);
       }
     }
 
+    // Hash behalten
+    const output = u.toString();
+
     return {
-      cleaned: parsed.toString(),
-      removed: Array.from(new Set(removed)),
-      kept: Array.from(new Set(kept))
+      ok: true,
+      error: "",
+      output,
+      removed,
+      kept
     };
   }
 
-  // ---------------------------
-  // UI bindings
-  // ---------------------------
-
-  const $ = (sel) => document.querySelector(sel);
-
-  const urlInput = $("#urlInput");
-  const urlOutput = $("#urlOutput");
-  const cleanBtn = $("#cleanBtn");
-  const copyBtn = $("#copyBtn");
-  const shareBtn = $("#shareBtn");
-  const resetBtn = $("#resetBtn");
-  const cleanMeta = $("#cleanMeta");
-
-  // Fail-safe if page structure differs
-  if (!urlInput || !urlOutput || !cleanBtn || !copyBtn || !shareBtn || !resetBtn || !cleanMeta) {
-    return;
+  function uniq(arr) {
+    return Array.from(new Set(arr));
   }
 
-  const isEN = (document.documentElement.lang || "").toLowerCase().startsWith("en");
+  function updateMeta(removed, kept, mode, lang) {
+    const r = removed.length ? uniq(removed).join(", ") : "–";
+    const k = kept.length ? uniq(kept).join(", ") : "–";
 
-  const TEXT = {
-    invalid: isEN ? "Invalid URL. Please check the link." : "Ungültiger Link. Bitte URL prüfen.",
-    copied: isEN ? "Cleaned link copied." : "Bereinigter Link kopiert.",
-    sharedFallback: isEN ? "Share not available. Copied instead." : "Teilen nicht verfügbar. Stattdessen kopiert.",
-    modeStandard: isEN
-      ? "Standard mode active (tracking-light, target-stable)."
-      : "Standard-Modus aktiv (trackingarm, zielstabil).",
-    modeStrict: isEN
-      ? "Strict mode active (may change destination behavior)."
-      : "Strikt-Modus aktiv (kann Zielverhalten ändern).",
-    removedLabel: isEN ? "Removed" : "Entfernt",
-    keptLabel: isEN ? "Kept" : "Behalten"
-  };
-
-  function getMode() {
-    return document.querySelector('input[name="mode"]:checked')?.value || "standard";
+    if (lang === "en") {
+      const modeTxt = mode === "strict"
+        ? "Strict mode active (more aggressive, may change destination behavior)."
+        : "Standard mode active (tracking-light, destination-stable).";
+      elMeta.textContent = `Removed: ${r} • Kept: ${k} • ${modeTxt}`;
+    } else {
+      const modeTxt = mode === "strict"
+        ? "Strikt-Modus aktiv (aggressiver, kann Zielverhalten ändern)."
+        : "Standard-Modus aktiv (trackingarm, zielstabil).";
+      elMeta.textContent = `Entfernt: ${r} • Behalten: ${k} • ${modeTxt}`;
+    }
   }
 
-  function setButtonsEnabled(hasOutput) {
-    copyBtn.disabled = !hasOutput;
-    shareBtn.disabled = !hasOutput;
+  async function doCopy() {
+    const txt = elOutput.value.trim();
+    if (!txt) return;
+    try {
+      await navigator.clipboard.writeText(txt);
+    } catch {
+      // Fallback
+      elOutput.focus();
+      elOutput.select();
+      document.execCommand("copy");
+    }
   }
 
-  function setMeta(removedArr, keptArr, mode) {
-    const removed = removedArr.length ? removedArr.join(", ") : "–";
-    const kept = keptArr.length ? keptArr.join(", ") : "–";
-    const modeText = mode === "strict" ? TEXT.modeStrict : TEXT.modeStandard;
-    cleanMeta.textContent = `${TEXT.removedLabel}: ${removed} • ${TEXT.keptLabel}: ${kept} • ${modeText}`;
+  async function doShare() {
+    const txt = elOutput.value.trim();
+    if (!txt) return;
+    if (navigator.share) {
+      try {
+        await navigator.share({ url: txt, text: txt });
+      } catch {
+        // user canceled -> ignore
+      }
+    } else {
+      await doCopy();
+    }
   }
 
-  function runClean() {
-    const raw = urlInput.value.trim();
+  function doReset() {
+    elInput.value = "";
+    elOutput.value = "";
+    btnCopy.disabled = true;
+    btnShare.disabled = true;
 
-    if (!raw) {
-      urlOutput.value = "";
-      setButtonsEnabled(false);
-      setMeta([], [], getMode());
+    const lang = (document.body.dataset.lang || "de").toLowerCase();
+    if (lang === "en") {
+      elMeta.textContent = "Removed: – • Kept: – • Standard mode active (tracking-light, target-stable).";
+    } else {
+      elMeta.textContent = "Entfernt: – • Behalten: – • Standard-Modus aktiv (trackingarm, zielstabil).";
+    }
+
+    // auf Standard zurück
+    const standard = document.querySelector('input[name="mode"][value="standard"]');
+    if (standard) standard.checked = true;
+  }
+
+  function doClean() {
+    const mode = getCurrentMode(); // <- wichtig
+    const lang = (document.body.dataset.lang || "de").toLowerCase();
+
+    const result = cleanUrl(elInput.value, mode);
+
+    if (!result.ok) {
+      elOutput.value = "";
+      btnCopy.disabled = true;
+      btnShare.disabled = true;
+      elMeta.textContent = result.error;
       return;
     }
 
-    try {
-      const result = cleanUrl(raw, getMode());
-      urlOutput.value = result.cleaned;
-      setButtonsEnabled(true);
-      setMeta(result.removed, result.kept, getMode());
-    } catch (_) {
-      urlOutput.value = "";
-      setButtonsEnabled(false);
-      cleanMeta.textContent = TEXT.invalid;
-    }
+    elOutput.value = result.output;
+    btnCopy.disabled = !result.output;
+    btnShare.disabled = !result.output;
+    updateMeta(result.removed, result.kept, mode, lang);
   }
 
-  async function copyCleaned() {
-    const value = urlOutput.value.trim();
-    if (!value) return;
+  // ---------- Events ----------
+  btnClean.addEventListener("click", doClean);
+  btnCopy.addEventListener("click", doCopy);
+  btnShare.addEventListener("click", doShare);
+  btnReset.addEventListener("click", doReset);
 
-    try {
-      await navigator.clipboard.writeText(value);
-      cleanMeta.textContent = TEXT.copied;
-    } catch (_) {
-      // Legacy fallback
-      urlOutput.focus();
-      urlOutput.select();
-      document.execCommand("copy");
-      cleanMeta.textContent = TEXT.copied;
-    }
-  }
-
-  async function shareCleaned() {
-    const value = urlOutput.value.trim();
-    if (!value) return;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({ url: value, title: "SafeShare" });
-        return;
-      } catch (_) {
-        // user cancel or unavailable payload -> fallback copy
-      }
-    }
-
-    await copyCleaned();
-    cleanMeta.textContent = TEXT.sharedFallback;
-  }
-
-  function resetAll() {
-    urlInput.value = "";
-    urlOutput.value = "";
-    setButtonsEnabled(false);
-    setMeta([], [], getMode());
-    urlInput.focus();
-  }
-
-  // Events
-  cleanBtn.addEventListener("click", runClean);
-  copyBtn.addEventListener("click", copyCleaned);
-  shareBtn.addEventListener("click", shareCleaned);
-  resetBtn.addEventListener("click", resetAll);
-
-  urlInput.addEventListener("keydown", (ev) => {
-    if ((ev.metaKey || ev.ctrlKey) && ev.key === "Enter") {
-      runClean();
-    }
-  });
-
-  document.querySelectorAll('input[name="mode"]').forEach((radio) => {
-    radio.addEventListener("change", () => {
-      if (urlInput.value.trim()) runClean();
-      else setMeta([], [], getMode());
+  // Sofort neu berechnen, wenn Modus geändert wird und Input vorhanden ist
+  modeRadios().forEach(r => {
+    r.addEventListener("change", () => {
+      if (elInput.value.trim()) doClean();
     });
   });
 
-  // Init
-  setButtonsEnabled(false);
-  setMeta([], [], getMode());
+  // Enter/ctrl+enter optional
+  elInput.addEventListener("keydown", (ev) => {
+    if ((ev.ctrlKey || ev.metaKey) && ev.key === "Enter") {
+      ev.preventDefault();
+      doClean();
+    }
+  });
 })();
