@@ -77,17 +77,25 @@
             </fieldset>
 
             <label class="ss-label ss-mt-12" for="urlInput">URL eingeben</label>
-            <textarea
-              id="urlInput"
-              class="ss-input ss-w-full ss-input--lg"
-              rows="5"
-              placeholder="https://example.com/?utm_source=..."
-              autocomplete="off"
-              autocapitalize="none"
-              spellcheck="false"
-              inputmode="url"
-            ></textarea>
+            <!-- Input -->
+<textarea
+  id="urlInput"
+  class="ss-input ss-w-full ss-input--lg"
+  rows="8"
+  placeholder="https://example.com/?utm_source=..."
+  autocomplete="off"
+  autocapitalize="none"
+  spellcheck="false"
+  inputmode="url"
+></textarea>
 
+<!-- Output -->
+<textarea
+  id="urlOutput"
+  class="ss-input ss-w-full ss-input--md"
+  rows="6"
+  readonly
+></textarea>
             <div class="ss-actions ss-mt-12">
               <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Bereinigen</button>
               <button id="copyBtn" class="ss-btn" type="button" disabled>Kopieren</button>
