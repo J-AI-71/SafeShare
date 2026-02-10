@@ -46,68 +46,66 @@
   <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
 
-<!-- JSON-LD FAQPage for: /en/help/index.html -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "inLanguage": "en",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What does SafeShare remove?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SafeShare removes common tracking parameters such as utm_*, gclid, and fbclid. The goal is a clean link without unnecessary tracking noise."
+  <!-- JSON-LD FAQPage for: /en/help/index.html -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "en",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does SafeShare remove?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SafeShare removes common tracking parameters such as utm_*, gclid, and fbclid. The goal is a clean link without unnecessary tracking noise."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do some parameters remain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not every parameter is tracking. Some are required for functionality, for example language, page state, product ID, filters, or search state. These remain so the link keeps working."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my links stored or uploaded?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Cleaning runs locally in your browser. Entered links are not uploaded to third-party services or stored by SafeShare."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use SafeShare for messenger, email, and social posts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can use cleaned links in WhatsApp, Signal, email, newsletters, and social posts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does SafeShare work on mobile?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. SafeShare works on smartphone, tablet, and desktop directly in the browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is a shortcut enough instead of SafeShare Pro?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For quick sharing, often yes. For repeatable policies, allowlists, audits, and team workflows, SafeShare Pro is the better fit."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "Why do some parameters remain?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Not every parameter is tracking. Some are required for functionality, for example language, page state, product ID, filters, or search state. These remain so the link keeps working."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are my links stored or uploaded?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Cleaning runs locally in your browser. Entered links are not uploaded to third-party services or stored by SafeShare."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I use SafeShare for messenger, email, and social posts?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. You can use cleaned links in WhatsApp, Signal, email, newsletters, and social posts."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does SafeShare work on mobile?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. SafeShare works on smartphone, tablet, and desktop directly in the browser."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is a shortcut enough instead of SafeShare Pro?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "For quick sharing, often yes. For repeatable policies, allowlists, audits, and team workflows, SafeShare Pro is the better fit."
-      }
-    }
-  ]
-}
-</script>
-  
+    ]
+  }
+  </script>
 </head>
 <body data-page="help" data-lang="en">
-  <div id="ss-shell"></div>
 
   <main class="ss-main" id="top">
     <section class="ss-section" aria-labelledby="help-title">
@@ -227,6 +225,6 @@
     </section>
   </main>
 
-  <script src="/js/ss-shell.js" defer></script>
+  <script src="/js/shell.js" defer></script>
 </body>
 </html>
