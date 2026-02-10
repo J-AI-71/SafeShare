@@ -48,86 +48,96 @@
   <link rel="stylesheet" href="/css/ss-page.css" />
 </head>
 <body data-page="app" data-lang="en">
-  <!-- Zero-header principle: Header/Nav/More/Footer are injected by ss-shell.js -->
-  <div id="ss-shell" class="ss-shell">
-    <main id="ss-content" class="ss-main">
-      <section class="ss-section" aria-labelledby="app-title">
-        <div class="ss-wrap">
-          <article class="ss-card ss-hero">
-            <p class="ss-kicker">SafeShare App</p>
-            <h1 id="app-title">Clean Link</h1>
-            <p class="ss-hero-kicker">Paste → Clean → Copy/Share</p>
+  <main id="ss-content" class="ss-main">
+    <section class="ss-section" aria-labelledby="app-title">
+      <div class="ss-wrap">
+        <article class="ss-card ss-hero">
+          <p class="ss-kicker">SafeShare App</p>
+          <h1 id="app-title">Clean Link</h1>
+          <p class="ss-hero-kicker">Paste → Clean → Copy/Share</p>
 
+          <p class="ss-muted">
+            In <strong>Standard mode</strong>, SafeShare removes known tracking parameters and keeps
+            target-relevant parameters (for example <code>q</code>, <code>kgmid</code> on Google) so results stay consistent.
+          </p>
+
+          <fieldset class="ss-mode ss-mt-12">
+            <legend class="ss-label">Mode</legend>
+            <label class="ss-radio">
+              <input type="radio" name="mode" value="standard" checked />
+              <span>Standard (recommended)</span>
+            </label>
+            <label class="ss-radio">
+              <input type="radio" name="mode" value="strict" />
+              <span>Strict (may change destination behavior)</span>
+            </label>
+          </fieldset>
+
+          <label class="ss-label ss-mt-12" for="urlInput">Enter URL</label>
+          <div class="ss-appField">
+            <textarea
+              id="urlInput"
+              class="ss-input ss-w-full ss-input--lg"
+              rows="8"
+              placeholder="https://example.com/?utm_source=..."
+              autocomplete="off"
+              autocapitalize="none"
+              spellcheck="false"
+              inputmode="url"
+            ></textarea>
+          </div>
+
+          <div class="ss-actions ss-mt-12">
+            <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Clean</button>
+            <button id="copyBtn" class="ss-btn" type="button" disabled>Copy</button>
+            <button id="shareBtn" class="ss-btn ss-btn--ghost" type="button" disabled>Share</button>
+            <button id="resetBtn" class="ss-btn" type="button">Reset</button>
+          </div>
+
+          <label class="ss-label ss-mt-12" for="urlOutput">Cleaned URL</label>
+          <div class="ss-appField">
+            <textarea
+              id="urlOutput"
+              class="ss-input ss-w-full ss-input--md"
+              rows="6"
+              readonly
+            ></textarea>
+          </div>
+
+          <p id="cleanMeta" class="ss-note ss-mt-12" aria-live="polite">
+            Removed: – • Kept: – • Standard mode active (tracking-light, target-stable).
+          </p>
+
+          <details class="ss-details ss-mt-12">
+            <summary>Why is a parameter sometimes kept?</summary>
             <p class="ss-muted">
-              In <strong>Standard mode</strong>, SafeShare removes known tracking parameters and keeps
-              target-relevant parameters (for example <code>q</code>, <code>kgmid</code> on Google) so results stay consistent.
+              Some parameters are relevant for the actual destination (for example search terms or object IDs).
+              SafeShare removes tracking without unnecessarily breaking destination behavior.
             </p>
+          </details>
 
-            <fieldset class="ss-mode ss-mt-12">
-              <legend class="ss-label">Mode</legend>
-              <label class="ss-radio">
-                <input type="radio" name="mode" value="standard" checked />
-                <span>Standard (recommended)</span>
-              </label>
-              <label class="ss-radio">
-                <input type="radio" name="mode" value="strict" />
-                <span>Strict (may change destination behavior)</span>
-              </label>
-            </fieldset>
+          <div class="ss-note ss-mt-12">
+            Local-first: No uploads, no login.
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
 
-            <label class="ss-label ss-mt-12" for="urlInput">Enter URL</label>
-            <div class="ss-appField">
-              <textarea
-                id="urlInput"
-                class="ss-input ss-w-full ss-input--lg"
-                rows="8"
-                placeholder="https://example.com/?utm_source=..."
-                autocomplete="off"
-                autocapitalize="none"
-                spellcheck="false"
-                inputmode="url"
-              ></textarea>
-            </div>
-
-            <div class="ss-actions ss-mt-12">
-              <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Clean</button>
-              <button id="copyBtn" class="ss-btn" type="button" disabled>Copy</button>
-              <button id="shareBtn" class="ss-btn ss-btn--ghost" type="button" disabled>Share</button>
-              <button id="resetBtn" class="ss-btn" type="button">Reset</button>
-            </div>
-
-            <label class="ss-label ss-mt-12" for="urlOutput">Cleaned URL</label>
-            <div class="ss-appField">
-              <textarea
-                id="urlOutput"
-                class="ss-input ss-w-full ss-input--md"
-                rows="6"
-                readonly
-              ></textarea>
-            </div>
-
-            <p id="cleanMeta" class="ss-note ss-mt-12" aria-live="polite">
-              Removed: – • Kept: – • Standard mode active (tracking-light, target-stable).
-            </p>
-
-            <details class="ss-details ss-mt-12">
-              <summary>Why is a parameter sometimes kept?</summary>
-              <p class="ss-muted">
-                Some parameters are relevant for the actual destination (for example search terms or object IDs).
-                SafeShare removes tracking without unnecessarily breaking destination behavior.
-              </p>
-            </details>
-
-            <div class="ss-note ss-mt-12">
-              Local-first: No uploads, no login.
-            </div>
-          </article>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script src="/js/ss-shell.js" defer></script>
+  <script>
+  (function () {
+    var s = document.createElement("script");
+    s.defer = true;
+    s.src = "/js/shell.js";
+    s.onerror = function () {
+      var f = document.createElement("script");
+      f.defer = true;
+      f.src = "/js/ss-shell.js";
+      document.body.appendChild(f);
+    };
+    document.body.appendChild(s);
+  })();
+  </script>
   <script src="/js/app.js" defer></script>
 </body>
 </html>
