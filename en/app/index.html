@@ -44,12 +44,11 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
-  <!-- Order: shell first, page second -->
   <link rel="stylesheet" href="/css/ss-shell.css" />
   <link rel="stylesheet" href="/css/ss-page.css" />
 </head>
 <body data-page="app" data-lang="en">
-  <!-- Zero-header principle: header/nav/more/footer injected by ss-shell.js -->
+  <!-- Zero-header principle: Header/Nav/More/Footer are injected by ss-shell.js -->
   <div id="ss-shell" class="ss-shell">
     <main id="ss-content" class="ss-main">
       <section class="ss-section" aria-labelledby="app-title">
@@ -61,7 +60,7 @@
 
             <p class="ss-muted">
               In <strong>Standard mode</strong>, SafeShare removes known tracking parameters and keeps
-              target-relevant ones (for example <code>q</code>, <code>kgmid</code> on Google) to preserve result behavior.
+              target-relevant parameters (for example <code>q</code>, <code>kgmid</code> on Google) so results stay consistent.
             </p>
 
             <fieldset class="ss-mode ss-mt-12">
@@ -77,25 +76,18 @@
             </fieldset>
 
             <label class="ss-label ss-mt-12" for="urlInput">Enter URL</label>
-        <!-- Input -->
-<textarea
-  id="urlInput"
-  class="ss-input ss-w-full ss-input--lg"
-  rows="8"
-  placeholder="https://example.com/?utm_source=..."
-  autocomplete="off"
-  autocapitalize="none"
-  spellcheck="false"
-  inputmode="url"
-></textarea>
-
-<!-- Output -->
-<textarea
-  id="urlOutput"
-  class="ss-input ss-w-full ss-input--md"
-  rows="6"
-  readonly
-></textarea>
+            <div class="ss-appField">
+              <textarea
+                id="urlInput"
+                class="ss-input ss-w-full ss-input--lg"
+                rows="8"
+                placeholder="https://example.com/?utm_source=..."
+                autocomplete="off"
+                autocapitalize="none"
+                spellcheck="false"
+                inputmode="url"
+              ></textarea>
+            </div>
 
             <div class="ss-actions ss-mt-12">
               <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Clean</button>
@@ -105,7 +97,14 @@
             </div>
 
             <label class="ss-label ss-mt-12" for="urlOutput">Cleaned URL</label>
-            <textarea id="urlOutput" class="ss-input ss-w-full ss-input--md" rows="4" readonly></textarea>
+            <div class="ss-appField">
+              <textarea
+                id="urlOutput"
+                class="ss-input ss-w-full ss-input--md"
+                rows="6"
+                readonly
+              ></textarea>
+            </div>
 
             <p id="cleanMeta" class="ss-note ss-mt-12" aria-live="polite">
               Removed: – • Kept: – • Standard mode active (tracking-light, target-stable).
@@ -114,7 +113,7 @@
             <details class="ss-details ss-mt-12">
               <summary>Why is a parameter sometimes kept?</summary>
               <p class="ss-muted">
-                Some parameters are relevant for the actual destination (for example a search term or object ID).
+                Some parameters are relevant for the actual destination (for example search terms or object IDs).
                 SafeShare removes tracking without unnecessarily breaking destination behavior.
               </p>
             </details>
@@ -128,7 +127,6 @@
     </main>
   </div>
 
-  <!-- no version suffix, as requested -->
   <script src="/js/ss-shell.js" defer></script>
   <script src="/js/app.js" defer></script>
 </body>
