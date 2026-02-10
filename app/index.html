@@ -44,7 +44,6 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
-  <!-- Reihenfolge: erst Shell, dann Page -->
   <link rel="stylesheet" href="/css/ss-shell.css" />
   <link rel="stylesheet" href="/css/ss-page.css" />
 </head>
@@ -77,25 +76,19 @@
             </fieldset>
 
             <label class="ss-label ss-mt-12" for="urlInput">URL eingeben</label>
-            <!-- Input -->
-<textarea
-  id="urlInput"
-  class="ss-input ss-w-full ss-input--lg"
-  rows="8"
-  placeholder="https://example.com/?utm_source=..."
-  autocomplete="off"
-  autocapitalize="none"
-  spellcheck="false"
-  inputmode="url"
-></textarea>
+            <div class="ss-appField">
+              <textarea
+                id="urlInput"
+                class="ss-input ss-w-full ss-input--lg"
+                rows="8"
+                placeholder="https://example.com/?utm_source=..."
+                autocomplete="off"
+                autocapitalize="none"
+                spellcheck="false"
+                inputmode="url"
+              ></textarea>
+            </div>
 
-<!-- Output -->
-<textarea
-  id="urlOutput"
-  class="ss-input ss-w-full ss-input--md"
-  rows="6"
-  readonly
-></textarea>
             <div class="ss-actions ss-mt-12">
               <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Bereinigen</button>
               <button id="copyBtn" class="ss-btn" type="button" disabled>Kopieren</button>
@@ -104,7 +97,14 @@
             </div>
 
             <label class="ss-label ss-mt-12" for="urlOutput">Bereinigte URL</label>
-            <textarea id="urlOutput" class="ss-input ss-w-full ss-input--md" rows="4" readonly></textarea>
+            <div class="ss-appField">
+              <textarea
+                id="urlOutput"
+                class="ss-input ss-w-full ss-input--md"
+                rows="6"
+                readonly
+              ></textarea>
+            </div>
 
             <p id="cleanMeta" class="ss-note ss-mt-12" aria-live="polite">
               Entfernt: – • Behalten: – • Standard-Modus aktiv (trackingarm, zielstabil).
@@ -127,7 +127,6 @@
     </main>
   </div>
 
-  <!-- ohne Versionssuffix, wie gewünscht -->
   <script src="/js/ss-shell.js" defer></script>
   <script src="/js/app.js" defer></script>
 </body>
