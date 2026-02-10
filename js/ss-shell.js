@@ -1,5 +1,5 @@
-/* /js/shell.js */
-/* SafeShare Master-Flow strict – single complete file */
+/* File: /js/shell.js */
+/* SafeShare Master-Flow strict – single complete file (FINAL full-nav mobile+desktop) */
 
 (() => {
   "use strict";
@@ -32,11 +32,12 @@
     "shortcuts": "shortcuts",
     "show-share": "show-share"
   };
+
   const EN_TO_DE = Object.fromEntries(
     Object.entries(DE_TO_EN).map(([de, en]) => [en, de])
   );
 
-  // ===== Full desktop nav =====
+  // ===== Full desktop/mobile nav (always full) =====
   const NAV_DE = [
     { label: "Start", href: "/" },
     { label: "App", href: "/app/" },
@@ -45,8 +46,9 @@
     { label: "Schule", href: "/schule/" },
     { label: "EN", action: "switchLang" }
   ];
+
   const NAV_EN = [
-    { label: "Start", href: "/en/" },
+    { label: "Home", href: "/en/" },
     { label: "App", href: "/en/app/" },
     { label: "Help", href: "/en/help/" },
     { label: "Pro", href: "/en/pro/" },
@@ -119,15 +121,16 @@
     }
   ];
 
-  // compact footer
+  // ===== compact footer =====
   const FOOTER_DE = [
     { label: "Start", href: "/" },
     { label: "App", href: "/app/" },
     { label: "Datenschutz", href: "/datenschutz/" },
     { label: "Impressum", href: "/impressum/" }
   ];
+
   const FOOTER_EN = [
-    { label: "Start", href: "/en/" },
+    { label: "Home", href: "/en/" },
     { label: "App", href: "/en/app/" },
     { label: "Privacy", href: "/en/privacy/" },
     { label: "Imprint", href: "/en/imprint/" }
@@ -186,24 +189,6 @@
     DOC.body.scrollTop = 0;
   }
 
-  function currentTopLabel(l) {
-    const p = currentPath();
-    if (l === "de") {
-      if (p === "/") return "Start";
-      if (p.startsWith("/app/")) return "App";
-      if (p.startsWith("/hilfe/")) return "Hilfe";
-      if (p.startsWith("/pro/")) return "Pro";
-      if (p.startsWith("/schule/")) return "Schule";
-      return "Seite";
-    }
-    if (p === "/en/") return "Start";
-    if (p.startsWith("/en/app/")) return "App";
-    if (p.startsWith("/en/help/")) return "Help";
-    if (p.startsWith("/en/pro/")) return "Pro";
-    if (p.startsWith("/en/school/")) return "School";
-    return "Page";
-  }
-
   function ensureFooterSlot() {
     let slot = DOC.getElementById("ss-footer-slot");
     if (!slot) {
@@ -243,36 +228,10 @@
     `).join("");
   }
 
+  // CHANGED: always full nav
   function buildNavItems() {
     const l = lang();
-    const full = l === "de" ? NAV_DE : NAV_EN;
-    const mobile = WIN.matchMedia("(max-width: 680px)").matches;
-
-    if (!mobile) return full;
-
-    // Mobile: keep brand readable; only core items in top bar
-    const base = l === "de"
-      ? [
-          { label: "Start", href: "/" },
-          { label: "App", href: "/app/" }
-        ]
-      : [
-          { label: "Start", href: "/en/" },
-          { label: "App", href: "/en/app/" }
-        ];
-
-    const curHref = currentPath();
-    const curLabel = currentTopLabel(l);
-    const hasCurrent = base.some(i => sanitizePath(i.href) === curHref);
-
-    const items = [...base];
-    if (!hasCurrent) items.push({ label: curLabel, href: curHref });
-
-    items.push(l === "de"
-      ? { label: "EN", action: "switchLang" }
-      : { label: "DE", action: "switchLang" });
-
-    return items;
+    return l === "de" ? NAV_DE : NAV_EN;
   }
 
   function renderHeaderAndMore() {
@@ -423,7 +382,7 @@
     const resetNavScroll = () => {
       const nav = DOC.querySelector(".ss-nav");
       if (!nav) return;
-      if (WIN.innerWidth <= 900) nav.scrollLeft = 0;
+      nav.scrollLeft = 0;
     };
 
     resetNavScroll();
