@@ -15,28 +15,28 @@
   <link rel="canonical" href="https://safesharepro.com/en/app/" />
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/app/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/app/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/app/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/app/" />
 
-  <!-- Verification tags can stay as-is -->
+  <!-- Do-Not-Touch constants -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
   <meta property="og:title" content="SafeShare App – Clean Links" />
-  <meta property="og:description" content="Remove tracking parameters locally and share clean URLs." />
+  <meta property="og:description" content="Remove tracking parameters locally and share clean links." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://safesharepro.com/en/app/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-app-en.png" />
-  <meta property="og:image:alt" content="SafeShare App – Clean URL" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-app.png" />
+  <meta property="og:image:alt" content="SafeShare App – Clean Link" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SafeShare App – Clean Links" />
-  <meta name="twitter:description" content="Remove tracking parameters locally and share clean URLs." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app-en.png" />
-  <meta name="twitter:image:alt" content="SafeShare App – Clean URL" />
+  <meta name="twitter:description" content="Remove tracking parameters locally and share clean links." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app.png" />
+  <meta name="twitter:image:alt" content="SafeShare App – Clean Link" />
 
   <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png" />
@@ -44,44 +44,82 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
-  <link rel="stylesheet" href="/css/ss-page.css" />
+  <!-- Order: shell first, page second -->
   <link rel="stylesheet" href="/css/ss-shell.css" />
+  <link rel="stylesheet" href="/css/ss-page.css" />
 </head>
 <body data-page="app" data-lang="en">
+  <!-- Zero-header principle: header/nav/more/footer injected by ss-shell.js -->
   <div id="ss-shell" class="ss-shell">
     <main id="ss-content" class="ss-main">
       <section class="ss-section" aria-labelledby="app-title">
-        <div class="ss-card ss-hero">
-          <h1 id="app-title">Clean a link</h1>
-          <p class="ss-hero-kicker">Paste → Clean → Copy/Share</p>
+        <div class="ss-wrap">
+          <article class="ss-card ss-hero">
+            <p class="ss-kicker">SafeShare App</p>
+            <h1 id="app-title">Clean Link</h1>
+            <p class="ss-hero-kicker">Paste → Clean → Copy/Share</p>
 
-          <label class="ss-label ss-mt-12" for="rawUrl">Enter URL</label>
-          <textarea
-            id="rawUrl"
-            class="ss-input ss-w-full ss-input--lg"
-            rows="5"
-            placeholder="https://example.com/?utm_source=..."
-            autocomplete="off"
-            autocapitalize="none"
-            spellcheck="false"
-            inputmode="url"
-          ></textarea>
+            <p class="ss-muted">
+              In <strong>Standard mode</strong>, SafeShare removes known tracking parameters and keeps
+              target-relevant ones (for example <code>q</code>, <code>kgmid</code> on Google) to preserve result behavior.
+            </p>
 
-          <div class="ss-actions ss-mt-12">
-            <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Clean</button>
-            <button id="copyBtn" class="ss-btn" type="button">Copy</button>
-            <button id="shareBtn" class="ss-btn ss-btn--ghost" type="button">Share</button>
-          </div>
+            <fieldset class="ss-mode ss-mt-12">
+              <legend class="ss-label">Mode</legend>
+              <label class="ss-radio">
+                <input type="radio" name="mode" value="standard" checked />
+                <span>Standard (recommended)</span>
+              </label>
+              <label class="ss-radio">
+                <input type="radio" name="mode" value="strict" />
+                <span>Strict (may change destination behavior)</span>
+              </label>
+            </fieldset>
 
-          <label class="ss-label ss-mt-12" for="cleanUrl">Clean URL</label>
-          <textarea id="cleanUrl" class="ss-input ss-w-full ss-input--md" rows="4" readonly></textarea>
+            <label class="ss-label ss-mt-12" for="urlInput">Enter URL</label>
+            <textarea
+              id="urlInput"
+              class="ss-input ss-w-full ss-input--lg"
+              rows="5"
+              placeholder="https://example.com/?utm_source=..."
+              autocomplete="off"
+              autocapitalize="none"
+              spellcheck="false"
+              inputmode="url"
+            ></textarea>
 
-          <div class="ss-note ss-mt-12">Local-first: no uploads, no signup.</div>
+            <div class="ss-actions ss-mt-12">
+              <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Clean</button>
+              <button id="copyBtn" class="ss-btn" type="button" disabled>Copy</button>
+              <button id="shareBtn" class="ss-btn ss-btn--ghost" type="button" disabled>Share</button>
+              <button id="resetBtn" class="ss-btn" type="button">Reset</button>
+            </div>
+
+            <label class="ss-label ss-mt-12" for="urlOutput">Cleaned URL</label>
+            <textarea id="urlOutput" class="ss-input ss-w-full ss-input--md" rows="4" readonly></textarea>
+
+            <p id="cleanMeta" class="ss-note ss-mt-12" aria-live="polite">
+              Removed: – • Kept: – • Standard mode active (tracking-light, target-stable).
+            </p>
+
+            <details class="ss-details ss-mt-12">
+              <summary>Why is a parameter sometimes kept?</summary>
+              <p class="ss-muted">
+                Some parameters are relevant for the actual destination (for example a search term or object ID).
+                SafeShare removes tracking without unnecessarily breaking destination behavior.
+              </p>
+            </details>
+
+            <div class="ss-note ss-mt-12">
+              Local-first: No uploads, no login.
+            </div>
+          </article>
         </div>
       </section>
     </main>
   </div>
 
+  <!-- no version suffix, as requested -->
   <script src="/js/ss-shell.js" defer></script>
   <script src="/js/app.js" defer></script>
 </body>
