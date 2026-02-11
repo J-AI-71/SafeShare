@@ -15,8 +15,9 @@
   <link rel="canonical" href="https://safesharepro.com/pro/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/pro/" />
   <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/pro/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/pro/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/pro/" />
 
+  <!-- Do-Not-Touch Konstanten -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
@@ -43,34 +44,102 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
-  <link rel="stylesheet" href="/css/ss-page.css" />
   <link rel="stylesheet" href="/css/ss-shell.css" />
+  <link rel="stylesheet" href="/css/ss-page.css" />
 </head>
 <body data-page="pro" data-lang="de">
-  <div id="ss-shell" class="ss-shell">
-    <main id="ss-content" class="ss-main">
-      <section class="ss-section" aria-labelledby="pro-title">
-        <div class="ss-card ss-hero">
-          <h1 id="pro-title">SafeShare Pro</h1>
-          <p class="ss-hero-kicker">Feinkontrolle für professionelle Link-Hygiene.</p>
-          <p>Pro ergänzt die Standard-App um Regeln, Allowlist/Policies und Audit („Was wurde geändert?“) – lokal, transparent, offline nutzbar.</p>
+  <main id="ss-content" class="ss-main">
+    <section class="ss-section" aria-labelledby="pro-title">
+      <div class="ss-wrap">
+        <article class="ss-card ss-hero">
+          <p class="ss-kicker">SafeShare Pro</p>
+          <h1 id="pro-title">Wähle die passende Stufe</h1>
+          <p class="ss-hero-kicker">Präzise Link-Hygiene mit klaren Regeln und transparentem Ablauf.</p>
+          <p class="ss-muted">
+            Pro ergänzt die App um Regeln, Allowlist/Policies und Audit („Was wurde geändert?“) – lokal, nachvollziehbar, offline nutzbar.
+          </p>
+        </article>
+      </div>
+    </section>
 
-          <div class="ss-actions ss-mt-12">
-            <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/djqDz" target="_blank" rel="noopener nofollow">Pro Person öffnen</a>
-            <a class="ss-btn" href="https://payhip.com/b/oXFsk" target="_blank" rel="noopener nofollow">Pro Team öffnen</a>
-            <a class="ss-btn ss-btn--ghost" href="https://payhip.com/b/cFHy7" target="_blank" rel="noopener nofollow">Supporter</a>
+    <section class="ss-section" aria-labelledby="pricing-title">
+      <div class="ss-wrap">
+        <section class="ss-card ss-pricing" aria-labelledby="pricing-title">
+          <h2 id="pricing-title" class="ss-h2">Pläne im Vergleich</h2>
+
+          <div class="ss-pricingGrid ss-mt-12">
+            <article class="ss-plan" data-plan="supporter">
+              <h3>Supporter</h3>
+              <p class="ss-muted">Für gelegentliche Nutzung. Unterstützt das Projekt.</p>
+              <ul class="ss-list ss-mt-12">
+                <li>Saubere Links im Alltag</li>
+                <li>Einfacher Einstieg</li>
+                <li>Direkte Unterstützung von SafeShare</li>
+              </ul>
+              <p class="ss-price ss-mt-12">9&nbsp;€</p>
+              <a
+                class="ss-btn ss-btn--primary js-plan-select"
+                href="https://payhip.com/b/cFHy7"
+                target="_blank"
+                rel="noopener nofollow"
+                data-plan="supporter"
+                data-value="9"
+              >Supporter wählen</a>
+            </article>
+
+            <article class="ss-plan ss-plan--featured" data-plan="pro_person">
+              <h3>Pro Person</h3>
+              <p class="ss-muted">Für regelmäßige Link-Hygiene mit mehr Kontrolle.</p>
+              <ul class="ss-list ss-mt-12">
+                <li>Regeln pro Domain</li>
+                <li>Allowlist/Policy-Logik</li>
+                <li>Audit: Änderungen nachvollziehen</li>
+              </ul>
+              <p class="ss-price ss-mt-12">29&nbsp;€</p>
+              <a
+                class="ss-btn ss-btn--primary js-plan-select"
+                href="https://payhip.com/b/djqDz"
+                target="_blank"
+                rel="noopener nofollow"
+                data-plan="pro_person"
+                data-value="29"
+              >Pro Person wählen</a>
+            </article>
+
+            <article class="ss-plan" data-plan="pro_team">
+              <h3>Pro Team</h3>
+              <p class="ss-muted">Für gemeinsame Standards und wiederholbare Abläufe.</p>
+              <ul class="ss-list ss-mt-12">
+                <li>Einheitliche Team-Regeln</li>
+                <li>Reproduzierbarer Workflow</li>
+                <li>Transparente Audit-Basis</li>
+              </ul>
+              <p class="ss-price ss-mt-12">79&nbsp;€</p>
+              <a
+                class="ss-btn ss-btn--primary js-plan-select"
+                href="https://payhip.com/b/oXFsk"
+                target="_blank"
+                rel="noopener nofollow"
+                data-plan="pro_team"
+                data-value="79"
+              >Pro Team wählen</a>
+            </article>
           </div>
 
-          <div class="ss-note ss-mt-12">Pro ist ein Offline-Download. Start im Paket über <code>01-START.html</code>.</div>
-        </div>
-      </section>
+          <p class="ss-note ss-mt-12">
+            Pro ist ein Offline-Download. Start im Paket über <code>01-START.html</code>. Keine Uploads deiner Links im App-Flow.
+          </p>
+        </section>
+      </div>
+    </section>
 
-      <section class="ss-section" aria-labelledby="features-title">
+    <section class="ss-section" aria-labelledby="features-title">
+      <div class="ss-wrap">
         <div class="ss-card">
           <h2 id="features-title">Was Pro zusätzlich bietet</h2>
           <div class="ss-grid ss-grid--3 ss-mt-12">
             <article class="ss-card ss-card--inner">
-              <h3>Rules & Allowlist</h3>
+              <h3>Rules &amp; Allowlist</h3>
               <p class="ss-muted">Domain-spezifische Ausnahmen statt blindem Entfernen.</p>
             </article>
             <article class="ss-card ss-card--inner">
@@ -83,10 +152,83 @@
             </article>
           </div>
         </div>
-      </section>
-    </main>
-  </div>
+      </div>
+    </section>
+  </main>
 
-  <script src="/js/ss-shell.js" defer></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    window.ssTrack = window.ssTrack || function(eventName, payload){
+      window.dataLayer.push({
+        event: eventName,
+        lang: document.documentElement.lang || "de",
+        ts: new Date().toISOString(),
+        ...payload
+      });
+    };
+  </script>
+
+  <script>
+    (function () {
+      var s = document.createElement("script");
+      s.defer = true;
+      s.src = "/js/shell.js";
+      s.onerror = function () {
+        var f = document.createElement("script");
+        f.defer = true;
+        f.src = "/js/ss-shell.js";
+        document.body.appendChild(f);
+      };
+      document.body.appendChild(s);
+    })();
+  </script>
+
+  <script>
+    (function () {
+      function bindProTracking() {
+        ssTrack("ss_pro_view", {
+          page_type: "pro",
+          plan: "none",
+          source: "page_load",
+          experiment_id: "pricing_anchor_01",
+          variant: "A"
+        });
+
+        var planLinks = document.querySelectorAll(".js-plan-select");
+        planLinks.forEach(function (el) {
+          el.addEventListener("click", function () {
+            var plan = el.getAttribute("data-plan") || "none";
+            var value = Number(el.getAttribute("data-value") || 0);
+
+            ssTrack("ss_plan_select", {
+              page_type: "pro",
+              plan: plan,
+              value: value,
+              currency: "EUR",
+              source: "pro_table",
+              experiment_id: "pricing_anchor_01",
+              variant: "A"
+            });
+
+            ssTrack("ss_checkout_click", {
+              page_type: "pro",
+              plan: plan,
+              value: value,
+              currency: "EUR",
+              source: "pro_table",
+              experiment_id: "pricing_anchor_01",
+              variant: "A"
+            });
+          });
+        });
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", bindProTracking);
+      } else {
+        bindProTracking();
+      }
+    })();
+  </script>
 </body>
 </html>
