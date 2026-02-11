@@ -324,6 +324,13 @@ pre{
   resize: vertical;
 }
 
+.ss-plan .ss-note{
+  line-height: 1.45;
+}
+.ss-plan .ss-note strong{
+  font-weight: 700;
+}
+
 #urlInput{ min-height: 220px !important; }
 #urlOutput{ min-height: 170px !important; }
 
