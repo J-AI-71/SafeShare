@@ -72,6 +72,13 @@ main, #app, .page, .page-wrap, .ss-main{
 @media (max-width: 720px){
   .ss-main{ width: calc(100% - 1.25rem); }
 }
+/* Ergänzung für /css/ss-page.css (nur falls Klassen noch fehlen) */
+.ss-pricingGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.ss-plan{border:1px solid var(--border);border-radius:14px;padding:1rem;background:var(--card,rgba(255,255,255,.04))}
+.ss-plan--featured{outline:2px solid var(--mint,#2fe3b7)}
+.ss-price{font-size:1.5rem;font-weight:700;line-height:1.1;margin:.4rem 0 1rem}
+.ss-list{margin:0;padding-left:1.1rem}
+@media (max-width:900px){.ss-pricingGrid{grid-template-columns:1fr}}
 
 /* ================= Header ================= */
 .ss-shell{
