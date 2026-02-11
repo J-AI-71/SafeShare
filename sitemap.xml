@@ -1,48 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- DE -->
-  <url><loc>https://safesharepro.com/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/app/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/hilfe/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/pro/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/schule/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/lesezeichen/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/datenschutz/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/nutzungsbedingungen/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/impressum/</loc><lastmod>2026-02-07</lastmod></url>
+  <!-- DE: freigegeben -->
+  <url>
+    <loc>https://safesharepro.com/</loc>
+    <lastmod>2026-02-11</lastmod>
+  </url>
+  <url>
+    <loc>https://safesharepro.com/app/</loc>
+    <lastmod>2026-02-11</lastmod>
+  </url>
+  <url>
+    <loc>https://safesharepro.com/hilfe/</loc>
+    <lastmod>2026-02-11</lastmod>
+  </url>
 
-  <!-- DE Content -->
-  <url><loc>https://safesharepro.com/tracking-parameter/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/utm-parameter-entfernen/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/url-cleaner-tool-vergleich/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/email-links-bereinigen/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/messenger-links-bereinigen/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/social-links-bereinigen/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/datenschutz-beim-link-teilen/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/shortcuts/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/show-share/</loc><lastmod>2026-02-07</lastmod></url>
-  
-  <!-- EN -->
-  <url><loc>https://safesharepro.com/en/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/app/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/help/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/pro/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/school/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/bookmarks/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/privacy/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/terms/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/imprint/</loc><lastmod>2026-02-07</lastmod></url>
-
-  <!-- EN Content -->
-  <url><loc>https://safesharepro.com/en/tracking-parameters/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/remove-utm-parameter/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/url-cleaner-comparison/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/email-link-cleaning/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/messenger-link-cleaning/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/social-link-cleaning/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/privacy-when-sharing-links/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/shortcuts/</loc><lastmod>2026-02-07</lastmod></url>
-  <url><loc>https://safesharepro.com/en/show-share/</loc><lastmod>2026-02-07</lastmod></url>
+  <!-- EN: freigegeben -->
+  <url>
+    <loc>https://safesharepro.com/en/</loc>
+    <lastmod>2026-02-11</lastmod>
+  </url>
+  <url>
+    <loc>https://safesharepro.com/en/app/</loc>
+    <lastmod>2026-02-11</lastmod>
+  </url>
+  <url>
+    <loc>https://safesharepro.com/en/help/</loc>
+    <lastmod>2026-02-11</lastmod>
+  </url>
 
 </urlset>
