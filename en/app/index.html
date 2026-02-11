@@ -2,14 +2,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-T86R3H7T');</script>
-<!-- End Google Tag Manager -->
-  
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T86R3H7T');
+  </script>
+  <!-- End Google Tag Manager -->
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
@@ -57,10 +59,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body data-page="app" data-lang="en">
   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T86R3H7T"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T86R3H7T"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <main id="ss-content" class="ss-main">
     <section class="ss-section" aria-labelledby="app-title">
       <div class="ss-wrap">
@@ -73,18 +77,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             In <strong>Standard mode</strong>, SafeShare removes known tracking parameters and keeps
             destination-relevant parameters (e.g. <code>q</code>, <code>kgmid</code> on Google) so results remain stable.
           </p>
-
-          <fieldset class="ss-mode ss-mt-12">
-  <legend class="ss-label">Mode</legend>
-  <label class="ss-radio">
-    <input type="radio" name="cleanMode" value="standard" checked />
-    <span>Standard (recommended)</span>
-  </label>
-  <label class="ss-radio">
-    <input type="radio" name="cleanMode" value="strict" />
-    <span>Strict (may change destination behavior)</span>
-  </label>
-</fieldset>
 
           <label class="ss-label ss-mt-12" for="urlInput">Enter URL</label>
           <div class="ss-appField">
@@ -99,6 +91,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               inputmode="url"
             ></textarea>
           </div>
+
+          <fieldset class="ss-mode ss-mt-12">
+            <legend class="ss-label">Mode</legend>
+            <label class="ss-radio">
+              <input type="radio" name="cleanMode" value="standard" checked />
+              <span>Standard (recommended)</span>
+            </label>
+            <label class="ss-radio">
+              <input type="radio" name="cleanMode" value="strict" />
+              <span>Strict (may change destination behavior)</span>
+            </label>
+          </fieldset>
 
           <div class="ss-actions ss-mt-12">
             <button id="cleanBtn" class="ss-btn ss-btn--primary" type="button">Clean</button>
@@ -121,8 +125,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             Removed: – • Kept: – • Standard mode active (tracking-light, destination-stable).
           </p>
 
-          <!-- KPI lever: Post-clean nudge -->
-          <section id="postCleanNudgeEn" class="ss-card ss-nudge ss-mt-12" hidden aria-live="polite" aria-label="Pro hint">
+          <!-- Post-clean nudge IDs aligned with app.js -->
+          <section id="postCleanNudge" class="ss-card ss-nudge ss-mt-12" hidden aria-live="polite" aria-label="Pro hint">
             <h2 class="ss-h3">More control for recurring links</h2>
             <p class="ss-muted">
               Your link is clean. If you do this regularly, Pro saves time and keeps rules consistent.
@@ -133,8 +137,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li>Clear standards for team/organization</li>
             </ul>
             <div class="ss-row ss-mt-12">
-              <a id="nudgeCompareProEn" class="ss-btn ss-btn--primary" href="/en/pro/">Compare Pro</a>
-              <button id="nudgeLaterEn" class="ss-btn ss-btn--ghost" type="button">Later</button>
+              <a id="nudgeCompareBtn" class="ss-btn ss-btn--primary" href="/en/pro/">Compare Pro</a>
+              <button id="nudgeCloseBtn" class="ss-btn ss-btn--ghost" type="button">Later</button>
             </div>
           </section>
 
@@ -154,6 +158,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
   </main>
 
+  <!-- Shell loader -->
   <script>
     (function () {
       var s = document.createElement("script");
