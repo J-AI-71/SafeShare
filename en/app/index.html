@@ -6,37 +6,37 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <title>SafeShare App – Clean Links (local-first)</title>
+  <title>SafeShare App – Clean links (local-first)</title>
   <meta name="description" content="SafeShare App removes tracking parameters (utm_*, fbclid, gclid …) locally in your browser. Paste → Clean → Copy/Share." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
   <link rel="canonical" href="https://safesharepro.com/en/app/" />
-  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/app/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/app/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/app/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/app/" />
 
   <!-- Do-Not-Touch constants -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <meta property="og:title" content="SafeShare App – Clean Links" />
+  <meta property="og:title" content="SafeShare App – Clean links" />
   <meta property="og:description" content="Remove tracking parameters locally and share clean links." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://safesharepro.com/en/app/" />
   <meta property="og:image" content="https://safesharepro.com/assets/og/og-app.png" />
-  <meta property="og:image:alt" content="SafeShare App – Clean Link" />
+  <meta property="og:image:alt" content="SafeShare App – Clean link" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SafeShare App – Clean Links" />
+  <meta name="twitter:title" content="SafeShare App – Clean links" />
   <meta name="twitter:description" content="Remove tracking parameters locally and share clean links." />
   <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-app.png" />
-  <meta name="twitter:image:alt" content="SafeShare App – Clean Link" />
+  <meta name="twitter:image:alt" content="SafeShare App – Clean link" />
 
   <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png" />
@@ -53,12 +53,12 @@
       <div class="ss-wrap">
         <article class="ss-card ss-hero">
           <p class="ss-kicker">SafeShare App</p>
-          <h1 id="app-title">Clean Link</h1>
+          <h1 id="app-title">Clean link</h1>
           <p class="ss-hero-kicker">Paste → Clean → Copy/Share</p>
 
           <p class="ss-muted">
             In <strong>Standard mode</strong>, SafeShare removes known tracking parameters and keeps
-            target-relevant parameters (for example <code>q</code>, <code>kgmid</code> on Google) so results stay consistent.
+            destination-relevant parameters (e.g. <code>q</code>, <code>kgmid</code> on Google) so results remain stable.
           </p>
 
           <fieldset class="ss-mode ss-mt-12">
@@ -94,7 +94,7 @@
             <button id="resetBtn" class="ss-btn" type="button">Reset</button>
           </div>
 
-          <label class="ss-label ss-mt-12" for="urlOutput">Cleaned URL</label>
+          <label class="ss-label ss-mt-12" for="urlOutput">Clean URL</label>
           <div class="ss-appField">
             <textarea
               id="urlOutput"
@@ -105,42 +105,148 @@
           </div>
 
           <p id="cleanMeta" class="ss-note ss-mt-12" aria-live="polite">
-            Removed: – • Kept: – • Standard mode active (tracking-light, target-stable).
+            Removed: – • Kept: – • Standard mode active (tracking-light, destination-stable).
           </p>
+
+          <!-- KPI lever: Post-clean nudge -->
+          <section id="postCleanNudgeEn" class="ss-card ss-nudge ss-mt-12" hidden aria-live="polite" aria-label="Pro hint">
+            <h2 class="ss-h3">More control for recurring links</h2>
+            <p class="ss-muted">
+              Your link is clean. If you do this regularly, Pro saves time and keeps rules consistent.
+            </p>
+            <ul class="ss-list">
+              <li>Custom parameter rules (keep/remove)</li>
+              <li>Consistent workflow for recurring shares</li>
+              <li>Clear standards for team/organization</li>
+            </ul>
+            <div class="ss-row ss-mt-12">
+              <a id="nudgeCompareProEn" class="ss-btn ss-btn--primary" href="/en/pro/">Compare Pro</a>
+              <button id="nudgeLaterEn" class="ss-btn ss-btn--ghost" type="button">Later</button>
+            </div>
+          </section>
 
           <details class="ss-details ss-mt-12">
             <summary>Why is a parameter sometimes kept?</summary>
             <p class="ss-muted">
-              Some parameters are relevant for the actual destination (for example search terms or object IDs).
-              SafeShare removes tracking without unnecessarily breaking destination behavior.
+              Some parameters are relevant for the actual destination behavior (e.g. search term or object ID).
+              SafeShare removes tracking without unnecessarily breaking destination outcomes.
             </p>
           </details>
 
           <div class="ss-note ss-mt-12">
-            Local-first: No uploads, no login.
+            Local-first: No uploads, no sign-in.
           </div>
         </article>
       </div>
     </section>
   </main>
 
-   <script>
-  (function () {
-    var s = document.createElement("script");
-    s.defer = true;
-    s.src = "/js/shell.js";
-    s.onerror = function () {
-      var f = document.createElement("script");
-      f.defer = true;
-      f.src = "/js/ss-shell.js";
-      document.body.appendChild(f);
+  <script>
+    // Global tracking helper (if not already present)
+    window.dataLayer = window.dataLayer || [];
+    window.ssTrack = window.ssTrack || function(eventName, payload){
+      window.dataLayer.push({
+        event: eventName,
+        lang: document.documentElement.lang || "en",
+        ts: new Date().toISOString(),
+        ...payload
+      });
     };
-    document.body.appendChild(s);
-  })();
   </script>
 
-  <!-- WICHTIG: rules VOR app -->
+  <script>
+    (function () {
+      var s = document.createElement("script");
+      s.defer = true;
+      s.src = "/js/shell.js";
+      s.onerror = function () {
+        var f = document.createElement("script");
+        f.defer = true;
+        f.src = "/js/ss-shell.js";
+        document.body.appendChild(f);
+      };
+      document.body.appendChild(s);
+    })();
+  </script>
+
+  <!-- IMPORTANT: rules BEFORE app -->
   <script src="/js/ss-rules.js" defer></script>
   <script src="/js/app.js" defer></script>
+
+  <script>
+    (function () {
+      function showNudge() {
+        var nudge = document.getElementById("postCleanNudgeEn");
+        if (!nudge || !nudge.hidden) return;
+        nudge.hidden = false;
+        ssTrack("ss_nudge_view", {
+          page_type: "app",
+          plan: "none",
+          source: "post_clean_nudge",
+          experiment_id: "nudge_copy_01",
+          variant: "A"
+        });
+      }
+
+      function bindNudgeEvents() {
+        var compare = document.getElementById("nudgeCompareProEn");
+        var later = document.getElementById("nudgeLaterEn");
+        var nudge = document.getElementById("postCleanNudgeEn");
+        var cleanBtn = document.getElementById("cleanBtn");
+        var output = document.getElementById("urlOutput");
+
+        if (compare) {
+          compare.addEventListener("click", function () {
+            ssTrack("ss_nudge_click_compare_pro", {
+              page_type: "app",
+              plan: "none",
+              source: "post_clean_nudge",
+              experiment_id: "nudge_copy_01",
+              variant: "A"
+            });
+          });
+        }
+
+        if (later && nudge) {
+          later.addEventListener("click", function () {
+            nudge.hidden = true;
+            ssTrack("ss_nudge_dismiss", {
+              page_type: "app",
+              plan: "none",
+              source: "post_clean_nudge",
+              experiment_id: "nudge_copy_01",
+              variant: "A"
+            });
+          });
+        }
+
+        // Primary hook: clean click + successful output
+        if (cleanBtn && output) {
+          cleanBtn.addEventListener("click", function () {
+            // Wait for app.js to write output
+            setTimeout(function () {
+              var v = (output.value || "").trim();
+              if (v) {
+                ssTrack("ss_clean_success", {
+                  page_type: "app",
+                  plan: "none",
+                  source: "app_clean_action",
+                  experiment_id: "baseline",
+                  variant: "control"
+                });
+                showNudge();
+              }
+            }, 60);
+          });
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", bindNudgeEvents);
+      } else {
+        bindNudgeEvents();
+      }
+    })();
+  </script>
 </body>
 </html>
