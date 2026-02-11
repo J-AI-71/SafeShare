@@ -1,5 +1,5 @@
 /* File: /js/app.js */
-/* SafeShare App controller + GTM events v2026-02-11-02 */
+/* SafeShare App controller + GTM events v2026-02-11-03 */
 
 (() => {
   "use strict";
@@ -241,6 +241,66 @@
   }
 
   /* =========================
+     Copy/Share robustness (iOS-safe)
+     ========================= */
+
+  function fallbackCopyText(text) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.top = "-9999px";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+
+    ta.focus();
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+
+    let ok = false;
+    try {
+      ok = document.execCommand("copy");
+    } catch {
+      ok = false;
+    }
+
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  async function robustCopy(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        // fallback below
+      }
+    }
+    return fallbackCopyText(text);
+  }
+
+  async function robustShare(url) {
+    if (navigator.share) {
+      try {
+        await navigator.share({ url });
+        return { ok: true, method: "native_share" };
+      } catch (err) {
+        // user canceled or blocked share
+        if (err && (err.name === "AbortError" || err.name === "NotAllowedError")) {
+          return { ok: false, canceled: true, method: "native_share" };
+        }
+        // if share fails for other reasons, continue with copy fallback
+      }
+    }
+
+    const copied = await robustCopy(url);
+    if (copied) return { ok: true, method: "copy_fallback" };
+
+    return { ok: false, method: "none" };
+  }
+
+  /* =========================
      UI actions
      ========================= */
 
@@ -272,7 +332,6 @@
       input_length: (original || "").length
     });
 
-    // Optional nudge view after clean
     showNudgeIfAvailable();
     return true;
   }
@@ -291,7 +350,7 @@
 
   function recleanOnModeChange() {
     const original = (elInput.value || "").trim();
-    if (!original) return; // kein Zwang zum Neu-Einfügen
+    if (!original) return; // kein Neu-Einfügen nötig
     runCleanFromInput();
   }
 
@@ -325,19 +384,17 @@
       return;
     }
 
-    try {
-      await navigator.clipboard.writeText(out);
-      setMeta("Bereinigter Link kopiert.");
+    const ok = await robustCopy(out);
 
-      // ===== GTM EVENT: copy mapped to your existing event =====
+    if (ok) {
+      setMeta("Bereinigter Link kopiert.");
       pushDL("ss_nudge_click_compare_p", {
         action: "copy_clean_url",
         has_output: true,
         mode: getCurrentMode()
       });
-    } catch (err) {
-      console.error(err);
-      setMeta("Kopieren fehlgeschlagen.");
+    } else {
+      setMeta("Kopieren fehlgeschlagen. Bitte manuell kopieren.");
     }
   });
 
@@ -348,24 +405,23 @@
       return;
     }
 
-    if (!navigator.share) {
-      setMeta("Teilen wird auf diesem Gerät nicht unterstützt.");
-      return;
-    }
+    const res = await robustShare(out);
 
-    try {
-      await navigator.share({ url: out });
+    if (res.ok) {
+      if (res.method === "native_share") {
+        setMeta("Teilen geöffnet.");
+      } else {
+        setMeta("Teilen nicht verfügbar – Link wurde kopiert.");
+      }
 
-      // ===== GTM EVENT: share mapped to your existing event =====
       pushDL("ss_nudge_click_compare_p", {
-        action: "share_clean_url",
-        share_supported: true,
+        action: res.method === "native_share" ? "share_clean_url" : "share_copy_fallback",
+        share_supported: !!navigator.share,
         has_output: true,
         mode: getCurrentMode()
       });
-    } catch (err) {
-      // user canceled share -> silently ignore as technical error
-      console.debug("[SafeShare] Share canceled or failed:", err);
+    } else if (!res.canceled) {
+      setMeta("Teilen nicht verfügbar.");
     }
   });
 
@@ -379,8 +435,6 @@
   // Nudge dismiss event
   nudgeCloseBtn?.addEventListener("click", () => {
     hideNudgeIfAvailable();
-
-    // ===== GTM EVENT: nudge dismiss =====
     pushDL("ss_nudge_dismiss", {
       nudge_id: "compare_pro",
       placement: "post_clean"
