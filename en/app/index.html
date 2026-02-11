@@ -2,6 +2,14 @@
 <!doctype html>
 <html lang="en">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T86R3H7T');</script>
+<!-- End Google Tag Manager -->
+  
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
@@ -48,6 +56,11 @@
   <link rel="stylesheet" href="/css/ss-page.css" />
 </head>
 <body data-page="app" data-lang="en">
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T86R3H7T"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  
   <main id="ss-content" class="ss-main">
     <section class="ss-section" aria-labelledby="app-title">
       <div class="ss-wrap">
@@ -142,19 +155,6 @@
   </main>
 
   <script>
-    // Global tracking helper (if not already present)
-    window.dataLayer = window.dataLayer || [];
-    window.ssTrack = window.ssTrack || function(eventName, payload){
-      window.dataLayer.push({
-        event: eventName,
-        lang: document.documentElement.lang || "en",
-        ts: new Date().toISOString(),
-        ...payload
-      });
-    };
-  </script>
-
-  <script>
     (function () {
       var s = document.createElement("script");
       s.defer = true;
@@ -172,81 +172,5 @@
   <!-- IMPORTANT: rules BEFORE app -->
   <script src="/js/ss-rules.js" defer></script>
   <script src="/js/app.js" defer></script>
-
-  <script>
-    (function () {
-      function showNudge() {
-        var nudge = document.getElementById("postCleanNudgeEn");
-        if (!nudge || !nudge.hidden) return;
-        nudge.hidden = false;
-        ssTrack("ss_nudge_view", {
-          page_type: "app",
-          plan: "none",
-          source: "post_clean_nudge",
-          experiment_id: "nudge_copy_01",
-          variant: "A"
-        });
-      }
-
-      function bindNudgeEvents() {
-        var compare = document.getElementById("nudgeCompareProEn");
-        var later = document.getElementById("nudgeLaterEn");
-        var nudge = document.getElementById("postCleanNudgeEn");
-        var cleanBtn = document.getElementById("cleanBtn");
-        var output = document.getElementById("urlOutput");
-
-        if (compare) {
-          compare.addEventListener("click", function () {
-            ssTrack("ss_nudge_click_compare_pro", {
-              page_type: "app",
-              plan: "none",
-              source: "post_clean_nudge",
-              experiment_id: "nudge_copy_01",
-              variant: "A"
-            });
-          });
-        }
-
-        if (later && nudge) {
-          later.addEventListener("click", function () {
-            nudge.hidden = true;
-            ssTrack("ss_nudge_dismiss", {
-              page_type: "app",
-              plan: "none",
-              source: "post_clean_nudge",
-              experiment_id: "nudge_copy_01",
-              variant: "A"
-            });
-          });
-        }
-
-        // Primary hook: clean click + successful output
-        if (cleanBtn && output) {
-          cleanBtn.addEventListener("click", function () {
-            // Wait for app.js to write output
-            setTimeout(function () {
-              var v = (output.value || "").trim();
-              if (v) {
-                ssTrack("ss_clean_success", {
-                  page_type: "app",
-                  plan: "none",
-                  source: "app_clean_action",
-                  experiment_id: "baseline",
-                  variant: "control"
-                });
-                showNudge();
-              }
-            }, 60);
-          });
-        }
-      }
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", bindNudgeEvents);
-      } else {
-        bindNudgeEvents();
-      }
-    })();
-  </script>
 </body>
 </html>
