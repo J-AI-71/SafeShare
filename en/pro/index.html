@@ -157,18 +157,7 @@
     </section>
   </main>
 
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.ssTrack = window.ssTrack || function(eventName, payload){
-      window.dataLayer.push({
-        event: eventName,
-        lang: document.documentElement.lang || "en",
-        ts: new Date().toISOString(),
-        ...payload
-      });
-    };
-  </script>
-
+  <!-- Shell Loader -->
   <script>
     (function () {
       var s = document.createElement("script");
@@ -184,52 +173,7 @@
     })();
   </script>
 
-  <script>
-    (function () {
-      function bindProTracking() {
-        ssTrack("ss_pro_view", {
-          page_type: "pro",
-          plan: "none",
-          source: "page_load",
-          experiment_id: "pricing_anchor_01",
-          variant: "A"
-        });
-
-        var planLinks = document.querySelectorAll(".js-plan-select");
-        planLinks.forEach(function (el) {
-          el.addEventListener("click", function () {
-            var plan = el.getAttribute("data-plan") || "none";
-            var value = Number(el.getAttribute("data-value") || 0);
-
-            ssTrack("ss_plan_select", {
-              page_type: "pro",
-              plan: plan,
-              value: value,
-              currency: "EUR",
-              source: "pro_table",
-              experiment_id: "pricing_anchor_01",
-              variant: "A"
-            });
-
-            ssTrack("ss_checkout_click", {
-              page_type: "pro",
-              plan: plan,
-              value: value,
-              currency: "EUR",
-              source: "pro_table",
-              experiment_id: "pricing_anchor_01",
-              variant: "A"
-            });
-          });
-        });
-      }
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", bindProTracking);
-      } else {
-        bindProTracking();
-      }
-    })();
-  </script>
+  <!-- Pro tracking/controller -->
+  <script src="/js/pro.js" defer></script>
 </body>
 </html>
