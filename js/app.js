@@ -1,5 +1,5 @@
 /* File: /js/app.js */
-/* SafeShare App controller + GTM events v2026-02-11-01 */
+/* SafeShare App controller + GTM events v2026-02-11-02 */
 
 (() => {
   "use strict";
@@ -43,6 +43,13 @@
   const nudgeCloseBtn = $("nudgeCloseBtn");
   const nudgeCompareBtn = $("nudgeCompareBtn");
 
+  // Optional mode controls (radio/select/buttons)
+  // Erwartet bevorzugt Radios: <input type="radio" name="cleanMode" value="standard|strict">
+  const modeInputs = Array.from(document.querySelectorAll('input[name="cleanMode"]'));
+  const modeSelect = $("cleanMode");
+  const btnModeStandard = $("modeStandardBtn");
+  const btnModeStrict = $("modeStrictBtn");
+
   if (!elInput || !elOutput || !btnClean || !btnCopy || !btnShare || !btnReset) {
     console.warn("[SafeShare] Required DOM elements missing.");
     return;
@@ -52,8 +59,8 @@
      URL cleaning logic
      ========================= */
 
-  // Tracking keys/prefixes you want to remove
-  const DROP_KEYS_EXACT = new Set([
+  // Standard: klare Tracker
+  const DROP_KEYS_EXACT_STANDARD = new Set([
     "fbclid",
     "gclid",
     "dclid",
@@ -75,14 +82,69 @@
     "s_cid"
   ]);
 
-  const DROP_PREFIXES = [
-    "utm_"
-  ];
+  // Strict: Standard + zusätzliche häufige Kampagnen-/Ref-Parameter
+  const DROP_KEYS_EXACT_STRICT_EXTRA = new Set([
+    "ref",
+    "ref_src",
+    "ref_url",
+    "src",
+    "source",
+    "campaign",
+    "campaign_id",
+    "cmpid",
+    "cmp",
+    "cid",
+    "trk",
+    "tracking_id",
+    "pk_campaign",
+    "pk_kwd",
+    "mtm_campaign",
+    "mtm_source",
+    "mtm_medium",
+    "mtm_content",
+    "mtm_keyword",
+    "ga_source",
+    "ga_medium",
+    "ga_term",
+    "ga_content",
+    "ga_campaign"
+  ]);
 
-  function shouldDropParam(key) {
+  const DROP_PREFIXES_STANDARD = ["utm_"];
+  const DROP_PREFIXES_STRICT_EXTRA = ["mtm_", "pk_"];
+
+  function getCurrentMode() {
+    // 1) Radio group
+    if (modeInputs.length) {
+      const checked = modeInputs.find((el) => el.checked);
+      if (checked?.value) return checked.value === "strict" ? "strict" : "standard";
+    }
+
+    // 2) Select
+    if (modeSelect && modeSelect.value) {
+      return modeSelect.value === "strict" ? "strict" : "standard";
+    }
+
+    // 3) Fallback via body dataset (optional)
+    const dsMode = document.body?.dataset?.cleanMode;
+    if (dsMode) return dsMode === "strict" ? "strict" : "standard";
+
+    // default
+    return "standard";
+  }
+
+  function shouldDropParam(key, mode = "standard") {
     const k = String(key || "").toLowerCase();
-    if (DROP_KEYS_EXACT.has(k)) return true;
-    return DROP_PREFIXES.some((p) => k.startsWith(p));
+
+    if (DROP_KEYS_EXACT_STANDARD.has(k)) return true;
+    if (DROP_PREFIXES_STANDARD.some((p) => k.startsWith(p))) return true;
+
+    if (mode === "strict") {
+      if (DROP_KEYS_EXACT_STRICT_EXTRA.has(k)) return true;
+      if (DROP_PREFIXES_STRICT_EXTRA.some((p) => k.startsWith(p))) return true;
+    }
+
+    return false;
   }
 
   /**
@@ -109,22 +171,27 @@
   /**
    * Clean URL parameters
    * @param {string} rawUrl
+   * @param {{mode?: "standard"|"strict"}} options
    * @returns {{
    *   ok: boolean,
    *   cleanedUrl: string,
    *   removedCount: number,
    *   removedKeys: string[],
+   *   mode: "standard"|"strict",
    *   error?: string
    * }}
    */
-  function cleanUrl(rawUrl) {
+  function cleanUrl(rawUrl, options = {}) {
+    const mode = options.mode === "strict" ? "strict" : "standard";
     const u = parseUrl(rawUrl);
+
     if (!u) {
       return {
         ok: false,
         cleanedUrl: "",
         removedCount: 0,
         removedKeys: [],
+        mode,
         error: "Ungültige URL"
       };
     }
@@ -133,19 +200,18 @@
     const keys = [...u.searchParams.keys()];
 
     for (const key of keys) {
-      if (shouldDropParam(key)) {
+      if (shouldDropParam(key, mode)) {
         removedKeys.push(key);
         u.searchParams.delete(key);
       }
     }
 
-    // Optional: normalize hash-only tracking patterns if needed (currently untouched)
-
     return {
       ok: true,
       cleanedUrl: u.toString(),
       removedCount: removedKeys.length,
-      removedKeys
+      removedKeys,
+      mode
     };
   }
 
@@ -183,37 +249,73 @@
     elMeta.textContent = text || "";
   }
 
-  btnClean.addEventListener("click", () => {
-    const original = (elInput.value || "").trim();
-    if (!original) {
-      setMeta("Bitte zuerst einen Link einfügen.");
-      return;
-    }
-
-    const res = cleanUrl(original);
-
+  function renderCleanResult(res, original) {
     if (!res.ok) {
       setMeta("Ungültige URL. Bitte prüfen.");
-      return;
+      return false;
     }
 
     elOutput.value = res.cleanedUrl;
     setMeta(
       res.removedCount > 0
-        ? `Entfernt: ${res.removedCount} Parameter (${res.removedKeys.join(", ")})`
-        : "Keine Tracking-Parameter gefunden."
+        ? `[${res.mode}] Entfernt: ${res.removedCount} Parameter (${res.removedKeys.join(", ")})`
+        : `[${res.mode}] Keine Tracking-Parameter gefunden.`
     );
 
     // ===== GTM EVENT: clean success =====
     pushDL("ss_clean_success", {
       cleaned: true,
+      mode: res.mode,
       had_tracking_params: res.removedCount > 0,
       removed_count: res.removedCount,
-      output_length: res.cleanedUrl.length
+      output_length: res.cleanedUrl.length,
+      input_length: (original || "").length
     });
 
     // Optional nudge view after clean
     showNudgeIfAvailable();
+    return true;
+  }
+
+  function runCleanFromInput() {
+    const original = (elInput.value || "").trim();
+    if (!original) {
+      setMeta("Bitte zuerst einen Link einfügen.");
+      return false;
+    }
+
+    const mode = getCurrentMode();
+    const res = cleanUrl(original, { mode });
+    return renderCleanResult(res, original);
+  }
+
+  function recleanOnModeChange() {
+    const original = (elInput.value || "").trim();
+    if (!original) return; // kein Zwang zum Neu-Einfügen
+    runCleanFromInput();
+  }
+
+  btnClean.addEventListener("click", () => {
+    runCleanFromInput();
+  });
+
+  // Re-clean when mode changes (radio/select/buttons)
+  modeInputs.forEach((el) => {
+    el.addEventListener("change", recleanOnModeChange);
+  });
+
+  if (modeSelect) {
+    modeSelect.addEventListener("change", recleanOnModeChange);
+  }
+
+  btnModeStandard?.addEventListener("click", () => {
+    document.body.dataset.cleanMode = "standard";
+    recleanOnModeChange();
+  });
+
+  btnModeStrict?.addEventListener("click", () => {
+    document.body.dataset.cleanMode = "strict";
+    recleanOnModeChange();
   });
 
   btnCopy.addEventListener("click", async () => {
@@ -230,7 +332,8 @@
       // ===== GTM EVENT: copy mapped to your existing event =====
       pushDL("ss_nudge_click_compare_p", {
         action: "copy_clean_url",
-        has_output: true
+        has_output: true,
+        mode: getCurrentMode()
       });
     } catch (err) {
       console.error(err);
@@ -257,7 +360,8 @@
       pushDL("ss_nudge_click_compare_p", {
         action: "share_clean_url",
         share_supported: true,
-        has_output: true
+        has_output: true,
+        mode: getCurrentMode()
       });
     } catch (err) {
       // user canceled share -> silently ignore as technical error
