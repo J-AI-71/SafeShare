@@ -228,6 +228,9 @@ main, #app, .page, .page-wrap, .ss-main{
   fill: currentColor;
   display: block;
 }
+.ss-nudge .ss-row { display:flex; gap:.75rem; flex-wrap:wrap; }
+.ss-list { margin:0; padding-left:1.1rem; 
+}
 
 /* Mobile behavior:
    nav starts at left so first item (Start) is never hidden behind brand */
