@@ -1,5 +1,5 @@
 /* File: /js/shell.js */
-/* SafeShare Master-Flow strict – single complete file (FINAL full-nav mobile+desktop) */
+/* SafeShare Master-Flow strict – single complete file (FINAL full-nav mobile+desktop + tracking core) */
 
 (() => {
   "use strict";
@@ -10,6 +10,57 @@
   const SUPPORT_EMAIL = "listings@safesharepro.com";
   const LOGO_SRC = "/assets/brand/mark-192.png";
   const LOGO_ALT = "SafeShare Logo";
+  const GTM_ID = "GTM-T86R3H7T";
+
+  // ===== Tracking Core (central) =====
+  WIN.SS_CONFIG = WIN.SS_CONFIG || {};
+  if (!WIN.SS_CONFIG.gtmId) WIN.SS_CONFIG.gtmId = GTM_ID;
+  if (!WIN.SS_CONFIG.brand) WIN.SS_CONFIG.brand = "SafeShare";
+
+  WIN.dataLayer = WIN.dataLayer || [];
+
+  const BLOCKED_TRACK_KEYS = new Set(["email", "name", "full_name", "phone", "address"]);
+
+  function getTrackLang() {
+    return (
+      DOC.documentElement.lang ||
+      (DOC.body && DOC.body.dataset && DOC.body.dataset.lang) ||
+      "de"
+    ).toLowerCase();
+  }
+
+  function getTrackPageType() {
+    return (
+      (DOC.body && DOC.body.dataset && DOC.body.dataset.page) ||
+      "unknown"
+    ).toLowerCase();
+  }
+
+  function sanitizePayload(payload) {
+    if (!payload || typeof payload !== "object") return {};
+    const out = {};
+    for (const [k, v] of Object.entries(payload)) {
+      if (!BLOCKED_TRACK_KEYS.has(String(k).toLowerCase())) out[k] = v;
+    }
+    return out;
+  }
+
+  WIN.ssTrack = WIN.ssTrack || function ssTrack(eventName, payload) {
+    if (!eventName || typeof eventName !== "string") return;
+    WIN.dataLayer.push({
+      event: eventName,
+      lang: getTrackLang(),
+      page_type: getTrackPageType(),
+      path: WIN.location.pathname || "/",
+      ts: new Date().toISOString(),
+      ...sanitizePayload(payload)
+    });
+  };
+
+  // Optional alias (falls du in alten Dateien ssTrackSafe verwendest)
+  WIN.ssTrackSafe = WIN.ssTrackSafe || function ssTrackSafe(eventName, payload) {
+    WIN.ssTrack(eventName, payload);
+  };
 
   // ===== Slug mapping DE <-> EN =====
   const DE_TO_EN = {
@@ -206,6 +257,15 @@
     const to = from === "de" ? "en" : "de";
     const fromSlug = getSlug(currentPath(), from);
     const toSlug = mapSlug(fromSlug, from);
+
+    WIN.ssTrack("ss_lang_switch", {
+      source: "header_nav",
+      from_lang: from,
+      to_lang: to,
+      from_slug: fromSlug || "",
+      to_slug: toSlug || ""
+    });
+
     goTopImmediate();
     WIN.location.href = buildPath(to, toSlug);
   }
@@ -228,7 +288,6 @@
     `).join("");
   }
 
-  // CHANGED: always full nav
   function buildNavItems() {
     const l = lang();
     return l === "de" ? NAV_DE : NAV_EN;
@@ -346,6 +405,8 @@
         DOC.body.classList.add("ss-no-scroll");
         moreBtn.setAttribute("aria-expanded", "true");
         closeBtn.focus();
+
+        WIN.ssTrack("ss_more_open", { source: "header_more_button" });
       };
 
       const closeSheet = () => {
@@ -354,6 +415,8 @@
         DOC.body.classList.remove("ss-no-scroll");
         moreBtn.setAttribute("aria-expanded", "false");
         if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+
+        WIN.ssTrack("ss_more_close", { source: "sheet_close" });
       };
 
       moreBtn.addEventListener("click", openSheet);
@@ -376,7 +439,14 @@
     });
 
     DOC.querySelectorAll(".ss-nav a[href], .ss-list a[href], .ss-siteFooter a[href], .ss-brand[href]").forEach(a => {
-      a.addEventListener("click", goTopImmediate, { passive: true });
+      a.addEventListener("click", () => {
+        const href = a.getAttribute("href") || "";
+        WIN.ssTrack("ss_nav_click", {
+          source: "shell_nav",
+          target_href: href
+        });
+        goTopImmediate();
+      }, { passive: true });
     });
 
     const resetNavScroll = () => {
@@ -396,6 +466,8 @@
     renderHeaderAndMore();
     renderFooter();
     bindEvents();
+
+    WIN.ssTrack("ss_shell_ready", { source: "shell_boot" });
 
     WIN.addEventListener("load", goTopImmediate, { once: true });
     WIN.addEventListener("pageshow", goTopImmediate);
