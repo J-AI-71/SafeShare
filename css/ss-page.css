@@ -339,3 +339,104 @@ pre{
   grid-column: 1 / -1 !important;
   flex: 0 0 100% !important;
 }
+/* =========================================================
+   SafeShare App – Mode Switch (standard/strict)
+   Drop-in block for /css/ss-page.css
+   ========================================================= */
+
+/* Container */
+.ss-mode{
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid var(--border, rgba(255,255,255,.14));
+  border-radius: 14px;
+  background: var(--card, rgba(255,255,255,.04));
+}
+
+/* Legend / label */
+.ss-mode > .ss-label,
+.ss-mode > legend{
+  display: block;
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--text, rgba(255,255,255,.92));
+}
+
+/* Row/option */
+.ss-radio{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  margin: 0;
+  border-radius: 10px;
+  line-height: 1.35;
+  color: var(--text, rgba(255,255,255,.92));
+  cursor: pointer;
+  user-select: none;
+}
+
+/* spacing between options */
+.ss-radio + .ss-radio{
+  margin-top: 6px;
+}
+
+/* hover/focus surface */
+.ss-radio:hover{
+  background: rgba(255,255,255,.05);
+}
+.ss-radio:focus-within{
+  outline: 2px solid rgba(47,227,183,.45);
+  outline-offset: 2px;
+}
+
+/* Force native radio visible (protect against global resets) */
+.ss-radio input[type="radio"]{
+  -webkit-appearance: radio !important;
+  appearance: radio !important;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  margin: 0;
+  position: static !important;
+  opacity: 1 !important;
+  clip: auto !important;
+  pointer-events: auto;
+  accent-color: var(--mint, #2fe3b7);
+}
+
+/* text */
+.ss-radio > span{
+  display: inline-block;
+  font-size: .95rem;
+  color: var(--text, rgba(255,255,255,.92));
+}
+
+/* selected option subtle highlight */
+.ss-radio:has(input[type="radio"]:checked){
+  background: rgba(47,227,183,.10);
+  border: 1px solid rgba(47,227,183,.28);
+}
+
+/* fallback if :has is unsupported */
+@supports not selector(:has(*)){
+  .ss-radio input[type="radio"]:checked + span{
+    font-weight: 700;
+  }
+}
+
+/* Mobile tuning */
+@media (max-width: 640px){
+  .ss-mode{
+    padding: 10px;
+    border-radius: 12px;
+  }
+  .ss-radio{
+    padding: 9px 10px;
+  }
+  .ss-radio > span{
+    font-size: .93rem;
+  }
+}
