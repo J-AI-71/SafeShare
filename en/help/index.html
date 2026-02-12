@@ -7,16 +7,17 @@
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
   <title>Help Center – SafeShare</title>
-  <meta name="description" content="SafeShare Help Center for users: quick fixes for link issues, clear parameter explanations, and direct support." />
+  <meta name="description" content="SafeShare Help Center: quick fixes for link issues, clear parameter explanations, and direct support." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
   <link rel="canonical" href="https://safesharepro.com/en/help/" />
-  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/help/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/hilfe/" />
-  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/help/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/help/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/hilfe/" />
 
+  <!-- Do-Not-Touch -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
@@ -26,7 +27,7 @@
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://safesharepro.com/en/help/" />
-  <meta property="og:image" content="https://safesharepro.com/assets/og/og-help-en.png" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-help.png" />
   <meta property="og:image:alt" content="SafeShare Help Center" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -34,7 +35,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Help Center – SafeShare" />
   <meta name="twitter:description" content="Fast, clear help for clean links." />
-  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-help-en.png" />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-help.png" />
   <meta name="twitter:image:alt" content="SafeShare Help Center" />
 
   <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg" />
@@ -52,12 +53,15 @@
     "@type":"FAQPage",
     "inLanguage":"en",
     "mainEntity":[
-      {"@type":"Question","name":"What does SafeShare remove?","acceptedAnswer":{"@type":"Answer","text":"SafeShare removes common tracking parameters such as utm_*, gclid, and fbclid. The goal is a clean link without unnecessary tracking noise."}},
-      {"@type":"Question","name":"Why do some parameters remain?","acceptedAnswer":{"@type":"Answer","text":"Not every parameter is tracking. Some are required for functionality, for example language, page state, product ID, filters, or search state. These remain so the link keeps working."}},
-      {"@type":"Question","name":"Are my links stored or uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Cleaning runs locally in your browser. Entered links are not uploaded to third-party services or stored by SafeShare."}},
+      {"@type":"Question","name":"What does SafeShare remove?","acceptedAnswer":{"@type":"Answer","text":"SafeShare removes common tracking parameters such as utm_*, gclid, and fbclid. The goal is a clean link without unnecessary tracking extras."}},
+      {"@type":"Question","name":"Why do some parameters stay in the link?","acceptedAnswer":{"@type":"Answer","text":"Not every parameter is tracking. Some values are functionally required, for example language, page state, product ID, filters, or search. These remain so the link keeps working correctly."}},
+      {"@type":"Question","name":"Are my links stored or uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Cleanup runs locally in your browser. Input links are not uploaded to third-party services and are not stored by SafeShare."}},
       {"@type":"Question","name":"Can I use SafeShare for messenger, email, and social posts?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can use cleaned links in WhatsApp, Signal, email, newsletters, and social posts."}},
       {"@type":"Question","name":"Does SafeShare work on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes. SafeShare works on smartphone, tablet, and desktop directly in the browser."}},
-      {"@type":"Question","name":"Is a shortcut enough instead of SafeShare Pro?","acceptedAnswer":{"@type":"Answer","text":"For quick sharing, often yes. For repeatable policies, allowlists, audits, and team workflows, SafeShare Pro is the better fit."}}
+      {"@type":"Question","name":"Is a shortcut enough instead of SafeShare Pro?","acceptedAnswer":{"@type":"Answer","text":"For quick personal sharing, often yes. For repeatable rules, allowlists, audit, and team workflows, SafeShare Pro is the better fit."}},
+      {"@type":"Question","name":"Does SafeShare make me invisible online?","acceptedAnswer":{"@type":"Answer","text":"No. Being invisible on the web does not exist. SafeShare reduces one specific part of your trace: tracking extras in shared URLs."}},
+      {"@type":"Question","name":"Is SafeShare a digital ID or a wallet?","acceptedAnswer":{"@type":"Answer","text":"No. SafeShare is neither a digital ID nor a wallet. SafeShare cleans links before sharing."}},
+      {"@type":"Question","name":"Why does link cleaning still matter?","acceptedAnswer":{"@type":"Answer","text":"Because many extra parameters are not needed for content delivery but are used for measurement and attribution. SafeShare removes this surplus."}}
     ]
   }
   </script>
@@ -68,41 +72,67 @@
       <div class="ss-card ss-hero">
         <h1 id="help-title">Help Center</h1>
         <p class="ss-hero-kicker">Clean links in seconds.</p>
-        <p>Find quick answers to the most common questions: why a link is not cleaned, which parameters are removed, and what to do first when something looks wrong.</p>
+        <p><strong>Links should point, not expose.</strong></p>
+        <p>Find quick answers to the most common questions: why a link is not cleaned, which parameters are removed, and what to do immediately when something does not work.</p>
         <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="#quick-help">Quick help</a>
+          <a class="ss-btn ss-btn--primary" href="#quick-help">Quick Help</a>
           <a class="ss-btn" href="#faq">FAQ</a>
+          <a class="ss-btn" href="#truth">What SafeShare is</a>
           <a class="ss-btn ss-btn--ghost" href="#contact">Contact</a>
         </div>
       </div>
     </section>
 
+    <!-- 1) Truth block -->
+    <section class="ss-section" aria-labelledby="truth">
+      <div class="ss-card">
+        <h2 id="truth">What SafeShare is — and what it is not</h2>
+
+        <h3>What SafeShare does</h3>
+        <ul>
+          <li>Removes tracking parameters from URLs (e.g. <code>utm_*</code>, <code>fbclid</code>, <code>gclid</code>) before sharing.</li>
+          <li>Reduces unnecessary data traces in the link.</li>
+          <li>Runs locally in your browser (no link upload to SafeShare servers).</li>
+        </ul>
+
+        <h3>What SafeShare does not promise</h3>
+        <ul>
+          <li>Being invisible on the web does not exist — never.</li>
+          <li>No protection against destination-site IP logs.</li>
+          <li>No protection against fingerprinting or post-login tracking.</li>
+          <li>Not a digital ID and not a wallet.</li>
+        </ul>
+
+        <p><strong>Short version:</strong> SafeShare is not a myth. It is a concrete reduction step: clean the link, then share.</p>
+      </div>
+    </section>
+
     <section class="ss-section" aria-labelledby="quick-help">
       <div class="ss-card">
-        <h2 id="quick-help">Quick help</h2>
+        <h2 id="quick-help">Quick Help</h2>
         <div class="ss-grid ss-grid--3 ss-mt-12">
           <article class="ss-card ss-card--inner">
-            <h3>Link is not detected</h3>
+            <h3>Link is not recognized</h3>
             <ol>
               <li>Paste the full URL (<code>https://…</code>).</li>
               <li>Remove spaces before/after the link.</li>
-              <li>If copied from a message, copy only the link.</li>
+              <li>If copied from messages, copy only the link.</li>
             </ol>
           </article>
           <article class="ss-card ss-card--inner">
             <h3>Result stays unchanged</h3>
             <ol>
-              <li>Check whether the URL has parameters (<code>?</code>).</li>
-              <li>Reload and try again.</li>
-              <li>Try another browser (Safari/Firefox/Chrome).</li>
+              <li>Check whether the link has parameters (<code>?</code>).</li>
+              <li>Reload the page and try again.</li>
+              <li>If needed, test another browser (Safari/Firefox/Chrome).</li>
             </ol>
           </article>
           <article class="ss-card ss-card--inner">
             <h3>Page does not load correctly</h3>
             <ol>
-              <li>Do a hard refresh / cache refresh.</li>
+              <li>Reload with cache refresh.</li>
               <li>Temporarily disable browser extensions.</li>
-              <li>Test again.</li>
+              <li>Test again afterwards.</li>
             </ol>
           </article>
         </div>
@@ -111,21 +141,21 @@
 
     <section class="ss-section" aria-labelledby="faq">
       <div class="ss-card">
-        <h2 id="faq">Frequently asked questions</h2>
+        <h2 id="faq">Frequently Asked Questions</h2>
         <details class="ss-details" open>
           <summary>What does SafeShare remove?</summary>
-          <p>SafeShare removes common tracking parameters such as <code>utm_*</code>, <code>gclid</code>, and <code>fbclid</code>. The goal is a clean link without unnecessary tracking noise.</p>
+          <p>SafeShare removes common tracking parameters such as <code>utm_*</code>, <code>gclid</code>, or <code>fbclid</code>. The goal is a clean link without unnecessary tracking extras.</p>
         </details>
         <details class="ss-details">
-          <summary>Why do some parameters remain?</summary>
-          <p>Not every parameter is tracking. Some are required for functionality (e.g. language, page, product ID), so they stay to keep the link working.</p>
+          <summary>Why do some parameters stay in the link?</summary>
+          <p>Not every parameter is tracking. Some values are technically required (e.g. language, page, product ID), so they remain to keep the link functional.</p>
         </details>
         <details class="ss-details">
           <summary>Are my links stored or uploaded?</summary>
-          <p>No. Cleaning runs locally in your browser. Entered links are not stored on a server.</p>
+          <p>No. Cleanup runs locally in your browser. Input links are not stored on a server.</p>
         </details>
         <details class="ss-details">
-          <summary>Can I use SafeShare for messenger, email, and social posts?</summary>
+          <summary>Can I use SafeShare for messenger, email, and social media?</summary>
           <p>Yes. You can use cleaned links in WhatsApp, Signal, email, newsletters, and social posts.</p>
         </details>
         <details class="ss-details">
@@ -135,23 +165,45 @@
       </div>
     </section>
 
+    <!-- 2) FAQ: ID/Wallet -->
+    <section class="ss-section" aria-labelledby="faq-id-wallet">
+      <div class="ss-card">
+        <h2 id="faq-id-wallet">FAQ: Digital ID, wallets, and SafeShare</h2>
+
+        <details class="ss-details" open>
+          <summary>Does SafeShare make me invisible online?</summary>
+          <p>No. Being invisible on the web is not possible. SafeShare reduces one specific part of your trace: tracking extras in shared URLs.</p>
+        </details>
+
+        <details class="ss-details">
+          <summary>Is SafeShare a digital ID or a wallet?</summary>
+          <p>No. SafeShare is neither a digital ID nor a wallet. SafeShare cleans links before sharing.</p>
+        </details>
+
+        <details class="ss-details">
+          <summary>Why does link cleaning still matter?</summary>
+          <p>Because many extra parameters are not needed for content delivery but are used for measurement and attribution. SafeShare removes this surplus.</p>
+        </details>
+      </div>
+    </section>
+
     <section class="ss-section" aria-labelledby="guides">
       <div class="ss-card">
-        <h2 id="guides">Guides by use case</h2>
+        <h2 id="guides">Guides by Use Case</h2>
         <div class="ss-grid ss-grid--3 ss-mt-12">
           <article class="ss-card ss-card--inner">
             <h3>Email links</h3>
-            <p>Clean before sending so recipients get clear URLs.</p>
+            <p>Clean links before sending so recipients get clear URLs.</p>
             <a class="ss-btn ss-mt-12" href="/en/email-link-cleaning/">Open guide</a>
           </article>
           <article class="ss-card ss-card--inner">
             <h3>Messenger links</h3>
-            <p>Clean first, then share in chats.</p>
+            <p>Clean links first, then share in chats.</p>
             <a class="ss-btn ss-mt-12" href="/en/messenger-link-cleaning/">Open guide</a>
           </article>
           <article class="ss-card ss-card--inner">
             <h3>Social links</h3>
-            <p>For posts and profiles: cleaner, more trustworthy URLs.</p>
+            <p>For posts and profiles: clean, trustworthy URLs.</p>
             <a class="ss-btn ss-mt-12" href="/en/social-link-cleaning/">Open guide</a>
           </article>
         </div>
@@ -161,11 +213,11 @@
     <section class="ss-section" aria-labelledby="contact">
       <div class="ss-card">
         <h2 id="contact">Contact</h2>
-        <p>Didn’t find your case? Send a message and we’ll help directly.</p>
+        <p>Your question is not listed? Send us a message and we’ll help directly.</p>
         <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="mailto:listings@safesharepro.com?subject=Help%20with%20SafeShare&body=Hello%2C%0A%0AI%20have%20this%20question%20about%20SafeShare%3A%0A%0A%5BPlease%20describe%20here%5D%0A">Send email</a>
-          <a class="ss-btn" href="/en/app/">Open app</a>
-          <a class="ss-btn ss-btn--ghost" href="/en/pro/">Open SafeShare Pro</a>
+          <a class="ss-btn ss-btn--primary" href="mailto:listings@safesharepro.com?subject=Help%20with%20SafeShare&body=Hello%2C%0A%0AI%20have%20the%20following%20question%20about%20SafeShare%3A%0A%0A%5BPlease%20describe%20it%20here%5D%0A">Send email</a>
+          <a class="ss-btn" href="/en/app/">Go to App</a>
+          <a class="ss-btn ss-btn--ghost" href="/en/pro/">Go to SafeShare Pro</a>
         </div>
       </div>
     </section>
