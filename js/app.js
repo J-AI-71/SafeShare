@@ -1,6 +1,10 @@
 /* File: /js/app.js */
-/* SafeShare App controller + GTM events v2026-02-11-03 */
-/* DE+EN Meta-Texte sauber lokalisiert, Copy/Share-Events getrennt */
+/* SafeShare App controller + GTM events v2026-02-11-03
+   - DE/EN Meta-Texte lokalisiert
+   - Standard/Strict Re-Clean ohne Neu-Eingabe
+   - Copy/Share/Reset als getrennte Eventnamen
+   - Copy/Share Buttons robust enabled/disabled
+*/
 
 (() => {
   "use strict";
@@ -10,18 +14,6 @@
      ========================= */
   window.dataLayer = window.dataLayer || [];
 
-  function getLang() {
-    const b = (document.body?.dataset?.lang || "").toLowerCase();
-    if (b === "de" || b === "en") return b;
-    const d = (document.documentElement.lang || "").toLowerCase();
-    if (d.startsWith("de")) return "de";
-    return "en";
-  }
-
-  function t(deText, enText) {
-    return getLang() === "de" ? deText : enText;
-  }
-
   /**
    * Push event to GTM dataLayer
    * @param {string} eventName
@@ -30,10 +22,9 @@
   function pushDL(eventName, payload = {}) {
     window.dataLayer.push({
       event: eventName,
-      lang: getLang(),
-      page_type: document.body?.dataset?.page || "app",
+      lang: (document.documentElement.lang || document.body?.dataset?.lang || "de").toLowerCase(),
+      page_type: document.body?.dataset?.pageType || document.body?.dataset?.page || "app",
       source: "safeshare_web",
-      ts: new Date().toISOString(),
       ...payload
     });
   }
@@ -52,13 +43,12 @@
   const btnShare = $("shareBtn");
   const btnReset = $("resetBtn");
 
-  // Optional nudge elements (IDs auf DE+EN gleichgezogen)
+  // Optional nudge elements (IDs auf EN/DE vereinheitlicht)
   const nudge = $("postCleanNudge");
   const nudgeCloseBtn = $("nudgeCloseBtn");
   const nudgeCompareBtn = $("nudgeCompareBtn");
 
-  // Mode controls
-  // Erwartet: <input type="radio" name="cleanMode" value="standard|strict">
+  // Optional mode controls
   const modeInputs = Array.from(document.querySelectorAll('input[name="cleanMode"]'));
   const modeSelect = $("cleanMode");
   const btnModeStandard = $("modeStandardBtn");
@@ -68,6 +58,39 @@
     console.warn("[SafeShare] Required DOM elements missing.");
     return;
   }
+
+  /* =========================
+     i18n
+     ========================= */
+  const isEN = String(document.documentElement.lang || document.body?.dataset?.lang || "de")
+    .toLowerCase()
+    .startsWith("en");
+
+  const T = isEN
+    ? {
+        pasteFirst: "Please paste a link first.",
+        invalidUrl: "Invalid URL. Please check it.",
+        noOutput: "No cleaned link yet.",
+        copied: "Cleaned link copied.",
+        copyFailed: "Copy failed.",
+        shareNotSupported: "Sharing is not supported on this device.",
+        modeStandard: "standard",
+        modeStrict: "strict",
+        removedPrefix: "Removed",
+        noTracking: "No tracking parameters found.",
+      }
+    : {
+        pasteFirst: "Bitte zuerst einen Link einfügen.",
+        invalidUrl: "Ungültige URL. Bitte prüfen.",
+        noOutput: "Noch kein bereinigter Link vorhanden.",
+        copied: "Bereinigter Link kopiert.",
+        copyFailed: "Kopieren fehlgeschlagen.",
+        shareNotSupported: "Teilen wird auf diesem Gerät nicht unterstützt.",
+        modeStandard: "standard",
+        modeStrict: "strict",
+        removedPrefix: "Entfernt",
+        noTracking: "Keine Tracking-Parameter gefunden.",
+      };
 
   /* =========================
      URL cleaning logic
@@ -96,7 +119,7 @@
     "s_cid"
   ]);
 
-  // Strict: Standard + zusätzliche häufige Kampagnen-/Ref-Parameter
+  // Strict: Standard + weitere Marketing-/Ref-Parameter
   const DROP_KEYS_EXACT_STRICT_EXTRA = new Set([
     "ref",
     "ref_src",
@@ -128,18 +151,16 @@
   const DROP_PREFIXES_STRICT_EXTRA = ["mtm_", "pk_"];
 
   function getCurrentMode() {
-    // 1) Radio group
+    // 1) Radios
     if (modeInputs.length) {
       const checked = modeInputs.find((el) => el.checked);
       if (checked?.value) return checked.value === "strict" ? "strict" : "standard";
     }
-
-    // 2) Select fallback
+    // 2) Select
     if (modeSelect?.value) {
       return modeSelect.value === "strict" ? "strict" : "standard";
     }
-
-    // 3) Dataset fallback
+    // 3) data-attribute fallback
     const dsMode = document.body?.dataset?.cleanMode;
     if (dsMode) return dsMode === "strict" ? "strict" : "standard";
 
@@ -161,7 +182,7 @@
   }
 
   /**
-   * Parse URL safely (with https fallback for bare domains)
+   * Safely parse URL. Adds https:// fallback for bare domains.
    * @param {string} raw
    * @returns {URL|null}
    */
@@ -181,19 +202,9 @@
   }
 
   /**
-   * Clean URL parameters
+   * Clean URL
    * @param {string} rawUrl
    * @param {{mode?: "standard"|"strict"}} options
-   * @returns {{
-   *   ok: boolean,
-   *   cleanedUrl: string,
-   *   removedCount: number,
-   *   removedKeys: string[],
-   *   keptKeys: string[],
-   *   mode: "standard"|"strict",
-   *   meta: { unwrapped: boolean },
-   *   error?: string
-   * }}
    */
   function cleanUrl(rawUrl, options = {}) {
     const mode = options.mode === "strict" ? "strict" : "standard";
@@ -205,23 +216,18 @@
         cleanedUrl: "",
         removedCount: 0,
         removedKeys: [],
-        keptKeys: [],
         mode,
-        meta: { unwrapped: false },
         error: "invalid_url"
       };
     }
 
     const removedKeys = [];
-    const keptKeys = [];
     const keys = [...u.searchParams.keys()];
 
     for (const key of keys) {
       if (shouldDropParam(key, mode)) {
         removedKeys.push(key);
         u.searchParams.delete(key);
-      } else {
-        keptKeys.push(key);
       }
     }
 
@@ -230,23 +236,22 @@
       cleanedUrl: u.toString(),
       removedCount: removedKeys.length,
       removedKeys,
-      keptKeys,
-      mode,
-      meta: { unwrapped: false }
+      mode
     };
   }
 
   /* =========================
      Nudge tracking helpers
      ========================= */
-
   function trackNudgeViewOnce() {
     const key = "ss_nudge_view_sent_compare_pro";
     if (sessionStorage.getItem(key)) return;
+
     pushDL("ss_nudge_view", {
       nudge_id: "compare_pro",
       placement: "post_clean"
     });
+
     sessionStorage.setItem(key, "1");
   }
 
@@ -262,203 +267,96 @@
   }
 
   /* =========================
-     UI helpers
+     UI state
      ========================= */
-
-  function uniq(arr) {
-    return Array.from(new Set(arr || []));
-  }
-
   function setMeta(text) {
-    if (!elMeta) return;
-    elMeta.textContent = text || "";
+    if (elMeta) elMeta.textContent = text || "";
   }
 
-  function setDefaultMeta() {
-    setMeta(
-      t(
-        "Entfernt: – • Behalten: – • Standard-Modus aktiv (trackingarm, zielstabil).",
-        "Removed: – • Kept: – • Standard mode active (tracking-light, destination-stable)."
-      )
-    );
+  function setOutputState(hasOutput) {
+    // Buttons immer sichtbar, aber nur aktiv wenn Output da
+    btnCopy.disabled = !hasOutput;
+    btnShare.disabled = !hasOutput;
+
+    // aria für bessere Zugänglichkeit
+    btnCopy.setAttribute("aria-disabled", String(!hasOutput));
+    btnShare.setAttribute("aria-disabled", String(!hasOutput));
   }
 
-  function renderMeta(result) {
-    const removed = result.removedKeys?.length ? uniq(result.removedKeys).join(", ") : "–";
-    const kept = result.keptKeys?.length ? uniq(result.keptKeys).join(", ") : "–";
-
-    const modeText =
-      getLang() === "de"
-        ? (result.mode === "strict"
-            ? "Strikt-Modus aktiv (aggressiver, kann Zielverhalten ändern)."
-            : "Standard-Modus aktiv (trackingarm, zielstabil).")
-        : (result.mode === "strict"
-            ? "Strict mode active (more aggressive, may change destination behavior)."
-            : "Standard mode active (tracking-light, destination-stable).");
-
-    const unwrappedNote = result.meta?.unwrapped
-      ? t(" Redirect entpackt.", " Redirect unwrapped.")
-      : "";
-
-    setMeta(
-      getLang() === "de"
-        ? `Entfernt: ${removed} • Behalten: ${kept} • ${modeText}${unwrappedNote}`
-        : `Removed: ${removed} • Kept: ${kept} • ${modeText}${unwrappedNote}`
-    );
+  function initialState() {
+    setOutputState(false);
+    hideNudgeIfAvailable();
   }
 
-  function setButtonsEnabled(enabled) {
-    btnCopy.disabled = !enabled;
-    btnShare.disabled = !enabled;
-  }
-
-  /* =========================
-     Actions
-     ========================= */
-
-  function runCleanFromInput() {
-    const original = (elInput.value || "").trim();
-    if (!original) {
-      setMeta(t("Bitte zuerst einen Link einfügen.", "Please enter a URL first."));
-      elOutput.value = "";
-      setButtonsEnabled(false);
-      return false;
-    }
-
-    const mode = getCurrentMode();
-    const res = cleanUrl(original, { mode });
-
+  function renderCleanResult(res, original) {
     if (!res.ok) {
-      setMeta(t("Ungültige URL. Bitte prüfen.", "Invalid URL. Please check the link."));
-      elOutput.value = "";
-      setButtonsEnabled(false);
+      setMeta(T.invalidUrl);
+      setOutputState(false);
       return false;
     }
 
     elOutput.value = res.cleanedUrl;
-    setButtonsEnabled(Boolean(res.cleanedUrl));
-    renderMeta(res);
 
-    // GTM: clean success
+    const modeLabel = res.mode === "strict" ? T.modeStrict : T.modeStandard;
+    if (res.removedCount > 0) {
+      setMeta(`[${modeLabel}] ${T.removedPrefix}: ${res.removedCount} (${res.removedKeys.join(", ")})`);
+    } else {
+      setMeta(`[${modeLabel}] ${T.noTracking}`);
+    }
+
+    setOutputState(Boolean(res.cleanedUrl));
+
+    // GTM EVENT: clean success
     pushDL("ss_clean_success", {
       cleaned: true,
       mode: res.mode,
       had_tracking_params: res.removedCount > 0,
       removed_count: res.removedCount,
       output_length: res.cleanedUrl.length,
-      input_length: original.length
+      input_length: (original || "").length
     });
 
     showNudgeIfAvailable();
     return true;
   }
 
-  function recleanOnModeChange() {
+  function runCleanFromInput() {
     const original = (elInput.value || "").trim();
     if (!original) {
-      setDefaultMeta();
-      return;
+      setMeta(T.pasteFirst);
+      setOutputState(false);
+      return false;
     }
-    runCleanFromInput(); // kein Neu-Einfügen nötig
+
+    const mode = getCurrentMode();
+    const res = cleanUrl(original, { mode });
+    return renderCleanResult(res, original);
   }
 
-  async function copyNow() {
-    const out = (elOutput.value || "").trim();
-    if (!out) {
-      setMeta(t("Noch kein bereinigter Link vorhanden.", "No cleaned link available yet."));
-      return;
-    }
-
-    try {
-      await navigator.clipboard.writeText(out);
-      setMeta(t("Bereinigter Link kopiert.", "Cleaned link copied."));
-
-      // GTM: COPY separat
-      pushDL("ss_copy_click", {
-        action: "copy_clean_url",
-        has_output: true,
-        mode: getCurrentMode(),
-        output_length: out.length
-      });
-    } catch {
-      // Fallback
-      try {
-        elOutput.focus();
-        elOutput.select();
-        const ok = document.execCommand("copy");
-        if (ok) {
-          setMeta(t("Bereinigter Link kopiert.", "Cleaned link copied."));
-          pushDL("ss_copy_click", {
-            action: "copy_clean_url_fallback",
-            has_output: true,
-            mode: getCurrentMode(),
-            output_length: out.length
-          });
-        } else {
-          setMeta(t("Kopieren fehlgeschlagen.", "Copy failed."));
-        }
-      } catch {
-        setMeta(t("Kopieren fehlgeschlagen.", "Copy failed."));
-      }
-    }
-  }
-
-  async function shareNow() {
-    const out = (elOutput.value || "").trim();
-    if (!out) {
-      setMeta(t("Noch kein bereinigter Link vorhanden.", "No cleaned link available yet."));
-      return;
-    }
-
-    if (!navigator.share) {
-      setMeta(t("Teilen wird auf diesem Gerät nicht unterstützt.", "Sharing is not supported on this device."));
-      return;
-    }
-
-    try {
-      await navigator.share({ url: out, text: out });
-
-      // GTM: SHARE separat
-      pushDL("ss_share_click", {
-        action: "share_clean_url",
-        share_supported: true,
-        has_output: true,
-        mode: getCurrentMode(),
-        output_length: out.length
-      });
-    } catch {
-      // Nutzer hat evtl. abgebrochen -> kein Error-Noise
-    }
-  }
-
-  function resetNow() {
-    elInput.value = "";
-    elOutput.value = "";
-    setButtonsEnabled(false);
-
-    // Mode auf Standard zurücksetzen
-    const standardRadio = modeInputs.find((el) => el.value === "standard");
-    if (standardRadio) standardRadio.checked = true;
-    if (modeSelect) modeSelect.value = "standard";
-    document.body.dataset.cleanMode = "standard";
-
-    hideNudgeIfAvailable();
-    setDefaultMeta();
-
-    pushDL("ss_reset_click", { page_type: "app" });
+  function recleanOnModeChange() {
+    const original = (elInput.value || "").trim();
+    if (!original) return; // kein Neu-Einfügen nötig
+    runCleanFromInput();
   }
 
   /* =========================
      Bind events
      ========================= */
-  btnClean.addEventListener("click", runCleanFromInput);
-  btnCopy.addEventListener("click", copyNow);
-  btnShare.addEventListener("click", shareNow);
-  btnReset.addEventListener("click", resetNow);
+  btnClean.addEventListener("click", () => {
+    runCleanFromInput();
+  });
 
-  // Mode switch re-clean
+  // Optional: Enter/Cmd+Enter in textarea cleanen
+  elInput.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+      e.preventDefault();
+      runCleanFromInput();
+    }
+  });
+
+  // Re-clean when mode changes
   modeInputs.forEach((el) => el.addEventListener("change", recleanOnModeChange));
-  if (modeSelect) modeSelect.addEventListener("change", recleanOnModeChange);
+  modeSelect?.addEventListener("change", recleanOnModeChange);
 
   btnModeStandard?.addEventListener("click", () => {
     document.body.dataset.cleanMode = "standard";
@@ -470,24 +368,79 @@
     recleanOnModeChange();
   });
 
-  // Cmd/Ctrl+Enter = Clean
-  elInput.addEventListener("keydown", (ev) => {
-    if ((ev.ctrlKey || ev.metaKey) && ev.key === "Enter") {
-      ev.preventDefault();
-      runCleanFromInput();
+  btnCopy.addEventListener("click", async () => {
+    const out = (elOutput.value || "").trim();
+    if (!out) {
+      setMeta(T.noOutput);
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(out);
+      setMeta(T.copied);
+
+      // SEPARATER EVENTNAME
+      pushDL("ss_copy_click", {
+        action: "copy_clean_url",
+        has_output: true,
+        mode: getCurrentMode()
+      });
+    } catch (err) {
+      console.error(err);
+      setMeta(T.copyFailed);
     }
   });
 
-  // Nudge dismiss
+  btnShare.addEventListener("click", async () => {
+    const out = (elOutput.value || "").trim();
+    if (!out) {
+      setMeta(T.noOutput);
+      return;
+    }
+
+    if (!navigator.share) {
+      setMeta(T.shareNotSupported);
+      return;
+    }
+
+    try {
+      await navigator.share({ url: out });
+
+      // SEPARATER EVENTNAME
+      pushDL("ss_share_click", {
+        action: "share_clean_url",
+        has_output: true,
+        share_supported: true,
+        mode: getCurrentMode()
+      });
+    } catch (err) {
+      // user cancel: kein harter Fehler
+      console.debug("[SafeShare] Share canceled/failed:", err);
+    }
+  });
+
+  btnReset.addEventListener("click", () => {
+    elInput.value = "";
+    elOutput.value = "";
+    setMeta("");
+    hideNudgeIfAvailable();
+    setOutputState(false);
+
+    // SEPARATER EVENTNAME
+    pushDL("ss_reset_click", {
+      action: "reset_fields"
+    });
+  });
+
   nudgeCloseBtn?.addEventListener("click", () => {
     hideNudgeIfAvailable();
+
     pushDL("ss_nudge_dismiss", {
       nudge_id: "compare_pro",
       placement: "post_clean"
     });
   });
 
-  // Nudge CTA
   nudgeCompareBtn?.addEventListener("click", () => {
     pushDL("ss_nudge_click_compare_pro", {
       action: "nudge_compare_pro_click",
@@ -496,7 +449,6 @@
     });
   });
 
-  // Init state
-  setButtonsEnabled(false);
-  setDefaultMeta();
+  // Startzustand
+  initialState();
 })();
