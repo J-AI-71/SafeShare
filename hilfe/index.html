@@ -58,7 +58,10 @@
       {"@type":"Question","name":"Werden meine Links gespeichert oder hochgeladen?","acceptedAnswer":{"@type":"Answer","text":"Nein. Die Bereinigung läuft lokal im Browser. Eingegebene Links werden nicht an Fremddienste hochgeladen und nicht von SafeShare gespeichert."}},
       {"@type":"Question","name":"Kann ich SafeShare für Messenger, E-Mail und Social Posts nutzen?","acceptedAnswer":{"@type":"Answer","text":"Ja. Du kannst bereinigte Links in WhatsApp, Signal, E-Mail, Newslettern und Social-Posts verwenden."}},
       {"@type":"Question","name":"Funktioniert SafeShare auch mobil?","acceptedAnswer":{"@type":"Answer","text":"Ja. SafeShare funktioniert auf Smartphone, Tablet und Desktop direkt im Browser."}},
-      {"@type":"Question","name":"Reicht ein Shortcut statt SafeShare Pro?","acceptedAnswer":{"@type":"Answer","text":"Für schnelles Teilen oft ja. Für wiederholbare Regeln, Allowlist, Audit und Team-Workflows ist SafeShare Pro besser geeignet."}}
+      {"@type":"Question","name":"Reicht ein Shortcut statt SafeShare Pro?","acceptedAnswer":{"@type":"Answer","text":"Für schnelles Teilen oft ja. Für wiederholbare Regeln, Allowlist, Audit und Team-Workflows ist SafeShare Pro besser geeignet."}},
+      {"@type":"Question","name":"Macht SafeShare mich unsichtbar im Internet?","acceptedAnswer":{"@type":"Answer","text":"Nein. Unsichtbar im Web gibt es nicht. SafeShare reduziert einen konkreten Teil der Datenspur: Tracking-Zusätze in geteilten URLs."}},
+      {"@type":"Question","name":"Ist SafeShare eine digitale ID oder Wallet?","acceptedAnswer":{"@type":"Answer","text":"Nein. SafeShare ist weder digitale ID noch Wallet. SafeShare bereinigt Links vor dem Teilen."}},
+      {"@type":"Question","name":"Warum ist Link-Reinigung trotzdem sinnvoll?","acceptedAnswer":{"@type":"Answer","text":"Weil unnötige Parameter für den Inhalt meist nicht nötig sind, aber für Messung und Zuordnung genutzt werden. SafeShare entfernt diesen Überschuss."}}
     ]
   }
   </script>
@@ -69,12 +72,38 @@
       <div class="ss-card ss-hero">
         <h1 id="help-title">Hilfezentrale</h1>
         <p class="ss-hero-kicker">Saubere Links in wenigen Sekunden.</p>
+        <p><strong>Links sollten verweisen, nicht verraten.</strong></p>
         <p>Hier findest du schnelle Antworten auf die häufigsten Fragen: Warum ein Link nicht bereinigt wird, welche Parameter entfernt werden und was du bei Problemen sofort tun kannst.</p>
         <div class="ss-actions ss-mt-12">
           <a class="ss-btn ss-btn--primary" href="#schnellhilfe">Schnellhilfe</a>
           <a class="ss-btn" href="#faq">Häufige Fragen</a>
+          <a class="ss-btn" href="#truth">Was SafeShare ist</a>
           <a class="ss-btn ss-btn--ghost" href="#kontakt">Kontakt</a>
         </div>
+      </div>
+    </section>
+
+    <!-- 1) Truth-Block -->
+    <section class="ss-section" aria-labelledby="truth">
+      <div class="ss-card">
+        <h2 id="truth">Was SafeShare ist — und was nicht</h2>
+
+        <h3>Was SafeShare macht</h3>
+        <ul>
+          <li>Entfernt Tracking-Parameter in URLs (z. B. <code>utm_*</code>, <code>fbclid</code>, <code>gclid</code>) vor dem Teilen.</li>
+          <li>Reduziert unnötige Datenspuren im Link.</li>
+          <li>Arbeitet lokal im Browser (kein Upload von Links an SafeShare-Server).</li>
+        </ul>
+
+        <h3>Was SafeShare nicht verspricht</h3>
+        <ul>
+          <li>Unsichtbar im Web gibt es nicht – niemals.</li>
+          <li>Kein Schutz vor IP-Logs auf Zielseiten.</li>
+          <li>Kein Schutz vor Fingerprinting oder Tracking nach Login.</li>
+          <li>Keine digitale ID und keine digitale Wallet.</li>
+        </ul>
+
+        <p><strong>Kurzform:</strong> SafeShare ist kein Mythos, sondern ein konkreter Reduktionsschritt: Link reinigen, dann teilen.</p>
       </div>
     </section>
 
@@ -132,6 +161,28 @@
         <details class="ss-details">
           <summary>Funktioniert SafeShare auch mobil?</summary>
           <p>Ja. SafeShare funktioniert auf Smartphone, Tablet und Desktop direkt im Browser.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- 2) FAQ: ID/Wallet -->
+    <section class="ss-section" aria-labelledby="faq-id-wallet">
+      <div class="ss-card">
+        <h2 id="faq-id-wallet">FAQ: Digitale ID, Wallet und SafeShare</h2>
+
+        <details class="ss-details" open>
+          <summary>Macht SafeShare mich unsichtbar im Internet?</summary>
+          <p>Nein. Unsichtbar im Web gibt es nicht. SafeShare reduziert einen konkreten Teil der Datenspur: Tracking-Zusätze in geteilten URLs.</p>
+        </details>
+
+        <details class="ss-details">
+          <summary>Ist SafeShare eine digitale ID oder Wallet?</summary>
+          <p>Nein. SafeShare ist weder digitale ID noch Wallet. SafeShare bereinigt Links vor dem Teilen.</p>
+        </details>
+
+        <details class="ss-details">
+          <summary>Warum ist Link-Reinigung trotzdem sinnvoll?</summary>
+          <p>Weil unnötige Parameter für den Inhalt meist nicht nötig sind, aber für Messung und Zuordnung genutzt werden. SafeShare entfernt diesen Überschuss.</p>
         </details>
       </div>
     </section>
