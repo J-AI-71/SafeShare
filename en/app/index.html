@@ -73,6 +73,9 @@
           <h1 id="app-title">Clean link</h1>
           <p class="ss-hero-kicker">Paste → Clean → Copy/Share</p>
 
+          <!-- 2A -->
+          <p><strong>Links should point, not expose.</strong></p>
+
           <p class="ss-muted">
             In <strong>Standard mode</strong>, SafeShare removes known tracking parameters and keeps
             destination-relevant parameters (e.g. <code>q</code>, <code>kgmid</code> on Google) so results remain stable.
@@ -125,6 +128,16 @@
             Removed: – • Kept: – • Standard mode active (tracking-light, destination-stable).
           </p>
 
+          <!-- 2B -->
+          <p class="ss-note ss-mt-10">
+            Being invisible on the web does not exist — never. This cleanup reduces unnecessary tracking traces in the shared link.
+          </p>
+
+          <!-- 2D -->
+          <p id="postCleanProNudge" class="ss-note ss-mt-10" hidden>
+            Need repeatable rules and team workflows? <a href="/en/pro/">SafeShare Pro</a>.
+          </p>
+
           <!-- Post-clean nudge IDs aligned with app.js -->
           <section id="postCleanNudge" class="ss-card ss-nudge ss-mt-12" hidden aria-live="polite" aria-label="Pro hint">
             <h2 class="ss-h3">More control for recurring links</h2>
@@ -140,6 +153,15 @@
               <a id="nudgeCompareBtn" class="ss-btn ss-btn--primary" href="/en/pro/">Compare Pro</a>
               <button id="nudgeCloseBtn" class="ss-btn ss-btn--ghost" type="button">Later</button>
             </div>
+          </section>
+
+          <!-- 2C -->
+          <section class="ss-card ss-card--inner ss-mt-12" aria-labelledby="app-truth-en">
+            <h2 id="app-truth-en">What this cleanup does</h2>
+            <ul>
+              <li><strong>Yes:</strong> Removes common tracking parameters like <code>utm_*</code>, <code>fbclid</code>, <code>gclid</code>.</li>
+              <li><strong>No:</strong> No protection against IP logs, fingerprinting, or post-login tracking.</li>
+            </ul>
           </section>
 
           <details class="ss-details ss-mt-12">
