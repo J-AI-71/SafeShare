@@ -1,9 +1,10 @@
 /* File: /js/app.js */
-/* SafeShare App controller + GTM events v2026-02-11-03
+/* SafeShare App controller + GTM events v2026-02-12-01
    - DE/EN Meta-Texte lokalisiert
    - Standard/Strict Re-Clean ohne Neu-Eingabe
    - Copy/Share/Reset als getrennte Eventnamen
    - Copy/Share Buttons robust enabled/disabled
+   - Deterministic Nudge + "already clean" handling
 */
 
 (() => {
@@ -43,10 +44,13 @@
   const btnShare = $("shareBtn");
   const btnReset = $("resetBtn");
 
-  // Optional nudge elements (IDs auf EN/DE vereinheitlicht)
+  // Existing nudge block
   const nudge = $("postCleanNudge");
   const nudgeCloseBtn = $("nudgeCloseBtn");
   const nudgeCompareBtn = $("nudgeCompareBtn");
+
+  // New deterministic text nudge (DE+EN pages)
+  const postCleanProNudge = $("postCleanProNudge");
 
   // Optional mode controls
   const modeInputs = Array.from(document.querySelectorAll('input[name="cleanMode"]'));
@@ -77,7 +81,8 @@
         modeStandard: "standard",
         modeStrict: "strict",
         removedPrefix: "Removed",
-        noTracking: "No tracking parameters found.",
+        // deterministic "already clean"
+        noTracking: "No common tracking parameters found. The link is already clean or only contains functional parameters."
       }
     : {
         pasteFirst: "Bitte zuerst einen Link einfügen.",
@@ -89,7 +94,8 @@
         modeStandard: "standard",
         modeStrict: "strict",
         removedPrefix: "Entfernt",
-        noTracking: "Keine Tracking-Parameter gefunden.",
+        // deterministic "already clean"
+        noTracking: "Keine typischen Tracking-Parameter gefunden. Link ist bereits sauber oder enthält nur funktionale Parameter."
       };
 
   /* =========================
@@ -255,15 +261,38 @@
     sessionStorage.setItem(key, "1");
   }
 
-  function showNudgeIfAvailable() {
+  // Existing card nudge
+  function showCardNudgeIfAvailable() {
     if (!nudge) return;
     nudge.hidden = false;
     trackNudgeViewOnce();
   }
 
-  function hideNudgeIfAvailable() {
+  function hideCardNudgeIfAvailable() {
     if (!nudge) return;
     nudge.hidden = true;
+  }
+
+  // New text nudge (deterministic)
+  function showTextNudgeIfAvailable() {
+    if (!postCleanProNudge) return;
+    postCleanProNudge.hidden = false;
+    trackNudgeViewOnce();
+  }
+
+  function hideTextNudgeIfAvailable() {
+    if (!postCleanProNudge) return;
+    postCleanProNudge.hidden = true;
+  }
+
+  function showPostCleanNudges() {
+    showCardNudgeIfAvailable();
+    showTextNudgeIfAvailable();
+  }
+
+  function hidePostCleanNudges() {
+    hideCardNudgeIfAvailable();
+    hideTextNudgeIfAvailable();
   }
 
   /* =========================
@@ -285,13 +314,14 @@
 
   function initialState() {
     setOutputState(false);
-    hideNudgeIfAvailable();
+    hidePostCleanNudges();
   }
 
   function renderCleanResult(res, original) {
     if (!res.ok) {
       setMeta(T.invalidUrl);
       setOutputState(false);
+      hidePostCleanNudges();
       return false;
     }
 
@@ -300,8 +330,10 @@
     const modeLabel = res.mode === "strict" ? T.modeStrict : T.modeStandard;
     if (res.removedCount > 0) {
       setMeta(`[${modeLabel}] ${T.removedPrefix}: ${res.removedCount} (${res.removedKeys.join(", ")})`);
+      showPostCleanNudges(); // deterministic: only after real value
     } else {
       setMeta(`[${modeLabel}] ${T.noTracking}`);
+      hidePostCleanNudges(); // deterministic: already clean => no pro nudge
     }
 
     setOutputState(Boolean(res.cleanedUrl));
@@ -316,7 +348,6 @@
       input_length: (original || "").length
     });
 
-    showNudgeIfAvailable();
     return true;
   }
 
@@ -325,6 +356,7 @@
     if (!original) {
       setMeta(T.pasteFirst);
       setOutputState(false);
+      hidePostCleanNudges();
       return false;
     }
 
@@ -423,7 +455,7 @@
     elInput.value = "";
     elOutput.value = "";
     setMeta("");
-    hideNudgeIfAvailable();
+    hidePostCleanNudges();
     setOutputState(false);
 
     // SEPARATER EVENTNAME
@@ -433,7 +465,7 @@
   });
 
   nudgeCloseBtn?.addEventListener("click", () => {
-    hideNudgeIfAvailable();
+    hideCardNudgeIfAvailable();
 
     pushDL("ss_nudge_dismiss", {
       nudge_id: "compare_pro",
