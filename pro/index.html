@@ -93,6 +93,14 @@
         "@type": "Answer",
         "text": "Nein. SafeShare Pro ist als Offline-Download nutzbar. Der Workflow ist lokal ausgelegt; es gibt im App-Flow keine Link-Uploads."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Macht SafeShare Pro mich unsichtbar im Web?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nein. Unsichtbar im Web gibt es nicht. SafeShare Pro reduziert unnötige Tracking-Zusätze in geteilten Links."
+      }
     }
   ]
 }
@@ -114,177 +122,97 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <main id="ss-content" class="ss-main">
+    <!-- 1) Eingefügter Pro Copy-Lock -->
     <section class="ss-section" aria-labelledby="pro-title">
       <div class="ss-wrap">
         <article class="ss-card ss-hero">
           <p class="ss-kicker">SafeShare Pro</p>
-          <h1 id="pro-title">Wähle die passende Stufe</h1>
-          <p class="ss-hero-kicker">Präzise Link-Hygiene mit klaren Regeln und transparentem Ablauf.</p>
+          <h1 id="pro-title">Kontrolle für wiederkehrende Link-Workflows</h1>
+          <p class="ss-hero-kicker">Nicht unsichtbar. Aber deutlich datensparsamer im Teilen.</p>
+          <p><strong>Links sollten verweisen, nicht verraten.</strong></p>
           <p class="ss-muted">
-            Pro ergänzt die App um Regeln, Allowlist/Policies und Audit („Was wurde geändert?“) – lokal, nachvollziehbar, offline nutzbar.
+            SafeShare Pro richtet sich an Menschen und Teams, die Link-Hygiene nicht dem Zufall überlassen:
+            klare Regeln, konsistente Ergebnisse, nachvollziehbare Standards.
+          </p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/djqDz" rel="noopener nofollow" target="_blank">Pro Person</a>
+            <a class="ss-btn" href="https://payhip.com/b/oXFsk" rel="noopener nofollow" target="_blank">Pro Team</a>
+            <a class="ss-btn ss-btn--ghost" href="/app/">Erst kostenlos testen</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="ss-section" aria-labelledby="pro-value">
+      <div class="ss-wrap">
+        <article class="ss-card">
+          <h2 id="pro-value">Was Pro konkret bringt</h2>
+          <div class="ss-grid ss-grid--3 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Regeln statt Wiederholen</h3>
+              <p>Eigene Keep/Drop-Logik für wiederkehrende Quellen und Muster.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Konsistenz im Team</h3>
+              <p>Einheitliche Link-Standards statt individueller Einzelentscheidungen.</p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Weniger Reibung im Alltag</h3>
+              <p>Weniger manuelle Nacharbeit bei regelmäßigen Shares in Mail, Messenger, Social.</p>
+            </article>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="ss-section" aria-labelledby="pro-truth">
+      <div class="ss-wrap">
+        <article class="ss-card">
+          <h2 id="pro-truth">Klare Abgrenzung</h2>
+          <ul>
+            <li><strong>Ja:</strong> Reduziert Tracking-Zusätze in geteilten Links mit wiederholbaren Regeln.</li>
+            <li><strong>Nein:</strong> Kein Unsichtbarkeitsversprechen, kein Schutz vor IP-Logs, Fingerprinting oder Tracking nach Login.</li>
+            <li><strong>Nein:</strong> Keine digitale ID und keine Wallet.</li>
+          </ul>
+          <p class="ss-note ss-mt-12">
+            Unsichtbar im Web gibt es nicht – niemals. Pro ist ein Werkzeug für kontrollierte Datenreduktion im Link-Workflow.
           </p>
         </article>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="pricing-title">
-      <div class="ss-wrap">
-        <section class="ss-card ss-pricing" aria-labelledby="pricing-title">
-          <h2 id="pricing-title" class="ss-h2">SafeShare Pro Preise & Vergleich</h2>
-
-          <div class="ss-pricingGrid ss-mt-12">
-            <article class="ss-plan" data-plan="supporter">
-              <h3>Supporter</h3>
-              <p class="ss-muted">Für gelegentliche Nutzung. Unterstützt das Projekt.</p>
-              <ul class="ss-list ss-mt-12">
-                <li>Saubere Links im Alltag</li>
-                <li>Einfacher Einstieg</li>
-                <li>Direkte Unterstützung von SafeShare</li>
-              </ul>
-
-              <div class="ss-note ss-mt-12">
-                <strong>Für wen:</strong> Einzelpersonen mit leichtem Bedarf.<br>
-                <strong>Wann lohnt es sich:</strong> Wenn du nur gelegentlich bereinigst und SafeShare unterstützen willst.<br>
-                <strong>Zeit/Risiko:</strong> Schnell sauber teilen, weniger versehentliches Mitsenden unnötiger Parameter.
-              </div>
-
-              <p class="ss-price ss-mt-12">9&nbsp;€</p>
-              <a
-                class="ss-btn ss-btn--primary js-plan-select"
-                href="https://payhip.com/b/cFHy7"
-                target="_blank"
-                rel="noopener nofollow"
-                data-plan="supporter"
-                data-value="9"
-              >Supporter wählen</a>
-            </article>
-
-            <article class="ss-plan ss-plan--featured" data-plan="pro_person">
-              <h3>Pro Person</h3>
-              <p class="ss-muted">Für regelmäßige Link-Hygiene mit mehr Kontrolle.</p>
-              <ul class="ss-list ss-mt-12">
-                <li>Regeln pro Domain</li>
-                <li>Allowlist/Policy-Logik</li>
-                <li>Audit: Änderungen nachvollziehen</li>
-              </ul>
-
-              <div class="ss-note ss-mt-12">
-                <strong>Für wen:</strong> Solos, Creator, Beratung, Ops mit wiederkehrenden Link-Workflows.<br>
-                <strong>Wann lohnt es sich:</strong> Wenn du wöchentlich/regelmäßig Links bereinigst.<br>
-                <strong>Zeit/Risiko:</strong> Zeitersparnis durch feste Regeln, weniger Fehler durch konsistente Entscheidungen.
-              </div>
-
-              <p class="ss-price ss-mt-12">49&nbsp;€</p>
-              <a
-                class="ss-btn ss-btn--primary js-plan-select"
-                href="https://payhip.com/b/djqDz"
-                target="_blank"
-                rel="noopener nofollow"
-                data-plan="pro_person"
-                data-value="49"
-              >Pro Person wählen</a>
-            </article>
-
-            <article class="ss-plan" data-plan="pro_team">
-              <h3>Pro Team</h3>
-              <p class="ss-muted">Für gemeinsame Standards und wiederholbare Abläufe.</p>
-              <ul class="ss-list ss-mt-12">
-                <li>Einheitliche Team-Regeln</li>
-                <li>Reproduzierbarer Workflow</li>
-                <li>Transparente Audit-Basis</li>
-              </ul>
-
-              <div class="ss-note ss-mt-12">
-                <strong>Für wen:</strong> Teams mit mehreren Personen, Freigaben und wiederkehrenden Prozessen.<br>
-                <strong>Wann lohnt es sich:</strong> Wenn Link-Qualität teamweit einheitlich sein muss.<br>
-                <strong>Zeit/Risiko:</strong> Weniger Abstimmungskosten, weniger inkonsistente Ergebnisse, bessere Governance/Auditierbarkeit.
-              </div>
-
-              <p class="ss-price ss-mt-12">249&nbsp;€</p>
-              <a
-                class="ss-btn ss-btn--primary js-plan-select"
-                href="https://payhip.com/b/oXFsk"
-                target="_blank"
-                rel="noopener nofollow"
-                data-plan="pro_team"
-                data-value="249"
-              >Pro Team wählen</a>
-            </article>
-          </div>
-
-          <p class="ss-note ss-mt-12">
-            Pro ist ein Offline-Download. Start im Paket über <code>01-START.html</code>. Keine Uploads deiner Links im App-Flow.
-          </p>
-        </section>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="features-title">
-      <div class="ss-wrap">
-        <div class="ss-card">
-          <h2 id="features-title">Was Pro zusätzlich bietet</h2>
-          <div class="ss-grid ss-grid--3 ss-mt-12">
-            <article class="ss-card ss-card--inner">
-              <h3>Rules &amp; Allowlist</h3>
-              <p class="ss-muted">Domain-spezifische Ausnahmen statt blindem Entfernen.</p>
-            </article>
-            <article class="ss-card ss-card--inner">
-              <h3>Audit</h3>
-              <p class="ss-muted">Nachvollziehbar sehen, welche Parameter entfernt wurden.</p>
-            </article>
-            <article class="ss-card ss-card--inner">
-              <h3>Offline Workflow</h3>
-              <p class="ss-muted">Keine öffentliche Pro-Webseite, keine Cloud-Abhängigkeit.</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="ss-section" aria-labelledby="faq-title">
+    <section class="ss-section" aria-labelledby="pro-faq">
       <div class="ss-wrap">
         <article class="ss-card">
-          <h2 id="faq-title">Häufige Fragen zu SafeShare Pro</h2>
+          <h2 id="pro-faq">FAQ</h2>
 
-          <details class="ss-details ss-mt-12">
-            <summary>Für wen ist der Supporter-Plan (9&nbsp;€) gedacht?</summary>
-            <p class="ss-muted">
-              Der Supporter-Plan ist für Einzelpersonen mit gelegentlicher Nutzung gedacht, die saubere Links teilen
-              und SafeShare unterstützen möchten.
-            </p>
+          <details class="ss-details" open>
+            <summary>Für wen lohnt sich Pro?</summary>
+            <p>Für alle, die regelmäßig Links teilen und dabei konsistente Regeln statt Einzelfallarbeit wollen.</p>
           </details>
 
-          <details class="ss-details ss-mt-12">
-            <summary>Wann lohnt sich Pro Person (49&nbsp;€)?</summary>
-            <p class="ss-muted">
-              Pro Person lohnt sich bei regelmäßiger Link-Hygiene. Besonders sinnvoll ist der Plan für Solos, Creator,
-              Beratung und operative Rollen mit wiederkehrenden Link-Workflows.
-            </p>
+          <details class="ss-details">
+            <summary>Reicht die kostenlose App nicht aus?</summary>
+            <p>Für spontane Bereinigung oft ja. Pro lohnt sich bei wiederkehrenden Workflows, Team-Standards und klarer Regelkontrolle.</p>
           </details>
 
-          <details class="ss-details ss-mt-12">
-            <summary>Wann lohnt sich Pro Team (249&nbsp;€)?</summary>
-            <p class="ss-muted">
-              Pro Team lohnt sich, wenn mehrere Personen mit gemeinsamen Standards arbeiten. Der Plan hilft bei
-              reproduzierbaren Abläufen, weniger Abstimmungsaufwand und besserer Auditierbarkeit.
-            </p>
+          <details class="ss-details">
+            <summary>Macht Pro mich unsichtbar?</summary>
+            <p>Nein. Pro reduziert unnötige Link-Daten. Es ersetzt keine umfassende Anonymisierung.</p>
           </details>
+        </article>
+      </div>
+    </section>
 
-          <details class="ss-details ss-mt-12">
-            <summary>Was ist der wichtigste Unterschied zwischen Pro Person und Pro Team?</summary>
-            <p class="ss-muted">
-              Pro Person ist für eine einzelne Arbeitsweise ausgelegt. Pro Team ist auf gemeinsame Standards,
-              teamweite Konsistenz und Governance/Audit-Anforderungen ausgerichtet.
-            </p>
-          </details>
-
-          <details class="ss-details ss-mt-12">
-            <summary>Werden Links bei SafeShare Pro hochgeladen?</summary>
-            <p class="ss-muted">
-              Nein. SafeShare Pro ist als Offline-Download nutzbar. Der Workflow ist lokal ausgelegt;
-              es gibt im App-Flow keine Link-Uploads.
-            </p>
-          </details>
+    <section class="ss-section" aria-labelledby="pro-cta">
+      <div class="ss-wrap">
+        <article class="ss-card">
+          <h2 id="pro-cta">Meine Daten sind nicht kostenlos</h2>
+          <p>Wenn Daten Wert haben, ist kontrollierte Datensparsamkeit ein Standard – kein Extra.</p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/djqDz" rel="noopener nofollow" target="_blank">Pro Person starten</a>
+            <a class="ss-btn" href="https://payhip.com/b/oXFsk" rel="noopener nofollow" target="_blank">Pro Team starten</a>
+          </div>
         </article>
       </div>
     </section>
