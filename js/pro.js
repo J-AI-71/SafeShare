@@ -1,30 +1,17 @@
 /* File: /js/pro.js */
-/* SafeShare Pro page controller + GTM events v2026-02-12-01 */
+/* SafeShare Pro page controller + GTM events v2026-02-12-02 */
 
 (() => {
   "use strict";
 
-  /* =========================
-     dataLayer helper
-     ========================= */
   window.dataLayer = window.dataLayer || [];
 
   function getLang() {
-    // Priority: <html lang> -> body data-lang -> fallback "de"
-    return (
-      document.documentElement.lang ||
-      document.body?.dataset?.lang ||
-      "de"
-    ).toLowerCase();
+    return (document.documentElement.lang || document.body?.dataset?.lang || "de").toLowerCase();
   }
 
   function getPageType() {
-    // Priority: body data-page-type -> body data-page -> fallback "pro"
-    return (
-      document.body?.dataset?.pageType ||
-      document.body?.dataset?.page ||
-      "pro"
-    ).toLowerCase();
+    return (document.body?.dataset?.pageType || document.body?.dataset?.page || "pro").toLowerCase();
   }
 
   function pushDL(eventName, payload = {}) {
@@ -37,9 +24,6 @@
     });
   }
 
-  /* =========================
-     Utilities
-     ========================= */
   function toNumberOrNull(v) {
     if (v === null || v === undefined || v === "") return null;
     const n = Number(String(v).replace(",", "."));
@@ -50,7 +34,6 @@
     return (el?.textContent || "").trim();
   }
 
-  // Session dedupe helper (prevents duplicate "view" fire in same tab session)
   function oncePerSession(key, fn) {
     try {
       if (sessionStorage.getItem(key)) return false;
@@ -58,15 +41,11 @@
       sessionStorage.setItem(key, "1");
       return true;
     } catch {
-      // If sessionStorage blocked, still execute once in this call
       fn();
       return true;
     }
   }
 
-  /* =========================
-     1) Pro page view event
-     ========================= */
   function fireProView() {
     oncePerSession("ss_pro_view_sent", () => {
       pushDL("ss_pro_view", {
@@ -77,17 +56,7 @@
     });
   }
 
-  /* =========================
-     2) Plan select tracking
-     =========================
-     Expects buttons/links with class:
-       .js-plan-select
-
-     Recommended data attributes on each CTA:
-       data-plan="supporter|pro_person|pro_team"
-       data-value="9|49|249"
-       data-currency="EUR" (optional, fallback EUR)
-  */
+  // Plan CTAs (.js-plan-select)
   function bindPlanSelectTracking() {
     const planCtas = Array.from(document.querySelectorAll(".js-plan-select"));
     if (!planCtas.length) return;
@@ -100,21 +69,16 @@
           text(el).toLowerCase().replace(/\s+/g, "_") ||
           "unknown";
 
-        const valueRaw =
-          el.getAttribute("data-value") ||
-          el.dataset?.value ||
-          "";
-
+        const valueRaw = el.getAttribute("data-value") || el.dataset?.value || "";
         const value = toNumberOrNull(valueRaw);
-        const currency =
-          el.getAttribute("data-currency") ||
-          el.dataset?.currency ||
-          "EUR";
+        const currency = el.getAttribute("data-currency") || el.dataset?.currency || "EUR";
+        const section = el.closest("section")?.getAttribute("aria-labelledby") || "unknown_section";
 
-        pushDL("ss_pro_plan_select", {
+        pushDL("ss_pro_plan_click", {
           plan,
-          value,            // number | null
+          value,
           currency,
+          section,
           cta_text: text(el) || "select_plan",
           cta_href: el.getAttribute("href") || null,
           outbound: true
@@ -123,11 +87,40 @@
     });
   }
 
-  /* =========================
-     3) Scroll depth on Pro page
-     =========================
-     Fires once when reaching >= 75%
-  */
+  // Non-plan CTAs (e.g. Try free app first)
+  function bindSecondaryCtaTracking() {
+    const ctas = Array.from(document.querySelectorAll(".ss-actions a.ss-btn:not(.js-plan-select)"));
+    if (!ctas.length) return;
+
+    ctas.forEach((el) => {
+      el.addEventListener("click", () => {
+        const section = el.closest("section")?.getAttribute("aria-labelledby") || "unknown_section";
+        pushDL("ss_pro_secondary_cta_click", {
+          cta_text: text(el),
+          cta_href: el.getAttribute("href") || null,
+          section
+        });
+      });
+    });
+  }
+
+  // FAQ opens
+  function bindFaqTracking() {
+    const faqDetails = Array.from(document.querySelectorAll("section[aria-labelledby='faq-title'] details"));
+    if (!faqDetails.length) return;
+
+    faqDetails.forEach((el, idx) => {
+      el.addEventListener("toggle", () => {
+        if (!el.open) return;
+        pushDL("ss_pro_faq_open", {
+          index: idx + 1,
+          question: text(el.querySelector("summary"))
+        });
+      });
+    });
+  }
+
+  // Optional scroll depth
   function bindScrollDepthTracking() {
     let sent = false;
 
@@ -141,7 +134,6 @@
         b.clientHeight, d.clientHeight
       );
       const clientHeight = d.clientHeight || window.innerHeight || 0;
-
       const denom = scrollHeight - clientHeight;
       if (denom <= 0) return 100;
       return Math.min(100, Math.max(0, (scrollTop / denom) * 100));
@@ -149,27 +141,22 @@
 
     function onScroll() {
       if (sent) return;
-      const pct = getScrollPercent();
-      if (pct >= 75) {
+      if (getScrollPercent() >= 75) {
         sent = true;
-        pushDL("ss_pro_scroll_depth", {
-          percent: 75
-        });
-        window.removeEventListener("scroll", onScroll, { passive: true });
+        pushDL("ss_pro_scroll_depth", { percent: 75 });
+        window.removeEventListener("scroll", onScroll);
       }
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    // run once in case page is short
     onScroll();
   }
 
-  /* =========================
-     Init
-     ========================= */
   function init() {
     fireProView();
     bindPlanSelectTracking();
+    bindSecondaryCtaTracking();
+    bindFaqTracking();
     bindScrollDepthTracking();
   }
 
