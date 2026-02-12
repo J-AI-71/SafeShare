@@ -1,5 +1,9 @@
 /* File: /js/pro.js */
-/* SafeShare Pro controller + GTM events v2026-02-11-01 */
+/* SafeShare Pro controller + GTM events v2026-02-11-03
+   - Event-Schema identisch zu app.js
+   - DE/EN Meta-Texte lokalisiert
+   - robust für optionale Pro-UI (falls einige Elemente fehlen)
+*/
 
 (() => {
   "use strict";
@@ -9,16 +13,11 @@
      ========================= */
   window.dataLayer = window.dataLayer || [];
 
-  /**
-   * Push event to GTM dataLayer
-   * @param {string} eventName
-   * @param {Record<string, any>} payload
-   */
   function pushDL(eventName, payload = {}) {
     window.dataLayer.push({
       event: eventName,
-      lang: document.documentElement.lang || "de",
-      page_type: document.body?.dataset?.pageType || "pro",
+      lang: (document.documentElement.lang || document.body?.dataset?.lang || "de").toLowerCase(),
+      page_type: document.body?.dataset?.pageType || document.body?.dataset?.page || "pro",
       source: "safeshare_web",
       ...payload
     });
@@ -29,7 +28,7 @@
      ========================= */
   const $ = (id) => document.getElementById(id);
 
-  // Core fields (gleiches Muster wie app.js)
+  // Core IDs (gleiches Schema wie app.js)
   const elInput = $("urlInput");
   const elOutput = $("urlOutput");
   const elMeta = $("cleanMeta");
@@ -39,15 +38,16 @@
   const btnShare = $("shareBtn");
   const btnReset = $("resetBtn");
 
-  // Pro-spezifische optionale UI (wenn vorhanden)
+  // Optional mode controls
+  const modeInputs = Array.from(document.querySelectorAll('input[name="cleanMode"]'));
+  const modeSelect = $("cleanMode");
+  const btnModeStandard = $("modeStandardBtn");
+  const btnModeStrict = $("modeStrictBtn");
+
+  // Optional nudge/upsell (kann in Pro fehlen, wird dann ignoriert)
   const nudge = $("postCleanNudge");
   const nudgeCloseBtn = $("nudgeCloseBtn");
   const nudgeCompareBtn = $("nudgeCompareBtn");
-
-  // Optional: policy/advanced controls (falls vorhanden)
-  const selPolicy = $("policySelect");
-  const chkUnshorten = $("optUnshorten");
-  const chkKeepFragment = $("optKeepFragment");
 
   if (!elInput || !elOutput || !btnClean || !btnCopy || !btnShare || !btnReset) {
     console.warn("[SafeShare Pro] Required DOM elements missing.");
@@ -55,10 +55,44 @@
   }
 
   /* =========================
+     i18n
+     ========================= */
+  const isEN = String(document.documentElement.lang || document.body?.dataset?.lang || "de")
+    .toLowerCase()
+    .startsWith("en");
+
+  const T = isEN
+    ? {
+        pasteFirst: "Please paste a link first.",
+        invalidUrl: "Invalid URL. Please check it.",
+        noOutput: "No cleaned link yet.",
+        copied: "Cleaned link copied.",
+        copyFailed: "Copy failed.",
+        shareNotSupported: "Sharing is not supported on this device.",
+        modeStandard: "standard",
+        modeStrict: "strict",
+        removedPrefix: "Removed",
+        noTracking: "No tracking parameters found.",
+      }
+    : {
+        pasteFirst: "Bitte zuerst einen Link einfügen.",
+        invalidUrl: "Ungültige URL. Bitte prüfen.",
+        noOutput: "Noch kein bereinigter Link vorhanden.",
+        copied: "Bereinigter Link kopiert.",
+        copyFailed: "Kopieren fehlgeschlagen.",
+        shareNotSupported: "Teilen wird auf diesem Gerät nicht unterstützt.",
+        modeStandard: "standard",
+        modeStrict: "strict",
+        removedPrefix: "Entfernt",
+        noTracking: "Keine Tracking-Parameter gefunden.",
+      };
+
+  /* =========================
      URL cleaning logic
      ========================= */
 
-  const DROP_KEYS_EXACT = new Set([
+  // Standard tracker keys
+  const DROP_KEYS_EXACT_STANDARD = new Set([
     "fbclid",
     "gclid",
     "dclid",
@@ -80,12 +114,61 @@
     "s_cid"
   ]);
 
-  const DROP_PREFIXES = ["utm_"];
+  // Strict extra keys
+  const DROP_KEYS_EXACT_STRICT_EXTRA = new Set([
+    "ref",
+    "ref_src",
+    "ref_url",
+    "src",
+    "source",
+    "campaign",
+    "campaign_id",
+    "cmpid",
+    "cmp",
+    "cid",
+    "trk",
+    "tracking_id",
+    "pk_campaign",
+    "pk_kwd",
+    "mtm_campaign",
+    "mtm_source",
+    "mtm_medium",
+    "mtm_content",
+    "mtm_keyword",
+    "ga_source",
+    "ga_medium",
+    "ga_term",
+    "ga_content",
+    "ga_campaign"
+  ]);
 
-  function shouldDropParam(key) {
+  const DROP_PREFIXES_STANDARD = ["utm_"];
+  const DROP_PREFIXES_STRICT_EXTRA = ["mtm_", "pk_"];
+
+  function getCurrentMode() {
+    if (modeInputs.length) {
+      const checked = modeInputs.find((el) => el.checked);
+      if (checked?.value) return checked.value === "strict" ? "strict" : "standard";
+    }
+    if (modeSelect?.value) {
+      return modeSelect.value === "strict" ? "strict" : "standard";
+    }
+    const dsMode = document.body?.dataset?.cleanMode;
+    if (dsMode) return dsMode === "strict" ? "strict" : "standard";
+    return "standard";
+  }
+
+  function shouldDropParam(key, mode = "standard") {
     const k = String(key || "").toLowerCase();
-    if (DROP_KEYS_EXACT.has(k)) return true;
-    return DROP_PREFIXES.some((p) => k.startsWith(p));
+
+    if (DROP_KEYS_EXACT_STANDARD.has(k)) return true;
+    if (DROP_PREFIXES_STANDARD.some((p) => k.startsWith(p))) return true;
+
+    if (mode === "strict") {
+      if (DROP_KEYS_EXACT_STRICT_EXTRA.has(k)) return true;
+      if (DROP_PREFIXES_STRICT_EXTRA.some((p) => k.startsWith(p))) return true;
+    }
+    return false;
   }
 
   function parseUrl(raw) {
@@ -103,25 +186,18 @@
     }
   }
 
-  /**
-   * @param {string} rawUrl
-   * @returns {{
-   *   ok: boolean,
-   *   cleanedUrl: string,
-   *   removedCount: number,
-   *   removedKeys: string[],
-   *   error?: string
-   * }}
-   */
-  function cleanUrl(rawUrl) {
+  function cleanUrl(rawUrl, options = {}) {
+    const mode = options.mode === "strict" ? "strict" : "standard";
     const u = parseUrl(rawUrl);
+
     if (!u) {
       return {
         ok: false,
         cleanedUrl: "",
         removedCount: 0,
         removedKeys: [],
-        error: "Ungültige URL"
+        mode,
+        error: "invalid_url"
       };
     }
 
@@ -129,41 +205,32 @@
     const keys = [...u.searchParams.keys()];
 
     for (const key of keys) {
-      if (shouldDropParam(key)) {
+      if (shouldDropParam(key, mode)) {
         removedKeys.push(key);
         u.searchParams.delete(key);
       }
-    }
-
-    // Optional advanced toggle example: fragment behalten/entfernen
-    if (chkKeepFragment && !chkKeepFragment.checked) {
-      u.hash = "";
     }
 
     return {
       ok: true,
       cleanedUrl: u.toString(),
       removedCount: removedKeys.length,
-      removedKeys
+      removedKeys,
+      mode
     };
   }
 
   /* =========================
-     Nudge helpers
+     Nudge tracking helpers
      ========================= */
-
-  function getNudgeId() {
-    return "compare_pro";
-  }
-
   function trackNudgeViewOnce() {
-    const key = "ss_nudge_view_sent_compare_pro";
+    // eigener key für Pro, damit App/Pro Sessions getrennt sind
+    const key = "ss_nudge_view_sent_compare_pro_propage";
     if (sessionStorage.getItem(key)) return;
 
     pushDL("ss_nudge_view", {
-      nudge_id: getNudgeId(),
-      placement: "post_clean",
-      pro_context: true
+      nudge_id: "compare_pro",
+      placement: "post_clean"
     });
 
     sessionStorage.setItem(key, "1");
@@ -181,105 +248,147 @@
   }
 
   /* =========================
-     UI helpers
+     UI state
      ========================= */
-
   function setMeta(text) {
-    if (!elMeta) return;
-    elMeta.textContent = text || "";
+    if (elMeta) elMeta.textContent = text || "";
   }
 
-  function getPolicyName() {
-    if (!selPolicy) return "default";
-    return selPolicy.value || "default";
+  function setOutputState(hasOutput) {
+    btnCopy.disabled = !hasOutput;
+    btnShare.disabled = !hasOutput;
+    btnCopy.setAttribute("aria-disabled", String(!hasOutput));
+    btnShare.setAttribute("aria-disabled", String(!hasOutput));
   }
 
-  /* =========================
-     Events
-     ========================= */
+  function initialState() {
+    setOutputState(false);
+    hideNudgeIfAvailable();
+  }
 
-  btnClean.addEventListener("click", () => {
-    const original = (elInput.value || "").trim();
-    if (!original) {
-      setMeta("Bitte zuerst einen Link einfügen.");
-      return;
-    }
-
-    const res = cleanUrl(original);
-
+  function renderCleanResult(res, original) {
     if (!res.ok) {
-      setMeta("Ungültige URL. Bitte prüfen.");
-      return;
+      setMeta(T.invalidUrl);
+      setOutputState(false);
+      return false;
     }
 
     elOutput.value = res.cleanedUrl;
-    setMeta(
-      res.removedCount > 0
-        ? `Entfernt: ${res.removedCount} Parameter (${res.removedKeys.join(", ")})`
-        : "Keine Tracking-Parameter gefunden."
-    );
+    const modeLabel = res.mode === "strict" ? T.modeStrict : T.modeStandard;
 
-    // ===== GTM EVENT: clean success =====
+    if (res.removedCount > 0) {
+      setMeta(`[${modeLabel}] ${T.removedPrefix}: ${res.removedCount} (${res.removedKeys.join(", ")})`);
+    } else {
+      setMeta(`[${modeLabel}] ${T.noTracking}`);
+    }
+
+    setOutputState(Boolean(res.cleanedUrl));
+
     pushDL("ss_clean_success", {
       cleaned: true,
+      mode: res.mode,
       had_tracking_params: res.removedCount > 0,
       removed_count: res.removedCount,
       output_length: res.cleanedUrl.length,
-      policy: getPolicyName(),
-      unshorten_enabled: !!chkUnshorten?.checked,
-      keep_fragment: !!chkKeepFragment?.checked
+      input_length: (original || "").length
     });
 
     showNudgeIfAvailable();
+    return true;
+  }
+
+  function runCleanFromInput() {
+    const original = (elInput.value || "").trim();
+    if (!original) {
+      setMeta(T.pasteFirst);
+      setOutputState(false);
+      return false;
+    }
+
+    const mode = getCurrentMode();
+    const res = cleanUrl(original, { mode });
+    return renderCleanResult(res, original);
+  }
+
+  function recleanOnModeChange() {
+    const original = (elInput.value || "").trim();
+    if (!original) return;
+    runCleanFromInput();
+  }
+
+  /* =========================
+     Bind events
+     ========================= */
+
+  btnClean.addEventListener("click", () => {
+    runCleanFromInput();
+  });
+
+  elInput.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+      e.preventDefault();
+      runCleanFromInput();
+    }
+  });
+
+  modeInputs.forEach((el) => el.addEventListener("change", recleanOnModeChange));
+  modeSelect?.addEventListener("change", recleanOnModeChange);
+
+  btnModeStandard?.addEventListener("click", () => {
+    document.body.dataset.cleanMode = "standard";
+    recleanOnModeChange();
+  });
+
+  btnModeStrict?.addEventListener("click", () => {
+    document.body.dataset.cleanMode = "strict";
+    recleanOnModeChange();
   });
 
   btnCopy.addEventListener("click", async () => {
     const out = (elOutput.value || "").trim();
     if (!out) {
-      setMeta("Noch kein bereinigter Link vorhanden.");
+      setMeta(T.noOutput);
       return;
     }
 
     try {
       await navigator.clipboard.writeText(out);
-      setMeta("Bereinigter Link kopiert.");
+      setMeta(T.copied);
 
-      // ===== GTM EVENT: copy mapped to existing setup =====
-      pushDL("ss_nudge_click_compare_p", {
+      pushDL("ss_copy_click", {
         action: "copy_clean_url",
         has_output: true,
-        policy: getPolicyName()
+        mode: getCurrentMode()
       });
     } catch (err) {
       console.error(err);
-      setMeta("Kopieren fehlgeschlagen.");
+      setMeta(T.copyFailed);
     }
   });
 
   btnShare.addEventListener("click", async () => {
     const out = (elOutput.value || "").trim();
     if (!out) {
-      setMeta("Noch kein bereinigter Link vorhanden.");
+      setMeta(T.noOutput);
       return;
     }
 
     if (!navigator.share) {
-      setMeta("Teilen wird auf diesem Gerät nicht unterstützt.");
+      setMeta(T.shareNotSupported);
       return;
     }
 
     try {
       await navigator.share({ url: out });
 
-      // ===== GTM EVENT: share mapped to existing setup =====
-      pushDL("ss_nudge_click_compare_p", {
+      pushDL("ss_share_click", {
         action: "share_clean_url",
-        share_supported: true,
         has_output: true,
-        policy: getPolicyName()
+        share_supported: true,
+        mode: getCurrentMode()
       });
     } catch (err) {
-      console.debug("[SafeShare Pro] Share canceled or failed:", err);
+      console.debug("[SafeShare Pro] Share canceled/failed:", err);
     }
   });
 
@@ -288,35 +397,29 @@
     elOutput.value = "";
     setMeta("");
     hideNudgeIfAvailable();
+    setOutputState(false);
+
+    pushDL("ss_reset_click", {
+      action: "reset_fields"
+    });
   });
 
   nudgeCloseBtn?.addEventListener("click", () => {
     hideNudgeIfAvailable();
 
-    // ===== GTM EVENT: nudge dismiss =====
     pushDL("ss_nudge_dismiss", {
-      nudge_id: getNudgeId(),
-      placement: "post_clean",
-      pro_context: true
+      nudge_id: "compare_pro",
+      placement: "post_clean"
     });
   });
 
   nudgeCompareBtn?.addEventListener("click", () => {
-    // ===== GTM EVENT: nudge compare click =====
-    pushDL("ss_nudge_click_compare_p", {
+    pushDL("ss_nudge_click_compare_pro", {
       action: "nudge_compare_pro_click",
-      nudge_id: getNudgeId(),
-      placement: "post_clean",
-      pro_context: true
+      nudge_id: "compare_pro",
+      placement: "post_clean"
     });
   });
 
-  /* Optional: policy change tracking */
-  selPolicy?.addEventListener("change", () => {
-    pushDL("ss_nudge_view", {
-      action: "policy_changed",
-      policy: getPolicyName(),
-      pro_context: true
-    });
-  });
+  initialState();
 })();
