@@ -73,6 +73,9 @@
           <h1 id="app-title">Link bereinigen</h1>
           <p class="ss-hero-kicker">Einfügen → Bereinigen → Kopieren/Teilen</p>
 
+          <!-- 1A -->
+          <p><strong>Links sollten verweisen, nicht verraten.</strong></p>
+
           <p class="ss-muted">
             Im <strong>Standard-Modus</strong> entfernt SafeShare bekannte Tracking-Parameter und behält
             zielrelevante Parameter (z. B. <code>q</code>, <code>kgmid</code> bei Google), damit Ergebnisse stabil bleiben.
@@ -125,6 +128,16 @@
             Entfernt: – • Behalten: – • Standard-Modus aktiv (trackingarm, zielstabil).
           </p>
 
+          <!-- 1B -->
+          <p class="ss-note ss-mt-10">
+            Unsichtbar im Web gibt es nicht – niemals. Diese Bereinigung reduziert unnötige Tracking-Spuren im geteilten Link.
+          </p>
+
+          <!-- 1D -->
+          <p id="postCleanProNudge" class="ss-note ss-mt-10" hidden>
+            Mehr Kontrolle für wiederkehrende Regeln und Team-Workflows: <a href="/pro/">SafeShare Pro</a>.
+          </p>
+
           <section id="postCleanNudge" class="ss-card ss-nudge ss-mt-12" hidden aria-live="polite" aria-label="Pro Hinweis">
             <h2 class="ss-h3">Mehr Kontrolle für wiederkehrende Links</h2>
             <p class="ss-muted">
@@ -139,6 +152,15 @@
               <a id="nudgeCompareBtn" class="ss-btn ss-btn--primary" href="/pro/">Pro vergleichen</a>
               <button id="nudgeCloseBtn" class="ss-btn ss-btn--ghost" type="button">Später</button>
             </div>
+          </section>
+
+          <!-- 1C -->
+          <section class="ss-card ss-card--inner ss-mt-12" aria-labelledby="app-truth">
+            <h2 id="app-truth">Was diese Bereinigung leistet</h2>
+            <ul>
+              <li><strong>Ja:</strong> Entfernt typische Tracking-Parameter wie <code>utm_*</code>, <code>fbclid</code>, <code>gclid</code>.</li>
+              <li><strong>Nein:</strong> Kein Schutz vor IP-Logs, Fingerprinting oder Tracking nach Login.</li>
+            </ul>
           </section>
 
           <details class="ss-details ss-mt-12">
