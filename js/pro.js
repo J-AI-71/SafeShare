@@ -182,4 +182,10 @@
   } else {
     init();
   }
+   pushDL("ss_pro_secondary_cta_click", {
+  cta_text: text(el) || "secondary_cta",
+  cta_href: href,
+  section: nearestSectionId(el),
+  plan_hint: el.getAttribute("data-plan") || null
+});
 })();
