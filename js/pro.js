@@ -1,6 +1,6 @@
 /* File: /js/pro.js */
-/* SafeShare Pro page controller + GTM events v2026-02-12-03
-   Events aligned to GTM triggers:
+/* SafeShare Pro page controller + GTM events v2026-02-13-01
+   Events:
    - ss_pro_view
    - ss_pro_plan_click
    - ss_pro_secondary_cta_click
@@ -53,48 +53,23 @@
     }
   }
 
-  // Einheitliche Section-Erkennung für ALLE CTA-Events
-  function getSectionFromEl(el) {
-    const sectionEl = el?.closest?.("section[id], section[aria-labelledby], .ss-section");
-    if (!sectionEl) return "unknown";
-
-    // 1) data-section hat höchste Priorität
-    if (sectionEl.dataset?.section) {
-      return String(sectionEl.dataset.section).toLowerCase();
-    }
-
-    // 2) echte section id
-    if (sectionEl.id) {
-      return String(sectionEl.id).toLowerCase();
-    }
-
-    // 3) aria-labelledby => z.B. pricing-title -> pricing
-    const labelledBy = sectionEl.getAttribute("aria-labelledby");
-    if (labelledBy) {
-      return String(labelledBy).replace(/-title$/i, "").toLowerCase();
-    }
-
-    return "unknown";
+  function nearestSectionId(el) {
+    const sec = el?.closest("section[id], section[aria-labelledby]");
+    if (!sec) return "unknown";
+    if (sec.id) return sec.id;
+    return sec.getAttribute("aria-labelledby") || "unknown";
   }
 
-  function normalizePlanFromEl(el) {
-    const raw =
-      el?.getAttribute?.("data-plan") ||
-      el?.dataset?.plan ||
-      "";
-
-    if (!raw) return null;
-
-    const v = String(raw).toLowerCase().trim();
-
-    if (v === "pro_person" || v === "pro_personal" || v === "pro-person" || v === "personal") return "pro_person";
+  function normalizePlan(raw) {
+    const v = String(raw || "").toLowerCase().trim();
+    if (!v) return "unknown";
+    if (v === "pro_person" || v === "pro-person" || v === "personal" || v === "pro_personal") return "pro_person";
     if (v === "pro_team" || v === "pro-team" || v === "team") return "pro_team";
     if (v === "supporter") return "supporter";
-
-    return v;
+    return v.replace(/\s+/g, "_");
   }
 
-  /* 1) View */
+  /* 1) Pro view */
   function fireProView() {
     oncePerSession("ss_pro_view_sent", () => {
       pushDL("ss_pro_view", {
@@ -105,18 +80,14 @@
     });
   }
 
-  /* 2) Plan CTA clicks (PRIMARY) */
+  /* 2) Pricing plan clicks (primary) */
   function bindPlanClicks() {
     const planCtas = Array.from(document.querySelectorAll(".js-plan-select"));
     if (!planCtas.length) return;
 
     planCtas.forEach((el) => {
       el.addEventListener("click", () => {
-        const plan =
-          normalizePlanFromEl(el) ||
-          text(el).toLowerCase().replace(/\s+/g, "_") ||
-          "unknown";
-
+        const plan = normalizePlan(el.getAttribute("data-plan") || el.dataset?.plan || text(el));
         const value = toNumberOrNull(el.getAttribute("data-value") || el.dataset?.value || "");
         const currency = el.getAttribute("data-currency") || el.dataset?.currency || "EUR";
 
@@ -126,31 +97,27 @@
           currency,
           cta_text: text(el) || "select_plan",
           cta_href: el.getAttribute("href") || null,
-          section: getSectionFromEl(el),
+          section: nearestSectionId(el),
           outbound: true
         });
       });
     });
   }
 
-  /* 3) Secondary CTAs (alles außer .js-plan-select) */
+  /* 3) Secondary CTA clicks (all .ss-btn except .js-plan-select) */
   function bindSecondaryCtas() {
-    const allCtas = Array.from(document.querySelectorAll("a.ss-btn, button.ss-btn"));
-    if (!allCtas.length) return;
+    const ctas = Array.from(document.querySelectorAll("a.ss-btn, button.ss-btn"));
+    if (!ctas.length) return;
 
-    allCtas.forEach((el) => {
-      // Primary plan CTAs sind bereits in bindPlanClicks
+    ctas.forEach((el) => {
       if (el.classList.contains("js-plan-select")) return;
 
       el.addEventListener("click", () => {
         const href = el.tagName.toLowerCase() === "a" ? (el.getAttribute("href") || null) : null;
-        const plan = normalizePlanFromEl(el); // optional, falls data-plan vorhanden
-
         pushDL("ss_pro_secondary_cta_click", {
           cta_text: text(el) || "secondary_cta",
           cta_href: href,
-          section: getSectionFromEl(el),
-          plan
+          section: nearestSectionId(el)
         });
       });
     });
@@ -163,14 +130,14 @@
 
     details.forEach((d) => {
       d.addEventListener("toggle", () => {
-        if (!d.open) return; // nur beim Öffnen
+        if (!d.open) return;
         const q = text(d.querySelector("summary")) || "unknown";
         pushDL("ss_pro_faq_open", { question: q });
       });
     });
   }
 
-  /* 5) Scroll depth >=75% once */
+  /* 5) Scroll depth >= 75% once */
   function bindScrollDepth() {
     let sent = false;
 
@@ -191,8 +158,7 @@
 
     function onScroll() {
       if (sent) return;
-      const pct = getScrollPercent();
-      if (pct >= 75) {
+      if (getScrollPercent() >= 75) {
         sent = true;
         pushDL("ss_pro_scroll_depth", { percent: 75 });
         window.removeEventListener("scroll", onScroll);
