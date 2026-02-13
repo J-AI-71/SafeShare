@@ -1,5 +1,12 @@
 /* File: /js/pro.js */
-/* SafeShare Pro page controller + GTM events v2026-02-12-02 */
+/* SafeShare Pro page controller + GTM events v2026-02-12-02
+   Events aligned to GTM triggers:
+   - ss_pro_view
+   - ss_pro_plan_click
+   - ss_pro_secondary_cta_click
+   - ss_pro_faq_open
+   - ss_pro_scroll_depth
+*/
 
 (() => {
   "use strict";
@@ -24,14 +31,14 @@
     });
   }
 
+  function text(el) {
+    return (el?.textContent || "").trim();
+  }
+
   function toNumberOrNull(v) {
     if (v === null || v === undefined || v === "") return null;
     const n = Number(String(v).replace(",", "."));
     return Number.isFinite(n) ? n : null;
-  }
-
-  function text(el) {
-    return (el?.textContent || "").trim();
   }
 
   function oncePerSession(key, fn) {
@@ -46,6 +53,14 @@
     }
   }
 
+  function nearestSectionId(el) {
+    const sec = el?.closest("section[id], section[aria-labelledby]");
+    if (!sec) return "unknown";
+    if (sec.id) return sec.id;
+    return sec.getAttribute("aria-labelledby") || "unknown";
+  }
+
+  /* 1) View */
   function fireProView() {
     oncePerSession("ss_pro_view_sent", () => {
       pushDL("ss_pro_view", {
@@ -56,8 +71,8 @@
     });
   }
 
-  // Plan CTAs (.js-plan-select)
-  function bindPlanSelectTracking() {
+  /* 2) Plan CTA clicks (PRIMARY) */
+  function bindPlanClicks() {
     const planCtas = Array.from(document.querySelectorAll(".js-plan-select"));
     if (!planCtas.length) return;
 
@@ -69,59 +84,61 @@
           text(el).toLowerCase().replace(/\s+/g, "_") ||
           "unknown";
 
-        const valueRaw = el.getAttribute("data-value") || el.dataset?.value || "";
-        const value = toNumberOrNull(valueRaw);
+        const value = toNumberOrNull(el.getAttribute("data-value") || el.dataset?.value || "");
         const currency = el.getAttribute("data-currency") || el.dataset?.currency || "EUR";
-        const section = el.closest("section")?.getAttribute("aria-labelledby") || "unknown_section";
 
         pushDL("ss_pro_plan_click", {
           plan,
           value,
           currency,
-          section,
           cta_text: text(el) || "select_plan",
           cta_href: el.getAttribute("href") || null,
+          section: nearestSectionId(el),
           outbound: true
         });
       });
     });
   }
 
-  // Non-plan CTAs (e.g. Try free app first)
-  function bindSecondaryCtaTracking() {
-    const ctas = Array.from(document.querySelectorAll(".ss-actions a.ss-btn:not(.js-plan-select)"));
-    if (!ctas.length) return;
+  /* 3) Secondary CTAs (ghost/neutral links/buttons, not .js-plan-select) */
+  function bindSecondaryCtas() {
+    const allCtas = Array.from(document.querySelectorAll("a.ss-btn, button.ss-btn"));
+    if (!allCtas.length) return;
 
-    ctas.forEach((el) => {
+    allCtas.forEach((el) => {
+      // primary plan buttons are tracked in ss_pro_plan_click
+      if (el.classList.contains("js-plan-select")) return;
+
       el.addEventListener("click", () => {
-        const section = el.closest("section")?.getAttribute("aria-labelledby") || "unknown_section";
+        const href = el.tagName.toLowerCase() === "a" ? (el.getAttribute("href") || null) : null;
+
         pushDL("ss_pro_secondary_cta_click", {
-          cta_text: text(el),
-          cta_href: el.getAttribute("href") || null,
-          section
+          cta_text: text(el) || "secondary_cta",
+          cta_href: href,
+          section: nearestSectionId(el)
         });
       });
     });
   }
 
-  // FAQ opens
-  function bindFaqTracking() {
-    const faqDetails = Array.from(document.querySelectorAll("section[aria-labelledby='faq-title'] details"));
-    if (!faqDetails.length) return;
+  /* 4) FAQ open */
+  function bindFaqOpen() {
+    const details = Array.from(document.querySelectorAll(".ss-details"));
+    if (!details.length) return;
 
-    faqDetails.forEach((el, idx) => {
-      el.addEventListener("toggle", () => {
-        if (!el.open) return;
+    details.forEach((d) => {
+      d.addEventListener("toggle", () => {
+        if (!d.open) return; // only when opened
+        const q = text(d.querySelector("summary")) || "unknown";
         pushDL("ss_pro_faq_open", {
-          index: idx + 1,
-          question: text(el.querySelector("summary"))
+          question: q
         });
       });
     });
   }
 
-  // Optional scroll depth
-  function bindScrollDepthTracking() {
+  /* 5) Scroll depth >=75% once */
+  function bindScrollDepth() {
     let sent = false;
 
     function getScrollPercent() {
@@ -141,7 +158,8 @@
 
     function onScroll() {
       if (sent) return;
-      if (getScrollPercent() >= 75) {
+      const pct = getScrollPercent();
+      if (pct >= 75) {
         sent = true;
         pushDL("ss_pro_scroll_depth", { percent: 75 });
         window.removeEventListener("scroll", onScroll);
@@ -154,10 +172,10 @@
 
   function init() {
     fireProView();
-    bindPlanSelectTracking();
-    bindSecondaryCtaTracking();
-    bindFaqTracking();
-    bindScrollDepthTracking();
+    bindPlanClicks();
+    bindSecondaryCtas();
+    bindFaqOpen();
+    bindScrollDepth();
   }
 
   if (document.readyState === "loading") {
