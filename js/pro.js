@@ -1,5 +1,5 @@
 /* File: /js/pro.js */
-/* SafeShare Pro page controller + GTM events v2026-02-12-02
+/* SafeShare Pro page controller + GTM events v2026-02-12-03
    Events aligned to GTM triggers:
    - ss_pro_view
    - ss_pro_plan_click
@@ -53,11 +53,45 @@
     }
   }
 
-  function nearestSectionId(el) {
-    const sec = el?.closest("section[id], section[aria-labelledby]");
-    if (!sec) return "unknown";
-    if (sec.id) return sec.id;
-    return sec.getAttribute("aria-labelledby") || "unknown";
+  // Einheitliche Section-Erkennung für ALLE CTA-Events
+  function getSectionFromEl(el) {
+    const sectionEl = el?.closest?.("section[id], section[aria-labelledby], .ss-section");
+    if (!sectionEl) return "unknown";
+
+    // 1) data-section hat höchste Priorität
+    if (sectionEl.dataset?.section) {
+      return String(sectionEl.dataset.section).toLowerCase();
+    }
+
+    // 2) echte section id
+    if (sectionEl.id) {
+      return String(sectionEl.id).toLowerCase();
+    }
+
+    // 3) aria-labelledby => z.B. pricing-title -> pricing
+    const labelledBy = sectionEl.getAttribute("aria-labelledby");
+    if (labelledBy) {
+      return String(labelledBy).replace(/-title$/i, "").toLowerCase();
+    }
+
+    return "unknown";
+  }
+
+  function normalizePlanFromEl(el) {
+    const raw =
+      el?.getAttribute?.("data-plan") ||
+      el?.dataset?.plan ||
+      "";
+
+    if (!raw) return null;
+
+    const v = String(raw).toLowerCase().trim();
+
+    if (v === "pro_person" || v === "pro_personal" || v === "pro-person" || v === "personal") return "pro_person";
+    if (v === "pro_team" || v === "pro-team" || v === "team") return "pro_team";
+    if (v === "supporter") return "supporter";
+
+    return v;
   }
 
   /* 1) View */
@@ -79,8 +113,7 @@
     planCtas.forEach((el) => {
       el.addEventListener("click", () => {
         const plan =
-          el.getAttribute("data-plan") ||
-          el.dataset?.plan ||
+          normalizePlanFromEl(el) ||
           text(el).toLowerCase().replace(/\s+/g, "_") ||
           "unknown";
 
@@ -93,29 +126,31 @@
           currency,
           cta_text: text(el) || "select_plan",
           cta_href: el.getAttribute("href") || null,
-          section: nearestSectionId(el),
+          section: getSectionFromEl(el),
           outbound: true
         });
       });
     });
   }
 
-  /* 3) Secondary CTAs (ghost/neutral links/buttons, not .js-plan-select) */
+  /* 3) Secondary CTAs (alles außer .js-plan-select) */
   function bindSecondaryCtas() {
     const allCtas = Array.from(document.querySelectorAll("a.ss-btn, button.ss-btn"));
     if (!allCtas.length) return;
 
     allCtas.forEach((el) => {
-      // primary plan buttons are tracked in ss_pro_plan_click
+      // Primary plan CTAs sind bereits in bindPlanClicks
       if (el.classList.contains("js-plan-select")) return;
 
       el.addEventListener("click", () => {
         const href = el.tagName.toLowerCase() === "a" ? (el.getAttribute("href") || null) : null;
+        const plan = normalizePlanFromEl(el); // optional, falls data-plan vorhanden
 
         pushDL("ss_pro_secondary_cta_click", {
           cta_text: text(el) || "secondary_cta",
           cta_href: href,
-          section: nearestSectionId(el)
+          section: getSectionFromEl(el),
+          plan
         });
       });
     });
@@ -128,11 +163,9 @@
 
     details.forEach((d) => {
       d.addEventListener("toggle", () => {
-        if (!d.open) return; // only when opened
+        if (!d.open) return; // nur beim Öffnen
         const q = text(d.querySelector("summary")) || "unknown";
-        pushDL("ss_pro_faq_open", {
-          question: q
-        });
+        pushDL("ss_pro_faq_open", { question: q });
       });
     });
   }
