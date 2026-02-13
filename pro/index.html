@@ -60,7 +60,7 @@
       "name": "Bricht Pro das Zielverhalten von Links?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Pro ist für kontrollierte Bereinigung gebaut. Du definierst wiederholbare Keep/Drop-Logik, damit das Zielverhalten stabil bleibt."
+        "text": "Pro ist für kontrollierte Bereinigung gebaut. Du definierst wiederverwendbare Keep/Remove-Regeln, damit Zielverhalten stabil bleibt."
       }
     },
     {
@@ -73,10 +73,10 @@
     },
     {
       "@type": "Question",
-      "name": "Warum Pro statt manueller Einmal-Bereinigung?",
+      "name": "Warum Pro statt manueller Einzel-Bereinigung?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Manuelle Bereinigung ist einmalig. Pro liefert wiederverwendbare Regeln, konsistente Ergebnisse und bessere Auditierbarkeit für wiederkehrende Workflows."
+        "text": "Manuelle Bereinigung ist einmalig. Pro bietet wiederverwendbare Regeln, konsistente Ergebnisse und bessere Auditierbarkeit für wiederkehrende Workflows."
       }
     }
   ]
@@ -99,29 +99,29 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <main id="ss-content" class="ss-main">
-    <section class="ss-section" aria-labelledby="pro-title">
+    <section class="ss-section" data-section="hero" aria-labelledby="pro-title">
       <div class="ss-wrap">
         <article class="ss-card ss-hero">
           <p class="ss-kicker">SafeShare Pro</p>
           <h1 id="pro-title">Kontrolle für wiederkehrende Link-Workflows</h1>
-          <p class="ss-hero-kicker">Nicht unsichtbar. Aber klar datensparsamer beim Teilen.</p>
+          <p class="ss-hero-kicker">Nicht unsichtbar. Aber deutlich datensparsamer beim Teilen.</p>
           <p><strong>Links sollen verweisen, nicht verraten.</strong></p>
           <p class="ss-muted">
-            Definiere wiederverwendbare Regeln für wiederkehrende Link-Workflows — mit konsistenten Ergebnissen und besserer Auditierbarkeit.
+            Definiere wiederverwendbare Regeln für wiederkehrende Link-Workflows — mit konsistenten Ergebnissen und klarerer Auditierbarkeit.
           </p>
           <div class="ss-actions ss-mt-12">
-            <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/djqDz" target="_blank" rel="noopener nofollow">Pro Person</a>
-            <a class="ss-btn" href="https://payhip.com/b/oXFsk" target="_blank" rel="noopener nofollow">Pro Team</a>
-            <a class="ss-btn ss-btn--ghost" href="/app/">Kostenlose App zuerst testen</a>
+            <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/djqDz" data-plan="pro_person" target="_blank" rel="noopener nofollow">Pro Person</a>
+            <a class="ss-btn" href="https://payhip.com/b/oXFsk" data-plan="pro_team" target="_blank" rel="noopener nofollow">Pro Team</a>
+            <a class="ss-btn ss-btn--ghost" href="/app/" data-plan="free_app" rel="noopener">Erst kostenlose App testen</a>
           </div>
         </article>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="pro-truth-de">
+    <section class="ss-section" data-section="truth" aria-labelledby="pro-truth">
       <div class="ss-wrap">
         <article class="ss-card">
-          <h2 id="pro-truth-de">Klare Abgrenzung</h2>
+          <h2 id="pro-truth">Klare Abgrenzung</h2>
           <ul>
             <li><strong>Ja:</strong> Reduziert Tracking-Zusätze in geteilten Links mit wiederholbaren Regeln.</li>
             <li><strong>Nein:</strong> Kein Unsichtbarkeitsversprechen, kein Schutz vor IP-Logs, Fingerprinting oder Tracking nach Login.</li>
@@ -134,7 +134,7 @@
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="pricing-title">
+    <section class="ss-section" data-section="pricing" aria-labelledby="pricing-title">
       <div class="ss-wrap">
         <section class="ss-card ss-pricing" aria-labelledby="pricing-title">
           <h2 id="pricing-title" class="ss-h2">SafeShare Pro Preise & Vergleich</h2>
@@ -145,8 +145,8 @@
               <p class="ss-muted">Für regelmäßige Link-Hygiene mit mehr Kontrolle.</p>
               <ul class="ss-list ss-mt-12">
                 <li>Regeln pro Domain</li>
-                <li>Allowlist/Policy-Logik</li>
-                <li>Audit: Änderungen nachvollziehen</li>
+                <li>Allowlist-/Policy-Logik</li>
+                <li>Audit: nachvollziehen, was geändert wurde</li>
               </ul>
 
               <div class="ss-note ss-mt-12">
@@ -161,6 +161,7 @@
                 rel="noopener nofollow"
                 data-plan="pro_person"
                 data-value="49"
+                data-currency="EUR"
               >Pro Person wählen</a>
             </article>
 
@@ -168,8 +169,8 @@
               <h3>Pro Team</h3>
               <p class="ss-muted">Für gemeinsame Standards und wiederholbare Abläufe.</p>
               <ul class="ss-list ss-mt-12">
-                <li>Einheitliche Team-Regeln</li>
-                <li>Reproduzierbarer Workflow</li>
+                <li>Gemeinsame Team-Regeln</li>
+                <li>Reproduzierbarer operativer Workflow</li>
                 <li>Transparente Audit-Basis</li>
               </ul>
 
@@ -185,19 +186,20 @@
                 rel="noopener nofollow"
                 data-plan="pro_team"
                 data-value="249"
+                data-currency="EUR"
               >Pro Team wählen</a>
             </article>
           </div>
 
           <p class="ss-note ss-mt-12">
-            Pro ist ein Offline-Download. Starte im Paket über <code>01-START.html</code>.
+            Pro ist ein Offline-Download. Start im Paket über <code>01-START.html</code>.
             Keine Link-Uploads im App-Flow.
           </p>
         </section>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="faq-title">
+    <section class="ss-section" data-section="faq" aria-labelledby="faq-title">
       <div class="ss-wrap">
         <article class="ss-card">
           <h2 id="faq-title">Häufige Fragen zu SafeShare Pro</h2>
@@ -205,7 +207,7 @@
           <details class="ss-details ss-mt-12">
             <summary>Bricht Pro das Zielverhalten von Links?</summary>
             <p class="ss-muted">
-              Pro ist für kontrollierte Bereinigung gebaut. Du definierst wiederholbare Keep/Drop-Logik, damit das Zielverhalten stabil bleibt.
+              Pro ist für kontrollierte Bereinigung gebaut. Du definierst wiederverwendbare Keep/Remove-Regeln, damit Zielverhalten stabil bleibt.
             </p>
           </details>
 
@@ -217,23 +219,23 @@
           </details>
 
           <details class="ss-details ss-mt-12">
-            <summary>Warum Pro statt manueller Einmal-Bereinigung?</summary>
+            <summary>Warum Pro statt manueller Einzel-Bereinigung?</summary>
             <p class="ss-muted">
-              Manuelle Bereinigung ist einmalig. Pro liefert wiederverwendbare Regeln, konsistente Ergebnisse und bessere Auditierbarkeit für wiederkehrende Workflows.
+              Manuelle Bereinigung ist einmalig. Pro bietet wiederverwendbare Regeln, konsistente Ergebnisse und bessere Auditierbarkeit für wiederkehrende Workflows.
             </p>
           </details>
         </article>
       </div>
     </section>
 
-    <section class="ss-section" aria-labelledby="pro-cta-de">
+    <section class="ss-section" data-section="bottom_cta" aria-labelledby="pro-cta">
       <div class="ss-wrap">
         <article class="ss-card">
-          <h2 id="pro-cta-de">Meine Daten sind nicht kostenlos</h2>
-          <p>Wenn Daten Wert haben, ist kontrollierte Datensparsamkeit ein Standard — kein Zusatz.</p>
+          <h2 id="pro-cta">Meine Daten sind nicht kostenlos</h2>
+          <p>Wenn Daten Wert haben, ist kontrollierte Datensparsamkeit ein Standard — kein Extra.</p>
           <div class="ss-actions ss-mt-12">
-            <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/djqDz" target="_blank" rel="noopener nofollow">Pro Person starten</a>
-            <a class="ss-btn" href="https://payhip.com/b/oXFsk" target="_blank" rel="noopener nofollow">Pro Team starten</a>
+            <a class="ss-btn ss-btn--primary" href="https://payhip.com/b/djqDz" data-plan="pro_person" target="_blank" rel="noopener nofollow">Pro Person starten</a>
+            <a class="ss-btn" href="https://payhip.com/b/oXFsk" data-plan="pro_team" target="_blank" rel="noopener nofollow">Pro Team starten</a>
           </div>
         </article>
       </div>
