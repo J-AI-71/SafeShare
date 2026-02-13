@@ -1,203 +1,294 @@
-/* File: /js/pro.js */
-/* SafeShare Pro page controller + GTM events v2026-02-13-01
-   Events:
-   - ss_pro_view
-   - ss_pro_plan_click
-   - ss_pro_secondary_cta_click
-   - ss_pro_faq_open
-   - ss_pro_scroll_depth
-*/
+<!-- File: /en/pro/index.html (EN) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
 
-(() => {
-  "use strict";
+  <!-- Google Tag Manager -->
+  <script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T86R3H7T');
+  </script>
+  <!-- End Google Tag Manager -->
 
-  window.dataLayer = window.dataLayer || [];
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  function getLang() {
-    return (document.documentElement.lang || document.body?.dataset?.lang || "de").toLowerCase();
-  }
+  <title>SafeShare Pro – Rules, Allowlist, Audit</title>
+  <meta name="description" content="SafeShare Pro for precise link hygiene: domain rules/allowlist, audit view, and offline workflow without subscription." />
+  <meta name="robots" content="index,follow" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#111111" />
 
-  function getPageType() {
-    return (document.body?.dataset?.pageType || document.body?.dataset?.page || "pro").toLowerCase();
-  }
+  <link rel="canonical" href="https://safesharepro.com/en/pro/" />
+  <link rel="alternate" hreflang="de" href="https://safesharepro.com/pro/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/pro/" />
+  <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/pro/" />
 
-  function pushDL(eventName, payload = {}) {
-    window.dataLayer.push({
-      event: eventName,
-      lang: getLang(),
-      page_type: getPageType(),
-      source: "safeshare_web",
-      ...payload
-    });
-  }
+  <!-- Do-Not-Touch constants -->
+  <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
+  <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  function text(el) {
-    return (el?.textContent || "").trim();
-  }
+  <meta property="og:title" content="SafeShare Pro – Rules, Allowlist, Audit" />
+  <meta property="og:description" content="Pro for precise link hygiene: domain rules, audit, and offline workflow." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SafeShare" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://safesharepro.com/en/pro/" />
+  <meta property="og:image" content="https://safesharepro.com/assets/og/og-pro.png" />
+  <meta property="og:image:alt" content="SafeShare Pro – Rules, Allowlist, Audit" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-  function toNumberOrNull(v) {
-    if (v === null || v === undefined || v === "") return null;
-    const n = Number(String(v).replace(",", "."));
-    return Number.isFinite(n) ? n : null;
-  }
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SafeShare Pro – Rules, Allowlist, Audit" />
+  <meta name="twitter:description" content="Pro for precise link hygiene: domain rules, audit, and offline workflow." />
+  <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-pro.png" />
+  <meta name="twitter:image:alt" content="SafeShare Pro – Rules, Allowlist, Audit" />
 
-  function getSectionFromEl(el) {
-    const sectionEl = el?.closest?.("section[id], section[aria-labelledby], .ss-section");
-    if (!sectionEl) return "unknown";
-
-    if (sectionEl.dataset?.section) return String(sectionEl.dataset.section).toLowerCase();
-    if (sectionEl.id) return String(sectionEl.id).toLowerCase();
-
-    const labelledBy = sectionEl.getAttribute("aria-labelledby");
-    if (labelledBy) return labelledBy.replace(/-title$/i, "").toLowerCase();
-
-    return "unknown";
-  }
-
-  function normalizePlanFromEl(el) {
-    const raw =
-      el?.getAttribute?.("data-plan") ||
-      el?.dataset?.plan ||
-      "";
-
-    const v = String(raw).toLowerCase().trim();
-
-    if (!v) return "unknown";
-    if (v === "pro_person" || v === "pro-person" || v === "pro_personal" || v === "personal") return "pro_person";
-    if (v === "pro_team" || v === "pro-team" || v === "team") return "pro_team";
-    if (v === "supporter") return "supporter";
-    if (v === "free_app" || v === "free-app" || v === "app") return "free_app";
-    return v;
-  }
-
-  function oncePerSession(key, fn) {
-    try {
-      if (sessionStorage.getItem(key)) return false;
-      fn();
-      sessionStorage.setItem(key, "1");
-      return true;
-    } catch {
-      fn();
-      return true;
-    }
-  }
-
-  /* 1) View */
-  function fireProView() {
-    oncePerSession("ss_pro_view_sent", () => {
-      pushDL("ss_pro_view", {
-        page_title: document.title || "SafeShare Pro",
-        page_path: location.pathname || "/pro/",
-        page_location: location.href
-      });
-    });
-  }
-
-  /* 2) Plan clicks: any CTA with data-plan on pro page */
-  function bindPlanClicks() {
-    const planCtas = Array.from(document.querySelectorAll("a.ss-btn[data-plan], button.ss-btn[data-plan], .js-plan-select[data-plan]"));
-    if (!planCtas.length) return;
-
-    planCtas.forEach((el) => {
-      el.addEventListener("click", () => {
-        const plan = normalizePlanFromEl(el);
-        const value = toNumberOrNull(el.getAttribute("data-value") || el.dataset?.value || "");
-        const currency = el.getAttribute("data-currency") || el.dataset?.currency || "EUR";
-        const href = el.tagName.toLowerCase() === "a" ? (el.getAttribute("href") || null) : null;
-
-        pushDL("ss_pro_plan_click", {
-          plan,
-          value,
-          currency,
-          cta_text: text(el) || "select_plan",
-          cta_href: href,
-          section: getSectionFromEl(el),
-          outbound: !!(href && /^https?:\/\//i.test(href))
-        });
-      });
-    });
-  }
-
-  /* 3) Secondary CTA clicks: all ss-btn without data-plan */
-  function bindSecondaryCtas() {
-    const allCtas = Array.from(document.querySelectorAll("a.ss-btn, button.ss-btn"));
-    if (!allCtas.length) return;
-
-    allCtas.forEach((el) => {
-      if (el.hasAttribute("data-plan") || el.classList.contains("js-plan-select")) return;
-
-      el.addEventListener("click", () => {
-        const href = el.tagName.toLowerCase() === "a" ? (el.getAttribute("href") || null) : null;
-
-        pushDL("ss_pro_secondary_cta_click", {
-          cta_text: text(el) || "secondary_cta",
-          cta_href: href,
-          section: getSectionFromEl(el)
-        });
-      });
-    });
-  }
-
-  /* 4) FAQ open */
-  function bindFaqOpen() {
-    const details = Array.from(document.querySelectorAll(".ss-details"));
-    if (!details.length) return;
-
-    details.forEach((d) => {
-      d.addEventListener("toggle", () => {
-        if (!d.open) return;
-        const q = text(d.querySelector("summary")) || "unknown";
-        pushDL("ss_pro_faq_open", { question: q });
-      });
-    });
-  }
-
-  /* 5) Scroll depth >=75% once */
-  function bindScrollDepth() {
-    let sent = false;
-
-    function getScrollPercent() {
-      const d = document.documentElement;
-      const b = document.body;
-
-      const scrollTop = window.pageYOffset || d.scrollTop || b.scrollTop || 0;
-      const scrollHeight = Math.max(
-        b.scrollHeight, d.scrollHeight,
-        b.offsetHeight, d.offsetHeight,
-        b.clientHeight, d.clientHeight
-      );
-      const clientHeight = d.clientHeight || window.innerHeight || 0;
-      const denom = scrollHeight - clientHeight;
-
-      if (denom <= 0) return 100;
-      return Math.min(100, Math.max(0, (scrollTop / denom) * 100));
-    }
-
-    function onScroll() {
-      if (sent) return;
-      const pct = getScrollPercent();
-      if (pct >= 75) {
-        sent = true;
-        pushDL("ss_pro_scroll_depth", { percent: 75 });
-        window.removeEventListener("scroll", onScroll);
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "en",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Will Pro break destination behavior?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pro is built for controlled cleaning. You define repeatable keep/remove logic so destination behavior stays stable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Pro make me anonymous online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Pro does not make you invisible. It reduces unnecessary tracking extras in shared links."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why Pro instead of manual one-off cleaning?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Manual cleaning is one-time. Pro gives reusable rules, consistent outcomes, and clearer auditability across recurring workflows."
       }
     }
+  ]
+}
+</script>
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-  }
+  <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/fav/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
 
-  function init() {
-    fireProView();
-    bindPlanClicks();
-    bindSecondaryCtas();
-    bindFaqOpen();
-    bindScrollDepth();
-  }
+  <link rel="stylesheet" href="/css/ss-shell.css" />
+  <link rel="stylesheet" href="/css/ss-page.css" />
+</head>
+<body data-page="pro" data-lang="en">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T86R3H7T"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init, { once: true });
-  } else {
-    init();
-  }
-})();
+  <main id="ss-content" class="ss-main">
+    <section class="ss-section" data-section="hero" aria-labelledby="pro-title">
+      <div class="ss-wrap">
+        <article class="ss-card ss-hero">
+          <p class="ss-kicker">SafeShare Pro</p>
+          <h1 id="pro-title">Control for recurring link workflows</h1>
+          <p class="ss-hero-kicker">Not invisible. But clearly more data-minimal when sharing.</p>
+          <p><strong>Links should point, not expose.</strong></p>
+          <p class="ss-muted">
+            Define reusable rules for recurring link workflows — with consistent outcomes and clearer auditability.
+          </p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary"
+               href="https://payhip.com/b/djqDz"
+               data-plan="pro_person"
+               data-value="49"
+               data-currency="EUR"
+               target="_blank"
+               rel="noopener nofollow">Pro Person</a>
+
+            <a class="ss-btn"
+               href="https://payhip.com/b/oXFsk"
+               data-plan="pro_team"
+               data-value="249"
+               data-currency="EUR"
+               target="_blank"
+               rel="noopener nofollow">Pro Team</a>
+
+            <a class="ss-btn ss-btn--ghost"
+               href="/en/app/"
+               data-plan="free_app"
+               rel="noopener">Try free app first</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="ss-section" data-section="truth" aria-labelledby="pro-truth-en">
+      <div class="ss-wrap">
+        <article class="ss-card">
+          <h2 id="pro-truth-en">Clear boundaries</h2>
+          <ul>
+            <li><strong>Yes:</strong> Reduces tracking extras in shared links with repeatable rules.</li>
+            <li><strong>No:</strong> No invisibility promise, no protection against IP logs, fingerprinting, or post-login tracking.</li>
+            <li><strong>No:</strong> Not a digital ID and not a wallet.</li>
+          </ul>
+          <p class="ss-note ss-mt-12">
+            Being invisible on the web does not exist — never. Pro is a tool for controlled data reduction in link workflows.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="ss-section" data-section="pricing" aria-labelledby="pricing-title">
+      <div class="ss-wrap">
+        <section class="ss-card ss-pricing" aria-labelledby="pricing-title">
+          <h2 id="pricing-title" class="ss-h2">SafeShare Pro pricing & comparison</h2>
+
+          <div class="ss-pricingGrid ss-mt-12">
+            <article class="ss-plan ss-plan--featured" data-plan="pro_person">
+              <h3>Pro Person</h3>
+              <p class="ss-muted">For regular link hygiene with more control.</p>
+              <ul class="ss-list ss-mt-12">
+                <li>Domain-level rules</li>
+                <li>Allowlist/policy logic</li>
+                <li>Audit: track what changed</li>
+              </ul>
+
+              <div class="ss-note ss-mt-12">
+                Best for recurring solo workflows that need consistent link standards.
+              </div>
+
+              <p class="ss-price ss-mt-12">49&nbsp;€</p>
+              <a
+                class="ss-btn ss-btn--primary js-plan-select"
+                href="https://payhip.com/b/djqDz"
+                target="_blank"
+                rel="noopener nofollow"
+                data-plan="pro_person"
+                data-value="49"
+                data-currency="EUR"
+              >Choose Pro Person</a>
+            </article>
+
+            <article class="ss-plan" data-plan="pro_team">
+              <h3>Pro Team</h3>
+              <p class="ss-muted">For shared standards and repeatable workflows.</p>
+              <ul class="ss-list ss-mt-12">
+                <li>Shared team rules</li>
+                <li>Repeatable operational workflow</li>
+                <li>Transparent audit baseline</li>
+              </ul>
+
+              <div class="ss-note ss-mt-12">
+                Best for teams that need shared rules, repeatability, and audit-ready outcomes.
+              </div>
+
+              <p class="ss-price ss-mt-12">249&nbsp;€</p>
+              <a
+                class="ss-btn ss-btn--primary js-plan-select"
+                href="https://payhip.com/b/oXFsk"
+                target="_blank"
+                rel="noopener nofollow"
+                data-plan="pro_team"
+                data-value="249"
+                data-currency="EUR"
+              >Choose Pro Team</a>
+            </article>
+          </div>
+
+          <p class="ss-note ss-mt-12">
+            Pro is an offline download. Start from <code>01-START.html</code> inside the package.
+            No link uploads in the app flow.
+          </p>
+        </section>
+      </div>
+    </section>
+
+    <section class="ss-section" data-section="faq" aria-labelledby="faq-title">
+      <div class="ss-wrap">
+        <article class="ss-card">
+          <h2 id="faq-title">Frequently asked questions about SafeShare Pro</h2>
+
+          <details class="ss-details ss-mt-12">
+            <summary>Will Pro break destination behavior?</summary>
+            <p class="ss-muted">
+              Pro is built for controlled cleaning. You define repeatable keep/remove logic so destination behavior stays stable.
+            </p>
+          </details>
+
+          <details class="ss-details ss-mt-12">
+            <summary>Does Pro make me anonymous online?</summary>
+            <p class="ss-muted">
+              No. Pro does not make you invisible. It reduces unnecessary tracking extras in shared links.
+            </p>
+          </details>
+
+          <details class="ss-details ss-mt-12">
+            <summary>Why Pro instead of manual one-off cleaning?</summary>
+            <p class="ss-muted">
+              Manual cleaning is one-time. Pro gives reusable rules, consistent outcomes, and clearer auditability across recurring workflows.
+            </p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section class="ss-section" data-section="bottom_cta" aria-labelledby="pro-cta-en">
+      <div class="ss-wrap">
+        <article class="ss-card">
+          <h2 id="pro-cta-en">My data is not free</h2>
+          <p>If data has value, controlled data minimization is a baseline — not an add-on.</p>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary"
+               href="https://payhip.com/b/djqDz"
+               data-plan="pro_person"
+               data-value="49"
+               data-currency="EUR"
+               target="_blank"
+               rel="noopener nofollow">Start Pro Person</a>
+
+            <a class="ss-btn"
+               href="https://payhip.com/b/oXFsk"
+               data-plan="pro_team"
+               data-value="249"
+               data-currency="EUR"
+               target="_blank"
+               rel="noopener nofollow">Start Pro Team</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Shell Loader -->
+  <script>
+    (function () {
+      var s = document.createElement("script");
+      s.defer = true;
+      s.src = "/js/shell.js";
+      s.onerror = function () {
+        var f = document.createElement("script");
+        f.defer = true;
+        f.src = "/js/ss-shell.js";
+        document.body.appendChild(f);
+      };
+      document.body.appendChild(s);
+    })();
+  </script>
+
+  <!-- Pro tracking/controller -->
+  <script src="/js/pro.js" defer></script>
+</body>
+</html>
