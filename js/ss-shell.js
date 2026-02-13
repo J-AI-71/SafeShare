@@ -478,4 +478,10 @@
   } else {
     boot();
   }
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: "ss_shell_ready",
+  lang: (document.documentElement.lang || "de").toLowerCase(),
+  page_type: (document.body?.dataset?.page || "unknown").toLowerCase()
+});
 })();
