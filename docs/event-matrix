@@ -1,0 +1,102 @@
+# SafeShare Pro Event-Matrix (DE/EN) – 5-Punkte-Check
+
+1) Page View
+- Erwartetes Event: ss_pro_view
+- Muss 1x pro Seitenaufruf feuern (Session-dedup ok)
+- Pflicht-Parameter:
+  - lang = de | en
+  - page_type = pro
+  - page_title
+  - page_path
+  - page_location
+
+2) Primary Pricing CTA
+- Erwartetes Event: ss_pro_plan_click
+- Trigger-Elemente: nur .js-plan-select in Pricing
+- Pflicht-Parameter:
+  - plan = pro_person | pro_team
+  - value = 49 | 249
+  - currency = EUR
+  - cta_text
+  - cta_href (Payhip-URL)
+  - section = pricing-title (oder pricing, je nach Mapper)
+  - outbound = true
+
+3) Secondary CTA (Hero + Bottom + Ghost/Internal)
+- Erwartetes Event: ss_pro_secondary_cta_click
+- Trigger-Elemente: .ss-btn OHNE .js-plan-select
+- Pflicht-Parameter:
+  - cta_text
+  - cta_href
+  - section = pro-title | pro-cta | ...
+- Hinweis:
+  - Wenn Hero „Pro Person/Pro Team“ als secondary laufen soll: KEINE .js-plan-select Klasse dort.
+  - Wenn Hero als plan_click laufen soll: .js-plan-select + data-plan/data-value setzen.
+
+4) FAQ Interaction
+- Erwartetes Event: ss_pro_faq_open
+- Trigger: <details class="ss-details"> beim Öffnen
+- Pflicht-Parameter:
+  - question (summary-Text)
+- Muss pro Öffnung feuern (nicht nur einmal global)
+
+5) Scroll Depth
+- Erwartetes Event: ss_pro_scroll_depth
+- Schwelle: >= 75%
+- Pflicht-Parameter:
+  - percent = 75
+- Muss max. 1x pro Page-Load feuern
+
+
+# DE/EN Spiegel-Regeln (damit wirklich identisch messbar)
+
+A) Identische Klassennamen
+- Pricing-Buttons auf DE und EN: .js-plan-select
+- Alle anderen CTA-Buttons: .ss-btn (ohne .js-plan-select)
+
+B) Identische data-Attribute im Pricing
+- Pro Person:
+  - data-plan="pro_person"
+  - data-value="49"
+  - data-currency="EUR"
+- Pro Team:
+  - data-plan="pro_team"
+  - data-value="249"
+  - data-currency="EUR"
+
+C) Einheitliche body-Daten
+- <body data-page="pro" data-lang="de"> (DE)
+- <body data-page="pro" data-lang="en"> (EN)
+
+D) Keine Misch-Events
+- Entweder Hero-CTA als secondary tracken ODER als plan_click.
+- Nicht halb/halb ohne Absicht.
+
+E) GTM Trigger exakt auf Eventnamen
+- ss_pro_view
+- ss_pro_plan_click
+- ss_pro_secondary_cta_click
+- ss_pro_faq_open
+- ss_pro_scroll_depth
+
+
+# Schnelltest auf iPad (ohne Konsole)
+
+1. GTM Preview starten und Pro-URL öffnen (DE, dann EN).
+2. Prüfen: ss_pro_view erscheint direkt.
+3. Auf Pricing „Pro Person“ klicken:
+   - Event ss_pro_plan_click muss erscheinen.
+   - plan=pro_person, value=49 prüfen.
+4. Auf Hero-Button klicken:
+   - Event ss_pro_secondary_cta_click muss erscheinen.
+5. FAQ aufklappen + scrollen:
+   - ss_pro_faq_open und ss_pro_scroll_depth müssen erscheinen.
+
+
+# Häufigste Fehler (wenn „negativ“)
+
+- .js-plan-select fehlt auf Pricing-CTA.
+- data-value fehlt oder ist nicht numerisch.
+- Hero-CTA versehentlich ebenfalls .js-plan-select (oder umgekehrt).
+- GTM Trigger lauscht auf falschen Eventnamen (z. B. alter Name ss_pro_plan_select).
+- Veraltete JS-Datei im Cache (iPad): URL mit Versionsquery laden, z. B. /js/pro.js?v=2026-02-13-01
