@@ -118,25 +118,48 @@
     });
   }
 
-  /* 3) Secondary CTA clicks: all ss-btn without data-plan */
-  function bindSecondaryCtas() {
-    const allCtas = Array.from(document.querySelectorAll("a.ss-btn, button.ss-btn"));
-    if (!allCtas.length) return;
+  /* 3) Secondary CTAs (robust via delegated click) */
+function bindSecondaryCtas() {
+  // Dedupe: gleicher Link nicht doppelt feuern (touch+click etc.)
+  let lastKey = "";
+  let lastTs = 0;
 
-    allCtas.forEach((el) => {
-      if (el.hasAttribute("data-plan") || el.classList.contains("js-plan-select")) return;
+  document.addEventListener("click", (ev) => {
+    const el = ev.target.closest("a,button");
+    if (!el) return;
 
-      el.addEventListener("click", () => {
-        const href = el.tagName.toLowerCase() === "a" ? (el.getAttribute("href") || null) : null;
+    // primäre Plan-Buttons NICHT hier (die gehen über ss_pro_plan_click)
+    if (el.classList.contains("js-plan-select")) return;
 
-        pushDL("ss_pro_secondary_cta_click", {
-          cta_text: text(el) || "secondary_cta",
-          cta_href: href,
-          section: getSectionFromEl(el)
-        });
-      });
+    // nur explizite Secondary-CTAs tracken:
+    // a) data-cta="secondary"
+    // b) oder Fallback: .ss-btn
+    const isSecondary =
+      el.getAttribute("data-cta") === "secondary" ||
+      el.classList.contains("ss-btn");
+
+    if (!isSecondary) return;
+
+    const href = el.tagName.toLowerCase() === "a"
+      ? (el.getAttribute("href") || null)
+      : null;
+
+    const ctaText = text(el) || "secondary_cta";
+    const section = nearestSectionId(el);
+
+    const key = `${ctaText}|${href}|${section}`;
+    const now = Date.now();
+    if (key === lastKey && (now - lastTs) < 700) return; // dedupe
+    lastKey = key;
+    lastTs = now;
+
+    pushDL("ss_pro_secondary_cta_click", {
+      cta_text: ctaText,
+      cta_href: href,
+      section
     });
-  }
+  }, true); // capture=true -> stabiler vor Navigation
+}
 
   /* 4) FAQ open */
   function bindFaqOpen() {
