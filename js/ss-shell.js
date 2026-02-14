@@ -1,4 +1,4 @@
-/* File: /js/shell.js */
+/* File: /js/ss-shell.js */
 /* SafeShare Master-Flow strict – single complete file (FINAL full-nav mobile+desktop + tracking core) */
 
 (() => {
@@ -273,7 +273,7 @@
       to_slug: toSlug || ""
     });
 
-    sessionStorage.setItem("ss_scroll_top_next", "1");
+    try { sessionStorage.setItem("ss_scroll_top_next", "1"); } catch (_) {}
     goTopImmediate();
     WIN.location.href = buildPath(to, toSlug);
   }
@@ -297,8 +297,7 @@
   }
 
   function buildNavItems() {
-    const l = lang();
-    return l === "de" ? NAV_DE : NAV_EN;
+    return lang() === "de" ? NAV_DE : NAV_EN;
   }
 
   function renderHeaderAndMore() {
@@ -397,6 +396,33 @@
     slot.appendChild(footer);
   }
 
+  function renderFooterFallback() {
+    let slot = DOC.getElementById("ss-footer-slot");
+    if (!slot) {
+      slot = DOC.createElement("div");
+      slot.id = "ss-footer-slot";
+      DOC.body.appendChild(slot);
+    }
+    if (slot.querySelector(".ss-siteFooter")) return;
+
+    const year = new Date().getFullYear();
+    const en = isEN(currentPath());
+    slot.innerHTML = `
+      <footer class="ss-siteFooter" role="contentinfo">
+        <div class="ss-siteFooter__top">
+          <div class="ss-siteFooter__brand">SafeShare</div>
+          <nav class="ss-siteFooter__links" aria-label="Footer navigation">
+            <a href="${en ? "/en/" : "/"}">${en ? "Home" : "Start"}</a>
+            <a href="${en ? "/en/app/" : "/app/"}">App</a>
+            <a href="${en ? "/en/privacy/" : "/datenschutz/"}">${en ? "Privacy" : "Datenschutz"}</a>
+            <a href="${en ? "/en/imprint/" : "/impressum/"}">${en ? "Imprint" : "Impressum"}</a>
+          </nav>
+        </div>
+        <div class="ss-siteFooter__meta">© ${year} SafeShare</div>
+      </footer>
+    `;
+  }
+
   function bindEvents() {
     const moreBtn = DOC.getElementById("ssMoreBtn");
     const closeBtn = DOC.getElementById("ssCloseBtn");
@@ -413,7 +439,6 @@
         DOC.body.classList.add("ss-no-scroll");
         moreBtn.setAttribute("aria-expanded", "true");
         closeBtn.focus();
-
         WIN.ssTrack("ss_more_open", { source: "header_more_button" });
       };
 
@@ -423,7 +448,6 @@
         DOC.body.classList.remove("ss-no-scroll");
         moreBtn.setAttribute("aria-expanded", "false");
         if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
-
         WIN.ssTrack("ss_more_close", { source: "sheet_close" });
       };
 
@@ -454,14 +478,13 @@
           target_href: href
         });
 
-        // nur interne Navigationsziele markieren
         if (
           href.startsWith("/") ||
           href.startsWith("./") ||
           href.startsWith("../") ||
           href.startsWith(WIN.location.origin)
         ) {
-          sessionStorage.setItem("ss_scroll_top_next", "1");
+          try { sessionStorage.setItem("ss_scroll_top_next", "1"); } catch (_) {}
           goTopImmediate();
         }
       }, { passive: true });
@@ -473,33 +496,44 @@
       nav.scrollLeft = 0;
     };
 
-    resetNavScroll();
+    // iOS-safe double tick
+    requestAnimationFrame(() => {
+      resetNavScroll();
+      setTimeout(resetNavScroll, 60);
+    });
     WIN.addEventListener("resize", resetNavScroll, { passive: true });
   }
 
   function boot() {
-    // ruckelige Sprünge vermeiden
-    DOC.documentElement.style.scrollBehavior = "auto";
-    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    try {
+      DOC.documentElement.style.scrollBehavior = "auto";
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 
-    // nur wenn explizit markiert
-    if (sessionStorage.getItem("ss_scroll_top_next") === "1") {
-      sessionStorage.removeItem("ss_scroll_top_next");
-      goTopImmediate();
+      try {
+        if (sessionStorage.getItem("ss_scroll_top_next") === "1") {
+          sessionStorage.removeItem("ss_scroll_top_next");
+          goTopImmediate();
+        }
+      } catch (_) {}
+
+      renderHeaderAndMore();
+      renderFooter();
+      bindEvents();
+      trackShellReadyOnce();
+
+      WIN.addEventListener("load", goTopImmediate, { once: true });
+      WIN.addEventListener("pageshow", () => {
+        try {
+          if (sessionStorage.getItem("ss_scroll_top_next") === "1") {
+            sessionStorage.removeItem("ss_scroll_top_next");
+            goTopImmediate();
+          }
+        } catch (_) {}
+      });
+    } catch (err) {
+      console.error("[ss-shell] boot failed:", err);
+      renderFooterFallback();
     }
-
-    renderHeaderAndMore();
-    renderFooter();
-    bindEvents();
-    trackShellReadyOnce();
-
-    WIN.addEventListener("load", goTopImmediate, { once: true });
-    WIN.addEventListener("pageshow", () => {
-      if (sessionStorage.getItem("ss_scroll_top_next") === "1") {
-        sessionStorage.removeItem("ss_scroll_top_next");
-        goTopImmediate();
-      }
-    });
   }
 
   if (DOC.readyState === "loading") {
