@@ -20,6 +20,7 @@
   WIN.dataLayer = WIN.dataLayer || [];
 
   const BLOCKED_TRACK_KEYS = new Set(["email", "name", "full_name", "phone", "address"]);
+  let SHELL_READY_TRACKED = false;
 
   function getTrackLang() {
     return (
@@ -57,10 +58,16 @@
     });
   };
 
-  // Optional alias (falls du in alten Dateien ssTrackSafe verwendest)
+  // Optional alias (falls in alten Dateien ssTrackSafe verwendet wird)
   WIN.ssTrackSafe = WIN.ssTrackSafe || function ssTrackSafe(eventName, payload) {
     WIN.ssTrack(eventName, payload);
   };
+
+  function trackShellReadyOnce() {
+    if (SHELL_READY_TRACKED) return;
+    SHELL_READY_TRACKED = true;
+    WIN.ssTrack("ss_shell_ready", { source: "shell_boot" });
+  }
 
   // ===== Slug mapping DE <-> EN =====
   const DE_TO_EN = {
@@ -266,6 +273,7 @@
       to_slug: toSlug || ""
     });
 
+    sessionStorage.setItem("ss_scroll_top_next", "1");
     goTopImmediate();
     WIN.location.href = buildPath(to, toSlug);
   }
@@ -321,7 +329,7 @@
           </nav>
         </div>
 
-        <div class="ss-actions">
+        <div class="ss-actions ss-more">
           <button class="ss-iconBtn" id="ssMoreBtn" type="button"
             aria-haspopup="dialog" aria-controls="ssSheet" aria-expanded="false"
             aria-label="${l === "en" ? "Open menu" : "Menü öffnen"}">
@@ -445,7 +453,17 @@
           source: "shell_nav",
           target_href: href
         });
-        goTopImmediate();
+
+        // nur interne Navigationsziele markieren
+        if (
+          href.startsWith("/") ||
+          href.startsWith("./") ||
+          href.startsWith("../") ||
+          href.startsWith(WIN.location.origin)
+        ) {
+          sessionStorage.setItem("ss_scroll_top_next", "1");
+          goTopImmediate();
+        }
       }, { passive: true });
     });
 
@@ -460,17 +478,28 @@
   }
 
   function boot() {
+    // ruckelige Sprünge vermeiden
+    DOC.documentElement.style.scrollBehavior = "auto";
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-    goTopImmediate();
+
+    // nur wenn explizit markiert
+    if (sessionStorage.getItem("ss_scroll_top_next") === "1") {
+      sessionStorage.removeItem("ss_scroll_top_next");
+      goTopImmediate();
+    }
 
     renderHeaderAndMore();
     renderFooter();
     bindEvents();
-
-    WIN.ssTrack("ss_shell_ready", { source: "shell_boot" });
+    trackShellReadyOnce();
 
     WIN.addEventListener("load", goTopImmediate, { once: true });
-    WIN.addEventListener("pageshow", goTopImmediate);
+    WIN.addEventListener("pageshow", () => {
+      if (sessionStorage.getItem("ss_scroll_top_next") === "1") {
+        sessionStorage.removeItem("ss_scroll_top_next");
+        goTopImmediate();
+      }
+    });
   }
 
   if (DOC.readyState === "loading") {
@@ -478,10 +507,4 @@
   } else {
     boot();
   }
-window.dataLayer = window.dataLayer || [];
-window.dataLayer.push({
-  event: "ss_shell_ready",
-  lang: (document.documentElement.lang || "de").toLowerCase(),
-  page_type: (document.body?.dataset?.page || "unknown").toLowerCase()
-});
 })();
