@@ -1,5 +1,5 @@
 /* File: /css/ss-shell.css */
-/* SafeShare Shell – FINAL STABLE (strict) */
+/* SafeShare Shell — FINAL ONE-FILE (strict, no patch stacking) */
 
 :root{
   --ss-shell-max: 1120px;
@@ -41,6 +41,12 @@
   --ss-z-sheet: 120;
 }
 
+*,
+*::before,
+*::after{
+  box-sizing: border-box;
+}
+
 html, body{
   margin: 0;
   padding: 0;
@@ -49,43 +55,38 @@ html, body{
   color: var(--ss-text);
 }
 
-/* shell.js setzt auto, daher hier konsistent */
+/* shell.js uses manual top behavior */
 html{ scroll-behavior: auto; }
 
+/* ---------- page frame: sticky footer ---------- */
 body{
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
 
-/* Footer bleibt unten */
-main, #app, .page, .page-wrap, .ss-main, #content{
-  min-height: 0;
+main, #content, .ss-main, #app, .page, .page-wrap{
   min-width: 0;
+  min-height: 0;
   flex: 1 0 auto;
 }
 
-main, #content, .ss-main{
-  padding-bottom: max(8px, env(safe-area-inset-bottom));
+#ss-footer-slot{
+  margin-top: auto;
+  flex: 0 0 auto;
+  width: 100%;
 }
 
 .ss-main{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
   margin: var(--ss-space-4) auto var(--ss-space-6);
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
 }
 @media (max-width: 720px){
   .ss-main{ width: calc(100% - 1.25rem); }
 }
 
-/* Optional helper */
-.ss-pricingGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
-.ss-plan{border:1px solid var(--border, rgba(255,255,255,.12));border-radius:14px;padding:1rem;background:var(--card,rgba(255,255,255,.04))}
-.ss-plan--featured{outline:2px solid var(--mint,#2fe3b7)}
-.ss-price{font-size:1.5rem;font-weight:700;line-height:1.1;margin:.4rem 0 1rem}
-.ss-nudge .ss-row{display:flex;gap:.75rem;flex-wrap:wrap}
-@media (max-width:900px){.ss-pricingGrid{grid-template-columns:1fr}}
-
-/* ================= Header ================= */
+/* ---------- header ---------- */
 .ss-shell{
   position: sticky;
   top: 0;
@@ -98,24 +99,31 @@ main, #content, .ss-main{
 
 .ss-shell__inner{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
-  min-height: var(--ss-header-h);
   margin-inline: auto;
+  min-height: var(--ss-header-h);
 
   display: grid;
-  grid-template-columns: auto minmax(0,1fr) auto; /* brand | nav | more */
   align-items: center;
   gap: .5rem;
+
+  /* desktop stable center: fixed brand + fluid nav + fixed more */
+  grid-template-columns: 220px minmax(0,1fr) 48px;
+  grid-template-areas: "brand nav more";
 }
 @media (max-width: 720px){
   .ss-shell__inner{ width: calc(100% - 1rem); }
 }
 
 .ss-brand{
+  grid-area: brand;
+  width: 220px;
+  max-width: 220px;
+  min-width: 0;
+
   display: inline-flex;
   align-items: center;
   gap: .55rem;
-  min-width: 0;
-  max-width: 36vw;
+
   text-decoration: none;
   color: var(--ss-text);
   overflow: hidden;
@@ -146,38 +154,33 @@ main, #content, .ss-main{
   text-overflow: ellipsis;
 }
 
-.ss-actions{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Middle lane */
 .ss-navLane{
+  grid-area: nav;
   min-width: 0;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.ss-navLane, .ss-nav{
+  overflow: hidden;
   touch-action: pan-x;
 }
 
 .ss-nav{
   min-width: 0;
-  width: auto;
+  width: max-content;
   max-width: 100%;
+  margin-inline: auto;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: .35rem;
+
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   padding-inline: .25rem;
+  touch-action: pan-x;
 }
 .ss-nav::-webkit-scrollbar{ height: 6px; }
 .ss-nav::-webkit-scrollbar-thumb{
@@ -217,6 +220,13 @@ main, #content, .ss-main{
   box-shadow: inset 0 0 0 1px rgba(47,227,183,.15);
 }
 
+.ss-actions{
+  grid-area: more;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .ss-iconBtn{
   width: 38px;
   height: 38px;
@@ -230,7 +240,9 @@ main, #content, .ss-main{
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform var(--ss-dur-ui) var(--ss-ease), border-color var(--ss-dur-ui) var(--ss-ease);
+  transition:
+    transform var(--ss-dur-ui) var(--ss-ease),
+    border-color var(--ss-dur-ui) var(--ss-ease);
 }
 .ss-iconBtn:hover{
   transform: translateY(-1px);
@@ -247,14 +259,13 @@ main, #content, .ss-main{
   display: block;
 }
 
-/* Mobile: 2 Reihen */
+/* ---------- mobile: 2-row header ---------- */
 @media (max-width: 900px){
   .ss-shell__inner{
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr 48px;
     grid-template-areas:
       "brand more"
       "nav nav";
-    align-items: center;
     row-gap: .45rem;
     padding-top: .35rem;
     padding-bottom: .35rem;
@@ -262,27 +273,19 @@ main, #content, .ss-main{
   }
 
   .ss-brand{
-    grid-area: brand;
+    width: auto;
     max-width: min(62vw, 280px);
   }
 
-  .ss-actions,
-  .ss-more{
-    grid-area: more;
-    justify-self: end;
-  }
-
   .ss-navLane{
-    grid-area: nav;
     width: 100%;
-    min-width: 0;
     justify-content: flex-start;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: max(8px, env(safe-area-inset-left));
+    padding-right: max(8px, env(safe-area-inset-right));
   }
   .ss-navLane::-webkit-scrollbar{ display: none; }
 
@@ -290,6 +293,7 @@ main, #content, .ss-main{
     width: max-content;
     min-width: 100%;
     justify-content: flex-start;
+    margin-inline: 0;
     padding-left: .25rem;
     padding-right: .25rem;
     scroll-padding-left: .25rem;
@@ -303,11 +307,10 @@ main, #content, .ss-main{
 
 @media (max-width: 680px){
   .ss-shell__inner{ gap: .35rem; }
-  .ss-brand{ max-width: 27vw; }
   .ss-brand__txt{ font-size: .98rem; }
 }
 
-/* ================= More Sheet ================= */
+/* ---------- more sheet ---------- */
 .ss-backdrop{
   position: fixed;
   inset: 0;
@@ -316,14 +319,19 @@ main, #content, .ss-main{
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity var(--ss-dur-ui) var(--ss-ease), visibility 0s linear var(--ss-dur-ui);
+  transition:
+    opacity var(--ss-dur-ui) var(--ss-ease),
+    visibility 0s linear var(--ss-dur-ui);
 }
 .ss-backdrop.is-open{
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition: opacity var(--ss-dur-ui) var(--ss-ease), visibility 0s linear 0s;
+  transition:
+    opacity var(--ss-dur-ui) var(--ss-ease),
+    visibility 0s linear 0s;
 }
+
 .ss-sheet{
   position: fixed;
   left: 50%;
@@ -347,6 +355,7 @@ main, #content, .ss-main{
   visibility: visible;
   pointer-events: auto;
 }
+
 .ss-sheet__grip{
   width: 46px;
   height: 5px;
@@ -407,13 +416,7 @@ main, #content, .ss-main{
   white-space: nowrap;
 }
 
-/* ================= Footer ================= */
-#ss-footer-slot{
-  width: 100%;
-  display: block;
-  flex: 0 0 auto;
-}
-
+/* ---------- footer ---------- */
 .ss-siteFooter{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
   margin: var(--ss-space-5) auto var(--ss-space-4);
@@ -465,103 +468,15 @@ main, #content, .ss-main{
   font-size: var(--ss-fs-1);
 }
 
+/* sheet lock */
 .ss-no-scroll{
   overflow: hidden !important;
   touch-action: none;
 }
 
+/* motion preferences */
 @media (prefers-reduced-motion: reduce){
-  .ss-nav__link, .ss-iconBtn, .ss-backdrop, .ss-sheet{ transition: none !important; }
-}
-/* ===== MASTER OVERRIDE PATCH (place at very end) ===== */
-
-/* A) Page structure: footer stabil */
-html, body { min-height: 100%; }
-body{
-  min-height: 100dvh;
-  display: flex !important;
-  flex-direction: column !important;
-}
-main, #content, .ss-main, #app, .page, .page-wrap{
-  flex: 1 0 auto !important;
-  min-width: 0;
-}
-#ss-footer-slot{
-  margin-top: auto !important;
-  flex: 0 0 auto !important;
-}
-
-/* B) Desktop nav truly centered */
-.ss-shell__inner{
-  display: grid !important;
-  grid-template-columns: auto minmax(0,1fr) auto !important;
-  grid-template-areas: "brand nav more" !important;
-  align-items: center !important;
-}
-.ss-brand{ grid-area: brand !important; }
-.ss-navLane{
-  grid-area: nav !important;
-  min-width: 0 !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  overflow: hidden !important;
-}
-.ss-actions, .ss-more{
-  grid-area: more !important;
-  justify-self: end !important;
-}
-.ss-nav{
-  width: auto !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  justify-content: center !important;
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* C) Mobile: 2-row header, nav on row 2 (no clipping) */
-@media (max-width: 900px){
-  .ss-shell__inner{
-    grid-template-columns: 1fr auto !important;
-    grid-template-areas:
-      "brand more"
-      "nav nav" !important;
-    row-gap: .45rem !important;
-    padding-top: .35rem !important;
-    padding-bottom: .35rem !important;
-    min-height: 0 !important;
-  }
-
-  .ss-brand{
-    max-width: min(62vw, 280px) !important;
-  }
-
-  .ss-navLane{
-    width: 100% !important;
-    justify-content: flex-start !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scrollbar-width: none !important;
-    padding-left: 2px !important;
-    padding-right: 2px !important;
-    touch-action: pan-x !important;
-  }
-  .ss-navLane::-webkit-scrollbar{ display: none !important; }
-
-  .ss-nav{
-    width: max-content !important;
-    min-width: 100% !important;
-    justify-content: flex-start !important;
-    padding-left: .25rem !important;
-    padding-right: .25rem !important;
-    scroll-padding-left: .25rem !important;
-    touch-action: pan-x !important;
-  }
-
-  .ss-nav__link{
-    flex: 0 0 auto !important;
-    white-space: nowrap !important;
+  .ss-nav__link, .ss-iconBtn, .ss-backdrop, .ss-sheet{
+    transition: none !important;
   }
 }
