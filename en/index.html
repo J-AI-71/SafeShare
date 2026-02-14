@@ -5,36 +5,37 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no,date=no,address=no" />
 
-  <title>SafeShare – Remove Tracking Parameters, Share Clean Links</title>
+  <title>SafeShare – Remove tracking parameters, share clean links</title>
   <meta name="description" content="SafeShare removes tracking parameters (utm_*, fbclid, gclid …) locally in your browser. Share clean links — clear, fast, no upload." />
   <meta name="robots" content="index,follow" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#111111" />
 
   <link rel="canonical" href="https://safesharepro.com/en/" />
-  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/" />
   <link rel="alternate" hreflang="de" href="https://safesharepro.com/" />
+  <link rel="alternate" hreflang="en" href="https://safesharepro.com/en/" />
   <link rel="alternate" hreflang="x-default" href="https://safesharepro.com/en/" />
 
+  <!-- Do-Not-Touch constants -->
   <meta name="google-site-verification" content="NYTOoCOU2LnM29WvowsEd0KxsgVfIqwOB37zJXBcaJg" />
   <meta name="msvalidate.01" content="B18ACE18875F9614DAA5CF69EED40ACE" />
 
-  <meta property="og:title" content="SafeShare – Remove Tracking Parameters, Share Clean Links" />
-  <meta property="og:description" content="Remove tracking parameters locally and share clean URLs." />
+  <meta property="og:title" content="SafeShare – Remove tracking parameters, share clean links" />
+  <meta property="og:description" content="Remove tracking parameters locally and share cleaner links." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SafeShare" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://safesharepro.com/en/" />
   <meta property="og:image" content="https://safesharepro.com/assets/og/og-home-en.png" />
-  <meta property="og:image:alt" content="SafeShare — clean links without tracking noise" />
+  <meta property="og:image:alt" content="SafeShare – clean links without tracking ballast" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SafeShare – Remove Tracking Parameters, Share Clean Links" />
-  <meta name="twitter:description" content="Remove tracking parameters locally and share clean URLs." />
+  <meta name="twitter:title" content="SafeShare – Remove tracking parameters, share clean links" />
+  <meta name="twitter:description" content="Remove tracking parameters locally and share cleaner links." />
   <meta name="twitter:image" content="https://safesharepro.com/assets/og/og-home-en.png" />
-  <meta name="twitter:image:alt" content="SafeShare — clean links without tracking noise" />
+  <meta name="twitter:image:alt" content="SafeShare – clean links without tracking ballast" />
 
   <link rel="icon" type="image/svg+xml" href="/assets/fav/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/fav/favicon-32.png" />
@@ -42,79 +43,78 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
-  <link rel="stylesheet" href="/css/ss-page.css" />
+  <!-- Strict order -->
   <link rel="stylesheet" href="/css/ss-shell.css" />
+  <link rel="stylesheet" href="/css/ss-page.css" />
 </head>
-<body data-page="start" data-lang="en">
-  <div id="ss-shell" class="ss-shell">
-    <main id="ss-content" class="ss-main">
-      <section class="ss-section" aria-labelledby="home-hero-title">
-        <div class="ss-card ss-hero">
-          <h1 id="home-hero-title">Remove tracking parameters. Share clean links.</h1>
+<body data-page="home" data-lang="en">
+  <main id="content" class="ss-main">
+    <section class="ss-section" aria-labelledby="home-hero-title">
+      <div class="ss-card ss-hero">
+        <h1 id="home-hero-title">Remove tracking parameters. Share clean links.</h1>
 
-          <p class="ss-hero-kicker">
-            Links often carry extra tags like labels on a package
-            (<code>utm_*</code>, <code>fbclid</code>, <code>gclid</code> …).
-          </p>
+        <p class="ss-hero-kicker">
+          Links often carry extra labels like package stickers
+          (<code>utm_*</code>, <code>fbclid</code>, <code>gclid</code> …).
+        </p>
 
-          <p>
-            Sometimes useful for analytics, but usually noise when forwarding.
-            SafeShare removes common tracking keys <strong>locally in your browser</strong>.
-          </p>
+        <p>
+          Useful for attribution sometimes, but often unnecessary ballast when forwarding.
+          SafeShare removes common tracking keys <strong>locally in your browser</strong>.
+        </p>
 
-          <div class="ss-actions ss-mt-12">
-            <a class="ss-btn ss-btn--primary" href="/en/app/">Clean a link</a>
-            <a class="ss-btn" href="/en/help/">How it works</a>
-            <a class="ss-btn ss-btn--ghost" href="/en/pro/">View Pro</a>
+        <div class="ss-actions ss-mt-12">
+          <a class="ss-btn ss-btn--primary" href="/en/app/">Clean a link</a>
+          <a class="ss-btn" href="/en/help/">How it works</a>
+          <a class="ss-btn ss-btn--ghost" href="/en/pro/">View Pro</a>
+        </div>
+
+        <p class="ss-muted ss-mt-12">100% local-first. No account. No uploads.</p>
+
+        <div class="ss-note ss-mt-12">
+          SafeShare is <strong>local-first</strong>: cleaning happens in your browser. Links are not uploaded.
+        </div>
+
+        <div class="ss-warn ss-mt-12">
+          This is not an “invisible online” promise. It is a concrete hygiene step before sharing.
+        </div>
+
+        <div class="ss-heroMedia ss-mt-12">
+          <img
+            class="ss-media"
+            src="/assets/media/hero-before-after.png"
+            alt="Before SafeShare: link with tracking ballast. After SafeShare: clean link."
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="675"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="ss-section" aria-labelledby="how-title">
+      <div class="ss-card">
+        <h2 id="how-title">In 10 seconds</h2>
+        <ol>
+          <li>Copy link</li>
+          <li>Paste into SafeShare App</li>
+          <li>Clean → copy → share</li>
+        </ol>
+
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <div class="ss-card ss-card--inner">
+            <h3>Before</h3>
+            <p class="ss-mono">https://example.com/article?utm_source=twitter&utm_medium=social&utm_campaign=launch&fbclid=XYZ</p>
           </div>
-
-          <p class="ss-muted ss-mt-12">100% local-first. No signup. No tracking.</p>
-
-          <div class="ss-note ss-mt-12">
-            SafeShare is <strong>local-first</strong>: cleaning happens in your browser. Links are not uploaded.
-          </div>
-
-          <div class="ss-warn ss-mt-12">
-            This is not an “invisible online” promise. It is a concrete hygiene step before sharing.
-          </div>
-
-          <div class="ss-heroMedia ss-mt-12">
-            <img
-              class="ss-media"
-              src="/assets/media/hero-before-after.png"
-              alt="Before SafeShare: link with tracking noise. After SafeShare: clean link."
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="675"
-            />
+          <div class="ss-card ss-card--inner">
+            <h3>After</h3>
+            <p class="ss-mono">https://example.com/article</p>
           </div>
         </div>
-      </section>
-
-      <section class="ss-section" aria-labelledby="how-title">
-        <div class="ss-card">
-          <h2 id="how-title">In 10 seconds</h2>
-          <ol>
-            <li>Copy a link</li>
-            <li>Paste it into the SafeShare app</li>
-            <li>Clean → copy → share</li>
-          </ol>
-
-          <div class="ss-grid ss-grid--2 ss-mt-12">
-            <div class="ss-card ss-card--inner">
-              <h3>Before</h3>
-              <p class="ss-mono">https://example.com/article?utm_source=twitter&utm_medium=social&utm_campaign=launch&fbclid=XYZ</p>
-            </div>
-            <div class="ss-card ss-card--inner">
-              <h3>After</h3>
-              <p class="ss-mono">https://example.com/article</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+      </div>
+    </section>
+  </main>
 
   <script src="/js/ss-shell.js" defer></script>
 </body>
