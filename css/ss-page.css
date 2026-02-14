@@ -1,9 +1,13 @@
 /* File: /css/ss-page.css */
-/* SafeShare Page Base – keeps content clean, no shell overrides */
+/* SafeShare Page Styles – FINAL HOTFIX STABLE
+   Zweck: Kein horizontaler Overflow, saubere Cards/Media, stabile Mobile-Darstellung.
+   Zero inline erforderlich.
+*/
 
 :root{
   --max: 1120px;
   --radius: 18px;
+  --radius-sm: 14px;
   --shadow: 0 18px 45px rgba(0,0,0,.28);
   --focus: 0 0 0 3px rgba(47,227,183,.28);
 
@@ -17,17 +21,72 @@
   --accent-ink: #06271f;
 }
 
-/* layout helpers */
-.ss-stack > * + *{ margin-top: .9rem; }
+*,
+*::before,
+*::after{
+  box-sizing: border-box;
+  min-width: 0; /* verhindert flex/grid overflow */
+}
 
+html, body{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+@supports not (overflow: clip){
+  html, body{ overflow-x: hidden; }
+}
+
+body{
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Haupt-Contentbereich */
+.ss-main{
+  width: min(var(--max), calc(100% - 2rem));
+  margin-inline: auto;
+  padding: 1rem 0 1.25rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* generische Content-Container */
+.ss-wrap,
+.ss-card,
+.ss-hero,
+.ss-heroMedia,
+.ss-media,
+.ss-grid,
+.ss-row{
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Cards */
 .ss-card{
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 1rem;
+  overflow: hidden; /* wichtig gegen Bildüberstand */
 }
 
+/* Typografie */
+h1,h2,h3,h4,p,li{
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.ss-muted{ color: var(--muted2); }
+
+/* Stack helper */
+.ss-stack > * + *{ margin-top: .9rem; }
+
+/* Hinweise */
 .ss-note,
 .ss-warn{
   border: 1px solid var(--border);
@@ -37,8 +96,7 @@
 .ss-note{ background: rgba(47,227,183,.10); }
 .ss-warn{ background: rgba(255,184,0,.12); }
 
-.ss-muted{ color: var(--muted2); }
-
+/* Buttons */
 .ss-btn{
   appearance: none;
   border: 1px solid var(--border);
@@ -63,10 +121,88 @@
   font-weight: 700;
 }
 
-/* spacing utilities */
+/* GRID/ROW */
+.ss-grid{
+  display: grid;
+  gap: 1rem;
+}
+.ss-row{
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.ss-grid > *,
+.ss-row > *{
+  min-width: 0;
+}
+
+/* MEDIA HOTFIX – zentral gegen seitlichen Ausbruch */
+.ss-heroMedia,
+.ss-media{
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.ss-heroMedia picture,
+.ss-media picture{
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.ss-heroMedia img,
+.ss-media img,
+.ss-card img,
+.ss-hero img{
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* falls iframe/video genutzt wird */
+.ss-media iframe,
+.ss-media video{
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border: 0;
+}
+
+/* Tabellen robust */
+table{
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+}
+
+/* Spacing Utilities */
+.ss-mt-4{ margin-top: .25rem; }
 .ss-mt-6{ margin-top: .5rem; }
 .ss-mt-8{ margin-top: .75rem; }
 .ss-mt-10{ margin-top: .9rem; }
 .ss-mt-12{ margin-top: 1rem; }
 .ss-mt-16{ margin-top: 1.25rem; }
 .ss-mt-20{ margin-top: 1.5rem; }
+.ss-mt-24{ margin-top: 2rem; }
+
+/* Mobile */
+@media (max-width: 760px){
+  .ss-main{
+    width: calc(100% - 1rem);
+    padding-top: .85rem;
+  }
+
+  .ss-card{
+    border-radius: 16px;
+    padding: .9rem;
+  }
+
+  .ss-btn{
+    min-height: 38px;
+    padding: .5rem .85rem;
+  }
+}
