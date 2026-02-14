@@ -487,3 +487,29 @@ main, #content, #ss-content, .ss-main{
 @media (prefers-reduced-motion: reduce){
   .ss-nav__link, .ss-iconBtn, .ss-backdrop, .ss-sheet{ transition: none !important; }
 }
+/* ===== Nav balance lock (desktop) ===== */
+@media (min-width: 901px){
+  .ss-shell__inner{
+    grid-template-columns: 220px 1fr 220px !important; /* links/rechts symmetrisch */
+    grid-template-areas: "brand nav more" !important;
+  }
+
+  .ss-brand{
+    width: 220px !important;
+    max-width: 220px !important;
+  }
+
+  .ss-actions.ss-more{
+    width: 220px !important;
+    justify-content: flex-end !important;
+  }
+
+  .ss-navLane{
+    justify-content: center !important;
+  }
+
+  .ss-nav{
+    margin-inline: auto !important;
+    justify-content: center !important;
+  }
+}
