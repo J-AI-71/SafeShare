@@ -1,10 +1,5 @@
 /* File: /css/ss-shell.css */
-/* SafeShare Shell – FINAL STABLE (patched to match final /js/shell.js)
-   - Desktop: nav centered
-   - Mobile: nav starts left (no clipping of first item)
-   - Footer persistent
-   - Smooth page switch jitter reduced
-*/
+/* SafeShare Shell – FINAL STABLE (strict) */
 
 :root{
   --ss-shell-max: 1120px;
@@ -54,23 +49,24 @@ html, body{
   color: var(--ss-text);
 }
 
-/* IMPORTANT:
-   shell.js forces scrollBehavior=auto to avoid jitter between pages.
-   Keep CSS aligned with that behavior. */
+/* shell.js setzt auto, daher hier konsistent */
 html{ scroll-behavior: auto; }
 
-/* Shell layout */
 body{
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
 
-/* Prevent content containers from breaking footer flow */
+/* Footer bleibt unten */
 main, #app, .page, .page-wrap, .ss-main, #content{
   min-height: 0;
   min-width: 0;
   flex: 1 0 auto;
+}
+
+main, #content, .ss-main{
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
 }
 
 .ss-main{
@@ -81,12 +77,12 @@ main, #app, .page, .page-wrap, .ss-main, #content{
   .ss-main{ width: calc(100% - 1.25rem); }
 }
 
-/* Optional helpers from your previous setup (kept) */
+/* Optional helper */
 .ss-pricingGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
 .ss-plan{border:1px solid var(--border, rgba(255,255,255,.12));border-radius:14px;padding:1rem;background:var(--card,rgba(255,255,255,.04))}
 .ss-plan--featured{outline:2px solid var(--mint,#2fe3b7)}
 .ss-price{font-size:1.5rem;font-weight:700;line-height:1.1;margin:.4rem 0 1rem}
-.ss-nudge .ss-row { display:flex; gap:.75rem; flex-wrap:wrap; }
+.ss-nudge .ss-row{display:flex;gap:.75rem;flex-wrap:wrap}
 @media (max-width:900px){.ss-pricingGrid{grid-template-columns:1fr}}
 
 /* ================= Header ================= */
@@ -119,7 +115,7 @@ main, #app, .page, .page-wrap, .ss-main, #content{
   align-items: center;
   gap: .55rem;
   min-width: 0;
-  max-width: 36vw; /* keep room for nav */
+  max-width: 36vw;
   text-decoration: none;
   color: var(--ss-text);
   overflow: hidden;
@@ -162,15 +158,20 @@ main, #app, .page, .page-wrap, .ss-main, #content{
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;  /* desktop centered */
+  justify-content: center;
+}
+
+.ss-navLane, .ss-nav{
+  touch-action: pan-x;
 }
 
 .ss-nav{
   min-width: 0;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center; /* desktop center */
+  justify-content: center;
   gap: .35rem;
   overflow-x: auto;
   overflow-y: hidden;
@@ -185,7 +186,7 @@ main, #app, .page, .page-wrap, .ss-main, #content{
 }
 
 .ss-nav__link{
-  flex: 0 0 auto; /* do not shrink */
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -246,25 +247,49 @@ main, #app, .page, .page-wrap, .ss-main, #content{
   display: block;
 }
 
-/* Mobile behavior:
-   nav starts at left so first item (Start/Home) is never hidden behind brand */
+/* Mobile: 2 Reihen */
 @media (max-width: 900px){
-  .ss-brand{ max-width: 30vw; }
+  .ss-shell__inner{
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "brand more"
+      "nav nav";
+    align-items: center;
+    row-gap: .45rem;
+    padding-top: .35rem;
+    padding-bottom: .35rem;
+    min-height: 0;
+  }
+
+  .ss-brand{
+    grid-area: brand;
+    max-width: min(62vw, 280px);
+  }
+
+  .ss-actions,
+  .ss-more{
+    grid-area: more;
+    justify-self: end;
+  }
 
   .ss-navLane{
+    grid-area: nav;
+    width: 100%;
+    min-width: 0;
     justify-content: flex-start;
     overflow-x: auto;
     overflow-y: hidden;
-    padding-left: 2px;   /* anti-clipping for first item */
-    padding-right: 2px;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    padding-left: 2px;
+    padding-right: 2px;
   }
   .ss-navLane::-webkit-scrollbar{ display: none; }
 
   .ss-nav{
-    justify-content: flex-start;
     width: max-content;
     min-width: 100%;
+    justify-content: flex-start;
     padding-left: .25rem;
     padding-right: .25rem;
     scroll-padding-left: .25rem;
@@ -275,6 +300,7 @@ main, #app, .page, .page-wrap, .ss-main, #content{
     font-size: .96rem;
   }
 }
+
 @media (max-width: 680px){
   .ss-shell__inner{ gap: .35rem; }
   .ss-brand{ max-width: 27vw; }
@@ -439,13 +465,11 @@ main, #app, .page, .page-wrap, .ss-main, #content{
   font-size: var(--ss-fs-1);
 }
 
-/* Sheet open lock */
 .ss-no-scroll{
   overflow: hidden !important;
   touch-action: none;
 }
 
-/* Reduce motion */
 @media (prefers-reduced-motion: reduce){
   .ss-nav__link, .ss-iconBtn, .ss-backdrop, .ss-sheet{ transition: none !important; }
 }
