@@ -300,4 +300,14 @@ body{
     padding: .32rem .62rem;
     font-size: .86rem;
   }
+  html, body{
+  max-width: 100%;
+  overflow-x: clip;
+}
+@supports not (overflow: clip){
+  html, body{ overflow-x: hidden; }
+}
+
+.ss-main{ min-width: 0; max-width: 100%; }
+.ss-header, .ss-nav, .ss-nav__list, .ss-footer{ max-width: 100%; }
 }
