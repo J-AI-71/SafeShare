@@ -1,8 +1,9 @@
-/* /css/ss-shell.css */
-/* SafeShare Shell – FINAL STABLE
+/* File: /css/ss-shell.css */
+/* SafeShare Shell – FINAL STABLE (patched to match final /js/shell.js)
    - Desktop: nav centered
    - Mobile: nav starts left (no clipping of first item)
    - Footer persistent
+   - Smooth page switch jitter reduced
 */
 
 :root{
@@ -52,19 +53,26 @@ html, body{
   background: var(--ss-bg);
   color: var(--ss-text);
 }
-html{ scroll-behavior: smooth; }
+
+/* IMPORTANT:
+   shell.js forces scrollBehavior=auto to avoid jitter between pages.
+   Keep CSS aligned with that behavior. */
+html{ scroll-behavior: auto; }
 
 /* Shell layout */
 body{
   min-height: 100dvh;
-  display: grid;
-  grid-template-rows: auto 1fr auto; /* header / content / footer */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Prevent content containers from breaking footer flow */
-main, #app, .page, .page-wrap, .ss-main{
+main, #app, .page, .page-wrap, .ss-main, #content{
   min-height: 0;
+  min-width: 0;
+  flex: 1 0 auto;
 }
+
 .ss-main{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
   margin: var(--ss-space-4) auto var(--ss-space-6);
@@ -72,12 +80,13 @@ main, #app, .page, .page-wrap, .ss-main{
 @media (max-width: 720px){
   .ss-main{ width: calc(100% - 1.25rem); }
 }
-/* Ergänzung für /css/ss-page.css (nur falls Klassen noch fehlen) */
+
+/* Optional helpers from your previous setup (kept) */
 .ss-pricingGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
-.ss-plan{border:1px solid var(--border);border-radius:14px;padding:1rem;background:var(--card,rgba(255,255,255,.04))}
+.ss-plan{border:1px solid var(--border, rgba(255,255,255,.12));border-radius:14px;padding:1rem;background:var(--card,rgba(255,255,255,.04))}
 .ss-plan--featured{outline:2px solid var(--mint,#2fe3b7)}
 .ss-price{font-size:1.5rem;font-weight:700;line-height:1.1;margin:.4rem 0 1rem}
-.ss-list{margin:0;padding-left:1.1rem}
+.ss-nudge .ss-row { display:flex; gap:.75rem; flex-wrap:wrap; }
 @media (max-width:900px){.ss-pricingGrid{grid-template-columns:1fr}}
 
 /* ================= Header ================= */
@@ -93,7 +102,7 @@ main, #app, .page, .page-wrap, .ss-main{
 
 .ss-shell__inner{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
-  height: var(--ss-header-h);
+  min-height: var(--ss-header-h);
   margin-inline: auto;
 
   display: grid;
@@ -137,8 +146,8 @@ main, #app, .page, .page-wrap, .ss-main{
   line-height: 1;
   font-weight: 800;
   white-space: nowrap;
-  overflow: hidden;         /* IMPORTANT */
-  text-overflow: ellipsis;  /* IMPORTANT */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ss-actions{
@@ -164,6 +173,7 @@ main, #app, .page, .page-wrap, .ss-main{
   justify-content: center; /* desktop center */
   gap: .35rem;
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   padding-inline: .25rem;
@@ -235,21 +245,26 @@ main, #app, .page, .page-wrap, .ss-main{
   fill: currentColor;
   display: block;
 }
-.ss-nudge .ss-row { display:flex; gap:.75rem; flex-wrap:wrap; }
-.ss-list { margin:0; padding-left:1.1rem; 
-}
 
 /* Mobile behavior:
-   nav starts at left so first item (Start) is never hidden behind brand */
+   nav starts at left so first item (Start/Home) is never hidden behind brand */
 @media (max-width: 900px){
   .ss-brand{ max-width: 30vw; }
 
   .ss-navLane{
-    justify-content: flex-start; /* IMPORTANT on mobile */
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-left: 2px;   /* anti-clipping for first item */
+    padding-right: 2px;
+    scrollbar-width: none;
   }
+  .ss-navLane::-webkit-scrollbar{ display: none; }
 
   .ss-nav{
     justify-content: flex-start;
+    width: max-content;
+    min-width: 100%;
     padding-left: .25rem;
     padding-right: .25rem;
     scroll-padding-left: .25rem;
@@ -338,6 +353,7 @@ main, #app, .page, .page-wrap, .ss-main{
   text-transform: uppercase;
   letter-spacing: .2px;
 }
+
 .ss-list{
   list-style: none;
   margin: 0;
@@ -349,6 +365,7 @@ main, #app, .page, .page-wrap, .ss-main{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: .75rem;
   text-decoration: none;
   color: var(--ss-text);
   background: rgba(255,255,255,.028);
@@ -361,13 +378,16 @@ main, #app, .page, .page-wrap, .ss-main{
   color: var(--ss-muted-2);
   font-size: var(--ss-fs-1);
   font-weight: 600;
+  white-space: nowrap;
 }
 
 /* ================= Footer ================= */
 #ss-footer-slot{
   width: 100%;
   display: block;
+  flex: 0 0 auto;
 }
+
 .ss-siteFooter{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
   margin: var(--ss-space-5) auto var(--ss-space-4);
@@ -419,11 +439,13 @@ main, #app, .page, .page-wrap, .ss-main{
   font-size: var(--ss-fs-1);
 }
 
+/* Sheet open lock */
 .ss-no-scroll{
   overflow: hidden !important;
   touch-action: none;
 }
 
+/* Reduce motion */
 @media (prefers-reduced-motion: reduce){
   .ss-nav__link, .ss-iconBtn, .ss-backdrop, .ss-sheet{ transition: none !important; }
 }
