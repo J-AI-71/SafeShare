@@ -1,6 +1,10 @@
 /* File: /css/ss-page.css */
-/* SafeShare Page Styles — Master-Flow strict, Zero inline */
-/* Version: v2026-02-05-14 */
+/* SafeShare Page Styles – MASTER FINAL v2026-02-14-01
+   Scope: Content only (cards, typography, app UI)
+   IMPORTANT:
+   - Load AFTER /css/ss-shell.css
+   - No shell/nav/footer rules here
+*/
 
 :root{
   --bg-0:#050914;
@@ -22,36 +26,20 @@
   --maxw:1100px;
 }
 
-@media (prefers-color-scheme: light){
-  :root{
-    --bg-0:#f4f8ff;
-    --bg-1:#eef4ff;
-    --card:rgba(255,255,255,.82);
-    --card-strong:rgba(255,255,255,.92);
-    --text:#0f172a;
-    --muted:#334155;
-    --muted2:#475569;
-    --border:rgba(15,23,42,.14);
-    --ok-bg:rgba(15,118,110,.10);
-    --warn-bg:rgba(161,98,7,.11);
-    --shadow:0 10px 24px rgba(2,6,23,.10);
-  }
-}
-
 *,
 *::before,
 *::after{ box-sizing:border-box; }
 
-html,body{ margin:0; padding:0; }
+html, body{ margin:0; padding:0; }
 
 body{
-  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
-  color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  color: var(--text);
   background:
     radial-gradient(1200px 700px at 18% -10%, rgba(47,227,183,.10), transparent 60%),
     radial-gradient(900px 560px at 100% 0%, rgba(56,189,248,.10), transparent 55%),
     linear-gradient(180deg,var(--bg-0),var(--bg-1));
-  line-height:1.45;
+  line-height: 1.45;
 }
 
 /* Layout */
@@ -60,6 +48,7 @@ body{
   margin:18px auto 56px;
 }
 
+.ss-wrap{ min-width: 0; }
 .ss-section{ margin:0 0 16px; }
 
 .ss-card{
@@ -91,14 +80,39 @@ h1{ font-size:clamp(30px,4.8vw,62px); }
 h2{ font-size:clamp(24px,3.2vw,40px); }
 h3{ font-size:clamp(20px,2.2vw,28px); }
 
-p,li{ color:var(--text); font-size:clamp(16px,1.5vw,23px); margin:0 0 10px; }
+p,li{
+  color:var(--text);
+  font-size:clamp(16px,1.5vw,23px);
+  margin:0 0 10px;
+}
 ul,ol{ margin:0; padding-left:20px; }
 li{ margin-bottom:6px; }
+
+.ss-kicker{
+  color:var(--muted);
+  font-size:clamp(14px,1.4vw,18px);
+  font-weight:700;
+  margin-bottom:8px;
+}
 
 .ss-hero-kicker{
   color:var(--muted);
   font-size:clamp(18px,1.9vw,28px);
   font-weight:700;
+}
+
+.ss-h3{
+  margin:0 0 8px;
+  font-size: clamp(20px,2.2vw,28px);
+  line-height:1.2;
+}
+
+.ss-label{
+  display:block;
+  margin:0 0 8px;
+  font-size:.96rem;
+  font-weight:700;
+  color:var(--text);
 }
 
 .ss-muted{ color:var(--muted2); }
@@ -119,6 +133,13 @@ li{ margin-bottom:6px; }
   display:grid;
   gap:12px;
   min-width:0;
+}
+
+.ss-row{
+  display:flex;
+  gap:.75rem;
+  flex-wrap:wrap;
+  align-items:center;
 }
 
 /* Buttons / actions */
@@ -143,21 +164,65 @@ li{ margin-bottom:6px; }
   text-decoration:none;
   font-weight:700;
   letter-spacing:.01em;
+  cursor:pointer;
 }
-
 .ss-btn:hover{ background:rgba(255,255,255,.08); }
 
 .ss-btn--primary{
   border-color:rgba(47,227,183,.5);
   background:rgba(47,227,183,.16);
 }
-
 .ss-btn--primary:hover{
   background:rgba(47,227,183,.24);
 }
+.ss-btn--ghost{ background:transparent; }
 
-.ss-btn--ghost{
-  background:transparent;
+/* Form fields */
+.ss-w-full{ width:100%; }
+
+.ss-input{
+  width:100%;
+  max-width:100%;
+  box-sizing:border-box;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+  padding:14px;
+  outline:none;
+}
+.ss-input:focus-visible{
+  box-shadow:0 0 0 3px rgba(47,227,183,.24);
+  border-color:rgba(47,227,183,.45);
+}
+.ss-input--lg{ min-height:220px; }
+.ss-input--md{ min-height:170px; }
+
+.ss-appField{
+  display:block;
+  width:100%;
+}
+.ss-appField > textarea{
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+  float:none !important;
+  clear:both !important;
+  position:static !important;
+  min-width:0 !important;
+  margin:0 !important;
+  line-height:1.45;
+  font-size:16px; /* iOS zoom prevention */
+  padding:14px;
+  border-radius:12px;
+  resize:vertical;
+}
+#urlInput{ min-height:220px !important; }
+#urlOutput{ min-height:170px !important; }
+#urlInput, #urlOutput{
+  grid-column:1 / -1 !important;
+  flex:0 0 100% !important;
 }
 
 /* Notes */
@@ -167,7 +232,6 @@ li{ margin-bottom:6px; }
   border-radius:16px;
   padding:12px 14px;
 }
-
 .ss-warn{
   border:1px solid rgba(244,196,107,.45);
   background:var(--warn-bg);
@@ -175,7 +239,19 @@ li{ margin-bottom:6px; }
   padding:12px 14px;
 }
 
-/* Code / chips / mono */
+/* Details */
+.ss-details{
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:rgba(255,255,255,.03);
+  padding:12px 14px;
+}
+.ss-details > summary{
+  cursor:pointer;
+  font-weight:700;
+}
+
+/* Code / mono */
 code{
   display:inline-block;
   padding:.12em .45em;
@@ -184,8 +260,6 @@ code{
   background:rgba(255,255,255,.04);
   font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
   font-size:.92em;
-
-  /* long-token safety */
   white-space:normal;
   overflow-wrap:anywhere;
   word-break:break-word;
@@ -224,38 +298,119 @@ pre{
   max-width:100%;
 }
 
-/* ---------- Hero media (final) ---------- */
+/* Hero media */
 .ss-heroMedia{
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--border, rgba(255,255,255,.16));
-  background: rgba(0,0,0,.12);
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.12);
 }
-
 .ss-heroMedia img{
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 520px;      /* desktop/tablet */
-  object-fit: cover;
-  object-position: center;
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:520px;
+  object-fit:cover;
+  object-position:center;
+}
+@media (max-width:980px){
+  .ss-heroMedia img{ max-height:420px; }
+}
+@media (max-width:760px){
+  .ss-heroMedia img{ max-height:320px; }
 }
 
-@media (max-width: 980px){
-  .ss-heroMedia img{
-    max-height: 420px;
-  }
+/* Pricing / nudge helper */
+.ss-pricingGrid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1rem;
+}
+.ss-plan{
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1rem;
+  background:var(--card);
+}
+.ss-plan--featured{ outline:2px solid var(--accent); }
+.ss-price{
+  font-size:1.5rem;
+  font-weight:700;
+  line-height:1.1;
+  margin:.4rem 0 1rem;
+}
+@media (max-width:900px){
+  .ss-pricingGrid{ grid-template-columns:1fr; }
+}
+.ss-plan .ss-note{ line-height:1.45; }
+.ss-plan .ss-note strong{ font-weight:700; }
+
+/* Mode switch */
+.ss-mode{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--card);
+}
+.ss-mode > .ss-label,
+.ss-mode > legend{
+  display:block;
+  margin:0 0 10px 0;
+  padding:0;
+  font-size:.95rem;
+  font-weight:700;
+  color:var(--text);
 }
 
-@media (max-width: 760px){
-  .ss-heroMedia img{
-    max-height: 320px;    /* mobile */
-  }
+.ss-radio{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px;
+  margin:0;
+  border-radius:10px;
+  line-height:1.35;
+  color:var(--text);
+  cursor:pointer;
+  user-select:none;
+}
+.ss-radio + .ss-radio{ margin-top:6px; }
+
+.ss-radio:hover{ background:rgba(255,255,255,.05); }
+.ss-radio:focus-within{
+  outline:2px solid rgba(47,227,183,.45);
+  outline-offset:2px;
 }
 
-@media (prefers-color-scheme: light){
-  .ss-heroMedia{
-    background: rgba(17,24,39,.03);
+.ss-radio input[type="radio"]{
+  -webkit-appearance:radio !important;
+  appearance:radio !important;
+  width:16px;
+  height:16px;
+  min-width:16px;
+  margin:0;
+  position:static !important;
+  opacity:1 !important;
+  clip:auto !important;
+  pointer-events:auto;
+  accent-color:var(--accent);
+}
+
+.ss-radio > span{
+  display:inline-block;
+  font-size:.95rem;
+  color:var(--text);
+}
+
+.ss-radio:has(input[type="radio"]:checked){
+  background:rgba(47,227,183,.10);
+  border:1px solid rgba(47,227,183,.28);
+}
+
+@supports not selector(:has(*)){
+  .ss-radio input[type="radio"]:checked + span{
+    font-weight:700;
   }
 }
 
@@ -280,163 +435,11 @@ pre{
   .ss-btn{ width:100%; }
   .ss-actions{ align-items:stretch; }
 }
-.ss-grid > *{ min-width:0; }
-
-.ss-mono,
-.ss-monoBlock,
-.ss-mono code,
-.ss-monoBlock code,
-code,
-pre{
-  min-width:0;
-  overflow-wrap:anywhere;
-  word-break:break-word;
-}
-
-.ss-mono,
-.ss-monoBlock,
-pre{
-  white-space:pre-wrap;
-}
-/* ===== SafeShare App field layout fix ===== */
-.ss-appField{
-  display: block;
-  width: 100%;
-}
-
-.ss-appField > textarea{
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-
-  float: none !important;
-  clear: both !important;
-  position: static !important;
-
-  min-width: 0 !important;
-  margin: 0 !important;
-
-  line-height: 1.45;
-  font-size: 16px; /* iOS zoom prevention */
-  padding: 14px;
-  border-radius: 12px;
-  resize: vertical;
-}
-
-.ss-plan .ss-note{
-  line-height: 1.45;
-}
-.ss-plan .ss-note strong{
-  font-weight: 700;
-}
-
-#urlInput{ min-height: 220px !important; }
-#urlOutput{ min-height: 170px !important; }
-
-#urlInput,
-#urlOutput{
-  grid-column: 1 / -1 !important;
-  flex: 0 0 100% !important;
-}
-/* =========================================================
-   SafeShare App – Mode Switch (standard/strict)
-   Drop-in block for /css/ss-page.css
-   ========================================================= */
-
-/* Container */
-.ss-mode{
-  margin-top: 12px;
-  padding: 12px;
-  border: 1px solid var(--border, rgba(255,255,255,.14));
-  border-radius: 14px;
-  background: var(--card, rgba(255,255,255,.04));
-}
-
-/* Legend / label */
-.ss-mode > .ss-label,
-.ss-mode > legend{
-  display: block;
-  margin: 0 0 10px 0;
-  padding: 0;
-  font-size: .95rem;
-  font-weight: 700;
-  color: var(--text, rgba(255,255,255,.92));
-}
-
-/* Row/option */
-.ss-radio{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  margin: 0;
-  border-radius: 10px;
-  line-height: 1.35;
-  color: var(--text, rgba(255,255,255,.92));
-  cursor: pointer;
-  user-select: none;
-}
-
-/* spacing between options */
-.ss-radio + .ss-radio{
-  margin-top: 6px;
-}
-
-/* hover/focus surface */
-.ss-radio:hover{
-  background: rgba(255,255,255,.05);
-}
-.ss-radio:focus-within{
-  outline: 2px solid rgba(47,227,183,.45);
-  outline-offset: 2px;
-}
-
-/* Force native radio visible (protect against global resets) */
-.ss-radio input[type="radio"]{
-  -webkit-appearance: radio !important;
-  appearance: radio !important;
-  width: 16px;
-  height: 16px;
-  min-width: 16px;
-  margin: 0;
-  position: static !important;
-  opacity: 1 !important;
-  clip: auto !important;
-  pointer-events: auto;
-  accent-color: var(--mint, #2fe3b7);
-}
-
-/* text */
-.ss-radio > span{
-  display: inline-block;
-  font-size: .95rem;
-  color: var(--text, rgba(255,255,255,.92));
-}
-
-/* selected option subtle highlight */
-.ss-radio:has(input[type="radio"]:checked){
-  background: rgba(47,227,183,.10);
-  border: 1px solid rgba(47,227,183,.28);
-}
-
-/* fallback if :has is unsupported */
-@supports not selector(:has(*)){
-  .ss-radio input[type="radio"]:checked + span{
-    font-weight: 700;
-  }
-}
-
-/* Mobile tuning */
-@media (max-width: 640px){
+@media (max-width:640px){
   .ss-mode{
-    padding: 10px;
-    border-radius: 12px;
+    padding:10px;
+    border-radius:12px;
   }
-  .ss-radio{
-    padding: 9px 10px;
-  }
-  .ss-radio > span{
-    font-size: .93rem;
-  }
+  .ss-radio{ padding:9px 10px; }
+  .ss-radio > span{ font-size:.93rem; }
 }
