@@ -473,3 +473,95 @@ main, #content, .ss-main{
 @media (prefers-reduced-motion: reduce){
   .ss-nav__link, .ss-iconBtn, .ss-backdrop, .ss-sheet{ transition: none !important; }
 }
+/* ===== MASTER OVERRIDE PATCH (place at very end) ===== */
+
+/* A) Page structure: footer stabil */
+html, body { min-height: 100%; }
+body{
+  min-height: 100dvh;
+  display: flex !important;
+  flex-direction: column !important;
+}
+main, #content, .ss-main, #app, .page, .page-wrap{
+  flex: 1 0 auto !important;
+  min-width: 0;
+}
+#ss-footer-slot{
+  margin-top: auto !important;
+  flex: 0 0 auto !important;
+}
+
+/* B) Desktop nav truly centered */
+.ss-shell__inner{
+  display: grid !important;
+  grid-template-columns: auto minmax(0,1fr) auto !important;
+  grid-template-areas: "brand nav more" !important;
+  align-items: center !important;
+}
+.ss-brand{ grid-area: brand !important; }
+.ss-navLane{
+  grid-area: nav !important;
+  min-width: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  overflow: hidden !important;
+}
+.ss-actions, .ss-more{
+  grid-area: more !important;
+  justify-self: end !important;
+}
+.ss-nav{
+  width: auto !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  justify-content: center !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* C) Mobile: 2-row header, nav on row 2 (no clipping) */
+@media (max-width: 900px){
+  .ss-shell__inner{
+    grid-template-columns: 1fr auto !important;
+    grid-template-areas:
+      "brand more"
+      "nav nav" !important;
+    row-gap: .45rem !important;
+    padding-top: .35rem !important;
+    padding-bottom: .35rem !important;
+    min-height: 0 !important;
+  }
+
+  .ss-brand{
+    max-width: min(62vw, 280px) !important;
+  }
+
+  .ss-navLane{
+    width: 100% !important;
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+    touch-action: pan-x !important;
+  }
+  .ss-navLane::-webkit-scrollbar{ display: none !important; }
+
+  .ss-nav{
+    width: max-content !important;
+    min-width: 100% !important;
+    justify-content: flex-start !important;
+    padding-left: .25rem !important;
+    padding-right: .25rem !important;
+    scroll-padding-left: .25rem !important;
+    touch-action: pan-x !important;
+  }
+
+  .ss-nav__link{
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+}
