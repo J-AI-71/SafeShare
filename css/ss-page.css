@@ -443,3 +443,99 @@ pre{
   .ss-radio{ padding:9px 10px; }
   .ss-radio > span{ font-size:.93rem; }
 }
+/* ===== SafeShare visual lift patch (v1) ===== */
+
+/* 1) Mehr Tiefe im Seitenhintergrund */
+body{
+  background:
+    radial-gradient(1000px 520px at 14% -12%, rgba(47,227,183,.14), transparent 58%),
+    radial-gradient(900px 520px at 92% -8%, rgba(56,189,248,.12), transparent 56%),
+    linear-gradient(180deg, #060b18 0%, #081227 54%, #09142a 100%);
+}
+
+/* 2) Sections klarer trennen */
+.ss-section{
+  margin: 0 0 20px;
+}
+
+/* 3) Hauptkarten lebendiger (mehr Layer, sauberer Rand) */
+.ss-card{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.060), rgba(255,255,255,.020)),
+    linear-gradient(140deg, rgba(47,227,183,.045), rgba(56,189,248,.035) 42%, rgba(255,255,255,0) 70%);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.30),
+    inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+/* 4) Innere Karten etwas heller und differenzierter */
+.ss-card--inner{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.022));
+  border-color: rgba(255,255,255,.16);
+}
+
+/* 5) Typo-Hierarchie schärfen */
+h1{ letter-spacing:-.018em; }
+h2{ letter-spacing:-.014em; }
+p, li{ color: #d8e2f3; }
+.ss-muted{ color: #aebdd5; }
+.ss-hero-kicker{ color:#c7d5ea; }
+
+/* 6) Buttons leichter, moderner */
+.ss-btn{
+  background: rgba(255,255,255,.035);
+  border-color: rgba(255,255,255,.18);
+  transition: transform .14s ease, background .14s ease, border-color .14s ease, box-shadow .14s ease;
+}
+.ss-btn:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.09);
+  border-color: rgba(255,255,255,.24);
+  box-shadow: 0 8px 18px rgba(0,0,0,.20);
+}
+.ss-btn--primary{
+  background: rgba(47,227,183,.22);
+  border-color: rgba(47,227,183,.58);
+}
+.ss-btn--primary:hover{
+  background: rgba(47,227,183,.30);
+  border-color: rgba(47,227,183,.70);
+}
+
+/* 7) Hero-CTA-Reihe auf Desktop mittig (optional, wirkt "lebendiger") */
+.ss-hero .ss-actions{
+  justify-content: flex-start;
+}
+@media (min-width: 980px){
+  .ss-hero .ss-actions{
+    justify-content: center;
+  }
+}
+
+/* 8) Praxiswege: 2 Spalten + letzte Karte über beide Spalten = kein "Loch" */
+#paths-title + .ss-grid.ss-grid--3{
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+#paths-title + .ss-grid.ss-grid--3 > :nth-child(3){
+  grid-column: 1 / -1;
+}
+@media (max-width: 760px){
+  #paths-title + .ss-grid.ss-grid--3{
+    grid-template-columns: 1fr;
+  }
+  #paths-title + .ss-grid.ss-grid--3 > :nth-child(3){
+    grid-column: auto;
+  }
+}
+
+/* 9) Hinweise optisch freundlicher */
+.ss-note{
+  border-color: rgba(47,227,183,.52);
+  background: rgba(47,227,183,.13);
+}
+.ss-warn{
+  border-color: rgba(244,196,107,.50);
+  background: rgba(244,196,107,.13);
+}
