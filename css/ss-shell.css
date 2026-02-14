@@ -1,5 +1,10 @@
 /* File: /css/ss-shell.css */
-/* SafeShare Shell — FINAL ONE-FILE (strict, no patch stacking) */
+/* SafeShare Shell – MASTER FINAL v2026-02-14-01
+   Scope: Header / Nav / More Sheet / Footer / page-frame
+   IMPORTANT:
+   - Load BEFORE /css/ss-page.css
+   - No duplicate override blocks
+*/
 
 :root{
   --ss-shell-max: 1120px;
@@ -22,12 +27,13 @@
   --ss-fs-2: 1rem;
   --ss-fs-3: 1.06rem;
 
-  --ss-bg: var(--bg, #0c1116);
-  --ss-surface: var(--card, rgba(255,255,255,.055));
-  --ss-surface-2: var(--card2, rgba(255,255,255,.035));
-  --ss-text: var(--text, #eaf2ff);
-  --ss-muted: var(--muted, rgba(234,242,255,.78));
-  --ss-muted-2: var(--muted2, rgba(234,242,255,.62));
+  /* Shell color tokens only (separate from page tokens) */
+  --ss-bg: #0c1116;
+  --ss-surface: rgba(255,255,255,.055);
+  --ss-surface-2: rgba(255,255,255,.035);
+  --ss-text: #eaf2ff;
+  --ss-muted: rgba(234,242,255,.78);
+  --ss-muted-2: rgba(234,242,255,.62);
 
   --ss-focus: 0 0 0 3px rgba(47,227,183,.30);
   --ss-shadow-1: 0 18px 42px rgba(0,0,0,.30);
@@ -41,12 +47,7 @@
   --ss-z-sheet: 120;
 }
 
-*,
-*::before,
-*::after{
-  box-sizing: border-box;
-}
-
+/* ========== Base frame ========== */
 html, body{
   margin: 0;
   padding: 0;
@@ -55,38 +56,27 @@ html, body{
   color: var(--ss-text);
 }
 
-/* shell.js uses manual top behavior */
 html{ scroll-behavior: auto; }
 
-/* ---------- page frame: sticky footer ---------- */
 body{
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
 
-main, #content, .ss-main, #app, .page, .page-wrap{
+/* main content grows, footer pushed down */
+main, #content, #ss-content, .ss-main, #app, .page, .page-wrap{
+  flex: 1 0 auto;
   min-width: 0;
   min-height: 0;
-  flex: 1 0 auto;
 }
 
-#ss-footer-slot{
-  margin-top: auto;
-  flex: 0 0 auto;
-  width: 100%;
-}
-
-.ss-main{
-  width: min(var(--ss-shell-max), calc(100% - 2rem));
-  margin: var(--ss-space-4) auto var(--ss-space-6);
+/* safe area bottom so content not clipped */
+main, #content, #ss-content, .ss-main{
   padding-bottom: max(8px, env(safe-area-inset-bottom));
 }
-@media (max-width: 720px){
-  .ss-main{ width: calc(100% - 1.25rem); }
-}
 
-/* ---------- header ---------- */
+/* ========== Header ========== */
 .ss-shell{
   position: sticky;
   top: 0;
@@ -99,35 +89,33 @@ main, #content, .ss-main, #app, .page, .page-wrap{
 
 .ss-shell__inner{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
-  margin-inline: auto;
   min-height: var(--ss-header-h);
+  margin-inline: auto;
 
   display: grid;
+  grid-template-columns: 220px minmax(0,1fr) 48px; /* brand | nav | more */
+  grid-template-areas: "brand nav more";
   align-items: center;
   gap: .5rem;
-
-  /* desktop stable center: fixed brand + fluid nav + fixed more */
-  grid-template-columns: 220px minmax(0,1fr) 48px;
-  grid-template-areas: "brand nav more";
 }
+
 @media (max-width: 720px){
   .ss-shell__inner{ width: calc(100% - 1rem); }
 }
 
 .ss-brand{
   grid-area: brand;
-  width: 220px;
-  max-width: 220px;
-  min-width: 0;
-
   display: inline-flex;
   align-items: center;
   gap: .55rem;
-
+  width: 220px;
+  max-width: 220px;
+  min-width: 0;
   text-decoration: none;
   color: var(--ss-text);
   overflow: hidden;
 }
+
 .ss-brand__mark{
   width: 30px;
   height: 30px;
@@ -145,6 +133,7 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   object-fit: cover;
   display: block;
 }
+
 .ss-brand__txt{
   font-size: var(--ss-fs-3);
   line-height: 1;
@@ -154,6 +143,7 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   text-overflow: ellipsis;
 }
 
+/* middle lane */
 .ss-navLane{
   grid-area: nav;
   min-width: 0;
@@ -179,9 +169,11 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
+
   padding-inline: .25rem;
   touch-action: pan-x;
 }
+
 .ss-nav::-webkit-scrollbar{ height: 6px; }
 .ss-nav::-webkit-scrollbar-thumb{
   background: rgba(255,255,255,.18);
@@ -208,11 +200,13 @@ main, #content, .ss-main, #app, .page, .page-wrap{
     background var(--ss-dur-ui) var(--ss-ease),
     border-color var(--ss-dur-ui) var(--ss-ease);
 }
+
 .ss-nav__link:hover{
   color: var(--ss-text);
   background: var(--ss-surface-2);
   border-color: rgba(255,255,255,.12);
 }
+
 .ss-nav__link.is-active{
   color: var(--ss-text);
   background: linear-gradient(180deg, rgba(47,227,183,.20), rgba(47,227,183,.12));
@@ -220,11 +214,12 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   box-shadow: inset 0 0 0 1px rgba(47,227,183,.15);
 }
 
-.ss-actions{
+.ss-actions,
+.ss-more{
   grid-area: more;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-self: end;
 }
 
 .ss-iconBtn{
@@ -240,10 +235,9 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition:
-    transform var(--ss-dur-ui) var(--ss-ease),
-    border-color var(--ss-dur-ui) var(--ss-ease);
+  transition: transform var(--ss-dur-ui) var(--ss-ease), border-color var(--ss-dur-ui) var(--ss-ease);
 }
+
 .ss-iconBtn:hover{
   transform: translateY(-1px);
   border-color: rgba(47,227,183,.45);
@@ -252,6 +246,7 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   outline: none;
   box-shadow: var(--ss-focus);
 }
+
 .ss-icon{
   width: 18px;
   height: 18px;
@@ -259,10 +254,10 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   display: block;
 }
 
-/* ---------- mobile: 2-row header ---------- */
+/* ========== Mobile header (2 rows) ========== */
 @media (max-width: 900px){
   .ss-shell__inner{
-    grid-template-columns: 1fr 48px;
+    grid-template-columns: 1fr auto;
     grid-template-areas:
       "brand more"
       "nav nav";
@@ -282,7 +277,6 @@ main, #content, .ss-main, #app, .page, .page-wrap{
     justify-content: flex-start;
     overflow-x: auto;
     overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     padding-left: max(8px, env(safe-area-inset-left));
     padding-right: max(8px, env(safe-area-inset-right));
@@ -293,7 +287,7 @@ main, #content, .ss-main, #app, .page, .page-wrap{
     width: max-content;
     min-width: 100%;
     justify-content: flex-start;
-    margin-inline: 0;
+    margin-left: 0;
     padding-left: .25rem;
     padding-right: .25rem;
     scroll-padding-left: .25rem;
@@ -310,7 +304,7 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   .ss-brand__txt{ font-size: .98rem; }
 }
 
-/* ---------- more sheet ---------- */
+/* ========== More Sheet ========== */
 .ss-backdrop{
   position: fixed;
   inset: 0;
@@ -319,17 +313,13 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition:
-    opacity var(--ss-dur-ui) var(--ss-ease),
-    visibility 0s linear var(--ss-dur-ui);
+  transition: opacity var(--ss-dur-ui) var(--ss-ease), visibility 0s linear var(--ss-dur-ui);
 }
 .ss-backdrop.is-open{
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition:
-    opacity var(--ss-dur-ui) var(--ss-ease),
-    visibility 0s linear 0s;
+  transition: opacity var(--ss-dur-ui) var(--ss-ease), visibility 0s linear 0s;
 }
 
 .ss-sheet{
@@ -416,7 +406,15 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   white-space: nowrap;
 }
 
-/* ---------- footer ---------- */
+/* ========== Footer ========== */
+#ss-footer-slot{
+  width: 100%;
+  display: block;
+  flex: 0 0 auto;
+  margin-top: auto;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 .ss-siteFooter{
   width: min(var(--ss-shell-max), calc(100% - 2rem));
   margin: var(--ss-space-5) auto var(--ss-space-4);
@@ -427,9 +425,11 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   color: var(--ss-muted);
   clear: both;
 }
+
 @media (max-width: 720px){
   .ss-siteFooter{ width: calc(100% - 1.25rem); }
 }
+
 .ss-siteFooter__top{
   display: flex;
   flex-wrap: wrap;
@@ -437,6 +437,7 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   justify-content: space-between;
   gap: .55rem .9rem;
 }
+
 .ss-siteFooter__brand{
   display: inline-flex;
   align-items: center;
@@ -449,6 +450,7 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   border-radius: 4px;
   margin-right: 6px;
 }
+
 .ss-siteFooter__links{
   display: flex;
   flex-wrap: wrap;
@@ -468,15 +470,20 @@ main, #content, .ss-main, #app, .page, .page-wrap{
   font-size: var(--ss-fs-1);
 }
 
-/* sheet lock */
+/* ========== Utilities ========== */
 .ss-no-scroll{
   overflow: hidden !important;
   touch-action: none;
 }
 
-/* motion preferences */
+/* defensive reset for broken page wrappers */
+.page, .page-wrap, .ss-main{
+  position: static;
+  overflow: visible;
+  height: auto;
+  max-height: none;
+}
+
 @media (prefers-reduced-motion: reduce){
-  .ss-nav__link, .ss-iconBtn, .ss-backdrop, .ss-sheet{
-    transition: none !important;
-  }
+  .ss-nav__link, .ss-iconBtn, .ss-backdrop, .ss-sheet{ transition: none !important; }
 }
