@@ -1,39 +1,13 @@
 /* File: /js/app.js */
-/* SafeShare App controller + GTM events v2026-02-12-01
-   - DE/EN Meta-Texte lokalisiert
-   - Standard/Strict Re-Clean ohne Neu-Eingabe
-   - Copy/Share/Reset als getrennte Eventnamen
-   - Copy/Share Buttons robust enabled/disabled
-   - Deterministic Nudge + "already clean" handling
-*/
+/* SafeShare App controller – i18n text matrix (DE/EN), Master-Flow strict */
 
 (() => {
   "use strict";
 
-  /* =========================
-     GTM / dataLayer helper
-     ========================= */
-  window.dataLayer = window.dataLayer || [];
+  const DOC = document;
+  const WIN = window;
 
-  /**
-   * Push event to GTM dataLayer
-   * @param {string} eventName
-   * @param {Record<string, any>} payload
-   */
-  function pushDL(eventName, payload = {}) {
-    window.dataLayer.push({
-      event: eventName,
-      lang: (document.documentElement.lang || document.body?.dataset?.lang || "de").toLowerCase(),
-      page_type: document.body?.dataset?.pageType || document.body?.dataset?.page || "app",
-      source: "safeshare_web",
-      ...payload
-    });
-  }
-
-  /* =========================
-     DOM helpers
-     ========================= */
-  const $ = (id) => document.getElementById(id);
+  const $ = (id) => DOC.getElementById(id);
 
   const elInput = $("urlInput");
   const elOutput = $("urlOutput");
@@ -44,443 +18,418 @@
   const btnShare = $("shareBtn");
   const btnReset = $("resetBtn");
 
-  // Existing nudge block
-  const nudge = $("postCleanNudge");
+  const nudgeWrap = $("postCleanNudge");
   const nudgeCloseBtn = $("nudgeCloseBtn");
   const nudgeCompareBtn = $("nudgeCompareBtn");
+  const proNudgeInline = $("postCleanProNudge");
 
-  // New deterministic text nudge (DE+EN pages)
-  const postCleanProNudge = $("postCleanProNudge");
-
-  // Optional mode controls
-  const modeInputs = Array.from(document.querySelectorAll('input[name="cleanMode"]'));
-  const modeSelect = $("cleanMode");
-  const btnModeStandard = $("modeStandardBtn");
-  const btnModeStrict = $("modeStrictBtn");
-
-  if (!elInput || !elOutput || !btnClean || !btnCopy || !btnShare || !btnReset) {
-    console.warn("[SafeShare] Required DOM elements missing.");
+  if (!elInput || !elOutput || !elMeta || !btnClean || !btnCopy || !btnShare || !btnReset) {
+    console.error("[app] Missing required DOM nodes.");
     return;
   }
 
   /* =========================
-     i18n
+     1) Language + Text matrix
      ========================= */
-  const isEN = String(document.documentElement.lang || document.body?.dataset?.lang || "de")
-    .toLowerCase()
-    .startsWith("en");
+  const LANG = ((DOC.documentElement.lang || DOC.body?.dataset?.lang || "de").toLowerCase().startsWith("en"))
+    ? "en"
+    : "de";
 
-  const T = isEN
-    ? {
-        pasteFirst: "Please paste a link first.",
-        invalidUrl: "Invalid URL. Please check it.",
-        noOutput: "No cleaned link yet.",
-        copied: "Cleaned link copied.",
-        copyFailed: "Copy failed.",
-        shareNotSupported: "Sharing is not supported on this device.",
-        modeStandard: "standard",
-        modeStrict: "strict",
-        removedPrefix: "Removed",
-        // deterministic "already clean"
-        noTracking: "No common tracking parameters found. The link is already clean or only contains functional parameters."
+  const I18N = {
+    de: {
+      buttons: {
+        clean: "Bereinigen",
+        copy: "Kopieren",
+        copied: "Kopiert",
+        share: "Teilen",
+        reset: "Zurücksetzen"
+      },
+      mode: {
+        standard: "Standard-Modus aktiv (trackingarm, zielstabil).",
+        strict: "Strikt-Modus aktiv (kann Zielverhalten ändern)."
+      },
+      meta: {
+        removed: "Entfernt",
+        kept: "Behalten",
+        none: "–"
+      },
+      status: {
+        emptyInput: "Bitte zuerst eine URL eingeben.",
+        invalidUrl: "Ungültige URL. Bitte vollständige URL eingeben (inkl. http/https).",
+        noChanges: "Keine typischen Tracking-Parameter gefunden.",
+        cleanedOk: "Link bereinigt.",
+        copiedOk: "Bereinigte URL kopiert.",
+        copiedFail: "Kopieren nicht möglich. Bitte manuell kopieren.",
+        shareNoData: "Nichts zum Teilen vorhanden.",
+        shareFail: "Teilen nicht verfügbar. Bitte kopieren und manuell teilen.",
+        resetDone: "Zurückgesetzt."
+      },
+      labels: {
+        nudgeCompare: "Pro vergleichen",
+        nudgeLater: "Später"
       }
-    : {
-        pasteFirst: "Bitte zuerst einen Link einfügen.",
-        invalidUrl: "Ungültige URL. Bitte prüfen.",
-        noOutput: "Noch kein bereinigter Link vorhanden.",
-        copied: "Bereinigter Link kopiert.",
-        copyFailed: "Kopieren fehlgeschlagen.",
-        shareNotSupported: "Teilen wird auf diesem Gerät nicht unterstützt.",
-        modeStandard: "standard",
-        modeStrict: "strict",
-        removedPrefix: "Entfernt",
-        // deterministic "already clean"
-        noTracking: "Keine typischen Tracking-Parameter gefunden. Link ist bereits sauber oder enthält nur funktionale Parameter."
-      };
+    },
+    en: {
+      buttons: {
+        clean: "Clean",
+        copy: "Copy",
+        copied: "Copied",
+        share: "Share",
+        reset: "Reset"
+      },
+      mode: {
+        standard: "Standard mode active (tracking-reduced, destination-stable).",
+        strict: "Strict mode active (can change destination behavior)."
+      },
+      meta: {
+        removed: "Removed",
+        kept: "Kept",
+        none: "–"
+      },
+      status: {
+        emptyInput: "Please enter a URL first.",
+        invalidUrl: "Invalid URL. Please enter a full URL (including http/https).",
+        noChanges: "No common tracking parameters found.",
+        cleanedOk: "Link cleaned.",
+        copiedOk: "Cleaned URL copied.",
+        copiedFail: "Copy not available. Please copy manually.",
+        shareNoData: "Nothing to share yet.",
+        shareFail: "Share not available. Please copy and share manually.",
+        resetDone: "Reset complete."
+      },
+      labels: {
+        nudgeCompare: "Compare Pro",
+        nudgeLater: "Later"
+      }
+    }
+  };
 
-  /* =========================
-     URL cleaning logic
-     ========================= */
+  const T = I18N[LANG];
 
-  // Standard: klare Tracker
-  const DROP_KEYS_EXACT_STANDARD = new Set([
-    "fbclid",
-    "gclid",
-    "dclid",
-    "gbraid",
-    "wbraid",
-    "mc_cid",
-    "mc_eid",
-    "igshid",
-    "mkt_tok",
-    "vero_id",
-    "oly_anon_id",
-    "oly_enc_id",
-    "_hsenc",
-    "_hsmi",
-    "si",
-    "spm",
-    "yclid",
-    "rb_clickid",
-    "s_cid"
+  // Apply button labels once (safe even if already translated in HTML)
+  btnClean.textContent = T.buttons.clean;
+  btnCopy.textContent = T.buttons.copy;
+  btnShare.textContent = T.buttons.share;
+  btnReset.textContent = T.buttons.reset;
+  if (nudgeCloseBtn) nudgeCloseBtn.textContent = T.labels.nudgeLater;
+  if (nudgeCompareBtn) nudgeCompareBtn.textContent = T.labels.nudgeCompare;
+
+  /* ==================================
+     2) URL cleaning logic (standard/strict)
+     ================================== */
+
+  // If ss-rules.js exposes lists, use them; fallback otherwise
+  const DEFAULT_DROP_EXACT = new Set([
+    "fbclid", "gclid", "dclid", "msclkid", "ttclid", "li_fat_id", "mc_cid", "mc_eid",
+    "igshid", "yclid", "gbraid", "wbraid", "_hsenc", "_hsmi", "mkt_tok"
   ]);
 
-  // Strict: Standard + weitere Marketing-/Ref-Parameter
-  const DROP_KEYS_EXACT_STRICT_EXTRA = new Set([
-    "ref",
-    "ref_src",
-    "ref_url",
-    "src",
-    "source",
-    "campaign",
-    "campaign_id",
-    "cmpid",
-    "cmp",
-    "cid",
-    "trk",
-    "tracking_id",
-    "pk_campaign",
-    "pk_kwd",
-    "mtm_campaign",
-    "mtm_source",
-    "mtm_medium",
-    "mtm_content",
-    "mtm_keyword",
-    "ga_source",
-    "ga_medium",
-    "ga_term",
-    "ga_content",
-    "ga_campaign"
+  const DEFAULT_DROP_PREFIX = [
+    "utm_",
+    "vero_",
+    "oly_",
+    "wickedid",
+    "hsa_"
+  ];
+
+  const DEFAULT_KEEP_EXACT = new Set([
+    "q", "query", "search", "s", "p", "id", "article", "story", "v", "t", "lang", "locale", "ref"
   ]);
 
-  const DROP_PREFIXES_STANDARD = ["utm_"];
-  const DROP_PREFIXES_STRICT_EXTRA = ["mtm_", "pk_"];
+  function getRules() {
+    const ext = WIN.SS_RULES || {};
+    const dropExact = new Set(
+      Array.isArray(ext.dropExact) ? ext.dropExact.map(x => String(x).toLowerCase()) : [...DEFAULT_DROP_EXACT]
+    );
+    const dropPrefix = Array.isArray(ext.dropPrefix)
+      ? ext.dropPrefix.map(x => String(x).toLowerCase())
+      : [...DEFAULT_DROP_PREFIX];
 
-  function getCurrentMode() {
-    // 1) Radios
-    if (modeInputs.length) {
-      const checked = modeInputs.find((el) => el.checked);
-      if (checked?.value) return checked.value === "strict" ? "strict" : "standard";
-    }
-    // 2) Select
-    if (modeSelect?.value) {
-      return modeSelect.value === "strict" ? "strict" : "standard";
-    }
-    // 3) data-attribute fallback
-    const dsMode = document.body?.dataset?.cleanMode;
-    if (dsMode) return dsMode === "strict" ? "strict" : "standard";
+    const keepExact = new Set(
+      Array.isArray(ext.keepExact) ? ext.keepExact.map(x => String(x).toLowerCase()) : [...DEFAULT_KEEP_EXACT]
+    );
 
-    return "standard";
+    return { dropExact, dropPrefix, keepExact };
   }
 
-  function shouldDropParam(key, mode = "standard") {
-    const k = String(key || "").toLowerCase();
+  function currentMode() {
+    const checked = DOC.querySelector('input[name="cleanMode"]:checked');
+    return checked ? checked.value : "standard";
+  }
 
-    if (DROP_KEYS_EXACT_STANDARD.has(k)) return true;
-    if (DROP_PREFIXES_STANDARD.some((p) => k.startsWith(p))) return true;
+  function shouldDropParam(paramName, mode, rules) {
+    const key = String(paramName || "").toLowerCase();
 
+    // strict: drop any tracking-like key + rule matches
     if (mode === "strict") {
-      if (DROP_KEYS_EXACT_STRICT_EXTRA.has(k)) return true;
-      if (DROP_PREFIXES_STRICT_EXTRA.some((p) => k.startsWith(p))) return true;
+      if (rules.dropExact.has(key)) return true;
+      if (rules.dropPrefix.some(pref => key.startsWith(pref))) return true;
+
+      // broad strict heuristics
+      if (
+        key.includes("utm") ||
+        key.includes("clid") ||
+        key.includes("fb_") ||
+        key.includes("ga_") ||
+        key.includes("gbraid") ||
+        key.includes("wbraid")
+      ) return true;
+
+      return false;
     }
 
+    // standard: keep destination-relevant keys if known, drop known tracking
+    if (rules.keepExact.has(key)) return false;
+    if (rules.dropExact.has(key)) return true;
+    if (rules.dropPrefix.some(pref => key.startsWith(pref))) return true;
     return false;
   }
 
-  /**
-   * Safely parse URL. Adds https:// fallback for bare domains.
-   * @param {string} raw
-   * @returns {URL|null}
-   */
-  function parseUrl(raw) {
-    if (!raw) return null;
-    const input = raw.trim();
-
+  function normalizeUrl(raw) {
+    const text = String(raw || "").trim();
+    if (!text) return null;
     try {
-      return new URL(input);
+      return new URL(text);
     } catch {
+      // try add https for user convenience
       try {
-        return new URL(`https://${input}`);
+        return new URL(`https://${text}`);
       } catch {
         return null;
       }
     }
   }
 
-  /**
-   * Clean URL
-   * @param {string} rawUrl
-   * @param {{mode?: "standard"|"strict"}} options
-   */
-  function cleanUrl(rawUrl, options = {}) {
-    const mode = options.mode === "strict" ? "strict" : "standard";
-    const u = parseUrl(rawUrl);
-
-    if (!u) {
-      return {
-        ok: false,
-        cleanedUrl: "",
-        removedCount: 0,
-        removedKeys: [],
-        mode,
-        error: "invalid_url"
-      };
+  function cleanUrl(raw, mode) {
+    const url = normalizeUrl(raw);
+    if (!url) {
+      return { ok: false, reason: "invalid", output: "", removed: [], kept: [] };
     }
 
-    const removedKeys = [];
-    const keys = [...u.searchParams.keys()];
+    const rules = getRules();
+    const params = new URLSearchParams(url.search);
+    if (!params.toString()) {
+      return { ok: true, output: url.toString(), removed: [], kept: [], unchanged: true };
+    }
 
-    for (const key of keys) {
-      if (shouldDropParam(key, mode)) {
-        removedKeys.push(key);
-        u.searchParams.delete(key);
+    const removed = [];
+    const kept = [];
+
+    // iterate copy to avoid mutation side effects
+    const entries = [...params.entries()];
+    const next = new URLSearchParams();
+
+    for (const [k, v] of entries) {
+      if (shouldDropParam(k, mode, rules)) {
+        removed.push(k);
+      } else {
+        kept.push(k);
+        next.append(k, v);
       }
     }
 
+    url.search = next.toString();
+
     return {
       ok: true,
-      cleanedUrl: u.toString(),
-      removedCount: removedKeys.length,
-      removedKeys,
-      mode
+      output: url.toString(),
+      removed,
+      kept,
+      unchanged: removed.length === 0
     };
   }
 
   /* =========================
-     Nudge tracking helpers
+     3) UI helpers
      ========================= */
-  function trackNudgeViewOnce() {
-    const key = "ss_nudge_view_sent_compare_pro";
-    if (sessionStorage.getItem(key)) return;
 
-    pushDL("ss_nudge_view", {
-      nudge_id: "compare_pro",
-      placement: "post_clean"
-    });
-
-    sessionStorage.setItem(key, "1");
+  function uniq(arr) {
+    return [...new Set(arr)];
   }
 
-  // Existing card nudge
-  function showCardNudgeIfAvailable() {
-    if (!nudge) return;
-    nudge.hidden = false;
-    trackNudgeViewOnce();
+  function renderMeta(removed, kept, mode) {
+    const r = uniq(removed);
+    const k = uniq(kept);
+
+    const removedTxt = r.length ? r.join(", ") : T.meta.none;
+    const keptTxt = k.length ? k.join(", ") : T.meta.none;
+    const modeTxt = mode === "strict" ? T.mode.strict : T.mode.standard;
+
+    elMeta.textContent = `${T.meta.removed}: ${removedTxt} • ${T.meta.kept}: ${keptTxt} • ${modeTxt}`;
   }
 
-  function hideCardNudgeIfAvailable() {
-    if (!nudge) return;
-    nudge.hidden = true;
+  function setStatus(text) {
+    // keeps one consistent feedback channel
+    elMeta.dataset.status = text;
   }
 
-  // New text nudge (deterministic)
-  function showTextNudgeIfAvailable() {
-    if (!postCleanProNudge) return;
-    postCleanProNudge.hidden = false;
-    trackNudgeViewOnce();
+  function showProNudge(show) {
+    if (proNudgeInline) proNudgeInline.hidden = !show;
+    if (nudgeWrap) nudgeWrap.hidden = !show;
   }
 
-  function hideTextNudgeIfAvailable() {
-    if (!postCleanProNudge) return;
-    postCleanProNudge.hidden = true;
-  }
-
-  function showPostCleanNudges() {
-    showCardNudgeIfAvailable();
-    showTextNudgeIfAvailable();
-  }
-
-  function hidePostCleanNudges() {
-    hideCardNudgeIfAvailable();
-    hideTextNudgeIfAvailable();
+  function track(eventName, payload = {}) {
+    if (typeof WIN.ssTrack === "function") {
+      WIN.ssTrack(eventName, payload);
+    }
   }
 
   /* =========================
-     UI state
+     4) Actions
      ========================= */
-  function setMeta(text) {
-    if (elMeta) elMeta.textContent = text || "";
-  }
 
-  function setOutputState(hasOutput) {
-    // Buttons immer sichtbar, aber nur aktiv wenn Output da
-    btnCopy.disabled = !hasOutput;
-    btnShare.disabled = !hasOutput;
+  function onClean() {
+    const raw = elInput.value.trim();
+    const mode = currentMode();
 
-    // aria für bessere Zugänglichkeit
-    btnCopy.setAttribute("aria-disabled", String(!hasOutput));
-    btnShare.setAttribute("aria-disabled", String(!hasOutput));
-  }
+    if (!raw) {
+      setStatus(T.status.emptyInput);
+      renderMeta([], [], mode);
+      elOutput.value = "";
+      showProNudge(false);
+      track("ss_clean_attempt", { result: "empty_input", mode });
+      return;
+    }
 
-  function initialState() {
-    setOutputState(false);
-    hidePostCleanNudges();
-  }
-
-  function renderCleanResult(res, original) {
+    const res = cleanUrl(raw, mode);
     if (!res.ok) {
-      setMeta(T.invalidUrl);
-      setOutputState(false);
-      hidePostCleanNudges();
-      return false;
+      setStatus(T.status.invalidUrl);
+      renderMeta([], [], mode);
+      elOutput.value = "";
+      showProNudge(false);
+      track("ss_clean_attempt", { result: "invalid_url", mode });
+      return;
     }
 
-    elOutput.value = res.cleanedUrl;
+    elOutput.value = res.output;
+    renderMeta(res.removed, res.kept, mode);
 
-    const modeLabel = res.mode === "strict" ? T.modeStrict : T.modeStandard;
-    if (res.removedCount > 0) {
-      setMeta(`[${modeLabel}] ${T.removedPrefix}: ${res.removedCount} (${res.removedKeys.join(", ")})`);
-      showPostCleanNudges(); // deterministic: only after real value
+    if (res.unchanged) {
+      setStatus(T.status.noChanges);
+      showProNudge(false);
+      track("ss_clean_attempt", { result: "unchanged", mode });
     } else {
-      setMeta(`[${modeLabel}] ${T.noTracking}`);
-      hidePostCleanNudges(); // deterministic: already clean => no pro nudge
+      setStatus(T.status.cleanedOk);
+      showProNudge(true);
+      track("ss_clean_attempt", {
+        result: "cleaned",
+        mode,
+        removed_count: uniq(res.removed).length,
+        kept_count: uniq(res.kept).length
+      });
     }
-
-    setOutputState(Boolean(res.cleanedUrl));
-
-    // GTM EVENT: clean success
-    pushDL("ss_clean_success", {
-      cleaned: true,
-      mode: res.mode,
-      had_tracking_params: res.removedCount > 0,
-      removed_count: res.removedCount,
-      output_length: res.cleanedUrl.length,
-      input_length: (original || "").length
-    });
-
-    return true;
   }
 
-  function runCleanFromInput() {
-    const original = (elInput.value || "").trim();
-    if (!original) {
-      setMeta(T.pasteFirst);
-      setOutputState(false);
-      hidePostCleanNudges();
-      return false;
-    }
-
-    const mode = getCurrentMode();
-    const res = cleanUrl(original, { mode });
-    return renderCleanResult(res, original);
-  }
-
-  function recleanOnModeChange() {
-    const original = (elInput.value || "").trim();
-    if (!original) return; // kein Neu-Einfügen nötig
-    runCleanFromInput();
-  }
-
-  /* =========================
-     Bind events
-     ========================= */
-  btnClean.addEventListener("click", () => {
-    runCleanFromInput();
-  });
-
-  // Optional: Enter/Cmd+Enter in textarea cleanen
-  elInput.addEventListener("keydown", (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-      e.preventDefault();
-      runCleanFromInput();
-    }
-  });
-
-  // Re-clean when mode changes
-  modeInputs.forEach((el) => el.addEventListener("change", recleanOnModeChange));
-  modeSelect?.addEventListener("change", recleanOnModeChange);
-
-  btnModeStandard?.addEventListener("click", () => {
-    document.body.dataset.cleanMode = "standard";
-    recleanOnModeChange();
-  });
-
-  btnModeStrict?.addEventListener("click", () => {
-    document.body.dataset.cleanMode = "strict";
-    recleanOnModeChange();
-  });
-
-  btnCopy.addEventListener("click", async () => {
-    const out = (elOutput.value || "").trim();
-    if (!out) {
-      setMeta(T.noOutput);
+  async function onCopy() {
+    const value = elOutput.value.trim();
+    if (!value) {
+      setStatus(T.status.shareNoData);
       return;
     }
 
     try {
-      await navigator.clipboard.writeText(out);
-      setMeta(T.copied);
-
-      // SEPARATER EVENTNAME
-      pushDL("ss_copy_click", {
-        action: "copy_clean_url",
-        has_output: true,
-        mode: getCurrentMode()
-      });
-    } catch (err) {
-      console.error(err);
-      setMeta(T.copyFailed);
+      await navigator.clipboard.writeText(value);
+      const old = btnCopy.textContent;
+      btnCopy.textContent = T.buttons.copied;
+      setTimeout(() => { btnCopy.textContent = old || T.buttons.copy; }, 1200);
+      setStatus(T.status.copiedOk);
+      track("ss_copy", { source: "copy_button" });
+    } catch {
+      // fallback
+      elOutput.focus();
+      elOutput.select();
+      const ok = DOC.execCommand && DOC.execCommand("copy");
+      if (ok) {
+        setStatus(T.status.copiedOk);
+        track("ss_copy", { source: "copy_button_fallback" });
+      } else {
+        setStatus(T.status.copiedFail);
+      }
     }
-  });
+  }
 
-  btnShare.addEventListener("click", async () => {
-    const out = (elOutput.value || "").trim();
-    if (!out) {
-      setMeta(T.noOutput);
+  async function onShare() {
+    const value = elOutput.value.trim();
+    if (!value) {
+      setStatus(T.status.shareNoData);
       return;
     }
 
-    if (!navigator.share) {
-      setMeta(T.shareNotSupported);
-      return;
+    if (navigator.share) {
+      try {
+        await navigator.share({ url: value });
+        track("ss_share", { source: "share_button" });
+        return;
+      } catch {
+        // user cancel or unavailable path: continue fallback
+      }
     }
 
+    // fallback to copy
     try {
-      await navigator.share({ url: out });
-
-      // SEPARATER EVENTNAME
-      pushDL("ss_share_click", {
-        action: "share_clean_url",
-        has_output: true,
-        share_supported: true,
-        mode: getCurrentMode()
-      });
-    } catch (err) {
-      // user cancel: kein harter Fehler
-      console.debug("[SafeShare] Share canceled/failed:", err);
+      await navigator.clipboard.writeText(value);
+      setStatus(T.status.copiedOk);
+      track("ss_share_fallback_copy", { source: "share_button" });
+    } catch {
+      setStatus(T.status.shareFail);
     }
-  });
+  }
 
-  btnReset.addEventListener("click", () => {
+  function onReset() {
     elInput.value = "";
     elOutput.value = "";
-    setMeta("");
-    hidePostCleanNudges();
-    setOutputState(false);
+    const mode = currentMode();
+    renderMeta([], [], mode);
+    setStatus(T.status.resetDone);
+    showProNudge(false);
+    track("ss_reset", { source: "reset_button" });
+    elInput.focus();
+  }
 
-    // SEPARATER EVENTNAME
-    pushDL("ss_reset_click", {
-      action: "reset_fields"
+  /* =========================
+     5) Bindings
+     ========================= */
+
+  btnClean.addEventListener("click", onClean);
+  btnCopy.addEventListener("click", onCopy);
+  btnShare.addEventListener("click", onShare);
+  btnReset.addEventListener("click", onReset);
+
+  DOC.querySelectorAll('input[name="cleanMode"]').forEach((el) => {
+    el.addEventListener("change", () => {
+      const mode = currentMode();
+      // re-render current meta line with new mode text only
+      const current = elMeta.textContent || "";
+      if (!current.trim()) renderMeta([], [], mode);
+      else {
+        // keep counts from output state by re-cleaning if input exists
+        const raw = elInput.value.trim();
+        if (!raw) renderMeta([], [], mode);
+        else {
+          const res = cleanUrl(raw, mode);
+          if (res.ok) renderMeta(res.removed, res.kept, mode);
+          else renderMeta([], [], mode);
+        }
+      }
+      track("ss_mode_change", { mode });
     });
   });
 
-  nudgeCloseBtn?.addEventListener("click", () => {
-    hideCardNudgeIfAvailable();
-
-    pushDL("ss_nudge_dismiss", {
-      nudge_id: "compare_pro",
-      placement: "post_clean"
+  if (nudgeCloseBtn) {
+    nudgeCloseBtn.addEventListener("click", () => {
+      showProNudge(false);
+      track("ss_nudge_close", { source: "post_clean_nudge" });
     });
+  }
+
+  // Enter/Cmd+Enter convenience
+  elInput.addEventListener("keydown", (ev) => {
+    if ((ev.metaKey || ev.ctrlKey) && ev.key === "Enter") {
+      ev.preventDefault();
+      onClean();
+    }
   });
 
-  nudgeCompareBtn?.addEventListener("click", () => {
-    pushDL("ss_nudge_click_compare_pro", {
-      action: "nudge_compare_pro_click",
-      nudge_id: "compare_pro",
-      placement: "post_clean"
-    });
-  });
-
-  // Startzustand
-  initialState();
+  // Initial state
+  renderMeta([], [], currentMode());
 })();
