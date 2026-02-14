@@ -42,79 +42,78 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
-  <link rel="stylesheet" href="/css/ss-page.css" />
+  <!-- Strict order -->
   <link rel="stylesheet" href="/css/ss-shell.css" />
+  <link rel="stylesheet" href="/css/ss-page.css" />
 </head>
 <body data-page="start" data-lang="de">
-  <div id="ss-shell" class="ss-shell">
-    <main id="ss-content" class="ss-main">
-      <section class="ss-section" aria-labelledby="home-hero-title">
-        <div class="ss-card ss-hero">
-          <h1 id="home-hero-title">Tracking-Parameter raus. Link sauber teilen.</h1>
+  <main id="content" class="ss-main">
+    <section class="ss-section" aria-labelledby="home-hero-title">
+      <div class="ss-card ss-hero">
+        <h1 id="home-hero-title">Tracking-Parameter raus. Link sauber teilen.</h1>
 
-          <p class="ss-hero-kicker">
-            Links enthalten oft Zusatzinfos wie Etiketten am Paket
-            (<code>utm_*</code>, <code>fbclid</code>, <code>gclid</code> …).
-          </p>
+        <p class="ss-hero-kicker">
+          Links enthalten oft Zusatzinfos wie Etiketten am Paket
+          (<code>utm_*</code>, <code>fbclid</code>, <code>gclid</code> …).
+        </p>
 
-          <p>
-            Für Auswertung manchmal nützlich, beim Weiterleiten oft nur Ballast.
-            SafeShare entfernt typische Tracking-Keys <strong>lokal in deinem Browser</strong>.
-          </p>
+        <p>
+          Für Auswertung manchmal nützlich, beim Weiterleiten oft nur Ballast.
+          SafeShare entfernt typische Tracking-Keys <strong>lokal in deinem Browser</strong>.
+        </p>
 
-          <div class="ss-actions ss-mt-12">
-            <a class="ss-btn ss-btn--primary" href="/app/">Link reinigen</a>
-            <a class="ss-btn" href="/hilfe/">Wie funktioniert das?</a>
-            <a class="ss-btn ss-btn--ghost" href="/pro/">Pro ansehen</a>
+        <div class="ss-actions ss-mt-12">
+          <a class="ss-btn ss-btn--primary" href="/app/">Link reinigen</a>
+          <a class="ss-btn" href="/hilfe/">Wie funktioniert das?</a>
+          <a class="ss-btn ss-btn--ghost" href="/pro/">Pro ansehen</a>
+        </div>
+
+        <p class="ss-muted ss-mt-12">100% local-first. Keine Anmeldung. Kein Tracking.</p>
+
+        <div class="ss-note ss-mt-12">
+          SafeShare arbeitet <strong>local-first</strong>: Bereinigung im Browser. Links werden nicht hochgeladen.
+        </div>
+
+        <div class="ss-warn ss-mt-12">
+          Das ist kein „Unsichtbar“-Versprechen. Es ist ein konkreter Hygiene-Schritt beim Teilen.
+        </div>
+
+        <div class="ss-heroMedia ss-mt-12">
+          <img
+            class="ss-media"
+            src="/assets/media/hero-before-after.png"
+            alt="Vor SafeShare: Link mit Tracking-Ballast. Nach SafeShare: sauberer Link."
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="675"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="ss-section" aria-labelledby="how-title">
+      <div class="ss-card">
+        <h2 id="how-title">In 10 Sekunden</h2>
+        <ol>
+          <li>Link kopieren</li>
+          <li>In SafeShare App einfügen</li>
+          <li>Bereinigen → kopieren → teilen</li>
+        </ol>
+
+        <div class="ss-grid ss-grid--2 ss-mt-12">
+          <div class="ss-card ss-card--inner">
+            <h3>Vorher</h3>
+            <p class="ss-mono">https://example.com/artikel?utm_source=twitter&utm_medium=social&utm_campaign=launch&fbclid=XYZ</p>
           </div>
-
-          <p class="ss-muted ss-mt-12">100% local-first. Keine Anmeldung. Kein Tracking.</p>
-
-          <div class="ss-note ss-mt-12">
-            SafeShare arbeitet <strong>local-first</strong>: Bereinigung im Browser. Links werden nicht hochgeladen.
-          </div>
-
-          <div class="ss-warn ss-mt-12">
-            Das ist kein „Unsichtbar“-Versprechen. Es ist ein konkreter Hygiene-Schritt beim Teilen.
-          </div>
-
-          <div class="ss-heroMedia ss-mt-12">
-            <img
-              class="ss-media"
-              src="/assets/media/hero-before-after.png"
-              alt="Vor SafeShare: Link mit Tracking-Ballast. Nach SafeShare: sauberer Link."
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="675"
-            />
+          <div class="ss-card ss-card--inner">
+            <h3>Nachher</h3>
+            <p class="ss-mono">https://example.com/artikel</p>
           </div>
         </div>
-      </section>
-
-      <section class="ss-section" aria-labelledby="how-title">
-        <div class="ss-card">
-          <h2 id="how-title">In 10 Sekunden</h2>
-          <ol>
-            <li>Link kopieren</li>
-            <li>In SafeShare App einfügen</li>
-            <li>Bereinigen → kopieren → teilen</li>
-          </ol>
-
-          <div class="ss-grid ss-grid--2 ss-mt-12">
-            <div class="ss-card ss-card--inner">
-              <h3>Vorher</h3>
-              <p class="ss-mono">https://example.com/artikel?utm_source=twitter&utm_medium=social&utm_campaign=launch&fbclid=XYZ</p>
-            </div>
-            <div class="ss-card ss-card--inner">
-              <h3>Nachher</h3>
-              <p class="ss-mono">https://example.com/artikel</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+      </div>
+    </section>
+  </main>
 
   <script src="/js/ss-shell.js" defer></script>
 </body>
