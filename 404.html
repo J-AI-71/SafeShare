@@ -43,45 +43,45 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/fav/apple-touch-icon-180.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
- <link rel="stylesheet" href="/css/ss-shell.css" />
- <link rel="stylesheet" href="/css/ss-page.css" />
+<link rel="stylesheet" href="/css/ss-shell.css" />
+<link rel="stylesheet" href="/css/ss-page.css" />
 </head>
 <body data-page="404" data-lang="de">
-  <main id="ss-content" class="ss-main">
+  <div id="ss-shell" class="ss-shell">
+    <main id="ss-content" class="ss-main">
+      <section class="ss-section" aria-labelledby="notfound-title">
+        <div class="ss-card ss-hero">
+          <h1 id="notfound-title">404 – Seite nicht gefunden</h1>
+          <p class="ss-hero-kicker">Der Link ist leer gelaufen oder wurde verschoben.</p>
+          <p>Nutze einen der direkten Wege zurück:</p>
 
-  <main class="ss-main" id="top">
-    <section class="ss-section" aria-labelledby="notfound-title">
-      <div class="ss-card ss-hero">
-        <h1 id="notfound-title">404 – Seite nicht gefunden</h1>
-        <p class="ss-hero-kicker">Der Link ist leer gelaufen oder wurde verschoben.</p>
-        <p>Nutze einen der direkten Wege zurück:</p>
-
-        <div class="ss-actions ss-mt-12">
-          <a class="ss-btn ss-btn--primary" href="/">Zur Startseite</a>
-          <a class="ss-btn" href="/app/">Zur App</a>
-          <a class="ss-btn ss-btn--ghost" href="/hilfe/">Zur Hilfe</a>
+          <div class="ss-actions ss-mt-12">
+            <a class="ss-btn ss-btn--primary" href="/">Zur Startseite</a>
+            <a class="ss-btn" href="/app/">Zur App</a>
+            <a class="ss-btn ss-btn--ghost" href="/hilfe/">Zur Hilfe</a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="ss-section" aria-labelledby="quick-title">
-      <div class="ss-card">
-        <h2 id="quick-title">Häufig gesucht</h2>
-        <div class="ss-grid ss-grid--2 ss-mt-12">
-          <article class="ss-card ss-card--inner">
-            <h3>Schule</h3>
-            <p class="ss-muted">Tracking-Parameter ruhig und verständlich erklärt.</p>
-            <p><a class="ss-btn" href="/schule/">Schule öffnen</a></p>
-          </article>
-          <article class="ss-card ss-card--inner">
-            <h3>Pro</h3>
-            <p class="ss-muted">Feinkontrolle mit Regeln, Allowlist und Audit.</p>
-            <p><a class="ss-btn" href="/pro/">Pro öffnen</a></p>
-          </article>
+      <section class="ss-section" aria-labelledby="quick-title">
+        <div class="ss-card">
+          <h2 id="quick-title">Häufig gesucht</h2>
+          <div class="ss-grid ss-grid--2 ss-mt-12">
+            <article class="ss-card ss-card--inner">
+              <h3>Schule</h3>
+              <p class="ss-muted">Tracking-Parameter ruhig und verständlich erklärt.</p>
+              <p><a class="ss-btn" href="/schule/">Schule öffnen</a></p>
+            </article>
+            <article class="ss-card ss-card--inner">
+              <h3>Pro</h3>
+              <p class="ss-muted">Feinkontrolle mit Regeln, Allowlist und Audit.</p>
+              <p><a class="ss-btn" href="/pro/">Pro öffnen</a></p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
+  </div>
 
   <script src="/js/ss-shell.js" defer></script>
 </body>
